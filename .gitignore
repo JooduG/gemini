@@ -1,0 +1,22 @@
+# Credentials and sensitive information
+*_creds.json
+*accounts.json
+oauth_creds.json
+google_accounts.json
+installation_id
+trustedFolders.json
+state.json
+projects.json
+
+# Local profiles and caches
+antigravity-browser-profile/
+antigravity-backup/
+tmp/
+history/
+
+# Application binaries and IDE internal data
+antigravity/
+antigravity-cli/
+antigravity-ide/
+bin/
+extensions/

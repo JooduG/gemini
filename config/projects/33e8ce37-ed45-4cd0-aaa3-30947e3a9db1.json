@@ -1,0 +1,15 @@
+{
+  "id":  "33e8ce37-ed45-4cd0-aaa3-30947e3a9db1",
+  "name":  "RPGlitch 97",
+  "projectResources":  {
+    "resources":  [
+      {
+        "gitFolder":  {
+          "folderUri":  "file:///c%3A/Users/johng/source/repos/RPGlitch",
+          "defaultBranch":  "main",
+          "allowWrite":  true
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "store": {
+    "gemini-cli-jules": {
+      "hash": "8eb50edb7738755ca989a9a141256ba34d6575b8c82867977ea7518c236f339d",
+      "signature": "65459a2f739418496690bce28e83e10243ce9950aab62508cee8474810fcc16c"
+    },
+    "gemini-cli-security": {
+      "hash": "b3b1260104cfae0579fc6cdfc4090414ca968cd38a149d1d36f636c8e00c6a92",
+      "signature": "bdede89cc34dff94c6cfe2b675d8ee579decbb522aa650bf3aa715bd581bb26a"
+    },
+    "conductor": {
+      "hash": "1d85197c2d74e90bbaaf785d224b4b09fa168f6f196c39989c163ce90c8a3320",
+      "signature": "b60a2e85c3a76e0885bdbe02d6ab75bcdfbbe252d2da1ba75879a51ca9dc9556"
+    },
+    "Stitch": {
+      "hash": "fa36bf773611d33173da064dd3974bbc29789a0e22ad9970ac8c6cb212246095",
+      "signature": "8e23f44eb4fd97cdc4703435792812cb4ca13a488941eb5b8c719ee763b2d037"
+    }
+  },
+  "signature": "7c8e0f9ff7038479e2706c757c77315362b3bbb837e857d6613783bb6efeb7b1"
+}
