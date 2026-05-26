@@ -13,7 +13,11 @@
     "contextManagement": true,
     "gemmaModelRouter": {
       "autoStartServer": true,
-      "enabled": true
+      "enabled": true,
+      "classifier": {
+        "host": "http://localhost:9379",
+        "model": "gemma3-1b-gpu-custom"
+      }
     },
     "gemma": true,
     "voice": {},
@@ -21,6 +25,7 @@
   },
   "general": {
     "defaultApprovalMode": "auto_edit",
+    "enablePromptCompletion": true,
     "plan": {
       "directory": "tasks/"
     },
@@ -39,11 +44,15 @@
     "autoAddToPolicyByDefault": true,
     "disableYoloMode": false,
     "enablePermanentToolApproval": true,
-    "enableConseca": true
+    "enableConseca": true,
+    "folderTrust": {
+      "featureEnabled": true
+    }
   },
   "tools": {
     "shell": {},
-    "disableLLMCorrection": false
+    "disableLLMCorrection": false,
+    "enableHooks": true
   },
   "ui": {
     "footer": {
@@ -60,7 +69,7 @@
     "showLineNumbers": false,
     "showMemoryUsage": true,
     "showModelInfoInChat": true,
-    "theme": "Shades Of Purple",
+    "theme": "Atom One",
     "inlineThinkingMode": "full",
     "escapePastedAtSymbols": true,
     "showStatusInTitle": true,
