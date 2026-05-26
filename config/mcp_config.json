@@ -25,17 +25,6 @@
       },
       "serverUrl": "https://mcp.context7.com/mcp"
     },
-    "data": {
-      "args": [
-        "c:\\Users\\johng\\source\\repos\\RPGlitch\\.agents\\skills\\data\\scripts\\knowledge.js"
-      ],
-      "command": "node",
-      "env": {
-        "PINECONE_API_KEY": "pcsk_vvGN2_67wnzYvzpZzBpiTWu39K2hWCp19hnS7GDeXYm6PbWothAyacBq67wmcQwspSivq",
-        "SUPABASE_ANON_KEY": "sbp_0211f76c824072d4b77a5012761ad3fd3baca328",
-        "SUPABASE_URL": "https://zjoklmjvkxngbbneldht.supabase.com"
-      }
-    },
     "deepwiki": {
       "serverUrl": "https://mcp.deepwiki.com/mcp",
       "disabledTools": []
@@ -162,6 +151,17 @@
       "disabled": true,
       "args": [],
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
+    },
+    "developer-database": {
+      "args": [
+        "c:\\Users\\johng\\.gemini\\config\\skills\\developer-database\\scripts\\developer-database.js"
+      ],
+      "command": "node",
+      "env": {
+        "PINECONE_API_KEY": "pcsk_vvGN2_67wnzYvzpZzBpiTWu39K2hWCp19hnS7GDeXYm6PbWothAyacBq67wmcQwspSivq",
+        "SUPABASE_ANON_KEY": "sb_secret_WG-bbN_0kXdKqyTCSKxd9A_MaSIdlZ3",
+        "SUPABASE_URL": "https://zjoklmjvkxngbbneldht.supabase.co"
+      }
     }
   }
 }

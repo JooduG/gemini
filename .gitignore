@@ -20,3 +20,8 @@ antigravity-cli/
 antigravity-ide/
 bin/
 extensions/
+
+# Node dependencies and lock files
+**/node_modules/
+**/*.lock
+.DS_Store
