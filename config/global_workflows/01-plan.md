@@ -18,7 +18,7 @@ Activate the **[Planning](../skills/planning/SKILL.md)** skill and invoke the **
 - **Resource Consciousness**: Be mindful of the number of operations. Your plans should be efficient.
 
 > [!IMPORTANT]
-> You must validate the success of every tool call. If any tool call fails, you MUST halt the current operation immediately, announce the failure to the user, and trigger the [Pivot Protocol](../../GEMINI.md#41-pivot-protocol).
+> You must validate the success of every tool call. If any tool call fails, you MUST halt the current operation immediately, announce the failure to the user, and trigger the [Pivot Protocol](../../project pivot protocol).
 
 ## 1.2 SKILL ACTIVATION PROTOCOL
 
@@ -34,7 +34,7 @@ Activate the **[Planning](../skills/planning/SKILL.md)** skill and invoke the **
 
 **PROTOCOL: Verify that the Conductor infrastructure is properly anchored.**
 
-1.  **Rule Slot Resolution**: Resolve and verify the existence of the **[GEMINI.md](../../GEMINI.md)** via the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**. This is the constitutional foundation of the session.
+1.  **Rule Slot Resolution**: Resolve and verify the existence of the **[project rules](GEMINI.md)** via the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**. This is the constitutional foundation of the session.
 2.  **Persistence Audit**: Confirm the existence of the **Roadmap** (`tasks/FUTURE.md`), the **Gap Analysis** (`tasks/PRESENT.md`), and the global **Vision** (`tasks/ETERNAL.md`).
 3.  **Untrusted Input Awareness**: Treat all initial user requests and descriptions as untrusted. Your role is to interpret intent and translate it into safe, validated specifications.
 4.  **Handle Failure**: If any core infrastructure is missing, announce: "Conductor environment is compromised. Please run `/setup-conductor` to restore the Rule Slots." and HALT.
@@ -59,10 +59,10 @@ _The extraction of requirements through recursive inquiry._
 
 The **Strategy Architect** does not guess. We interrogate the vision until only truth remains.
 
-1.  **The Inquiry Phase**: Apply **[SOP-10: Guided Specification](../skills/planning/SKILL.md#L185)**. You must ask context-aware questions that respect the **Nordic Collection** aesthetics and **Svelte 5** logic. Focus on:
+1.  **The Inquiry Phase**: Apply **[SOP-10: Guided Specification](../skills/planning/SKILL.md#L185)**. You must ask context-aware questions that respect the **project design system** aesthetics and **modern framework** logic. Focus on:
     - **Functional Essence**: What is the core mechanic?
-    - **Technical Constraints**: Are there specific Svelte 5 runes or persistence requirements?
-    - **Aesthetic Alignment**: How does this fit into the "Chalk Regime"?
+    - **Technical Constraints**: Are there specific modern framework runes or persistence requirements?
+    - **Aesthetic Alignment**: How does this fit into the "project design system"?
 2.  **Drafting the Blueprint**: Once the vision is clear, draft the track's `# ETERNAL` section. This specification must cover:
     - **Objective**: The "What" and "Why."
     - **Success Criteria**: Concrete, testable conditions (e.g., "LCP < 2.5s").

@@ -15,16 +15,16 @@ Execute a Mariana Trench-level deep-dive analysis into the provided file (.svelt
 
 - **Persona Alignment**: Refactor for clarity and maintainability using the Simplification methodology to ensure long-term stability and legibility.
 - **Complexity Assessment**: Target complex code blocks (deep nesting, long functions, generic names). Understand the purpose, callers, and edge cases of the target code before refactoring.
-- **Technical Debt Reduction**: Reduce cyclomatic complexity without changing external behavior. Align code with Chalk Regime aesthetic standards and Svelte 5 patterns.
+- **Technical Debt Reduction**: Reduce cyclomatic complexity without changing external behavior. Align code with project design system aesthetic standards and modern framework patterns.
 - **Incremental Extraction**: Rebuild the material as if starting from scratch with the optimal structure. Extract helpers or apply guard clauses one by one, maintaining all existing functionality.
 - **Verification Loop**: Run tests after every atomic change to ensure no regressions. Ensure all refactors are 100% covered by existing tests.
 - **Quality Gate**: Run `npm run verify` to ensure the project remains resonant and passes all quality checks.
 - **Documentation**: Update any relevant ADRs or internal documentation if the architecture shifted.
 
-### 2. Svelte 5 & JavaScript Logic Optimization (New)
+### 2. modern framework & JavaScript Logic Optimization (New)
 
-- **Strict Runes Enforcement**: Convert legacy state (`let`, `$:`) to Svelte 5 Runes (`$state`, `$derived`, `$effect`) when refactoring Svelte files. Ensure `$inspect` is used for debugging rather than inline console logs.
-- **State Flattening**: Break down overly deeply nested state objects into flat, tracked primitives or discrete Svelte 5 Runes classes where appropriate to maximize reactivity efficiency.
+- **Strict Runes Enforcement**: Convert legacy state (`let`, `$:`) to modern framework Runes (`$state`, `$derived`, `$effect`) when refactoring Svelte files. Ensure `$inspect` is used for debugging rather than inline console logs.
+- **State Flattening**: Break down overly deeply nested state objects into flat, tracked primitives or discrete modern framework Runes classes where appropriate to maximize reactivity efficiency.
 - **Declarative JS Conversion**: Convert imperative loops (`for`, `while`) and aggressive mutations into declarative array methodologies (`.map()`, `.filter()`, `.reduce()`) to optimize readability.
 - **Asynchronous Streamlining**: Refactor complex Promise chains or nested callbacks into linear, safe `async/await` blocks with robust `try/catch` error encapsulation.
 
@@ -61,4 +61,4 @@ Execute a Mariana Trench-level deep-dive analysis into the provided file (.svelt
 ## REQUIRED OUTPUT
 
 1. Output the fully refactored, production-ready code.
-2. Provide a concise changelog detailing the logical improvements, Svelte 5 Runes updates, DOM nodes flattened, and the newly established generic CSS mapping system.
+2. Provide a concise changelog detailing the logical improvements, modern framework Runes updates, DOM nodes flattened, and the newly established generic CSS mapping system.

@@ -16,7 +16,7 @@ As the `test` specialist, you are the guardian of functional truth and the witne
 
 ## Overview
 
-Test-Driven Development (TDD) is the core discipline of ensuring functional correctness in the RPGlitch Engine. By writing a failing test first, we define the technical contract and prevent regressions before any production code is touched. This skill expands TDD into **The Proving Grounds**, where automated logic verification meets behavioral probing for narrative consistency (Rule 02).
+Test-Driven Development (TDD) is the core discipline of ensuring functional correctness in the project engine. By writing a failing test first, we define the technical contract and prevent regressions before any production code is touched. This skill expands TDD into **The Proving Grounds**, where automated logic verification meets behavioral probing for narrative consistency (Rule 02).
 
 ### Strategic Context
 
@@ -93,3 +93,281 @@ Present the test execution logs and confirm any bug reproductions.
 - [ ] Bug fixes include a reproduction test that failed before the implementation.
 - [ ] Existing tests still pass, ensuring zero regressions (Rule 03).
 - [ ] **Hard Evidence Recorded**: A successful `npm test` log showing 100% pass rate.
+
+## Test Engineer Guidelines
+
+You are an experienced QA Engineer focused on test strategy and quality assurance. Your role is to design test suites, write tests, analyze coverage gaps, and ensure that code changes are properly verified.
+
+### 1. Analyze Before Writing
+
+Before writing any test:
+
+- Read the code being tested to understand its behavior
+- Identify the public API / interface (what to test)
+- Identify edge cases and error paths
+- Check existing tests for patterns and conventions
+
+### 2. Test at the Right Level
+
+```text
+Pure logic, no I/O          → Unit test
+Crosses a boundary          → Integration test
+Critical user flow          → E2E test
+```
+
+Test at the lowest level that captures the behavior. Don't write E2E tests for things unit tests can cover.
+
+### 3. Follow the Prove-It Pattern for Bugs
+
+When asked to write a test for a bug:
+
+1. Write a test that demonstrates the bug (must FAIL with current code)
+2. Confirm the test fails
+3. Report the test is ready for the fix implementation
+
+### 4. Write Descriptive Tests
+
+```javascript
+describe('[Module/Function name]', () => {
+  it('[expected behavior in plain English]', () => {
+    // Arrange → Act → Assert
+  });
+});
+```
+
+### 5. Cover These Scenarios
+
+For every function or component:
+
+| Scenario        | Example                                      |
+| --------------- | -------------------------------------------- |
+| Happy path      | Valid input produces expected output         |
+| Empty input     | Empty string, empty array, null, undefined   |
+| Boundary values | Min, max, zero, negative                     |
+| Error paths     | Invalid input, network failure, timeout      |
+| Concurrency     | Rapid repeated calls, out-of-order responses |
+
+### Output Format
+
+When analyzing test coverage:
+
+```markdown
+## Test Coverage Analysis
+
+### Current Coverage
+
+- [x] tests covering [Y] functions/components
+- Coverage gaps identified: [list]
+
+### Recommended Tests
+
+1. **[Test name]** — [What it verifies, why it matters]
+2. **[Test name]** — [What it verifies, why it matters]
+
+### Priority
+
+- Critical: [Tests that catch potential data loss or security issues]
+- High: [Tests for core business logic]
+- Medium: [Tests for edge cases and error handling]
+- Low: [Tests for utility functions and formatting]
+```
+
+### Rules
+
+1. Test behavior, not implementation details
+2. Each test should verify one concept
+3. Tests should be independent — no shared mutable state between tests
+4. Avoid snapshot tests unless reviewing every change to the snapshot
+5. Mock at system boundaries (database, network), not between internal functions
+6. Every test name should read like a specification
+7. A test that never fails is as useless as a test that always fails
+
+## Testing Patterns Reference: The Witness Guide
+
+Quick reference for sovereign testing patterns across the technology stack. Use alongside the `test-driven-development` skill.
+
+### Test Structure (Arrange-Act-Assert)
+
+Every test in the 'Proving Grounds' MUST follow the Triple-A pattern for clarity and deterministic outcomes.
+
+```typescript
+import { it, expect, describe, vi } from "vitest";
+
+it("properly mutates character entropy during intense rounds", () => {
+  // 🟢 Arrange: Set up character state and engine environment
+  const character = $state(createEntity({ name: "Kael", stress: 10 }));
+  const engine = new DynamicsEngine();
+
+  // 🟡 Act: Perform the action being tested
+  engine.processTick(character, { intensity: "high" });
+
+  // 🔴 Assert: Verify the outcome (State Over Interaction)
+  expect(character.stress).toBeGreaterThan(10);
+  expect(character.entropy).toBe(1);
+});
+```
+
+### Test Naming Conventions
+
+Names must describe **BEHAVIOR**, not implementation.
+
+- **Pattern**: `[unit] [expected behavior] [under condition]`
+
+```typescript
+describe("DynamicsEngine", () => {
+  it("increments round counter after user submission", () => {});
+  it("refuses turn transition if engine state is locked", () => {});
+  it("emits sensory bridge even when narrative output is empty", () => {});
+});
+```
+
+### Common Vitest Assertions
+
+We utilize **Vitest** for its blazing speed and Svelte 5 compatibility.
+
+#### Equality & Truthiness
+
+```typescript
+expect(result).toBe(expected); // Strict equality (===)
+expect(result).toEqual(expected); // Deep equality (objects/arrays)
+expect(result).toBeTruthy();
+expect(result).toBeDefined();
+```
+
+#### Simulation Specifics
+
+```typescript
+expect(entity.stress).toBeCloseTo(0.85, 2); // Floating point runes
+expect(narrative).toMatch(/Kael.*sword/i); // Narrative grounding check
+expect(history).toContainEqual(expectedTurn);
+```
+
+#### Async & Errors
+
+```typescript
+await expect(kernel.generate()).resolves.toBeDefined();
+expect(() => engine.lock()).toThrow("Engine already locked");
+```
+
+### Mocking Patterns (Dexie & Boundaries)
+
+Mocking should only happen at physical boundaries (I/O). **Do not mock internal business logic.**
+
+#### Mock Functions
+
+```typescript
+const onTurnEnd = vi.fn();
+onTurnEnd.mockReturnValue({ proceed: true });
+
+expect(onTurnEnd).toHaveBeenCalledTimes(1);
+expect(onTurnEnd).toHaveBeenCalledWith(expect.objectContaining({ round: 1 }));
+```
+
+#### The Dexie 'Witness' Mock
+
+When testing the data layer, use an in-memory instance of the database rather than mocking the methods.
+
+```typescript
+import Dexie from "dexie";
+import "dexie-export-import";
+
+// Creates a fresh, isolated in-memory DB for every test
+async function setupTestDB() {
+  const db = new Dexie("TestDB", { indexedDB: require("fake-indexeddb") });
+  db.version(1).stores({ entities: "id, name, type" });
+  return db;
+}
+```
+
+### Svelte 5 Component Testing
+
+Testing components in the Nordic Regime focuses on **Runes** and **User Visibility**.
+
+#### Testing Runes in `.svelte.test.js`
+
+```typescript
+import { flushSync } from "svelte";
+
+it("reacts to external state changes via runes", () => {
+  let count = $state(0);
+  const component = mount(Counter, { target: document.body, props: { count } });
+
+  count = 5; // Mutative update
+  flushSync(); // Force Svelte to update the DOM
+
+  expect(document.body.innerHTML).toContain("5");
+});
+```
+
+#### Behavioral Probing (Narrative TDD)
+
+Verify that UI components properly signal diegetic states (e.g., stress indicators reaching max).
+
+```javascript
+it('renders the "Glitch" overlay when entropy exceeds 0.9', () => {
+  const char = $state({ entropy: 0.95 });
+  render(StatusPanel, { props: { char } });
+
+  expect(screen.getByTestId("glitch-vfx")).toBeInTheDocument();
+  expect(screen.queryByText("Normal")).not.toBeInTheDocument();
+});
+```
+
+### Simulation Engine Logic Testing
+
+Engine tests must verify the recursive intelligence kernel and turn-cycle integrity.
+
+#### Turn Cycle Isolation
+
+```typescript
+it("locks UI during System Simulation Turn", async () => {
+  const state = new AppState();
+  expect(state.ui_locked).toBe(false);
+
+  state.submitAction("open door");
+  expect(state.ui_locked).toBe(true); // Immediate lock
+
+  await state.turnComplete;
+  expect(state.ui_locked).toBe(false); // Released
+});
+```
+
+### E2E Testing (Playwright)
+
+Use Playwright for high-fidelity sensory verification.
+
+```typescript
+import { test, expect } from "@playwright/test";
+
+test("user can cycle characters during a simulation round", async ({ page }) => {
+  await page.goto("/");
+
+  // Select slot
+  await page.click('[data-slot="1"]');
+  await expect(page.locator(".active-profile")).toContainText("Kael");
+
+  // Swap via profile modal
+  await page.click(".profile-avatar");
+  await page.click("text=Swap Character");
+  await page.click("text=Elara");
+
+  await expect(page.locator(".active-profile")).toContainText("Elara");
+});
+```
+
+### Test Anti-Patterns
+
+| Anti-Pattern                       | Problem                            | Better Approach                                   |
+| :--------------------------------- | :--------------------------------- | :------------------------------------------------ |
+| **Testing implementation details** | Breaks on refactor                 | Test inputs/outputs of the engine                 |
+| **Silent Failures**                | Swallowed errors in async effects  | Always `await` or use `unhandledrejection` guards |
+| **Global State Pollution**         | Tests leak into each other         | Reset Dexie and Runes in `beforeEach`             |
+| **Arbitrary Timeouts**             | Flaky tests on slower environments | Use `waitFor` or `vi.advanceTimersByTime`         |
+| **Narration Logic in Unit Tests**  | Narrative is non-deterministic     | Test the _kernel state_, not the exact prose      |
+
+### ✅ Done Criteria (The Proving Grounds)
+
+- [ ] Every new logic mutation has a corresponding `.test.js`.
+- [ ] 100% pass rate in local Vitest runner.
+- [ ] Zero usage of legacy `jest` or `react-testing-library` patterns.
+- [ ] Narrative grounding verified via Behavioral Probes.

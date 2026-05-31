@@ -15,7 +15,7 @@ date_added: 2024-03-29
 
 ## Context-Injection: Dependency Management
 
-- Rules: [Compliance](../../GEMINI.md#️-06-compliance)
+- Rules: [Compliance](../../project compliance rules)
 - Skill: [CI/CD & Automation](../skills/git/SKILL.md)
 - Tool: [npm-check-updates (ncu)](../../package.json)
 

@@ -16,7 +16,7 @@ As the `git` specialist, you are the keeper of the engine's timeline and the gua
 
 ## Overview
 
-The `git-workflow-and-versioning` skill manages the lifecycle of code changes in the RPGlitch Engine. It ensures that every modification is atomic, reviewable, and reversible. By enforcing trunk-based development and disciplined commit messaging, this skill maintains a high-velocity, low-risk development environment suitable for both human and agentic coordination.
+The `git-workflow-and-versioning` skill manages the lifecycle of code changes in the project engine. It ensures that every modification is atomic, reviewable, and reversible. By enforcing trunk-based development and disciplined commit messaging, this skill maintains a high-velocity, low-risk development environment suitable for both human and agentic coordination.
 
 ### Strategic Context
 

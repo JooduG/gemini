@@ -16,7 +16,7 @@ As the `image-generation` specialist, you are the master of visual manifestation
 
 ## Overview
 
-The `image-generation` skill manages the visual library of the RPGlitch Engine. It translates diegetic character descriptions and world-building cues into high-fidelity visual assets using generative AI tools. This skill ensures that every image adheres to the "Nordic Collection" aesthetic and is properly indexed for local-first simulation performance. It is responsible for **Optics**—translating physical fragments into visual-only geometry.
+The `image-generation` skill manages the visual library of the project engine. It translates diegetic character descriptions and world-building cues into high-fidelity visual assets using generative AI tools. This skill ensures that every image adheres to the "Nordic Collection" aesthetic and is properly indexed for local-first simulation performance. It is responsible for **Optics**—translating physical fragments into visual-only geometry.
 
 ### Strategic Context
 

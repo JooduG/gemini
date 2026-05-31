@@ -378,7 +378,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
       - **type:** "choice"
       - **options:**
         - Label: "Interactive", Description: "I'll ask you about themes, colors, and visual styles."
-        - Label: "Autogenerate", Description: "I'll recommend the standard RPGlitch aesthetic (The Chalk Regime / Nordic Collection) based on the project's goal."
+        - Label: "Autogenerate", Description: "I'll recommend the standard project aesthetic (The project design system / project design system) based on the project's goal."
 
 3.  **Gather Information (Interactive Only):**
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather preferences.
@@ -387,14 +387,14 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **type:** "choice"
         - **question:** "What is the primary theme?"
         - **options:**
-          - Label: "Nordic Collection", Description: "Cool, clinical, subterranean (Chalk/Gunmetal)."
+          - Label: "project design system", Description: "Cool, clinical, subterranean (Chalk/Gunmetal)."
           - Label: "Custom", Description: "I'll provide my own theme description."
         - **header:** "Colors"
         - **type:** "text"
         - **question:** "What are the primary and secondary colors?"
         - **placeholder:** "e.g., #FFFFFF (Chalk), #000000 (Abyssal)"
 4.  **Draft the Document:** Generate content for `.agents/rules/04-aesthetics.md`.
-    - **If user chose "Autogenerate":** Use the "Nordic Collection / Chalk Regime" defaults.
+    - **If user chose "Autogenerate":** Use the "project design system / project design system" defaults.
     - **If user chose "Interactive":** Incorporate the user's choices.
 5.  **User Confirmation Loop:** Standard review/approval dialogue as seen in previous sections.
 6.  **Write File:** Once approved, write to `.agents/rules/04-aesthetics.md`.

@@ -1,11 +1,11 @@
 ---
-name: html-css
-description: Authoritative style rules and best practices for HTML and CSS development.
+name: html
+description: Authoritative style rules and best practices for HTML development.
 ---
 
-# Google HTML/CSS Style Guide Summary
+# Google HTML Style Guide Summary
 
-This document summarizes key rules and best practices from the Google HTML/CSS Style Guide.
+This document summarizes key rules and best practices from the Google HTML Style Guide.
 
 > [!IMPORTANT]
 > When operating within this repository, local project rules supersede the generic guidelines in this document. In the event of a conflict, the authoritive [rules/](../../../../rules/) are absolute, like in these cases (but not limited to):
@@ -36,31 +36,6 @@ This document summarizes key rules and best practices from the Google HTML/CSS S
 
 - **General:** Use a new line for every block, list, or table element, and indent its children.
 - **Quotation Marks:** Use double quotation marks (`""`) for attribute values.
-
-## 4. CSS Style Rules
-
-- **CSS Validity:** Use valid CSS.
-- **Class Naming:** Use meaningful, generic names. Separate words with a hyphen (`-`).
-  - **Good:** `.video-player`, `.site-navigation`
-  - **Bad:** `.vid`, `.red-text`
-- **ID Selectors:** Avoid using ID selectors for styling. Prefer class selectors.
-- **Shorthand Properties:** Use shorthand properties where possible (e.g., `padding`, `font`).
-- **`0` and Units:** Omit units for `0` values (e.g., `margin: 0;`).
-- **Leading `0`s:** Always include leading `0`s for decimal values (e.g., `font-size: 0.8em;`).
-- **Hexadecimal Notation:** Use 3-character hex notation where possible (e.g., `#fff`).
-- **`!important`:** Avoid using `!important`.
-
-## 5. CSS Formatting Rules
-
-- **Declaration Order:** Alphabetize declarations within a rule.
-- **Indentation:** Indent all block content.
-- **Semicolons:** Use a semicolon after every declaration.
-- **Spacing:**
-  - Use a space after a property name's colon (`font-weight: bold;`).
-  - Use a space between the last selector and the opening brace (`.foo {`).
-  - Start a new line for each selector and declaration.
-- **Rule Separation:** Separate rules with a new line.
-- **Quotation Marks:** Use single quotes (`''`) for attribute selectors and property values (e.g., `[type='text']`).
 
 **BE CONSISTENT.** When editing code, match the existing style.
 

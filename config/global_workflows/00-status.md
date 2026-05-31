@@ -28,9 +28,9 @@ The **Conductor** does not act in a vacuum. We must first verify the foundation.
 
 ### Phase 1: Infrastructure Resonance
 
-1.  **Sovereignty Check**: Resolve and verify the existence of the **[GEMINI.md](../../GEMINI.md)** via the [legislative](../skills/legislative/SKILL.md) skill. If the foundation is compromised, halt and suggest `/setup-conductor`.
+1.  **Sovereignty Check**: Resolve and verify the existence of the **[project rules](GEMINI.md)** via the [legislative](../skills/legislative/SKILL.md) skill. If the foundation is compromised, halt and suggest `/setup-conductor`.
 2.  **Dispatcher Activation**: Load the [Master Dispatcher](../skills/executive/SKILL.md). This initializes the skill routing map and behavioral laws for the session.
-3.  **Context Engineering**: Optimize your internal context for the RPGlitch Engine using the [Context Engineering](../skills/context/SKILL.md) skill.
+3.  **Context Engineering**: Optimize your internal context for the project Engine using the [Context Engineering](../skills/context/SKILL.md) skill.
 4.  **Mission Board Recovery**: Resolve the **Roadmap** (`tasks/FUTURE.md`) and active track files. Identify the current operational focus via **[SOP-04: Track Discovery & Selection](../skills/planning/SKILL.md#L139)**.
 5.  **Historical Forensics**: Recover architectural context and historical design decisions from Pinecone via the [Data](../skills/data/SKILL.md) skill. This ensures you are building on the work of those who came before you.
 6.  **Skill Log Audit**: Synchronize the persistent **Skill Log (Pulse)** in `tasks/PRESENT.md` to ensure continuity across sessions.

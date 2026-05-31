@@ -33,7 +33,7 @@ Activate the relevant specialist skill and invoke its persona to translate the C
 
 Before the first tool is called, we must ensure that the "Physics" of our environment are stable. This initialization phase is not merely a check; it is a synchronization of the agent's context with the project's foundational laws.
 
-1.  **Axiom Resolution**: Using the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**, we resolve the path to the **[GEMINI.md](../../GEMINI.md)**. We verify that the laws of Foundation, Infrastructure, and Aesthetics are present and readable.
+1.  **Axiom Resolution**: Using the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**, we resolve the path to the **[project rules](GEMINI.md)**. We verify that the laws of Foundation, Infrastructure, and Aesthetics are present and readable.
 2.  **Mission Registry**: We locate the **Roadmap** (`tasks/FUTURE.md`) and the **Gap Analysis** (`tasks/PRESENT.md`) to ensure we are operating within the current strategic timeline.
 3.  **Plan Verification**: You **MUST** locate the latest plan of action (the `# FUTURE` section of the active track file) and verify it corresponds to the active mission. Do not act without a verified plan.
 4.  **Critical Halt**: If the environment is fragmented or the rules are missing, the session must pause. Announce: _"Conductor environment unsynchronized. Initialization required via /setup-conductor."_ and HALT.
@@ -78,7 +78,7 @@ The **Tactical Specialist** lives and dies by the test. For each task, we follow
 
 - **RED (Phase 1: Proof of Failure)**: We draft a failing unit or integration test that defines the success criteria. We run this test and verify that it fails for the right reasons.
 - **GREEN (Phase 2: Minimum Implementation)**: We implement the minimum code required to satisfy the test. We do not "over-engineer" or add speculative logic. We achieve stability first.
-- **REFACTOR (Phase 3: Tactical Refinement)**: We refine the implementation. We ensure the code aligns with the **Nordic Aesthetic**, utilizes **Chalk Regime** tokens, and respects the **Svelte 5** runes. The test remains green.
+- **REFACTOR (Phase 3: Tactical Refinement)**: We refine the implementation. We ensure the code aligns with the **project design system**, utilizes **project design system** tokens, and respects the **modern framework** runes. The test remains green.
 
 ### Forensic Recording
 

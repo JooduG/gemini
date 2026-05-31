@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > **Local Project Sovereignty**
-> This workflow is a secondary guiding document. In the event of a conflict between the instructions in this file and the authoritative laws found in `.agents/rules/` (specifically `01-foundation.md`, `04-aesthetics.md`, and `05-intelligence.md`), the **RPGlitch Sovereign Rules** take absolute precedence. 
+> This workflow is a secondary guiding document. In the event of a conflict between the instructions in this file and the authoritative laws found in `.agents/rules/` (specifically `01-foundation.md`, `04-aesthetics.md`, and `05-intelligence.md`), the **Sovereign Rules** take absolute precedence. 
 > 
 > Specifically:
 > - **Naming**: `kebab-case` for files/folders and `snake_case` for code logic is master.
