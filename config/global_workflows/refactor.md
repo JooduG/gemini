@@ -1,13 +1,13 @@
 ---
 name: /refactor
-description: Universal SOTA Refactor & DOM Harmonization.
+description: Universal SOTA Refactor, JS Logic Optimization, & DOM Harmonization.
 ---
 
 # SYSTEM DIRECTIVE: Universal SOTA Refactor & DOM Harmonization
 
 ## OBJECTIVE
 
-Execute a Mariana Trench-level deep-dive analysis into the provided file. Deconstruct the entire file's content, optimize the architecture, and rebuild it from the ground up to achieve absolute clarity, unparalleled robustness, and an optimal logical flow (the "red thread").
+Execute a Mariana Trench-level deep-dive analysis into the provided file (.svelte, .js, .svelte.js, or .css). Deconstruct the entire file's content, optimize the architecture, and rebuild it from the ground up to achieve absolute clarity, unparalleled robustness, and an optimal logical flow (the "red thread").
 
 ## EXECUTION PROTOCOLS
 
@@ -21,20 +21,27 @@ Execute a Mariana Trench-level deep-dive analysis into the provided file. Decons
 - **Quality Gate**: Run `npm run verify` to ensure the project remains resonant and passes all quality checks.
 - **Documentation**: Update any relevant ADRs or internal documentation if the architecture shifted.
 
-### 2. DOM Flattening (Zero-Design-Drift)
+### 2. Svelte 5 & JavaScript Logic Optimization (New)
+
+- **Strict Runes Enforcement**: Convert legacy state (`let`, `$:`) to Svelte 5 Runes (`$state`, `$derived`, `$effect`) when refactoring Svelte files. Ensure `$inspect` is used for debugging rather than inline console logs.
+- **State Flattening**: Break down overly deeply nested state objects into flat, tracked primitives or discrete Svelte 5 Runes classes where appropriate to maximize reactivity efficiency.
+- **Declarative JS Conversion**: Convert imperative loops (`for`, `while`) and aggressive mutations into declarative array methodologies (`.map()`, `.filter()`, `.reduce()`) to optimize readability.
+- **Asynchronous Streamlining**: Refactor complex Promise chains or nested callbacks into linear, safe `async/await` blocks with robust `try/catch` error encapsulation.
+
+### 3. DOM Flattening (Zero-Design-Drift)
 
 - Audit the HTML/Markup for excessive nesting and over-complicated DOM trees.
 - Aggressively flatten the markup by removing unnecessary wrapper nodes.
 - **CRITICAL:** Maintain strict 1:1 visual parity. The flattened structure must not alter the application's existing UI/UX design or CSS layout integrity.
 
-### 3. CSS Nomenclature Harmonization ("Ultra-Lean" Standard)
+### 4. CSS Nomenclature Harmonization ("Ultra-Lean" Standard)
 
 - Refactor all CSS classes and HTML identifiers to follow an "Ultra-Lean", flat, and functional naming convention.
 - Eliminate random, highly unique, or overly complex naming schemes.
 - Implement generic, semantic class names that mirror the component's internal structure (e.g., standardizing around terms like `.wrapper`, `.header`, `.body`, `.actions`, `.status`, `.primary`, etc., based on the file's context).
 - Harmonize the nomenclature across the entire file to ensure internal consistency and maximum readability.
 
-### 4. Style De-Duplication & Bloat Elimination (The Lean Regime)
+### 5. Style De-Duplication & Bloat Elimination (The Lean Regime)
 
 - **Eliminate Redundant Local CSS**: Audit `<style>` blocks for custom overrides that duplicate standard components' built-in layout or typography physics. Trust atomic UI components (e.g., `<Button>`) to handle their own padding, alignment, cursor behavior, and click scales natively.
 - **Enforce Design Token Sovereignty**: Scan all styles and replace hardcoded values or local custom declarations with standard Nordic tokens from `DESIGN.md` (e.g., --radius-standard, --duration-fast, --ease-standard, --signature-color).
@@ -53,5 +60,5 @@ Execute a Mariana Trench-level deep-dive analysis into the provided file. Decons
 
 ## REQUIRED OUTPUT
 
-1.  Output the fully refactored, production-ready code.
-2.  Provide a concise changelog detailing the logical improvements, DOM nodes flattened, and the newly established generic CSS mapping system.
+1. Output the fully refactored, production-ready code.
+2. Provide a concise changelog detailing the logical improvements, Svelte 5 Runes updates, DOM nodes flattened, and the newly established generic CSS mapping system.
