@@ -154,7 +154,7 @@
     },
     "developer-database": {
       "args": [
-        "c:\\Users\\johng\\source\\repos\\RPGlitch\\.agents\\skills\\developer-database\\scripts\\developer-database.js"
+        "c:\\Users\\johng\\.gemini\\config\\skills\\developer-database\\scripts\\developer-database.js"
       ],
       "command": "node",
       "env": {
