@@ -152,16 +152,27 @@
       "args": [],
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
     },
-    "developer-database": {
-      "args": [
-        "c:\\Users\\johng\\source\\repos\\RPGlitch\\.agents\\skills\\developer-database\\scripts\\developer-database.js"
-      ],
+        "developer-database": {
       "command": "node",
+      "args": [
+        "C:/Users/johng/.gemini/config/skills/developer-database/scripts/developer-database.js"
+      ],
       "env": {
         "PINECONE_API_KEY": "pcsk_vvGN2_67wnzYvzpZzBpiTWu39K2hWCp19hnS7GDeXYm6PbWothAyacBq67wmcQwspSivq",
         "SUPABASE_ANON_KEY": "sb_secret_WG-bbN_0kXdKqyTCSKxd9A_MaSIdlZ3",
         "SUPABASE_URL": "https://zjoklmjvkxngbbneldht.supabase.co"
       }
+    },
+    "swarm": {
+      "command": "node",
+      "args": [
+        "C:/Users/johng/.gemini/config/skills/swarm/scripts/swarm-mcp.js"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "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",
+        "JULES_API_KEY": "AQ.Ab8RN6JghfvkDomx1jx6wEU23xg1wuh9WCiOO0EGOLKLrhWUcQ"
+      }
     }
+
   }
 }
