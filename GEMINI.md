@@ -379,9 +379,9 @@ A durable table updated whenever a skill is invoked or a task transitions state.
 ```markdown
 ## 🧠 Pulse (History)
 
-| Timestamp (Swedish) | Task                   | Skill Invoked | Outcome     |
-| ------------------- | ---------------------- | ------------- | ----------- |
-| 2026-04-12 12:00    | Fix round counter race | debug         | ✅ Resolved |
+| Role          | Timestamp (Swedish) | Task                   | Workflow / Skill / MCP | Outcome     |
+| :------------ | :------------------ | :--------------------- | :--------------------- | :---------- |
+| ⚒️ Operations | 2026-04-12 12:00    | Fix round counter race | `/02-implement` / `debug` | ✅ Resolved |
 ```
 
 **Mandate**: Update the Pulse (History) in `tasks/PRESENT.md`:
