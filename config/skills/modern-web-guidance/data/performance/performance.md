@@ -91,7 +91,13 @@ LCP measures the time required to render the largest visible text or image block
 />
 
 <!-- Preloading a CSS-based LCP background -->
-<link rel="preload" as="image" href="/images/bg-hero.webp" fetchpriority="high" type="image/webp" />
+<link
+  rel="preload"
+  as="image"
+  href="/images/bg-hero.webp"
+  fetchpriority="high"
+  type="image/webp"
+/>
 
 <!-- Demoting an above-the-fold non-LCP carousel image -->
 <img src="/images/carousel-2.webp" fetchpriority="low" alt="Slide 2" />
@@ -253,7 +259,13 @@ Images typically represent the largest payload on a given web page. Optimization
 </picture>
 
 <!-- Below-The-Fold Image -->
-<img src="footer-icon.png" alt="Footer Logo" width="100" height="100" loading="lazy" />
+<img
+  src="footer-icon.png"
+  alt="Footer Logo"
+  width="100"
+  height="100"
+  loading="lazy"
+/>
 
 <!-- DO: Use native lazy loading for below the fold iframes -->
 <iframe
@@ -288,7 +300,11 @@ Client-side caching via Service Workers allows applications to bypass the networ
 
 ```javascript
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from "workbox-strategies";
+import {
+  CacheFirst,
+  StaleWhileRevalidate,
+  NetworkFirst,
+} from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
@@ -305,7 +321,10 @@ registerRoute(
     cacheName: "static-resources",
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
-      new ExpirationPlugin({ maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+      }),
     ],
   }),
 );
@@ -348,7 +367,13 @@ Web fonts are a common source of render blocking. Optimizing them reduces the Fl
 
 ```html
 <!-- Always use crossorigin for fonts even if on the same origin -->
-<link rel="preload" href="/fonts/modern-sans.woff2" as="font" type="font/woff2" crossorigin />
+<link
+  rel="preload"
+  href="/fonts/modern-sans.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 ```
 
 ## Video Performance & Metrics
@@ -373,7 +398,13 @@ Video payloads are among the heaviest assets. Optimization focuses on reducing b
 ### HTML: Accessible and Dynamic Video Loader
 
 ```html
-<video controls width="1200" height="675" poster="/images/video-poster.webp" preload="none">
+<video
+  controls
+  width="1200"
+  height="675"
+  poster="/images/video-poster.webp"
+  preload="none"
+>
   <source src="/videos/intro.webm" type="video/webm" />
   <source src="/videos/intro.mp4" type="video/mp4" />
   <!-- Include accessibility tracks -->

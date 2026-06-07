@@ -15,8 +15,8 @@ date_added: 2024-03-29
 
 ## Context-Injection: Market Intelligence
 
-- [Simulation](../../GEMINI.md#️-02-simulation)
-- [Intelligence](../../GEMINI.md#️-05-intelligence)
+- [Simulation](../../../source/repos/RPGlitch/GEMINI.md#️-02-simulation)
+- [Intelligence](../../../source/repos/RPGlitch/GEMINI.md#️-05-intelligence)
 - [Specification](../skills/planning/SKILL.md)
 
 ## Capabilities: Strategic Thinking

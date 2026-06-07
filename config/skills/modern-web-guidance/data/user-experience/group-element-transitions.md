@@ -22,7 +22,7 @@ To apply shared styles, also assign a `view-transition-class`.
 }
 ```
 
-2. **Define the shared transition logic**
+1. **Define the shared transition logic**
 
 Use the `::view-transition-group()` pseudo-element with the class selector to apply styles to all members of that group.
 
@@ -44,7 +44,7 @@ Use the `::view-transition-group()` pseudo-element with the class selector to ap
 }
 ```
 
-3. **Optional: Define entry and exit animations**
+1. **Optional: Define entry and exit animations**
 
 Use the `:only-child` selector to add specific transitions to the elements that are added or removed. `::view-transition-new()` and `::view-transition-old()` pseudo-elements are children of a `::view-transition-image-pair()` pseudo-element, so we can determine it is an added or removed element if it is the only child.
 
@@ -74,7 +74,7 @@ Use the `:only-child` selector to add specific transitions to the elements that 
 }
 ```
 
-4. **Trigger the transition**
+1. **Trigger the transition**
 
 Wrap the DOM update in `document.startViewTransition()`. The browser will capture the old state, perform the update, and then animate to the new state.
 
@@ -87,7 +87,7 @@ function updateList(newData) {
 }
 ```
 
-5. **Maintain interactivity of non-transitioned elements**
+1. **Maintain interactivity of non-transitioned elements**
 
 View transitions work by overlaying snapshots of the DOM elements, and then transitioning the snapshots. This means that during the transition, elements are not interactive. If there are interactive elements that are not transitioned, you can make them interactive by disabling touch events on the view transitions.
 

@@ -10,9 +10,9 @@ The `:user-invalid` pseudo-class works seamlessly with `<select>` elements. It r
 
 ### Implementation Strategy
 
-1.  **HTML Constraint**: Use a `<select>` with `required`. The first option should have `value=""` and ideally be disabled/hidden to force a valid choice.
-2.  **Visual Feedback**: Use `:user-invalid` to style the select box border.
-3.  **Timing**: The browser considers the field "interacted" if the user changes the value (even back to the default invalid state) before they blur the control, or upon form submission.
+1. **HTML Constraint**: Use a `<select>` with `required`. The first option should have `value=""` and ideally be disabled/hidden to force a valid choice.
+2. **Visual Feedback**: Use `:user-invalid` to style the select box border.
+3. **Timing**: The browser considers the field "interacted" if the user changes the value (even back to the default invalid state) before they blur the control, or upon form submission.
 
 ## Implementation Guide
 
@@ -24,7 +24,12 @@ The "placeholder" option is key here.
 <form>
   <div class="field">
     <label for="country">Country</label>
-    <select id="country" name="country" required aria-errormessage="country-error">
+    <select
+      id="country"
+      name="country"
+      required
+      aria-errormessage="country-error"
+    >
       <option value="" disabled selected>Select a country...</option>
       <option value="us">United States</option>
       <option value="ca">Canada</option>
@@ -125,14 +130,20 @@ const UserInvalidFallback = (() => {
     if (!input.checkValidity) return;
 
     if (event.type === "input" || event.type === "change") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasInteracted = true;
       dirtyState.set(input, state);
       if (state.hasBlurred) {
         updateState(input);
       }
     } else if (event.type === "blur") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasBlurred = true;
       dirtyState.set(input, state);
       if (state.hasInteracted) {
@@ -160,13 +171,16 @@ UserInvalidFallback.init(form);
 
 ## Other Considerations
 
-1.  **Mobile behavior**: On mobile devices, "blur" might happen differently depending on the OS picker. Testing on actual devices is recommended.
-2.  **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
+1. **Mobile behavior**: On mobile devices, "blur" might happen differently depending on the OS picker. Testing on actual devices is recommended.
+2. **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
 
 ```javascript
 // Sync aria-invalid with the CSS :user-invalid state
 const syncAria = (el) => {
-  el.setAttribute?.("aria-invalid", el.matches(":user-invalid") ? "true" : "false");
+  el.setAttribute?.(
+    "aria-invalid",
+    el.matches(":user-invalid") ? "true" : "false",
+  );
 };
 
 // Update on blur (to show error) and input (to clear it)

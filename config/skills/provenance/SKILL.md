@@ -41,7 +41,7 @@ Call `resolve-library-id` from the `context7` MCP server.
 Call `query-docs` with the resolved ID.
 
 - **Query Quality**: Be specific. Use `"Svelte 5 snippets vs slots syntax"` instead of `"svelte snippets"`.
-- **Handling Failure**: If quota is exhausted, inform the user immediately. Fall back to training data only as a last resort, and mark the code as **[UNVERIFIED]**.
+- **Handling Failure**: If quota is exhausted, inform the user immediately. Fall back to training data only as a last resort, and mark the code as **\[UNVERIFIED\]**.
 
 ## 🔄 Execution Workflow
 

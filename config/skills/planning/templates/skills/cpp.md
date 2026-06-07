@@ -7,12 +7,14 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 
 > [!IMPORTANT]
 > When operating within this repository, local project rules supersede the generic guidelines in this document. In the event of a conflict, the authoritive [rules/](../../../../rules/) are absolute, like in these cases (but not limited to):
+>
 > 1. **Lexical & Workflow**: Naming conventions and process logic defined in [05-intelligence.md](../../../../../.agents/rules/05-intelligence.md) take precedence. (e.g., Use `snake_case` for variables and `kebab-case` for files regardless of generic language standards).
 > 2. **Aesthetics & UI**: Design tokens and visual laws defined in [04-aesthetics.md](../../../../../.agents/rules/04-aesthetics.md) take precedence. Never use raw CSS values (`px`, `#`, `rem`) when tokens are available.
 > 3. **Framework Logic**: If this project uses **Svelte**, all UI and state logic must adhere to [03-infrastructure.md](../../../../../.agents/rules/03-infrastructure.md).
 > 4. **General Precedence**: Any and all information found in [rules/](../../../../rules/) is master above the information found in this file.
 
 ## 1. Naming
+
 - **General:** Optimize for readability. Be descriptive but concise. Use inclusive language.
 - **Files:** `.h` (headers), `.cc` (source). Lowercase with underscores (`_`) or dashes (`-`). Be consistent.
 - **Types:** PascalCase (`MyClass`, `MyEnum`). Use `int` by default; use `<cstdint>` (`int32_t`) if size matters.
@@ -26,6 +28,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Macros:** ALL_CAPS (`MY_MACRO`).
 
 ## 2. Header Files
+
 - **General:** Every `.cc` usually has a `.h`. Headers must be self-contained.
 - **Guards:** Use `#define <PROJECT>_<PATH>_<FILE>_H_`.
 - **IWYU:** Direct includes only. Do not rely on transitive includes.
@@ -40,6 +43,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
   *Separate groups with blank lines. Alphabetical within groups.*
 
 ## 3. Formatting
+
 - **Indentation:** 2 spaces. **Line Length:** 80 chars.
 - **Non-ASCII:** Rare, use UTF-8. Avoid `u8` prefix if possible.
 - **Braces:** `if (cond) { ... }`. **Exception:** Function definition open brace goes on the **next line**.
@@ -59,6 +63,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Parameter Wrapping:** Wrap parameter lists that don't fit. Use 4-space indent for wrapped parameters.
 
 ## 4. Classes
+
 - **Constructors:** `explicit` for single-arg and conversion operators. **Exception:** `std::initializer_list`. No virtual calls in ctors. Use factories for fallible init.
 - **Structs:** Only for passive data. Prefer `struct` over `std::pair` or `std::tuple`.
 - **Copy/Move:** Explicitly `= default` or `= delete`. **Rule of 5:** If defining one, declare all.
@@ -68,6 +73,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Declaration Order:** `public` before `protected` before `private`. Within sections: Types, Constants, Factory, Constructors, Destructor, Methods, Data Members.
 
 ## 5. Functions
+
 - **Params:** Inputs (`const T&`, `std::string_view`, `std::span` or value) first, then outputs. **Ordering:** Inputs before outputs.
 - **Outputs:** Prefer return values/`std::optional`. For non-optional outputs, use references. For optional outputs, use pointers.
 - **Optional Inputs:** Use `std::optional` for by-value, `const T*` for reference.
@@ -78,6 +84,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Trailing Return:** Only when necessary (lambdas).
 
 ## 6. Scoping
+
 - **Namespaces:** No `using namespace`. Use `using std::string`. Never add to `namespace std`.
 - **Internal:** Use anonymous namespaces or `static` in `.cc` files. Avoid in headers.
 - **Locals:** Narrowest scope. Initialize at declaration. **Exception:** Declare complex objects outside loops.
@@ -85,6 +92,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Thread Local:** `thread_local` must be `constinit` if global. Prefer `thread_local` over other mechanisms.
 
 ## 7. Modern C++ Features
+
 - **Version:** Target **C++20**. Do not use C++23. Consider portability for C++17/20 features. No non-standard extensions.
 - **Modules:** Do not use C++20 Modules.
 - **Coroutines:** Use approved libraries only. Do not roll your own promise or awaitable types.
@@ -103,6 +111,7 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 - **Loops:** Prefer range-based `for`.
 
 ## 8. Best Practices
+
 - **Const:** Mark methods/variables `const` whenever possible. `const` methods must be thread-safe.
 - **Exceptions:** **Forbidden**.
 - **RTTI:** Avoid `dynamic_cast`/`typeid`. Allowed in unit tests. Do not hand-implement workarounds.

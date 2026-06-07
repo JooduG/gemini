@@ -62,7 +62,13 @@
 ```html
 <div class="field">
   <label for="username">Username:</label>
-  <input type="text" id="username" name="username" aria-describedby="user-help" required />
+  <input
+    type="text"
+    id="username"
+    name="username"
+    aria-describedby="user-help"
+    required
+  />
   <span id="user-help" class="hint">3-12 characters.</span>
 </div>
 
@@ -266,12 +272,24 @@ form.addEventListener("submit", (e) => {
 
   <div class="form-group">
     <label for="name">Full name</label>
-    <input id="name" name="name" autocomplete="name" required pattern="[\p{L}\.\- ]+" />
+    <input
+      id="name"
+      name="name"
+      autocomplete="name"
+      required
+      pattern="[\p{L}\.\- ]+"
+    />
   </div>
 
   <div class="form-group">
     <label for="email">Email</label>
-    <input id="email" name="email" type="email" autocomplete="username" required />
+    <input
+      id="email"
+      name="email"
+      type="email"
+      autocomplete="username"
+      required
+    />
   </div>
 
   <div class="form-group">
@@ -283,8 +301,20 @@ form.addEventListener("submit", (e) => {
       aria-label="Show password"
       aria-describedby="toggle-warning"
     >
-      <img class="icon-eye" src="/icons/eye.svg" alt="" width="20" height="20" />
-      <img class="icon-eye-off" src="/icons/eye-off.svg" alt="" width="20" height="20" />
+      <img
+        class="icon-eye"
+        src="/icons/eye.svg"
+        alt=""
+        width="20"
+        height="20"
+      />
+      <img
+        class="icon-eye-off"
+        src="/icons/eye-off.svg"
+        alt=""
+        width="20"
+        height="20"
+      />
     </button>
     <span id="toggle-warning" class="visually-hidden"
       >Warning: this will display your password on the screen.</span
@@ -408,6 +438,8 @@ form.addEventListener("submit", (e) => {
   </ol>
 </nav>
 
-<button type="button" onclick="history.back()" enterkeyhint="previous">Previous</button>
+<button type="button" onclick="history.back()" enterkeyhint="previous">
+  Previous
+</button>
 <button type="submit" enterkeyhint="next">Next</button>
 ```

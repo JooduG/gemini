@@ -35,7 +35,9 @@ try {
 
 // 3. Resolve the time safely using 'compatible' (default)
 // 'compatible' will resolve to a valid time even if skipped or repeated
-const hostTime = Temporal.ZonedDateTime.from(inputStr, { disambiguation: "compatible" });
+const hostTime = Temporal.ZonedDateTime.from(inputStr, {
+  disambiguation: "compatible",
+});
 console.log(`Resolved time: ${hostTime.toString()}`);
 
 // 4. Convert to another time zone (e.g., Tokyo)

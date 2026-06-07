@@ -14,9 +14,9 @@ See [MDN aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibilit
 
 ### Implementation Strategy
 
-1.  **Visual Layer**: Use CSS `:user-invalid` to show borders/icons.
-2.  **Accessibility Layer**: Use `aria-invalid` and `aria-errormessage` to communicate state to Assistive Technology (AT).
-3.  **Bridge Visual & Accessibility Layer**: Create a lightweight JavaScript utility that listens for `blur` and `input` events, checks if the element matches `:user-invalid`, and updates the ARIA attributes accordingly.
+1. **Visual Layer**: Use CSS `:user-invalid` to show borders/icons.
+2. **Accessibility Layer**: Use `aria-invalid` and `aria-errormessage` to communicate state to Assistive Technology (AT).
+3. **Bridge Visual & Accessibility Layer**: Create a lightweight JavaScript utility that listens for `blur` and `input` events, checks if the element matches `:user-invalid`, and updates the ARIA attributes accordingly.
 
 ## Implementation Guide
 
@@ -29,7 +29,9 @@ Link your input to its error message using `aria-errormessage` (or `aria-describ
   <div class="field">
     <label for="email">Email</label>
     <input type="email" id="email" required aria-errormessage="email-error" />
-    <span id="email-error" class="error-msg"> Please enter a valid email address. </span>
+    <span id="email-error" class="error-msg">
+      Please enter a valid email address.
+    </span>
   </div>
 </form>
 ```
@@ -167,14 +169,20 @@ const UserInvalidFallback = (() => {
     if (!input.matches?.("input, textarea, select")) return;
 
     if (event.type === "input" || event.type === "change") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasInteracted = true;
       dirtyState.set(input, state);
       if (state.hasBlurred) {
         updateState(input);
       }
     } else if (event.type === "blur") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasBlurred = true;
       dirtyState.set(input, state);
       if (state.hasInteracted) {
@@ -201,9 +209,9 @@ UserInvalidFallback.init();
 
 ## Other Considerations
 
-1.  **`aria-live` vs. `aria-errormessage`**:
-    - `aria-errormessage` connects the input to the text, but screen readers might not announce it immediately upon appearance (only when focusing the input).
-    - If you need _immediate_ announcement when the error appears (e.g., on blur), consider adding `role="alert"` or `aria-live="polite"` to the error message container, but test thoroughly to avoid "double announcement" when the user focuses the field to fix it.
+1. **`aria-live` vs. `aria-errormessage`**:
+   - `aria-errormessage` connects the input to the text, but screen readers might not announce it immediately upon appearance (only when focusing the input).
+   - If you need _immediate_ announcement when the error appears (e.g., on blur), consider adding `role="alert"` or `aria-live="polite"` to the error message container, but test thoroughly to avoid "double announcement" when the user focuses the field to fix it.
 
-2.  **Internationalization**:
-    - Ensure the text content of your error message (`#email-error`) is translated. The logic remains the same.
+2. **Internationalization**:
+   - Ensure the text content of your error message (`#email-error`) is translated. The logic remains the same.

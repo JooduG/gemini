@@ -30,7 +30,11 @@ MANDATORY: Load the experimentation script with both `async` and `blocking="rend
     - `blocking="render"`: Holds rendering until the script executes,
       ensuring experiment changes are applied before the user sees anything.
   -->
-  <script src="https://cdn.example.com/experiment-sdk.js" async blocking="render"></script>
+  <script
+    src="https://cdn.example.com/experiment-sdk.js"
+    async
+    blocking="render"
+  ></script>
 </head>
 ```
 
@@ -66,7 +70,9 @@ If the experiment logic is lightweight enough to inline, use an inline module sc
   -->
   <script type="module" blocking="render">
     // Fetch the experiment configuration from your testing platform.
-    const config = await fetch("/api/experiment?id=homepage-cta").then((res) => res.json());
+    const config = await fetch("/api/experiment?id=homepage-cta").then((res) =>
+      res.json(),
+    );
 
     // Apply the variant by setting a data attribute on <html>.
     // CSS rules keyed to this attribute will style the variant.
@@ -113,7 +119,11 @@ DO: Use a lightweight anti-flicker snippet as a fallback only when `blocking="re
     DO: Load the experiment script with blocking="render" for
     browsers that support it. This is the preferred approach.
   -->
-  <script src="https://cdn.example.com/experiment-sdk.js" async blocking="render"></script>
+  <script
+    src="https://cdn.example.com/experiment-sdk.js"
+    async
+    blocking="render"
+  ></script>
 
   <script>
     // DO: Only apply the anti-flicker fallback in browsers

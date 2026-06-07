@@ -8,14 +8,14 @@ Marking required fields with an error state immediately upon page load can be co
 
 The `:user-invalid` pseudo-class solves this perfectly. For a required field, it will not match on page load. It will only match if:
 
-1.  The user interacts with the field (e.g., types a character and deletes it) and then leaves it (blur), leaving it empty.
-2.  The user attempts to submit the form while the field is empty.
+1. The user interacts with the field (e.g., types a character and deletes it) and then leaves it (blur), leaving it empty.
+2. The user attempts to submit the form while the field is empty.
 
 ### Implementation Strategy
 
-1.  **HTML Constraint**: Add the `required` attribute to your inputs.
-2.  **Visual Feedback**: Use `:user-invalid` to style the border red and show a "Required" helper text.
-3.  **Timing**: Rely on the browser's native timing for visual feedback. You don't need `onBlur` handlers to add a `touched` class anymore, though some JavaScript is still needed to sync ARIA attributes (see below).
+1. **HTML Constraint**: Add the `required` attribute to your inputs.
+2. **Visual Feedback**: Use `:user-invalid` to style the border red and show a "Required" helper text.
+3. **Timing**: Rely on the browser's native timing for visual feedback. You don't need `onBlur` handlers to add a `touched` class anymore, though some JavaScript is still needed to sync ARIA attributes (see below).
 
 ## Implementation Guide
 
@@ -25,7 +25,13 @@ The `:user-invalid` pseudo-class solves this perfectly. For a required field, it
 <form id="feedback-form">
   <div class="field">
     <label for="full-name">Full Name</label>
-    <input type="text" id="full-name" name="full-name" required aria-errormessage="name-error" />
+    <input
+      type="text"
+      id="full-name"
+      name="full-name"
+      required
+      aria-errormessage="name-error"
+    />
     <!-- MANDATORY: Include an icon or distinct non-color indicator alongside error text -->
     <div id="name-error" class="error-msg">
       <span aria-hidden="true">❌</span> This field is required.
@@ -164,14 +170,20 @@ const UserInvalidFallback = (() => {
     if (!input.checkValidity) return;
 
     if (event.type === "input" || event.type === "change") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasInteracted = true;
       dirtyState.set(input, state);
       if (state.hasBlurred) {
         updateState(input);
       }
     } else if (event.type === "blur") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasBlurred = true;
       dirtyState.set(input, state);
       if (state.hasInteracted) {
@@ -199,14 +211,17 @@ UserInvalidFallback.init(form);
 
 ## Other Considerations
 
-1.  **Asterisks**: It is still best practice to indicate required fields visually (e.g., with an asterisk `*`) in the label, so users know what to expect _before_ they interact.
-2.  **Submit Buttons**: Unlike `disabled` buttons, keep your submit button enabled. If the user clicks it, the browser will automatically trigger `:user-invalid` on all empty required fields and focus the first one. This is excellent for accessibility and UX.
-3.  **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
+1. **Asterisks**: It is still best practice to indicate required fields visually (e.g., with an asterisk `*`) in the label, so users know what to expect _before_ they interact.
+2. **Submit Buttons**: Unlike `disabled` buttons, keep your submit button enabled. If the user clicks it, the browser will automatically trigger `:user-invalid` on all empty required fields and focus the first one. This is excellent for accessibility and UX.
+3. **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
 
 ```javascript
 // Sync aria-invalid with the CSS :user-invalid state
 const syncAria = (el) => {
-  el.setAttribute?.("aria-invalid", el.matches(":user-invalid") ? "true" : "false");
+  el.setAttribute?.(
+    "aria-invalid",
+    el.matches(":user-invalid") ? "true" : "false",
+  );
 };
 
 // Update on blur (to show error) and input (to clear it)

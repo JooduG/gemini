@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD033 -->
+
 # Build a payment form that follows best practice
 
 Payment forms are the single most critical part of the checkout process. Poor payment form design is a common cause of shopping cart abandonment.
@@ -59,7 +61,7 @@ By default, set the billing address to be the same as the delivery address. Redu
 
 Use appropriate autocomplete values for the billing address, just as you do for shipping address, so the user doesn't have to enter data more than once. Add a prefix word to autocomplete attributes if you have different values for inputs with the same name in different sections. For example:
 
-```
+```text
 <input autocomplete="shipping address-line-1" ...>
 ...
 <input autocomplete="billing address-line-1" ...>

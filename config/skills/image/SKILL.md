@@ -99,5 +99,5 @@ When generating visual-only physical fragments:
 
 ### Resources
 
-- **[DESIGN.md](../../../DESIGN.md)**: The Sovereign Source.
-- **[Aesthetics](../../../GEMINI.md#️-04-aesthetics)**: The High Law.
+- **[DESIGN.md](../../../../source/repos/RPGlitch/DESIGN.md)**: The Sovereign Source.
+- **[Aesthetics](../../../../source/repos/RPGlitch/GEMINI.md#️-04-aesthetics)**: The High Law.

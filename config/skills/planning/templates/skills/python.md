@@ -9,12 +9,14 @@ This document summarizes key rules and best practices from the Google Python Sty
 
 > [!IMPORTANT]
 > When operating within this repository, local project rules supersede the generic guidelines in this document. In the event of a conflict, the authoritive [rules/](../../../../rules/) are absolute, like in these cases (but not limited to):
+>
 > 1. **Lexical & Workflow**: Naming conventions and process logic defined in [05-intelligence.md](../../../../../.agents/rules/05-intelligence.md) take precedence. (e.g., Use `snake_case` for variables and `kebab-case` for files regardless of generic language standards).
 > 2. **Aesthetics & UI**: Design tokens and visual laws defined in [04-aesthetics.md](../../../../../.agents/rules/04-aesthetics.md) take precedence. Never use raw CSS values (`px`, `#`, `rem`) when tokens are available.
 > 3. **Framework Logic**: If this project uses **Svelte**, all UI and state logic must adhere to [03-infrastructure.md](../../../../../.agents/rules/03-infrastructure.md).
 > 4. **General Precedence**: Any and all information found in [rules/](../../../../rules/) is master above the information found in this file.
 
 ## 1. Python Language Rules
+
 - **Linting:** Run `pylint` on your code to catch bugs and style issues.
 - **Imports:** Use `import x` for packages/modules. Use `from x import y` only when `y` is a submodule.
 - **Exceptions:** Use built-in exception classes. Do not use bare `except:` clauses.
@@ -25,6 +27,7 @@ This document summarizes key rules and best practices from the Google Python Sty
 - **Type Annotations:** Strongly encouraged for all public APIs.
 
 ## 2. Python Style Rules
+
 - **Line Length:** Maximum 80 characters.
 - **Indentation:** 4 spaces per indentation level. Never use tabs.
 - **Blank Lines:** Two blank lines between top-level definitions (classes, functions). One blank line between method definitions.
@@ -36,12 +39,14 @@ This document summarizes key rules and best practices from the Google Python Sty
 - **Imports Formatting:** Imports should be on separate lines and grouped: standard library, third-party, and your own application's imports.
 
 ## 3. Naming
+
 - **General:** `snake_case` for modules, functions, methods, and variables.
 - **Classes:** `PascalCase`.
 - **Constants:** `ALL_CAPS_WITH_UNDERSCORES`.
 - **Internal Use:** Use a single leading underscore (`_internal_variable`) for internal module/class members.
 
 ## 4. Main
+
 - All executable files should have a `main()` function that contains the main logic, called from a `if __name__ == '__main__':` block.
 
 **BE CONSISTENT.** When editing code, match the existing style.

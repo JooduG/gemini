@@ -38,7 +38,12 @@ The drawer is a single popover containing a horizontal scroller, which contains 
   <header>
     <!-- aria-controls links the trigger to the drawer; aria-expanded
          reflects the current state for assistive tech. -->
-    <button id="drawer-open" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+    <button
+      id="drawer-open"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="drawer"
+    >
       <!-- MANDATORY: Inline decorative SVGs MUST define aria-hidden="true" -->
       <svg aria-hidden="true" viewBox="0 0 24 24">...</svg>
     </button>
@@ -331,7 +336,9 @@ async function openDrawer() {
     // Wait two animation frames for the jump-scroll to commit.
     // A single rAF is not enough — the second `scrollTo` would
     // cancel the first before the browser has a chance to apply it.
-    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await new Promise((r) =>
+      requestAnimationFrame(() => requestAnimationFrame(r)),
+    );
   }
 
   scroller.scrollTo({ left: 0, behavior: "auto" });

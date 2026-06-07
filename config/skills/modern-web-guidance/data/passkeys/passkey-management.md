@@ -6,9 +6,9 @@ This guide details how to enable users to view, rename, and delete their registe
 
 Your backend database layer and endpoints MUST support common CRUD actions for registered credentials. Decoupled from framework-specific libraries, the server exposes endpoints to:
 
-1.  **List all user credentials**: Fetch all `StoredPasskeyCredential` records matching the signed-in user's ID.
-2.  **Update credential names**: Accept a new custom string name for a specific credential ID and persist the update.
-3.  **Delete credentials**: Remove a specific credential ID from the database.
+1. **List all user credentials**: Fetch all `StoredPasskeyCredential` records matching the signed-in user's ID.
+2. **Update credential names**: Accept a new custom string name for a specific credential ID and persist the update.
+3. **Delete credentials**: Remove a specific credential ID from the database.
 
 ```javascript
 // Node.js routing example for credential CRUD
@@ -29,33 +29,37 @@ router.put("/api/credential/:id", checkUserAuthenticated, async (req, res) => {
   return res.json(cred);
 });
 
-router.delete("/api/credential/:id", checkUserAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  const cred = await db.findCredentialById(id);
-  if (!cred || cred.passkeyUserId !== req.user.id) {
-    return res.status(404).json({ error: "Credential not found." });
-  }
-  await db.deleteCredential(id);
-  return res.json({ success: true });
-});
+router.delete(
+  "/api/credential/:id",
+  checkUserAuthenticated,
+  async (req, res) => {
+    const { id } = req.params;
+    const cred = await db.findCredentialById(id);
+    if (!cred || cred.passkeyUserId !== req.user.id) {
+      return res.status(404).json({ error: "Credential not found." });
+    }
+    await db.deleteCredential(id);
+    return res.json({ success: true });
+  },
+);
 ```
 
 ## Client-Side Management UI
 
 Render a dedicated settings panel allowing users to easily audit and manage their registered authentication options:
 
-1.  **Display saved list**: Fetch list from your endpoint and render individual credential rows. If the response is empty, render a helpful empty-state message (e.g., "No passkeys found").
-2.  **Map AAGUID Metadata**: For each passkey, lookup its `aaguid` property against your local registry to render its provider details. See [Determine the passkey provider from AAGUID] section for more details.
-3.  **Per-Item UI Requirements**: Every row inside the list container MUST render:
-    - **Provider Icon**: AAGUID-derived image or data URI.
-    - **Provider/Custom Name**: AAGUID-derived name or user-renamed string.
-    - **Registration Date**: The database-persisted raw epoch timestamp `registeredAt` formatted to a human-readable date for client display.
-    - **Last Used Date**: The database-persisted raw epoch timestamp `lastUsedAt` formatted to a human-readable date (if present) for client display.
-    - **Rename Button**: Triggers a rename text input modal.
-    - **Delete Button**: Triggers deletion.
-4.  **Conditional "Create Passkey" Button**:
-    - Offer a prominent "Create passkey" registration trigger button on the management page. Before rendering this UI element, the page MUST feature-detect capabilities using `PublicKeyCredential.getClientCapabilities()` to verify platform authenticator is supported. If passkeys are unsupported, hide this button and gracefully encourage standard MFA enrollments instead.
-    - Allow registering a security key by omitting `authenticatorSelection.authenticatorAttachment` on `navigator.credentials.create()` call.
+1. **Display saved list**: Fetch list from your endpoint and render individual credential rows. If the response is empty, render a helpful empty-state message (e.g., "No passkeys found").
+2. **Map AAGUID Metadata**: For each passkey, lookup its `aaguid` property against your local registry to render its provider details. See [Determine the passkey provider from AAGUID](#determine-the-passkey-provider-from-aaguid--aaguid-) section for more details.
+3. **Per-Item UI Requirements**: Every row inside the list container MUST render:
+   - **Provider Icon**: AAGUID-derived image or data URI.
+   - **Provider/Custom Name**: AAGUID-derived name or user-renamed string.
+   - **Registration Date**: The database-persisted raw epoch timestamp `registeredAt` formatted to a human-readable date for client display.
+   - **Last Used Date**: The database-persisted raw epoch timestamp `lastUsedAt` formatted to a human-readable date (if present) for client display.
+   - **Rename Button**: Triggers a rename text input modal.
+   - **Delete Button**: Triggers deletion.
+4. **Conditional "Create Passkey" Button**:
+   - Offer a prominent "Create passkey" registration trigger button on the management page. Before rendering this UI element, the page MUST feature-detect capabilities using `PublicKeyCredential.getClientCapabilities()` to verify platform authenticator is supported. If passkeys are unsupported, hide this button and gracefully encourage standard MFA enrollments instead.
+   - Allow registering a security key by omitting `authenticatorSelection.authenticatorAttachment` on `navigator.credentials.create()` call.
 
 ## Signal API Synchronization
 
@@ -112,7 +116,10 @@ async function performDelete(credentialId) {
 }
 
 async function performRename(rpId, userId, updatedName, updatedDisplayName) {
-  const response = await renameFetch({ name: updatedName, displayName: updatedDisplayName });
+  const response = await renameFetch({
+    name: updatedName,
+    displayName: updatedDisplayName,
+  });
   if (response.ok) {
     try {
       await PublicKeyCredential.signalCurrentUserDetails({
@@ -138,8 +145,8 @@ AAGUID should only be used to help users with passkey management. It can be modi
 
 A community-maintained JSON mapping of AAGUIDs to provider names and icons is available at:
 
-```
-https://raw.githubusercontent.com/passkeydeveloper/passkey-authenticator-aaguids/refs/heads/main/combined_aaguid.json
+```text
+<https://raw.githubusercontent.com/passkeydeveloper/passkey-authenticator-aaguids/refs/heads/main/combined_aaguid.json>
 ```
 
 Each entry has the following schema:

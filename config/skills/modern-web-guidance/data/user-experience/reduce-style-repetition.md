@@ -9,7 +9,8 @@ The CSS `@function` at-rule allows you to encapsulate this logic into reusable, 
 A custom function is defined using the `@function` rule followed by a dashed name and a list of parameters. The function returns a value using the `result` property.
 
 ```css
-@function --my-function(--input1 <length>, --input2: default-value) returns <length> {
+@function --my-function(--input1 <length>, --input2: default-value) returns
+  <length> {
   /* Logic goes here */
   result: var(--input1);
 }
@@ -30,9 +31,17 @@ A custom function is defined using the `@function` rule followed by a dashed nam
 Ensure consistent color gradients across your app by encapsulating gradient logic. The `--angle` provides a default value to provide consistency that can be overridden.
 
 ```css
-@function --fancy-gradient(--start-color <color>, --end-color <color>, --angle: 98deg) returns
-  <image> {
-  result: linear-gradient(in oklab var(--angle), var(--start-color), var(--end-color));
+@function --fancy-gradient(
+    --start-color <color>,
+    --end-color <color>,
+    --angle: 98deg
+  )
+  returns <image> {
+  result: linear-gradient(
+    in oklab var(--angle),
+    var(--start-color),
+    var(--end-color)
+  );
 }
 
 .card {

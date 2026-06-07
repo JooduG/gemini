@@ -103,7 +103,7 @@ Clickjacking protection is easy to deploy, carries extremely low risk of breakin
 
 ```http
 X-Frame-Options: SAMEORIGIN
-Content-Security-Policy: frame-ancestors 'self' https://trusted-partner.com;
+Content-Security-Policy: frame-ancestors 'self' <https://trusted-partner.com;>
 ```
 
 ### 1.5 Secure Window Messaging (postMessage)
@@ -239,7 +239,7 @@ HTML for nonce-based CSP:
 
 For static/cached HTML (SPAs) where a per-response nonce is not possible, use hash-based CSP: hash each inline script and list the hashes in `script-src`.
 
-**Avoid**: URL allowlists like `script-src https://cdn.example.com` — they are easily bypassed by open redirects, JSONP endpoints, and dependency injection on the allowed origin.
+**Avoid**: URL allowlists like `script-src <https://cdn.example.com>` — they are easily bypassed by open redirects, JSONP endpoints, and dependency injection on the allowed origin.
 
 #### 3.3 Trusted Types Enforcement
 
@@ -352,7 +352,10 @@ Permissions-Policy: camera=(), geolocation=(), microphone=()
 ```
 
 ```html
-<iframe src="https://trusted-video.com/player" allow="fullscreen; camera"></iframe>
+<iframe
+  src="https://trusted-video.com/player"
+  allow="fullscreen; camera"
+></iframe>
 ```
 
 #### Subresource Integrity (SRI)
@@ -378,7 +381,7 @@ CORS is a permission grant, not a defense — it tells the browser which cross-o
 - **DO**: Handle preflight (`OPTIONS`) requests by returning appropriate headers before processing data.
 
 ```http
-Access-Control-Allow-Origin: https://trusted-app.com
+Access-Control-Allow-Origin: <https://trusted-app.com>
 Access-Control-Allow-Credentials: true
 ```
 

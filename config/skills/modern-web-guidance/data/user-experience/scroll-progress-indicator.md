@@ -6,8 +6,8 @@ A scroll progress indicator is a common user interface pattern that visually com
 
 To create a scroll progress indicator, you need two things:
 
-1.  An element to act as the progress bar. This element is typically `position: fixed` or `position: absolute` so that it stays in view while the user scrolls.
-2.  An animation that is linked to the scroll position.
+1. An element to act as the progress bar. This element is typically `position: fixed` or `position: absolute` so that it stays in view while the user scrolls.
+2. An animation that is linked to the scroll position.
 
 Here’s how you can achieve this:
 
@@ -134,7 +134,8 @@ For this use-case specifically, the following script applies the fallback for br
     const progress = document.querySelector("#progress");
 
     window.addEventListener("scroll", () => {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
       const scrolled = window.scrollY;
       const progressPercentage = scrolled / scrollable;
 

@@ -19,7 +19,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 
 ## 1.1 PRE-INITIALIZATION OVERVIEW
 
-1.  **Provide High-Level Overview:**
+1. **Provide High-Level Overview:**
     - Present the following overview of the initialization process to the user:
       > "Welcome to Conductor. I will guide you through the following steps to set up your project:
       >
@@ -36,9 +36,9 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 
 **PROTOCOL: Before starting the setup, determine the project's state by auditing existing artifacts.**
 
-1.  **Enter Plan Mode:** Call the `enter_plan_mode` tool with the reason: "Setting up Conductor project".
-2.  **Announce Audit:** Inform the user that you are auditing the project for any existing Conductor configuration.
-3.  **Audit Artifacts:** Check the file system for the existence of the following files/directories in the `.agents/rules/`, and `tasks/` directories:
+1. **Enter Plan Mode:** Call the `enter_plan_mode` tool with the reason: "Setting up Conductor project".
+2. **Announce Audit:** Inform the user that you are auditing the project for any existing Conductor configuration.
+3. **Audit Artifacts:** Check the file system for the existence of the following files/directories in the `.agents/rules/`, and `tasks/` directories:
     - Slot 01: `.agents/rules/01-foundation.md`
     - Slot 02: `.agents/rules/02-product.md` (Aliased path for Guidelines)
     - Slot 03: `.agents/rules/03-infrastructure.md`
@@ -47,7 +47,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
     - Slot 06: `.agents/rules/06-compliance.md`
     - `tasks/PRESENT.md` and `tasks/ETERNAL.md`
 
-4.  **Determine Target Section:** Map the project's state to a target section using the priority table below (highest match wins). **DO NOT JUMP YET.** Keep this target in mind.
+4. **Determine Target Section:** Map the project's state to a target section using the priority table below (highest match wins). **DO NOT JUMP YET.** Keep this target in mind.
 
 | Artifact Exists                                                 | Target Section  | Announcement                                                                                                                                                                                  |
 | :-------------------------------------------------------------- | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 | `.agents/rules/01-foundation.md`                                | **Section 2.2** | "Resuming setup: Product Guide is complete. Next: create Product Guidelines."                                                                                                                 |
 | (None)                                                          | **Section 2.0** | "Initializing new project setup."                                                                                                                                                             |
 
-5. **Proceed to Section 2.0:** You MUST proceed to Section 2.0 to establish the Greenfield/Brownfield context before jumping to your target.
+1. **Proceed to Section 2.0:** You MUST proceed to Section 2.0 to establish the Greenfield/Brownfield context before jumping to your target.
 
 ---
 
@@ -83,7 +83,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 
 ### 2.0.2 Project Inception
 
-1.  **Detect Project Maturity:**
+1. **Detect Project Maturity:**
     - **Classify Project:** Determine if the project is "Brownfield" (Existing) or "Greenfield" (New) based on the following indicators:
     - **Brownfield Indicators:**
       - Check for dependency manifests: `package.json`.
@@ -95,13 +95,13 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         1. NONE of the "Brownfield Indicators" are found.
         2. The directory contains no application source code or dependency manifests (ignoring the `tasks/` directory, a clean or newly initialized `.git` folder, and a `README.md`).
 
-2.  **Resume Fast-Forward Check:**
+2. **Resume Fast-Forward Check:**
     - If the **Target Section** (from 1.2) is anything other than "Section 2.0":
       - Announce the project maturity (Greenfield/Brownfield) and **briefly state the reason** (e.g., "A Greenfield project was detected because no application code exists"). Then announce the target section.
       - **IMMEDIATELY JUMP** to the Target Section. Do not execute the rest of Section 2.0.
     - If the Target Section is "Section 2.0", proceed to step 3.
 
-3.  **Execute Workflow based on Maturity:**
+3. **Execute Workflow based on Maturity:**
 
 - **If Brownfield:**
   - Announce that an existing project has been detected, and **briefly state the specific indicator you found** (e.g., "because I found a package.json file"). Be concise.
@@ -139,15 +139,14 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
   4.  **Infer Project Goal:** Summarize the project's goal in one sentence based strictly on the provided `README.md` header or `package.json` description.
 - **Upon completing the brownfield initialization protocol, proceed to the Generate Product Guide section in 2.1.**
 ```
-
 - **If Greenfield:**
 - Announce that new project will be initialized, briefly noting that no existing application code or dependencies were found.
 - Proceed to the next step in this file.
 
-4.  **Initialize Git Repository (for Greenfield):**
+1. **Initialize Git Repository (for Greenfield):**
     - If a `.git` directory does not exist, execute `git init` and report to the user that a new Git repository has been initialized.
 
-5.  **Inquire about Project Goal (for Greenfield):**
+2. **Inquire about Project Goal (for Greenfield):**
     - **Ask the user the following question using the `ask_user` tool and wait for their response before proceeding to the next step:**
       - **header:** "Project Goal"
       - **type:** "text"
@@ -158,12 +157,12 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
       - Execute `mkdir -p .agents/rules`.
       - Write the user's response into `.agents/rules/01-foundation.md` under a header named `# Initial Concept`.
 
-6.  **Continue:** Immediately proceed to the next section.
+3. **Continue:** Immediately proceed to the next section.
 
 ### 2.1 Generate Product Guide (Interactive)
 
-1.  **Introduce the Section:** Announce that you will now help the user create the `.agents/rules/01-foundation.md`.
-2.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
+1. **Introduce the Section:** Announce that you will now help the user create the `.agents/rules/01-foundation.md`.
+2. **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
     - **questions:**
       - **header:** "01-foundation"
       - **question:** "How would you like to define the product details? Whether you prefer a quick start or a deep dive, both paths lead to a high-quality product guide!"
@@ -173,7 +172,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - Label: "Interactive", Description: "I'll guide you through a series of questions to refine your vision."
         - Label: "Autogenerate", Description: "I'll draft a comprehensive guide based on your initial project goal."
 
-3.  **Gather Information (Conditional):**
+3. **Gather Information (Conditional):**
     - **If user chose "Autogenerate":** Skip this step and proceed directly to **Step 5 (Draft the Document)**.
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather detailed requirements (e.g., target users, goals, features).
       - **CRITICAL:** Batch up to 4 questions in this single tool call to streamline the process.
@@ -187,10 +186,10 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **Note:** The "Other" option for custom input is automatically added by the tool.
       - **Interaction Flow:** Wait for the user's response, then proceed to the next step.
 
-4.  **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for `.agents/rules/01-foundation.md`.
+4. **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for `.agents/rules/01-foundation.md`.
     - **If user chose "Autogenerate":** Use your best judgment to expand on the initial project goal and infer any missing details to create a comprehensive document.
     - **If user chose "Interactive":** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**. You are encouraged to expand on these choices to create a polished output.
-5.  **User Confirmation Loop:**
+5. **User Confirmation Loop:**
     - **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
       - **questions:**
         - **header:** "Review Draft"
@@ -207,13 +206,13 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
             - Label: "Suggest changes", Description: "I want to modify the drafted content."
           ```
 
-6.  **Write File:** Once approved, append the generated content to the existing `.agents/rules/01-foundation.md` file, preserving the `# Initial Concept` section.
-7.  **Continue:** Immediately proceed to the next section.
+6. **Write File:** Once approved, append the generated content to the existing `.agents/rules/01-foundation.md` file, preserving the `# Initial Concept` section.
+7. **Continue:** Immediately proceed to the next section.
 
 ### 2.2 Generate Product Guidelines (Interactive)
 
-1.  **Introduce the Section:** Announce that you will now help the user create the Guidelines rule file: `.agents/rules/02-product.md`.
-2.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
+1. **Introduce the Section:** Announce that you will now help the user create the Guidelines rule file: `.agents/rules/02-product.md`.
+2. **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
     - **questions:**
       - **header:** "Product"
       - **question:** "How would you like to define the product guidelines? You can hand-pick the style or let me generate a standard set."
@@ -223,7 +222,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - Label: "Interactive", Description: "I'll ask you about prose style, branding, and UX principles."
         - Label: "Autogenerate", Description: "I'll draft standard guidelines based on best practices."
 
-3.  **Gather Information (Conditional):**
+3. **Gather Information (Conditional):**
     - **If user chose "Autogenerate":** Skip this step and proceed directly to **Step 4 (Draft the Document)**.
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather detailed preferences.
       - **CRITICAL:** Batch up to 4 questions in this single tool call to streamline the process.
@@ -237,10 +236,10 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **Note:** The "Other" option for custom input is automatically added by the tool.
       - **Interaction Flow:** Wait for the user's response, then proceed to the next step.
 
-4.  **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for the `.agents/rules/02-product.md` file.
+4. **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for the `.agents/rules/02-product.md` file.
     - **If user chose "Autogenerate":** Use your best judgment to infer standard, high-quality guidelines suitable for the project type.
     - **If user chose "Interactive":** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**. You are encouraged to expand on these choices to create a polished output.
-5.  **User Confirmation Loop:**
+5. **User Confirmation Loop:**
     - **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
       - **questions:**
         - **header:** "Review Draft"
@@ -257,13 +256,13 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
             - Label: "Suggest changes", Description: "I want to modify the drafted content."
           ```
 
-6.  **Write File:** Once approved, write the generated content to the `.agents/rules/02-product.md` file.
-7.  **Continue:** Immediately proceed to the next section.
+6. **Write File:** Once approved, write the generated content to the `.agents/rules/02-product.md` file.
+7. **Continue:** Immediately proceed to the next section.
 
 ### 2.3 Generate Tech Stack (Interactive)
 
-1.  **Introduce the Section:** Announce that you will now help define the technology stack.
-2.  **Determine Mode:**
+1. **Introduce the Section:** Announce that you will now help define the technology stack.
+2. **Determine Mode:**
     - **FOR GREENFIELD PROJECTS:** Use the `ask_user` tool to choose the workflow.
       - **questions:**
         - **header:** "Tech Stack"
@@ -283,7 +282,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
           - **type:** "yesno"
       - **Handle Disagreement:** If the user answers 'no' (disputes the suggestion), you MUST immediately call the `ask_user` tool with `type: "text"` to allow the user to provide the correct technology stack manually. Once provided, proceed to draft the document using the user's input.
 
-3.  **Gather Information (Greenfield Interactive Only):**
+3. **Gather Information (Greenfield Interactive Only):**
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather detailed preferences.
       - **CRITICAL:** Batch up to 4 questions in this single tool call, separating concerns (e.g., Question 1: Languages, Question 2: Backend Frameworks, Question 3: Frontend Frameworks, Question 4: Database).
       - **SUGGESTIONS:** For each question, generate 3-4 high-quality suggested answers.
@@ -295,10 +294,10 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **Note:** Do NOT include an "Autogenerate" option here.
       - **Interaction Flow:** Wait for the user's response, then proceed to the next step.
 
-4.  **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for `.agents/rules/03-infrastructure.md`.
+4. **Draft the Document:** Once the dialogue is complete (or "Autogenerate" was selected), generate the content for `.agents/rules/03-infrastructure.md`.
     - **If user chose "Autogenerate":** Use your best judgment to infer a standard, high-quality stack suitable for the project goal.
     - **If user chose "Interactive" or corrected the Brownfield stack:** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**.
-5.  **User Confirmation Loop:**
+5. **User Confirmation Loop:**
     - **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
       - **questions:**
         - **header:** "Review Draft"
@@ -315,13 +314,13 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
             - Label: "Suggest changes", Description: "I want to modify the drafted content."
           ```
 
-6.  **Write File:** Once approved, write the generated content to the `.agents/rules/03-infrastructure.md` file.
-7.  **Continue:** Immediately proceed to the next section.
+6. **Write File:** Once approved, write the generated content to the `.agents/rules/03-infrastructure.md` file.
+7. **Continue:** Immediately proceed to the next section.
 
 ### 2.4 Select Skills & Styleguides (Interactive)
 
-1.  **Initiate Dialogue:** Announce that the initial scaffolding is complete and you now need the user's input to select the project's coding skills and styleguides from the locally available templates.
-2.  **Select Skills:**
+1. **Initiate Dialogue:** Announce that the initial scaffolding is complete and you now need the user's input to select the project's coding skills and styleguides from the locally available templates.
+2. **Select Skills:**
     - List the available skill templates by using the run_shell_command tool to execute ls ~/.agents/skills/planning/templates/skills/. **CRITICAL: You MUST use run_shell_command for this step. Do NOT use the list_dir tool, as the templates directory resides outside of your allowed workspace and the call will fail.**
     - **FOR GREENFIELD PROJECTS:**
       - **Recommendation:** Based on the Tech Stack defined in the previous step, recommend the most appropriate skills (e.g., "javascript" for a Svelte project) and explain why.
@@ -359,19 +358,19 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **Action:** Announce "I'll present the additional skills. Please select all that apply." Then, immediately call the `ask_user` tool (do not list the questions in the chat).
         - **Method:** Use a single `ask_user` tool call. Dynamically split the available skills into batches of 4 options max. Create one `multiSelect: true` question for each batch.
 
-3.  **Action (Skill Injection):** For each selected skill, execute the following logic:
+3. **Action (Skill Injection):** For each selected skill, execute the following logic:
     - If the directory `.agents/skills/<skill_name>/` does **not** exist:
       - Create it: `mkdir -p .agents/skills/<skill_name>/`.
       - Copy the template as the primary instruction file: cp ~/.agents/skills/planning/templates/skills/<skill_name>.md .agents/skills/<skill_name>/SKILL.md.
     - If the directory `.agents/skills/<skill_name>/` **already** exists:
       - Ensure the resources directory exists: `mkdir -p .agents/skills/<skill_name>/resources/`.
       - Copy the template as a supplemental styleguide: cp ~/.agents/skills/planning/templates/skills/<skill_name>.md .agents/skills/<skill_name>/resources/<skill_name>-conductor-guide.md.
-4.  **Continue:** Immediately proceed to the next section.
+4. **Continue:** Immediately proceed to the next section.
 
 ### 2.5 Aesthetics & Image Generation (Interactive)
 
-1.  **Introduce the Section:** Announce that you will now help the user define the project's visual identity and image generation preferences.
-2.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred approach.
+1. **Introduce the Section:** Announce that you will now help the user define the project's visual identity and image generation preferences.
+2. **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred approach.
     - **questions:**
       - **header:** "Aesthetics"
       - **question:** "How would you like to define the project's aesthetics and image generation style?"
@@ -380,7 +379,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - Label: "Interactive", Description: "I'll ask you about themes, colors, and visual styles."
         - Label: "Autogenerate", Description: "I'll recommend the standard project aesthetic (The project design system / project design system) based on the project's goal."
 
-3.  **Gather Information (Interactive Only):**
+3. **Gather Information (Interactive Only):**
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather preferences.
       - **questions:**
         - **header:** "Theme"
@@ -393,20 +392,20 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - **type:** "text"
         - **question:** "What are the primary and secondary colors?"
         - **placeholder:** "e.g., #FFFFFF (Chalk), #000000 (Abyssal)"
-4.  **Draft the Document:** Generate content for `.agents/rules/04-aesthetics.md`.
+4. **Draft the Document:** Generate content for `.agents/rules/04-aesthetics.md`.
     - **If user chose "Autogenerate":** Use the "project design system / project design system" defaults.
     - **If user chose "Interactive":** Incorporate the user's choices.
-5.  **User Confirmation Loop:** Standard review/approval dialogue as seen in previous sections.
-6.  **Write File:** Once approved, write to `.agents/rules/04-aesthetics.md`.
-7.  **Continue:** Immediately proceed to the next section.
+5. **User Confirmation Loop:** Standard review/approval dialogue as seen in previous sections.
+6. **Write File:** Once approved, write to `.agents/rules/04-aesthetics.md`.
+7. **Continue:** Immediately proceed to the next section.
 
 ### 2.6 Select Workflow (Interactive)
 
-1.  **Initialize Intelligence Protocol:**
+1. **Initialize Intelligence Protocol:**
     - Create `.agents/rules/05-intelligence.md` using the **Core Protocol** (Sovereignty Axioms) as the foundation.
     - Append the content of ~/.agents/skills/planning/templates/workflow.md as the operational instructions.
 
-2.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
+2. **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
     - **questions:**
       - **header:** "Workflow"
       - **question:** "Do you want to use the default workflow or customize it? The default includes >80% test coverage and per-task commits."
@@ -415,7 +414,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - Label: "Default", Description: "Use the standard Conductor workflow."
         - Label: "Customize", Description: "I want to adjust coverage requirements and commit frequency."
 
-3.  **Gather Information (Conditional):**
+3. **Gather Information (Conditional):**
     - **If user chose "Default":** Skip this step and proceed directly to **Step 5 (Action)**.
     - **If user chose "Customize":**
       a. **Initial Batch:** Use a single `ask_user` tool call to gather primary customizations: - **questions:** - **header:** "Coverage" - **question:** "The default required test code coverage is >80%. What is your preferred percentage?" (type: "text", placeholder: "e.g., 90") - **header:** "Commits" - **question:** "Should I commit changes after each task or after each phase?" - **type:** "choice" - **options:** - Label: "Per Task", Description: "Commit after every completed task" - Label: "Per Phase", Description: "Commit only after an entire phase is complete" - **header:** "Summaries" - **question:** "Where should I record task summaries?" - **type:** "choice" - **options:** - Label: "Git Notes", Description: "Store summaries in Git notes metadata" - Label: "Commit Messages", Description: "Include summaries in the commit message body"
@@ -426,11 +425,11 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
       Is there anything else you'd like to change or add to the workflow? (Leave blank to finish or type your additional requirements).
       ```
 
-4.  **Action:** Update `.agents/rules/05-intelligence.md` based on all user answers from both steps, ensuring the **Sovereignty Axioms** (Nomenclature, Local Time, Absolute Mapping) are preserved as the master rules.
+4. **Action:** Update `.agents/rules/05-intelligence.md` based on all user answers from both steps, ensuring the **Sovereignty Axioms** (Nomenclature, Local Time, Absolute Mapping) are preserved as the master rules.
 
 ### 2.7 Finalization
 
-1.  **Generate Index File:**
+1. **Generate Index File:**
     - Create `tasks/PRESENT.md` with the following content (replacing `02-product.md` with the actual filename resolved in Section 2.0.1):
 
 ```md
@@ -453,14 +452,13 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 - [Tracks Registry](./PRESENT.md)
 - [Tracks Directory](./)
 ```
-
 - **Announce:** "Created `tasks/PRESENT.md` to serve as the project context dashboard."
 
-2.  **Summarize Actions:** Present a summary of all actions taken during the initial setup, including:
+1. **Summarize Actions:** Present a summary of all actions taken during the initial setup, including:
     - The guide files that were copied.
     - The workflow file that was copied.
 
-3.  **Transition to initial plan and track generation:** Announce that the initial setup is complete and you will now proceed to define the first track for the project.
+2. **Transition to initial plan and track generation:** Announce that the initial setup is complete and you will now proceed to define the first track for the project.
 
 ---
 
@@ -472,9 +470,9 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 
 ### 3.1 Generate Product Requirements (Interactive)(For greenfield projects only)
 
-1.  **Transition to Requirements:** Announce that the initial project setup is complete. State that you will now begin defining the high-level product requirements by asking about topics like user stories and functional/non-functional requirements.
-2.  **Analyze Context:** Read and analyze the content of `.agents/rules/01-foundation.md` to understand the project's core concept.
-3.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
+1. **Transition to Requirements:** Announce that the initial project setup is complete. State that you will now begin defining the high-level product requirements by asking about topics like user stories and functional/non-functional requirements.
+2. **Analyze Context:** Read and analyze the content of `.agents/rules/01-foundation.md` to understand the project's core concept.
+3. **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
     - **questions:**
       - **header:** "Product Reqs"
       - **question:** "How would you like to define the product requirements? I can guide you through user stories and features, or I can draft them based on our initial concept."
@@ -483,7 +481,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
         - Label: "Interactive", Description: "I'll guide you through questions about user stories and functional goals."
         - Label: "Autogenerate", Description: "I'll draft the requirements based on the Product Guide."
 
-4.  **Gather Information (Conditional):**
+4. **Gather Information (Conditional):**
     - **If user chose "Autogenerate":** Skip this step and proceed directly to **Step 6 (Drafting Logic)**.
     - **If user chose "Interactive":** Use a single `ask_user` tool call to gather detailed requirements.
       - **CRITICAL:** Batch up to 4 questions in this single tool call (e.g., User Stories, Key Features, Constraints, Non-functional Requirements).
@@ -492,9 +490,9 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
       - **Note:** Do NOT include an "Autogenerate" option here.
       - **Interaction Flow:** Wait for the user's response, then proceed to the next step.
 
-5.  **Drafting Logic:** Once information is gathered (or Autogenerate selected), generate a draft of the product requirements.
+5. **Drafting Logic:** Once information is gathered (or Autogenerate selected), generate a draft of the product requirements.
     - **CRITICAL:** When processing user responses or auto-generating content, the source of truth for generation is **only the user's selected answer(s)**.
-6.  **User Confirmation Loop:**
+6. **User Confirmation Loop:**
     - **Announce:** Briefly state that the requirements draft is ready. Do NOT repeat the request to "review" or "approve" in the chat.
     - **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted requirements directly into the `question` field so the user can review them.
       - **questions:**
@@ -512,15 +510,15 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
             - Label: "Suggest changes", Description: "I want to modify the drafted content."
           ```
 
-7.  **Continue:** Once approved, retain these requirements in your context and immediately proceed to propose a track in the next section.
+7. **Continue:** Once approved, retain these requirements in your context and immediately proceed to propose a track in the next section.
 
 ### 3.2 Propose a Single Initial Track (Automated + Approval)
 
-1.  **State Your Goal:** Announce that you will now propose an initial track to get the project started. Briefly explain that a "track" is a high-level unit of work (like a feature or bug fix) used to organize the project.
-2.  **Generate Track Title:** Analyze the project context (`.agents/rules/01-foundation.md`, `.agents/rules/02-product.md`, `.agents/rules/03-infrastructure.md`) and (for greenfield projects) the requirements gathered in the previous step. Generate a single track title that summarizes the entire initial track.
+1. **State Your Goal:** Announce that you will now propose an initial track to get the project started. Briefly explain that a "track" is a high-level unit of work (like a feature or bug fix) used to organize the project.
+2. **Generate Track Title:** Analyze the project context (`.agents/rules/01-foundation.md`, `.agents/rules/02-product.md`, `.agents/rules/03-infrastructure.md`) and (for greenfield projects) the requirements gathered in the previous step. Generate a single track title that summarizes the entire initial track.
     - **Greenfield:** Focus on the MVP core (e.g., "Build core tip calculator functionality").
     - **Brownfield:** Focus on maintenance or targeted enhancements (e.g., "Implement user authentication flow").
-3.  **Confirm Proposal:** Use the `ask_user` tool to validate the proposal:
+3. **Confirm Proposal:** Use the `ask_user` tool to validate the proposal:
     - **questions:**
       - **header:** "Confirm Track"
       - **type:** "choice"
@@ -529,7 +527,7 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
       - **options:**
         - Label: "Yes", Description: "Proceed with '<Track Title>'."
         - Label: "Suggest changes", Description: "I want to define a different track."
-4.  **Action:**
+4. **Action:**
     - **If user chose "Yes":** Use the suggested '<Track Title>' as the track description.
     - **If user chose "Suggest changes":**
       - Immediately call the `ask_user` tool again:
@@ -542,8 +540,8 @@ NOTE: `.gemini` and `.agents` are used interchangeably.
 
 ### 3.3 Convert the Initial Track into Artifacts (Automated)
 
-1.  **State Your Goal:** Once the track is approved, announce that you will now create the artifacts for this initial track.
-2.  **Initialize Dashboard:** Create the `tasks/PRESENT.md` file with the initial header and the first track:
+1. **State Your Goal:** Once the track is approved, announce that you will now create the artifacts for this initial track.
+2. **Initialize Dashboard:** Create the `tasks/PRESENT.md` file with the initial header and the first track:
 
 ```md
 # 🛰️ Present (The Dashboard)
@@ -555,10 +553,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [ ] **Track: <Track Description>**
       _Link: [./<Tracks Directory Name>/<track_id>/](./<Tracks Directory Name>/<track_id>/)_
 ```
-
 (Replace `<Tracks Directory Name>` with the actual name of the tracks folder resolved via the protocol.)
 
-3.  **Generate Track Artifacts:**
+1. **Generate Track Artifacts:**
     a. **Define Track:** The approved title is the track description.
     b. **Generate Track-Specific Spec & Plan:**
     i. Automatically generate a detailed `ETERNAL.md` for this track.
@@ -579,7 +576,6 @@ iii. **Create `metadata.json`:** In the new directory, create a `metadata.json` 
   "description": "<Initial user description>"
 }
 ```
-
 Populate fields with actual values. Use the current timestamp.
 iv. **Write Eternal and Future Files:** Write the generated `ETERNAL.md` and `FUTURE.md` files to the `tasks/` directory.
 v. **Write Dashboard File:** Write `tasks/PRESENT.md` with content:
@@ -592,13 +588,12 @@ v. **Write Dashboard File:** Write `tasks/PRESENT.md` with content:
 - [Metadata](./metadata.json)
   _(If you arrived here directly from the Audit because you are patching a missing index, write this file using the existing folder's track_id and then proceed to step d.)_
 ```
-
 d. **Exit Plan Mode:** Call the `exit_plan_mode` tool with the path: `tasks/PRESENT.md`.
 
 e. **Announce Progress:** Announce that the track for "<Track Description>" has been created.
 
 ### 3.4 Final Announcement
 
-1.  **Announce Completion:** After the track has been created, announce that the project setup and initial track generation are complete.
-2.  **Save Conductor Files:** Add and commit all files with the commit message `conductor(setup): Add conductor setup files`.
-3.  **Next Steps:** Inform the user that they can now begin work by running `/02-implement`.
+1. **Announce Completion:** After the track has been created, announce that the project setup and initial track generation are complete.
+2. **Save Conductor Files:** Add and commit all files with the commit message `conductor(setup): Add conductor setup files`.
+3. **Next Steps:** Inform the user that they can now begin work by running `/02-implement`.

@@ -63,7 +63,8 @@ async function triggerConditionalCreate(loginAbortController) {
 
   // 2. Fetch creation options signaling the backend that this is a conditional request
   const creationOptionsJSON = await optionsFetch({ conditional: true });
-  const publicKey = PublicKeyCredential.parseCreationOptionsFromJSON(creationOptionsJSON);
+  const publicKey =
+    PublicKeyCredential.parseCreationOptionsFromJSON(creationOptionsJSON);
 
   let credential;
   try {
@@ -74,7 +75,9 @@ async function triggerConditionalCreate(loginAbortController) {
     });
   } catch (e) {
     // 4. Silently swallow common WebAuthn browser exceptions
-    if (["InvalidStateError", "NotAllowedError", "AbortError"].includes(e.name)) {
+    if (
+      ["InvalidStateError", "NotAllowedError", "AbortError"].includes(e.name)
+    ) {
       return;
     }
     console.error("Unexpected conditional create error:", e);

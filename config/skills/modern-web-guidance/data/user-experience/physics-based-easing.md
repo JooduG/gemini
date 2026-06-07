@@ -4,11 +4,11 @@ Traditional CSS easing functions like `ease-in` or `cubic-bezier()` are limited 
 
 ## Implementation Steps
 
-1.  **Generate the curve stops:**
+1. **Generate the curve stops:**
     Manually plotting dozens of points for a spring or bounce is impractical. Use a timing function from an external library, or use a tool to convert an existing JavaScript easing function or an SVG path into the `linear()` syntax. Optional: store these timing functions as CSS custom properties for reuse throughout your site.
-2.  **Define the timing function:**
+2. **Define the timing function:**
     Apply the generated stops to the `transition-timing-function` or `animation-timing-function` property, or through the `transition` or `animation` shorthands.
-3.  **Adjust the duration:**
+3. **Adjust the duration:**
     Unlike JavaScript physics engines where duration is derived from physical properties (mass, stiffness), CSS still requires a fixed `duration`. You may need to adjust the duration to get the intended effect.
 
 ### Example: Spring Easing
@@ -148,8 +148,8 @@ For browsers that do not support `linear()`, provide a standard easing function 
 
 Optional: If a high-fidelity physics animation is critical even in older browsers, use a JavaScript library like **Motion** (motion.dev) or **GSAP** (greensock.com) to handle the animation when `linear()` is unsupported.
 
-1.  **Detect support:** Use `CSS.supports()` to check if the browser handles the `linear()` function.
-2.  **Conditionally load/apply:** If unsupported, use the library's spring or bounce implementation.
+1. **Detect support:** Use `CSS.supports()` to check if the browser handles the `linear()` function.
+2. **Conditionally load/apply:** If unsupported, use the library's spring or bounce implementation.
 
 ```javascript
 /* Detect if the browser supports the linear() function */

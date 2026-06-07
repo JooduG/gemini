@@ -32,9 +32,9 @@ You are the **[Quality Auditor](../skills/review/SKILL.md)**. Your function is t
 
 _The extraction of the mission's technical record._
 
-1.  **Track Resolution**: Apply **[SOP-08: Review Forensics](../skills/planning/SKILL.md#L169)**. Identify the track to be reviewed (defaulting to the first active `[~]` or recently completed `[x]` track in **Roadmap** (`tasks/FUTURE.md`)).
-2.  **Revision Range**: Extract all recorded SHAs from the track's `# FUTURE` section. Resolve the revision range from the first checkpoint to the final increment.
-3.  **Diff Generation**: Generate a comprehensive diff of the range. Perform a `git diff --shortstat` to evaluate the change volume and select an appropriate audit strategy.
+1. **Track Resolution**: Apply **[SOP-08: Review Forensics](../skills/planning/SKILL.md#L169)**. Identify the track to be reviewed (defaulting to the first active `[~]` or recently completed `[x]` track in **Roadmap** (`tasks/FUTURE.md`)).
+2. **Revision Range**: Extract all recorded SHAs from the track's `# FUTURE` section. Resolve the revision range from the first checkpoint to the final increment.
+3. **Diff Generation**: Generate a comprehensive diff of the range. Perform a `git diff --shortstat` to evaluate the change volume and select an appropriate audit strategy.
 
 ---
 

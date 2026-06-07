@@ -98,7 +98,7 @@ When TTFB is slow (> 800ms), check each component in DevTools Network waterfall:
 
 ```bash
 # Lighthouse CLI
-npx lighthouse https://localhost:3000 --output json --output-path ./report.json
+npx lighthouse <https://localhost:3000> --output json --output-path ./report.json
 
 # Bundle analysis
 npx webpack-bundle-analyzer stats.json

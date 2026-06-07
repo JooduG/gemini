@@ -270,7 +270,8 @@ function setupItem(item) {
       // Direction the user is swiping toward. A positive offset from the
       // track's left edge means the content has been pulled right (left
       // spacer revealed), so the leading icon is on the left.
-      const direction = entry.boundingClientRect.x - entry.rootBounds.x > 0 ? "left" : "right";
+      const direction =
+        entry.boundingClientRect.x - entry.rootBounds.x > 0 ? "left" : "right";
 
       if (ratio < commitThreshold) {
         // The IO entry's boundingClientRect is the last reliable measurement
@@ -323,7 +324,9 @@ async function removeItem(item, content, direction, entry) {
   item.classList.add("is-removing");
   item.animate([{ height: `${rect.height}px` }, { height: "0px" }], opts);
   content.animate([{ translate: `${translate}px` }], opts);
-  await Promise.allSettled(item.getAnimations({ subtree: true }).map((a) => a.finished));
+  await Promise.allSettled(
+    item.getAnimations({ subtree: true }).map((a) => a.finished),
+  );
 
   // Safari has a scroll-latching bug: removing the node while the swipe
   // gesture's momentum is still resolving causes the next item (which
@@ -356,7 +359,10 @@ function setupList(list) {
   new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
-        if (node.nodeType === Node.ELEMENT_NODE && node.matches(".SwipeableList-item")) {
+        if (
+          node.nodeType === Node.ELEMENT_NODE &&
+          node.matches(".SwipeableList-item")
+        ) {
           viewportObserver.observe(node);
         }
       }

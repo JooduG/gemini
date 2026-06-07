@@ -63,7 +63,8 @@ async function triggerButtonReauth() {
     method: "POST",
   });
   const optionsJSON = await optionsResponse.json();
-  const publicKey = PublicKeyCredential.parseRequestOptionsFromJSON(optionsJSON);
+  const publicKey =
+    PublicKeyCredential.parseRequestOptionsFromJSON(optionsJSON);
 
   try {
     const credential = await navigator.credentials.get({
@@ -81,7 +82,10 @@ async function triggerButtonReauth() {
 
       if (verifyResponse.ok) {
         showTransactionSuccessUI();
-      } else if (verifyResponse.status === 404 && PublicKeyCredential.signalUnknownCredential) {
+      } else if (
+        verifyResponse.status === 404 &&
+        PublicKeyCredential.signalUnknownCredential
+      ) {
         await PublicKeyCredential.signalUnknownCredential({
           rpId, // RP ID must match the one defined on the server
           credentialId: encodedCredential.id,
@@ -95,7 +99,9 @@ async function triggerButtonReauth() {
   }
 }
 
-document.getElementById("reauth-btn").addEventListener("click", triggerButtonReauth);
+document
+  .getElementById("reauth-btn")
+  .addEventListener("click", triggerButtonReauth);
 ```
 
 ## Fallback Strategies

@@ -10,9 +10,9 @@ By combining `:has()` with `:user-invalid`, we can declaratively style any ances
 
 ### Implementation Strategy
 
-1.  **Selector**: Use `.parent:has(:user-invalid)` to target the container.
-2.  **Scope**: Be specific to avoid performance issues. Target `.field-group` rather than `body`.
-3.  **Fallback**: Requires JS to toggle classes on the parent if `:has()` is not supported.
+1. **Selector**: Use `.parent:has(:user-invalid)` to target the container.
+2. **Scope**: Be specific to avoid performance issues. Target `.field-group` rather than `body`.
+3. **Fallback**: Requires JS to toggle classes on the parent if `:has()` is not supported.
 
 ## Implementation Guide
 
@@ -117,14 +117,20 @@ const UserInvalidFallback = (() => {
     if (!input.checkValidity) return;
 
     if (event.type === "input" || event.type === "change") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasInteracted = true;
       dirtyState.set(input, state);
       if (state.hasBlurred) {
         updateState(input);
       }
     } else if (event.type === "blur") {
-      const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+      const state = dirtyState.get(input) || {
+        hasInteracted: false,
+        hasBlurred: false,
+      };
       state.hasBlurred = true;
       dirtyState.set(input, state);
       if (state.hasInteracted) {
@@ -192,12 +198,15 @@ form.addEventListener("reset", () => {
 
 ## Other Considerations
 
-1.  **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
+1. **Accessibility**: Native `:user-invalid` does not automatically sync with ARIA attributes. Add the following JavaScript to keep `aria-invalid` in sync with the visual state:
 
 ```javascript
 // Sync aria-invalid with the CSS :user-invalid state
 const syncAria = (el) => {
-  el.setAttribute?.("aria-invalid", el.matches(":user-invalid") ? "true" : "false");
+  el.setAttribute?.(
+    "aria-invalid",
+    el.matches(":user-invalid") ? "true" : "false",
+  );
 };
 
 // Update on blur (to show error) and input (to clear it)

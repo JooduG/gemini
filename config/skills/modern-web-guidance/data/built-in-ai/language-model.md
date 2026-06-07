@@ -138,9 +138,12 @@ const schema = {
   required: ["rating", "is_positive"],
 };
 
-const result = await session.prompt("Rate the following feedback: 'The food was great!'", {
-  responseConstraint: schema,
-});
+const result = await session.prompt(
+  "Rate the following feedback: 'The food was great!'",
+  {
+    responseConstraint: schema,
+  },
+);
 
 const data = JSON.parse(result);
 console.log(data.rating); // 5

@@ -195,9 +195,9 @@ const animatedSections = document.querySelectorAll("#animated section");
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      const sectionIndex = Array.from(document.querySelectorAll("#tracked section")).indexOf(
-        entry.target,
-      );
+      const sectionIndex = Array.from(
+        document.querySelectorAll("#tracked section"),
+      ).indexOf(entry.target);
       if (sectionIndex !== -1) {
         const animatedSection = animatedSections[sectionIndex];
         const ratio = entry.intersectionRatio;

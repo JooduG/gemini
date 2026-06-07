@@ -68,8 +68,8 @@ _Example: A card component that switches to a side-by-side layout if an image is
   <div class="content">
     <h2>Text-Only Card</h2>
     <p>
-      This card lays out its content vertically, and gets its background color from the :not(:has())
-      rule.
+      This card lays out its content vertically, and gets its background color
+      from the :not(:has()) rule.
     </p>
   </div>
 </article>

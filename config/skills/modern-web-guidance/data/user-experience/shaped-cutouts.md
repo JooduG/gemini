@@ -87,7 +87,10 @@ By assigning both parts the same background color, they visually merge into a si
   <!-- The text-bearing element remains unmasked and perfectly rectangular -->
   <div class="card-body">
     <h3>Premium Membership</h3>
-    <p>Get exclusive weekly updates on modern web standards and premium UI designs.</p>
+    <p>
+      Get exclusive weekly updates on modern web standards and premium UI
+      designs.
+    </p>
   </div>
   <!-- The empty accent element next to it is masked to form the custom shape -->
   <div class="card-accent"></div>
@@ -129,7 +132,8 @@ When you only need simple geometric cutouts (such as a semi-circular top notch, 
 <div class="gradient-masked-card">
   <h3>Notched Coupon Card</h3>
   <p>
-    This card uses a pure CSS radial gradient to cut out a semi-circular notch along its top edge.
+    This card uses a pure CSS radial gradient to cut out a semi-circular notch
+    along its top edge.
   </p>
 </div>
 
@@ -142,7 +146,11 @@ When you only need simple geometric cutouts (such as a semi-circular top notch, 
     text-align: center;
 
     /* radial-gradient places a circle at 50% (horizontal center) and 0% (top edge), cutting out a 20px transparent notch */
-    -webkit-mask-image: radial-gradient(circle at 50% 0%, transparent 20px, black 21px);
+    -webkit-mask-image: radial-gradient(
+      circle at 50% 0%,
+      transparent 20px,
+      black 21px
+    );
     mask-image: radial-gradient(circle at 50% 0%, transparent 20px, black 21px);
   }
 </style>

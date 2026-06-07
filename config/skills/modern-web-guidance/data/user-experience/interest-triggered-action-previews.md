@@ -9,7 +9,9 @@ An interest relationship is created by setting the `interestfor` attribute on a 
 ```html
 <!-- MANDATORY: interest relationships must be established with the `interestfor` attribute on a button or a link -->
 <button interestfor="interestingElement" data-effect="A">Some effect</button>
-<button interestfor="interestingElement" data-effect="B">Some other effect</button>
+<button interestfor="interestingElement" data-effect="B">
+  Some other effect
+</button>
 <div id="interestingElement">Something interesting</div>
 ```
 

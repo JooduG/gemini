@@ -14,12 +14,22 @@ The Declarative API transforms standard HTML `<form>` elements into WebMCP tools
 ### Example
 
 ```html
-<form toolname="search-cars" tooldescription="Perform a car make/model search" toolautosubmit>
+<form
+  toolname="search-cars"
+  tooldescription="Perform a car make/model search"
+  toolautosubmit
+>
   <label for="make">Vehicle Make</label>
   <input type="text" id="make" name="make" required />
 
   <label for="model">Vehicle Model</label>
-  <input type="text" id="model" name="model" toolparamdescription="e.g., 330i, F-150" required />
+  <input
+    type="text"
+    id="model"
+    name="model"
+    toolparamdescription="e.g., 330i, F-150"
+    required
+  />
 
   <button type="submit">Search</button>
 </form>
@@ -40,7 +50,9 @@ document.querySelector("form").addEventListener("submit", (event) => {
     if (event.agentInvoked) {
       const errorString =
         "Validation failed: " +
-        formValidationErrors.map((err) => `${err.field} (${err.message})`).join(", ");
+        formValidationErrors
+          .map((err) => `${err.field} (${err.message})`)
+          .join(", ");
 
       event.respondWith(Promise.resolve(errorString));
     }

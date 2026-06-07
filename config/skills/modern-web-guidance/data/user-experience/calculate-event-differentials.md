@@ -8,10 +8,10 @@ The `Temporal` API provides a modern, robust solution for date and time arithmet
 
 To calculate differentials between two events:
 
-1.  **Obtain ZonedDateTime objects**: Convert your inputs (dates and times) into `Temporal.ZonedDateTime` objects. This ensures calculations are time-zone aware.
-2.  **Calculate active time with `.since()`**: Use `currentZonedDateTime.since(startZonedDateTime)` to find the time elapsed since a start event.
-3.  **Calculate remaining time with `.until()`**: Use `currentZonedDateTime.until(endZonedDateTime)` to find the time remaining until a future event.
-4.  **Control precision with options**: Use `largestUnit`, `smallestUnit`, and `roundingMode` to control how the resulting duration is balanced and rounded.
+1. **Obtain ZonedDateTime objects**: Convert your inputs (dates and times) into `Temporal.ZonedDateTime` objects. This ensures calculations are time-zone aware.
+2. **Calculate active time with `.since()`**: Use `currentZonedDateTime.since(startZonedDateTime)` to find the time elapsed since a start event.
+3. **Calculate remaining time with `.until()`**: Use `currentZonedDateTime.until(endZonedDateTime)` to find the time remaining until a future event.
+4. **Control precision with options**: Use `largestUnit`, `smallestUnit`, and `roundingMode` to control how the resulting duration is balanced and rounded.
 
 ### Example: Trial Expiration Calculation
 
@@ -41,7 +41,9 @@ const timeActive = now.since(start, { largestUnit: "year" });
 const timeRemaining = now.until(end, { largestUnit: "year" });
 
 console.log(`Active: ${timeActive.days} days, ${timeActive.hours} hours`);
-console.log(`Remaining: ${timeRemaining.days} days, ${timeRemaining.hours} hours`);
+console.log(
+  `Remaining: ${timeRemaining.days} days, ${timeRemaining.hours} hours`,
+);
 
 // 4. Compare dates
 const isExpired = Temporal.ZonedDateTime.compare(now, end) > 0;

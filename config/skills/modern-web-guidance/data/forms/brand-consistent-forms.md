@@ -86,7 +86,12 @@ Ensure your labels wrap the text in a `<span>` to allow for sibling selectors in
 
 ```html
 <label for="subscribe-fallback">
-  <input type="checkbox" id="subscribe-fallback" class="visually-hidden" checked />
+  <input
+    type="checkbox"
+    id="subscribe-fallback"
+    class="visually-hidden"
+    checked
+  />
   <span>Subscribe to newsletter</span>
 </label>
 ```
@@ -172,7 +177,11 @@ Apply custom styles within a `@supports not` block:
     width: 100%;
     height: 8px;
     /* Use gradient to show progress for a static value (e.g., 70%) or update with JS */
-    background: linear-gradient(to right, var(--brand-color, #6200ee) 70%, #ccc 70%);
+    background: linear-gradient(
+      to right,
+      var(--brand-color, #6200ee) 70%,
+      #ccc 70%
+    );
     border-radius: 4px;
   }
 

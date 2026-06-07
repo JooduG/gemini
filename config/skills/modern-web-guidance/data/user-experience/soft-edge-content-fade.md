@@ -37,7 +37,13 @@ You can use a single gradient with multiple color stops to fade both edges.
     black 90%,
     transparent 100%
   );
-  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
 }
 ```
 
@@ -68,7 +74,11 @@ If a browser does not support `mask-image` or the prefixed version:
     right: 0;
     height: 20%;
     /* Fallback assumes a solid background color (e.g., white) */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1)
+    );
     pointer-events: none; /* Allow interaction with text underneath */
   }
 }

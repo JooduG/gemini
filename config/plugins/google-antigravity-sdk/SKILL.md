@@ -21,7 +21,7 @@ ready:
     -   If credentials are missing, you MUST actively help the user get set up
         with an API key by providing the following link:
         -   Default to Google AI Studio:
-            `https://aistudio.google.com/app/api-keys`
+            `<https://aistudio.google.com/app/api-keys>`
     -   Explain that the API key can be passed explicitly in code as shorthand
         (e.g., `LocalAgentConfig(api_key="...")`) or automatically read from the
         environment.

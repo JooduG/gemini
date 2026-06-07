@@ -93,13 +93,14 @@
 <figure>
   <blockquote cite="https://html.spec.whatwg.org/">
     <p>
-      The figure element represents some flow content, optionally with a caption, that is
-      self-contained and is typically referenced as a single unit from the main flow of the
-      document.
+      The figure element represents some flow content, optionally with a
+      caption, that is self-contained and is typically referenced as a single
+      unit from the main flow of the document.
     </p>
   </blockquote>
   <figcaption>
-    Definition of the &lt;figure&gt; element from the <cite>HTML Living Standard</cite>
+    Definition of the &lt;figure&gt; element from the
+    <cite>HTML Living Standard</cite>
   </figcaption>
 </figure>
 

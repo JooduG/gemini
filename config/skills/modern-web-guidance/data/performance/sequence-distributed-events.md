@@ -28,7 +28,9 @@ function recordEvent(eventType, nodeId) {
 // 2. Sort events chronologically
 function sequenceEvents(events) {
   // Always use Temporal.Instant.compare for sorting instants
-  return [...events].sort((a, b) => Temporal.Instant.compare(a.timestamp, b.timestamp));
+  return [...events].sort((a, b) =>
+    Temporal.Instant.compare(a.timestamp, b.timestamp),
+  );
 }
 
 // 3. Calculate delays between events
@@ -41,7 +43,9 @@ function analyzeTelemetry(sortedEvents) {
     const duration = curr.timestamp.since(prev.timestamp);
     const nsDiff = duration.total("nanoseconds");
 
-    console.log(`Delay between Event ${prev.eventType} and Event ${curr.eventType}: ${nsDiff}ns`);
+    console.log(
+      `Delay between Event ${prev.eventType} and Event ${curr.eventType}: ${nsDiff}ns`,
+    );
   }
 }
 ```

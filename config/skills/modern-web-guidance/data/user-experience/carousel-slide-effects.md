@@ -6,49 +6,49 @@ Carousel slide effects are a great way to add visual interest to a carousel. As 
 
 Here’s how to create carousel slide effects:
 
-1.  **Create a scroller:** This element will act as the container for your carousel slides. In this example it uses `overflow-x: scroll` to allow horizontal scrolling.
+1. **Create a scroller:** This element will act as the container for your carousel slides. In this example it uses `overflow-x: scroll` to allow horizontal scrolling.
 
-    ```html
-    <ul class="scroller">
-      <li class="entry">1</li>
-      <li class="entry">2</li>
-      <li class="entry">3</li>
-      …
-    </ul>
-    ```
+   ```html
+   <ul class="scroller">
+     <li class="entry">1</li>
+     <li class="entry">2</li>
+     <li class="entry">3</li>
+     …
+   </ul>
+   ```
 
-    ```css
-    .scroller {
-      overflow-x: scroll;
-    }
-    ```
+   ```css
+   .scroller {
+     overflow-x: scroll;
+   }
+   ```
 
-2.  **Define the animation:** Create a CSS animation that defines the different states of your slides as they traverse the scrollport. You can define keyframes for any part of the animation. For example, you can define a state for when the slides are in the center of the scrollport by including a `50%` keyframe. In this example, the `scale` property makes the slides grow as they approach the center and shrink as they move away.
+2. **Define the animation:** Create a CSS animation that defines the different states of your slides as they traverse the scrollport. You can define keyframes for any part of the animation. For example, you can define a state for when the slides are in the center of the scrollport by including a `50%` keyframe. In this example, the `scale` property makes the slides grow as they approach the center and shrink as they move away.
 
-    ```css
-    @keyframes animate {
-      0% {
-        scale: 0.5;
-      }
-      50% {
-        scale: 1;
-      }
-      100% {
-        scale: 0.5;
-      }
-    }
-    ```
+   ```css
+   @keyframes animate {
+     0% {
+       scale: 0.5;
+     }
+     50% {
+       scale: 1;
+     }
+     100% {
+       scale: 0.5;
+     }
+   }
+   ```
 
-3.  **Apply the animation and `view-timeline`:** Attach the animation to the carousel slides and link it to a `view-timeline` that tracks the element as it scrolls through the container.
+3. **Apply the animation and `view-timeline`:** Attach the animation to the carousel slides and link it to a `view-timeline` that tracks the element as it scrolls through the container.
 
-    ```css
-    .scroller > * {
-      animation: animate auto linear both;
-      animation-timeline: view(inline);
-    }
-    ```
+   ```css
+   .scroller > * {
+     animation: animate auto linear both;
+     animation-timeline: view(inline);
+   }
+   ```
 
-    By default, `view()` tracks the element on the `block` axis. If you need to track it on the `inline` axis, you can use `view(inline)`.
+   By default, `view()` tracks the element on the `block` axis. If you need to track it on the `inline` axis, you can use `view(inline)`.
 
 ## Example code
 
@@ -145,7 +145,9 @@ For this use-case specifically, the following script applies the fallback for br
 
 ```js
 // Fallback for browsers that don't support scroll-driven animations
-if (!CSS.supports("(animation-timeline: view()) and (animation-range: entry)")) {
+if (
+  !CSS.supports("(animation-timeline: view()) and (animation-range: entry)")
+) {
   const scroller = document.querySelector(".scroller");
   const entries = document.querySelectorAll(".entry");
 
@@ -176,7 +178,8 @@ if (!CSS.supports("(animation-timeline: view()) and (animation-range: entry)")) 
 
       const entryRect = entry.getBoundingClientRect();
       const progress =
-        (entryRect.left + entryRect.width / 2 - scrollerRect.left) / scrollerRect.width;
+        (entryRect.left + entryRect.width / 2 - scrollerRect.left) /
+        scrollerRect.width;
 
       animation.currentTime = progress;
     });

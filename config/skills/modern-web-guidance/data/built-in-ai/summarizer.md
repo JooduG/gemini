@@ -39,16 +39,20 @@ if (availability === "available") {
   // Ready to use immediately
 } else if (availability === "downloadable") {
   // A user gesture is strictly required to start the download
-  document.getElementById("start-download-btn").addEventListener("click", async () => {
-    const summarizer = await Summarizer.create({
-      ...options,
-      monitor(m) {
-        m.addEventListener("downloadprogress", (e) => {
-          console.log(`Downloaded ${Math.round((e.loaded / e.total) * 100)}%`);
-        });
-      },
+  document
+    .getElementById("start-download-btn")
+    .addEventListener("click", async () => {
+      const summarizer = await Summarizer.create({
+        ...options,
+        monitor(m) {
+          m.addEventListener("downloadprogress", (e) => {
+            console.log(
+              `Downloaded ${Math.round((e.loaded / e.total) * 100)}%`,
+            );
+          });
+        },
+      });
     });
-  });
 }
 ```
 

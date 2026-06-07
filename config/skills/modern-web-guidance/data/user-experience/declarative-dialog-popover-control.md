@@ -23,13 +23,17 @@ If you need to control opening and closing with separate buttons, you can use th
 
 ```html
 <!-- MANDATORY: Use 'show-popover' to explicitly open the popover. It will not close the popover if clicked again. -->
-<button commandfor="my-explicit-popover" command="show-popover">Show Popover</button>
+<button commandfor="my-explicit-popover" command="show-popover">
+  Show Popover
+</button>
 
 <div id="my-explicit-popover" popover="manual">
   <p>This popover is explicitly opened and closed by separate buttons.</p>
 
   <!-- MANDATORY: Use 'hide-popover' to explicitly close the targeted popover. -->
-  <button commandfor="my-explicit-popover" command="hide-popover">Hide Popover</button>
+  <button commandfor="my-explicit-popover" command="hide-popover">
+    Hide Popover
+  </button>
 </div>
 ```
 
@@ -40,7 +44,9 @@ Unlike popovers, modal dialogs typically use separate buttons for opening and cl
 ```html
 <!-- MANDATORY: Use command="show-modal" to trigger the dialog as a modal, trapping focus and preventing interaction with the rest of the page. -->
 <!-- MANDATORY: The commandfor attribute connects this button to the dialog ID. -->
-<button commandfor="confirm-dialog" command="show-modal">Open Confirmation</button>
+<button commandfor="confirm-dialog" command="show-modal">
+  Open Confirmation
+</button>
 
 <dialog id="confirm-dialog">
   <p>Are you sure you want to proceed?</p>
@@ -94,7 +100,7 @@ MANDATORY: This polyfill does not handle the ARIA states (e.g., `aria-expanded`)
 Baseline status for Invoker commands: Newly available. It's been Baseline since 2025-12-12.
 Supported by: Chrome 135 (Apr 2025), Edge 135 (Apr 2025), Firefox 144 (Oct 2025), and Safari 26.2 (Dec 2025).
 
-If the Invoker Commands API is not supported, the `command` event will not fire. For full support across all modern browsers, it is recommended to use the invokers-polyfill from https://github.com/keithamus/invokers-polyfill via `npm install` or CDN.
+If the Invoker Commands API is not supported, the `command` event will not fire. For full support across all modern browsers, it is recommended to use the invokers-polyfill from <https://github.com/keithamus/invokers-polyfill> via `npm install` or CDN.
 
 This polyfill fully supports custom actions (starting with `--`) and dispatches the `command` event exactly like the native API.
 
@@ -152,15 +158,17 @@ if (!supportsInvokers) {
 }
 
 // 3. The unified listener: Registered directly on the target element
-document.getElementById("action-target").addEventListener("command", (event) => {
-  const command = event.command || event.detail?.command;
-  const target = event.currentTarget;
-  const action = commandRegistry[command];
+document
+  .getElementById("action-target")
+  .addEventListener("command", (event) => {
+    const command = event.command || event.detail?.command;
+    const target = event.currentTarget;
+    const action = commandRegistry[command];
 
-  if (action) {
-    action(target);
-  }
-});
+    if (action) {
+      action(target);
+    }
+  });
 ```
 
 ### Polyfilling the Popover Attribute

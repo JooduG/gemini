@@ -37,7 +37,9 @@ if ("moveBefore" in Element.prototype) {
 } else {
   // Fallback: traditional move.
   // Note: This WILL close <dialog>, popover, and fullscreen elements.
-  const wasOpen = popoverOrDialog.hasAttribute("open") || popoverOrDialog.matches(":popover-open");
+  const wasOpen =
+    popoverOrDialog.hasAttribute("open") ||
+    popoverOrDialog.matches(":popover-open");
   targetParent.insertBefore(popoverOrDialog, null);
 
   // Manually restore state if possible

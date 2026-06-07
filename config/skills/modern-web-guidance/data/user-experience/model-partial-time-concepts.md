@@ -13,7 +13,11 @@ Use `Temporal.PlainYearMonth` to represent a year and a month.
 ```javascript
 // Create a PlainYearMonth from values
 // Use explicit calendar to avoid mismatch issues in polyfill environments
-const expiry = Temporal.PlainYearMonth.from({ year: 2027, month: 12, calendar: "iso8601" });
+const expiry = Temporal.PlainYearMonth.from({
+  year: 2027,
+  month: 12,
+  calendar: "iso8601",
+});
 
 // Get the current year/month
 const currentMonth = Temporal.Now.plainDateISO().toPlainYearMonth();
@@ -27,7 +31,9 @@ if (duration.sign < 0) {
 } else if (duration.sign === 0) {
   console.log("Expires this month");
 } else {
-  console.log(`Expires in ${duration.years} years and ${duration.months} months`);
+  console.log(
+    `Expires in ${duration.years} years and ${duration.months} months`,
+  );
 }
 ```
 
@@ -38,7 +44,11 @@ Use `Temporal.PlainMonthDay` to represent a month and a day without a year.
 ```javascript
 // Create a PlainMonthDay for an annual event
 // Include explicit calendar for polyfill safety
-const birthday = Temporal.PlainMonthDay.from({ month: 10, day: 31, calendar: "iso8601" });
+const birthday = Temporal.PlainMonthDay.from({
+  month: 10,
+  day: 31,
+  calendar: "iso8601",
+});
 
 // Check if it matches today's date components
 const today = Temporal.Now.plainDateISO();

@@ -6,7 +6,7 @@ A parallax effect on scroll is a visual technique where different layers of cont
 
 Here’s how to create a basic parallax effect:
 
-1.  **Create a wrapper element:** This element simply groups all the layers of the parallax effect together. It is not the scrollable element, so its overflow should be clipped. Also give it a `height` that matches the height of one of the layers of the parallax effect.
+1. **Create a wrapper element:** This element simply groups all the layers of the parallax effect together. It is not the scrollable element, so its overflow should be clipped. Also give it a `height` that matches the height of one of the layers of the parallax effect.
 
     ```html
     <div class="wrapper">…</div>
@@ -19,7 +19,7 @@ Here’s how to create a basic parallax effect:
     }
     ```
 
-2.  **Declare the layers:** Inside the wrapper, add the individual layers that will move at different speeds.
+2. **Declare the layers:** Inside the wrapper, add the individual layers that will move at different speeds.
 
     ```html
     <div class="wrapper">
@@ -30,7 +30,7 @@ Here’s how to create a basic parallax effect:
     </div>
     ```
 
-3.  **Add a translate animation:** Define a CSS animation that changes the `transform` property of the layers. For a parallax effect, you'll typically use `translateY` to move the layers vertically.
+3. **Add a translate animation:** Define a CSS animation that changes the `transform` property of the layers. For a parallax effect, you'll typically use `translateY` to move the layers vertically.
 
     ```css
     @keyframes parallax {
@@ -40,7 +40,7 @@ Here’s how to create a basic parallax effect:
     }
     ```
 
-4.  **Set up the `view-timeline`:** To link the animation to the scroll position, create a `view-timeline` on the wrapper element and then apply it to the layers.
+4. **Set up the `view-timeline`:** To link the animation to the scroll position, create a `view-timeline` on the wrapper element and then apply it to the layers.
 
     ```css
     .wrapper {
@@ -53,7 +53,7 @@ Here’s how to create a basic parallax effect:
     }
     ```
 
-5.  **Stagger the animations:** To make the layers move at different speeds, you can use one of two main approaches: **staggering in the keyframes**, or **staggering the `animation-range`**.
+5. **Stagger the animations:** To make the layers move at different speeds, you can use one of two main approaches: **staggering in the keyframes**, or **staggering the `animation-range`**.
 
     Both of these approaches can use hardcoded values, or can use the `sibling-index()`/`sibling-count()` implementation. The hardcoded values are easiest and also useful when having only a limited amount of layers. The `sibling-index()`/`sibling-count()` implementation is handy when you have many layers.
     - **Staggering in the keyframes:**
@@ -108,7 +108,8 @@ Here’s how to create a basic parallax effect:
 
       ```css
       .layer {
-        animation-range: entry 25% exit calc(100% / sibling-count() * sibling-index());
+        animation-range: entry 25% exit
+          calc(100% / sibling-count() * sibling-index());
       }
       ```
 
@@ -196,7 +197,9 @@ For this use-case specifically, the following script applies the fallback for br
 
 ```js
 // Fallback for browsers that don't support scroll-driven animations
-if (!CSS.supports("(animation-timeline: view()) and (animation-range: entry)")) {
+if (
+  !CSS.supports("(animation-timeline: view()) and (animation-range: entry)")
+) {
   const wrapper = document.querySelector(".wrapper");
   const layers = document.querySelectorAll(".layer");
 
@@ -222,9 +225,13 @@ if (!CSS.supports("(animation-timeline: view()) and (animation-range: entry)")) 
     const wrapperHeight = wrapperRect.height;
     const windowHeight = window.innerHeight;
 
-    if (scrollY >= wrapperTop - windowHeight && scrollY <= wrapperTop + wrapperHeight) {
+    if (
+      scrollY >= wrapperTop - windowHeight &&
+      scrollY <= wrapperTop + wrapperHeight
+    ) {
       const scrollPercent =
-        (scrollY - (wrapperTop - windowHeight)) / (wrapperHeight + windowHeight);
+        (scrollY - (wrapperTop - windowHeight)) /
+        (wrapperHeight + windowHeight);
 
       layers.forEach((layer, index) => {
         // This matches the effect as defined in the CSS example above.

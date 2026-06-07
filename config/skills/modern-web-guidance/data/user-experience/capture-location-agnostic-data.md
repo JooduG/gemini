@@ -8,9 +8,9 @@ The `Temporal` API introduces "Plain" types—such as `Temporal.PlainDate` and `
 
 To capture and display location-agnostic data:
 
-1.  **Use `Temporal.PlainDate` for dates**: For data like birthdates or holidays, use `Temporal.PlainDate.from()` to create an instance from an ISO 8601 string or an object.
-2.  **Use `Temporal.PlainTime` for times**: For data like a daily alarm or a preferred lunch time, use `Temporal.PlainTime.from()`.
-3.  **Display without conversion**: Since these objects are time-zone unaware, they will display the same values regardless of the user's local time zone.
+1. **Use `Temporal.PlainDate` for dates**: For data like birthdates or holidays, use `Temporal.PlainDate.from()` to create an instance from an ISO 8601 string or an object.
+2. **Use `Temporal.PlainTime` for times**: For data like a daily alarm or a preferred lunch time, use `Temporal.PlainTime.from()`.
+3. **Display without conversion**: Since these objects are time-zone unaware, they will display the same values regardless of the user's local time zone.
 
 ### Example: Capturing a Birthdate
 
@@ -26,7 +26,11 @@ console.log(plainDate.toLocaleString("en-GB"));
 // 3. Compare with standard Date (which might drift)
 const dateObj = new Date("1990-01-01T00:00:00Z");
 // In a UTC-5 time zone, this might print "31/12/1989"
-console.log(new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York" }).format(dateObj));
+console.log(
+  new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York" }).format(
+    dateObj,
+  ),
+);
 ```
 
 ## Strategic Implementation & Best Practices

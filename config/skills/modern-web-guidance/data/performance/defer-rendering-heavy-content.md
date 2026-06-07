@@ -34,7 +34,7 @@ To optimize rendering, you can utilize the CSS `content-visibility` property and
 
 The `contain-intrinsic-size` CSS shorthand property acts as a placeholder dimension. Using the `auto` keyword enables the browser to "remember" the exact size once the element is finally rendered, using that calculated size over the placeholder if the element goes off-screen again.
 
-### Example code
+**Example code:**
 
 ```css
 /* DO ONLY apply this class to items OUTSIDE the initial layout viewport */
@@ -61,7 +61,7 @@ The `contain-intrinsic-size` CSS shorthand property acts as a placeholder dimens
 2. **Apply CSS:** Add `content-visibility: hidden` to the element.
 3. **Reveal the element:** When the element should be revealed, change the `content-visibility` property to `visible` or `auto`.
 
-### Example code
+**Example code:**
 
 ```css
 .cached-view {

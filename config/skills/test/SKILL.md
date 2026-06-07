@@ -128,8 +128,8 @@ When asked to write a test for a bug:
 ### 4. Write Descriptive Tests
 
 ```javascript
-describe('[Module/Function name]', () => {
-  it('[expected behavior in plain English]', () => {
+describe("[Module/Function name]", () => {
+  it("[expected behavior in plain English]", () => {
     // Arrange → Act → Assert
   });
 });
@@ -339,7 +339,9 @@ Use Playwright for high-fidelity sensory verification.
 ```typescript
 import { test, expect } from "@playwright/test";
 
-test("user can cycle characters during a simulation round", async ({ page }) => {
+test("user can cycle characters during a simulation round", async ({
+  page,
+}) => {
   await page.goto("/");
 
   // Select slot

@@ -6,7 +6,7 @@ Entry and exit effects are animations that are triggered when an element enters 
 
 To add entry and exit effects to an element, you need to combine a few CSS properties. Here’s a step-by-step guide:
 
-1.  **Create separate `@keyframes` for the entry and exit animations.** The entry animation will be applied as the element enters the viewport, and the exit animation will be applied as it leaves.
+1. **Create separate `@keyframes` for the entry and exit animations.** The entry animation will be applied as the element enters the viewport, and the exit animation will be applied as it leaves.
 
     ```css
     @keyframes slide-in {
@@ -21,7 +21,7 @@ To add entry and exit effects to an element, you need to combine a few CSS prope
     }
     ```
 
-2.  **Attach the entry and exit keyframes to the element.** You can do this by defining multiple animations in the `animation` property.
+2. **Attach the entry and exit keyframes to the element.** You can do this by defining multiple animations in the `animation` property.
     - Give the entry animation an `animation-fill-mode` of `backwards` so that it applies its initial state before the animation starts.
     - Give the exit animation an `animation-fill-mode` of `forwards` so that it maintains its final state after the animation is complete.
 
@@ -33,7 +33,7 @@ To add entry and exit effects to an element, you need to combine a few CSS prope
     }
     ```
 
-3.  **Create a View Timeline and link it to the animations.** A View Timeline is a type of timeline that is linked to the visibility of an element in the viewport. You can create one using the `view()` function and then apply it to your animations using the `animation-timeline` property.
+3. **Create a View Timeline and link it to the animations.** A View Timeline is a type of timeline that is linked to the visibility of an element in the viewport. You can create one using the `view()` function and then apply it to your animations using the `animation-timeline` property.
 
     ```css
     .animated-element {
@@ -43,7 +43,7 @@ To add entry and exit effects to an element, you need to combine a few CSS prope
 
     By default, `view()` tracks the element on the `block` axis. If you need to track it on the `inline` axis, you can use `view(inline)`.
 
-4.  **Limit the animations to the `entry` and `exit` ranges.** The `animation-range` property allows you to specify which part of the timeline an animation should run on.
+4. **Limit the animations to the `entry` and `exit` ranges.** The `animation-range` property allows you to specify which part of the timeline an animation should run on.
     - The `entry` range covers the time from when the element first enters the viewport until it is fully visible.
     - The `exit` range covers the time from when the element starts to leave the viewport until it is completely hidden.
 
@@ -153,7 +153,9 @@ For this use-case specifically, the following script applies the fallback for br
 
 ```html
 <script>
-  if (!CSS.supports("(animation-timeline: view()) and (animation-range: entry)")) {
+  if (
+    !CSS.supports("(animation-timeline: view()) and (animation-range: entry)")
+  ) {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD051 -->
 # CSS Layouts and Responsive Design
 
 1. [1 Fundamentals](#1-fundamentals)
@@ -232,7 +233,7 @@ Query the size (or computed style) of an ancestor container rather than the view
 
 ## 5 Native overlays, anchor positioning, and stacking contexts
 
-Baseline status for <dialog>: Widely available. It's been Baseline since 2022-03-14.
+Baseline status for `<dialog>`: Widely available. It's been Baseline since 2022-03-14.
 Supported by: Chrome 37 (Aug 2014), Edge 79 (Jan 2020), Firefox 98 (Mar 2022), and Safari 15.4 (Mar 2022).
 Baseline status for Popover: Newly available. It's been Baseline since 2025-01-27.
 Supported by: Chrome 116 (Aug 2023), Edge 116 (Aug 2023), Firefox 125 (Apr 2024), Safari 17 (Sep 2023), and Safari iOS 18.3 (Jan 2025).

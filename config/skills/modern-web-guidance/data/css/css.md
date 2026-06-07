@@ -388,7 +388,11 @@ Then use like:
 
 ```css
 .card {
-  background: linear-gradient(to bottom var(--in-oklab), var(--accent-color), var(--darker));
+  background: linear-gradient(
+    to bottom var(--in-oklab),
+    var(--accent-color),
+    var(--darker)
+  );
 }
 ```
 
@@ -405,19 +409,25 @@ Examples below.
 Vertical stripes of `1em` width each:
 
 ```css
-background: linear-gradient(to right, var(--color-1) 50%, var(--color-2) 0) 0 / 2em;
+background: linear-gradient(to right, var(--color-1) 50%, var(--color-2) 0) 0 /
+  2em;
 ```
 
 Diagonal stripes of `1em` width each:
 
 ```css
-background: repeating-linear-gradient(-45deg, var(--color-1) 0 1em, var(--color-2) 0 2em);
+background: repeating-linear-gradient(
+  -45deg,
+  var(--color-1) 0 1em,
+  var(--color-2) 0 2em
+);
 ```
 
 Checkerboard pattern with `1em` squares:
 
 ```css
-background: repeating-conic-gradient(var(--color-1) 0 25%, var(--color-2) 0 50%) 0 / 2em 2em;
+background: repeating-conic-gradient(var(--color-1) 0 25%, var(--color-2) 0 50%)
+  0 / 2em 2em;
 ```
 
 Polka dot with `.5em` radius dots spaced `2em` apart (horizontally/vertically — multiply by `sqrt(2)` for diagonal distance):
@@ -444,7 +454,8 @@ Simple pie chart:
   width: 60px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: conic-gradient(var(--color-1) var(--p), transparent 0%) var(--color-2);
+  background: conic-gradient(var(--color-1) var(--p), transparent 0%)
+    var(--color-2);
 }
 ```
 

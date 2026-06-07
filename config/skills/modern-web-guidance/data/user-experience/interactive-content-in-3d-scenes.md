@@ -10,7 +10,7 @@ When using WebGL or WebGPU, follow these steps:
 
 1. Check if HTML-in-Canvas is supported in the browser:
 
-```
+```text
 if ('requestPaint' in HTMLCanvasElement.prototype) {
   // Use HTML in Canvas API
 } else {
@@ -18,7 +18,7 @@ if ('requestPaint' in HTMLCanvasElement.prototype) {
 }
 ```
 
-2. Initialize `<canvas>` to support descendant HTML elements by adding the `layoutsubtree` attribute to the `<canvas>` HTML element. Place your HTML content inside the `<canvas>` element with the `layoutsubtree` attribute.
+1. Initialize `<canvas>` to support descendant HTML elements by adding the `layoutsubtree` attribute to the `<canvas>` HTML element. Place your HTML content inside the `<canvas>` element with the `layoutsubtree` attribute.
 
 ```html
 <canvas id="canvas" layoutsubtree>
@@ -26,7 +26,7 @@ if ('requestPaint' in HTMLCanvasElement.prototype) {
 </canvas>
 ```
 
-3. Scale your canvas grid to match the device scale factor to prevent blurriness:
+1. Scale your canvas grid to match the device scale factor to prevent blurriness:
 
 ```js
 const observer = new ResizeObserver(([entry]) => {
@@ -42,18 +42,27 @@ const observer = new ResizeObserver(([entry]) => {
 const supportsDevicePixelContentBox =
   typeof ResizeObserverEntry !== "undefined" &&
   "devicePixelContentBoxSize" in ResizeObserverEntry.prototype;
-const options = supportsDevicePixelContentBox ? { box: "device-pixel-content-box" } : {};
+const options = supportsDevicePixelContentBox
+  ? { box: "device-pixel-content-box" }
+  : {};
 observer.observe(canvas, options);
 ```
 
-4. Render the HTML content to the canvas inside a `canvas.onpaint` event handler:
+1. Render the HTML content to the canvas inside a `canvas.onpaint` event handler:
 
 - In WebGL context, use the `texElementImage2D` method:
 
 ```js
 canvas.onpaint = () => {
   if (gl.texElementImage2D) {
-    gl.texElementImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, uiElement);
+    gl.texElementImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      uiElement,
+    );
   }
 };
 ```
@@ -85,7 +94,7 @@ canvas.onpaint = (event) => {
 };
 ```
 
-6. Update the CSS transform.
+1. Update the CSS transform.
 
 The browser needs to map from the 3D coordinate space into the CSS coordinate space using a viewport transform. To facilitate this, do the following:
 
@@ -120,19 +129,24 @@ if (canvas.getElementTransform) {
     .scale(canvas.width / 2, -canvas.height / 2, canvas.height / 2);
 
   // 4. Multiply: (Clip -> Pixels) * (MVP) * (pixels -> unit square)
-  const screenSpaceTransform = clipToCanvasViewport.multiply(mvpDOM).multiply(toGLModel);
+  const screenSpaceTransform = clipToCanvasViewport
+    .multiply(mvpDOM)
+    .multiply(toGLModel);
 
   // 5. Apply to the transform
-  const computedTransform = canvas.getElementTransform(targetHTMLElement, screenSpaceTransform);
+  const computedTransform = canvas.getElementTransform(
+    targetHTMLElement,
+    screenSpaceTransform,
+  );
   targetHTMLElement.style.transform = computedTransform.toString();
 }
 ```
 
-7. [Troubleshooting] If the developer is experiencing a mismatch in the DOM logical layout in 3D even after applying the CSS transform from step 5, check if the developer is experiencing the issue in Chromium 148 or earlier. If that's the case, check if `transform.is2D` is correctly set to false for a 3D DOMMatrix. If not, re-initialize the DOMMatrix which corrects `is2D` to be false before applying the transform to the target HTML element. This issue is fixed in Chromium 149+, and if the developer is experiencing it in newer Chromium versions, the is2D value is not the cause:
+1. **Troubleshooting** If the developer is experiencing a mismatch in the DOM logical layout in 3D even after applying the CSS transform from step 5, check if the developer is experiencing the issue in Chromium 148 or earlier. If that's the case, check if `transform.is2D` is correctly set to false for a 3D DOMMatrix. If not, re-initialize the DOMMatrix which corrects `is2D` to be false before applying the transform to the target HTML element. This issue is fixed in Chromium 149+, and if the developer is experiencing it in newer Chromium versions, the is2D value is not the cause:
 
 ```js
 if (transform.is2D) {
-  // Workaround for Chromium bug https://crbug.com/512171941
+  // Workaround for Chromium bug <https://crbug.com/512171941>
   // affecting Chrome versions under 149 where `transform.is2D`
   // is incorrectly true for a 3D DOMMatrix. The assignment
   // below re-initializes the DOMMatrix which corrects is2D to be false.
@@ -145,7 +159,7 @@ targetHTMLElement.style.transform = computedTransform.toString();
 
 1. Check if HTML-in-Canvas is supported in the browser:
 
-```
+```text
 if ('requestPaint' in HTMLCanvasElement.prototype) {
   // Use HTML in Canvas API
 } else {
@@ -153,9 +167,9 @@ if ('requestPaint' in HTMLCanvasElement.prototype) {
 }
 ```
 
-2. Create a custom geometry and material for the HTML content.
+1. Create a custom geometry and material for the HTML content.
 
-3. Pass the DOM element into THREE.HTMLTexture:
+2. Pass the DOM element into THREE.HTMLTexture:
 
 ```js
 material.map = new THREE.HTMLTexture(element);
@@ -187,7 +201,14 @@ scene.add(mesh);
   canvas.onpaint = () => {
     // 1. Update texture with HTML content
     if (gl.texElementImage2D) {
-      gl.texElementImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, uiElement);
+      gl.texElementImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        uiElement,
+      );
     }
 
     // ... Render your 3D scene here, calculating htmlElementMVP matrix ...
@@ -210,9 +231,14 @@ scene.add(mesh);
         .translate(canvas.width / 2, canvas.height / 2)
         .scale(canvas.width / 2, -canvas.height / 2, canvas.height / 2);
 
-      const screenSpaceTransform = clipToCanvasViewport.multiply(mvpDOM).multiply(cssToUnitSpace);
+      const screenSpaceTransform = clipToCanvasViewport
+        .multiply(mvpDOM)
+        .multiply(cssToUnitSpace);
 
-      const computedTransform = canvas.getElementTransform(uiElement, screenSpaceTransform);
+      const computedTransform = canvas.getElementTransform(
+        uiElement,
+        screenSpaceTransform,
+      );
       uiElement.style.transform = computedTransform.toString();
     }
   };
@@ -263,16 +289,21 @@ scene.add(mesh);
         .translate(canvas.width / 2, canvas.height / 2)
         .scale(canvas.width / 2, -canvas.height / 2, canvas.height / 2); // Retain Z scale
 
-      const screenSpaceTransform = clipToCanvasViewport.multiply(mvpDOM).multiply(cssToUnitSpace);
+      const screenSpaceTransform = clipToCanvasViewport
+        .multiply(mvpDOM)
+        .multiply(cssToUnitSpace);
 
-      const computedTransform = canvas.getElementTransform(uiElement, screenSpaceTransform);
+      const computedTransform = canvas.getElementTransform(
+        uiElement,
+        screenSpaceTransform,
+      );
       uiElement.style.transform = computedTransform.toString();
     }
   };
 </script>
 ```
 
-### Three.js
+**Three.js:**
 
 ```js
 // 1. Initialize Three.js camera, scene, renderer, mesh, interactions;
@@ -288,7 +319,10 @@ element.innerHTML = "<h1>Hello World</h1>";
 
 // 4. Create geometry and material
 const geometry = new RoundedBoxGeometry(100, 100, 100, 10, 10);
-const material = new THREE.MeshStandardMaterial({ roughness: 0, metalness: 0.5 });
+const material = new THREE.MeshStandardMaterial({
+  roughness: 0,
+  metalness: 0.5,
+});
 
 // 5. Pass the DOM element into THREE.HTMLTexture
 material.map = new THREE.HTMLTexture(element);
@@ -329,14 +363,14 @@ Use the following polyfill script to mimic the HTML-in-Canvas API in browsers th
 
 1. Install or embed the library:
 
-```
+```text
 # Install
 npm install three-html-render
 ```
 
-```
+```text
 # Embed
 <script src="https://cdn.jsdelivr.net/npm/three-html-render/dist/polyfill.js"></script>
 ```
 
-2. Run the `installHtmlInCanvasPolyfill()` method to translate HTML-in-Canvas.
+1. Run the `installHtmlInCanvasPolyfill()` method to translate HTML-in-Canvas.

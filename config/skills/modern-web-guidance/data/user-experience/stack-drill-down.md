@@ -374,7 +374,8 @@ stack.addEventListener("click", (e) => {
 // a deep link lands on the root view and the platform Back from there
 // returns the user to where they came from.
 function goBack() {
-  const atDeepLinkRoot = currentDepth === 0 && entriesByDepth.get(0)?.view !== rootView;
+  const atDeepLinkRoot =
+    currentDepth === 0 && entriesByDepth.get(0)?.view !== rootView;
   if (atDeepLinkRoot) {
     synthesizeRootEntry();
   } else {
@@ -484,7 +485,8 @@ function updateFromHistoryState(state, behaviorOverride) {
   // back-style (smooth).
   const forward = toIdx > fromIdx;
   const multiStep = Math.abs(toIdx - fromIdx) > 1;
-  const behavior = behaviorOverride ?? (forward || multiStep ? "instant" : "auto");
+  const behavior =
+    behaviorOverride ?? (forward || multiStep ? "instant" : "auto");
   stack.scrollTo({ left: toIdx * stack.clientWidth, behavior });
 }
 ```
@@ -653,7 +655,8 @@ if (!("onscrollsnapchange" in HTMLElement.prototype)) {
         if (node.classList?.contains("Stack-view")) viewObserver.observe(node);
       }
       for (const node of m.removedNodes) {
-        if (node.classList?.contains("Stack-view")) viewObserver.unobserve(node);
+        if (node.classList?.contains("Stack-view"))
+          viewObserver.unobserve(node);
       }
     }
   }).observe(stack, { childList: true });

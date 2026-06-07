@@ -41,7 +41,10 @@ For more control over the colors of built-in UI such as `accent-color` or `scrol
   --color-brand-text-dark: oklch(40% 0.23 270);
 
   --color-brand: light-dark(var(--color-brand-light), var(--color-brand-dark));
-  --color-brand-text: light-dark(var(--color-brand-text-light), var(--color-brand-text-dark));
+  --color-brand-text: light-dark(
+    var(--color-brand-text-light),
+    var(--color-brand-text-dark)
+  );
 
   /* MANDATORY: Automatically adapt native UI to user system preferences */
   color-scheme: light dark;
@@ -240,7 +243,10 @@ For browsers that support `color-scheme` but not yet `light-dark()`, light and d
 
   /* OPTIONAL: use light-dark() for more control of built-in UI colors */
   @supports (color: light-dark(white, black)) {
-    --accent-color: light-dark(var(--brand-accent-light), var(--brand-accent-dark));
+    --accent-color: light-dark(
+      var(--brand-accent-light),
+      var(--brand-accent-dark)
+    );
   }
 
   /* MANDATORY: Automatically adapt native UI to user system preferences */

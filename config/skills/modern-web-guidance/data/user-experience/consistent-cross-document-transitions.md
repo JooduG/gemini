@@ -53,7 +53,8 @@ If a non-blocking script in the `<head>` must run before the transition animates
   <script type="module" blocking="render">
     // Example: apply a stored theme before the page renders,
     // so the transition snapshot reflects the correct theme.
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme =
+      localStorage.getItem("theme") || "light";
   </script>
 </head>
 ```
@@ -121,7 +122,11 @@ When elements on both pages share a `view-transition-name`, the browser morphs t
   <header>...</header>
   <section id="hero">
     <h1 style="view-transition-name: page-title">Product Name</h1>
-    <img style="view-transition-name: hero-image" src="/img/product.webp" alt="Product" />
+    <img
+      style="view-transition-name: hero-image"
+      src="/img/product.webp"
+      alt="Product"
+    />
   </section>
 </body>
 ```
@@ -138,8 +143,18 @@ Different viewport sizes may show different amounts of content above the fold. U
     so block until both are parsed. On narrow screens, only the
     hero is visible initially.
   -->
-  <link rel="expect" href="#hero" blocking="render" media="screen and (width <= 768px)" />
-  <link rel="expect" href="#sidebar" blocking="render" media="screen and (width > 768px)" />
+  <link
+    rel="expect"
+    href="#hero"
+    blocking="render"
+    media="screen and (width <= 768px)"
+  />
+  <link
+    rel="expect"
+    href="#sidebar"
+    blocking="render"
+    media="screen and (width > 768px)"
+  />
 </head>
 ```
 

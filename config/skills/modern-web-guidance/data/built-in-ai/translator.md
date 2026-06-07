@@ -40,16 +40,18 @@ const availability = await Translator.availability(options);
 
 if (availability === "available" || availability === "downloadable") {
   // A user gesture is strictly required to trigger create when downloadable
-  document.getElementById("start-translation-btn").addEventListener("click", async () => {
-    const translator = await Translator.create({
-      ...options,
-      monitor(m) {
-        m.addEventListener("downloadprogress", (e) => {
-          console.log(`Downloaded ${Math.round(e.loaded * 100)}%`);
-        });
-      },
+  document
+    .getElementById("start-translation-btn")
+    .addEventListener("click", async () => {
+      const translator = await Translator.create({
+        ...options,
+        monitor(m) {
+          m.addEventListener("downloadprogress", (e) => {
+            console.log(`Downloaded ${Math.round(e.loaded * 100)}%`);
+          });
+        },
+      });
     });
-  });
 }
 ```
 
@@ -65,7 +67,9 @@ const translator = await Translator.create({
   targetLanguage: "fr",
 });
 
-const result = await translator.translate("Where is the next bus stop, please?");
+const result = await translator.translate(
+  "Where is the next bus stop, please?",
+);
 console.log(result);
 // Output: "Où est le prochain arrêt de bus, s'il vous plaît ?"
 ```

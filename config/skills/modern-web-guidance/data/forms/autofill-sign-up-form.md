@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD033 -->
+
 # Build a sign-up form that follows best practice
 
 Use cross-platform browser features to build sign-up forms that are secure, accessible and easy to use.
@@ -89,8 +91,8 @@ Where possible, avoid this by displaying only the email (or phone) and password 
 
 You can help browsers store data correctly and autofill inputs, so users don't have to remember to enter email and password values. This is particularly important on mobile, and crucial for email inputs, which get high abandonment rates. There are two parts to this:
 
-1.  The `autocomplete`, `name`, `id`, and `type` attributes help browsers understand the role of inputs in order to store data that can later be used for autofill. To allow data to be stored for autofill, modern browsers also require inputs to have a stable `name` or `id` value (not randomly generated on each page load or site deployment), and to be in a `<form>` element with a `submit` button.
-1.  The `autocomplete` attribute helps browsers correctly autofill inputs using stored data.
+1. The `autocomplete`, `name`, `id`, and `type` attributes help browsers understand the role of inputs in order to store data that can later be used for autofill. To allow data to be stored for autofill, modern browsers also require inputs to have a stable `name` or `id` value (not randomly generated on each page load or site deployment), and to be in a `<form>` element with a `submit` button.
+1. The `autocomplete` attribute helps browsers correctly autofill inputs using stored data.
 
 For email inputs use `autocomplete="username"`, since `username` is recognized by password managers in modern browsers—even though you should use `type="email"` and you may want to use `id="email"` and `name="email"`. For password inputs, use the appropriate `autocomplete` and `id` values to help browsers differentiate between new and current passwords.
 
@@ -100,7 +102,13 @@ MANDATORY: For a sign-up form, use `autocomplete="new-password"`.
 
 ```html
 <!-- new-password prevents password managers from auto-filling an existing password into this field -->
-<input type="password" id="new-password" name="new-password" autocomplete="new-password" required />
+<input
+  type="password"
+  id="new-password"
+  name="new-password"
+  autocomplete="new-password"
+  required
+/>
 ```
 
 ### Enable the browser to suggest a strong password

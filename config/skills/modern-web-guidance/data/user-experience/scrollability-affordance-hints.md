@@ -35,12 +35,20 @@ Place the indicator elements (like shadows, gradients, or arrows) inside the con
 
 .indicator-top {
   top: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent); /* Example: Shadow */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    transparent
+  ); /* Example: Shadow */
 }
 
 .indicator-bottom {
   bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent); /* Example: Shadow */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.2),
+    transparent
+  ); /* Example: Shadow */
 }
 ```
 

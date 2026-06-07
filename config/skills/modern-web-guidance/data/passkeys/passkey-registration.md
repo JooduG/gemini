@@ -30,15 +30,15 @@ export interface StoredPasskeyCredential {
 
 Create an endpoint that generates WebAuthn creation parameters. Rely on a vetted library per category standards instead of hand-rolling cryptography.
 
-1.  **Use the predefined RP ID**: Use the predefined proper RP ID as a constant string.
-2.  **Create a secure Challenge**: Generate a high-entropy, cryptographically secure random buffer on the server, store it securely in the user's session, and encode it as Base64URL for options delivery.
-3.  **Avoid Duplicate Passkeys**: Map the user's existing pre-registered credential IDs to the `excludeCredentials` options array. This prevents the authenticator from registering duplicate credentials on the same passkey provider account.
-4.  **Enforce Discoverable Credentials**: Set `requireResidentKey: true` and `residentKey: "required"` in the `authenticatorSelection` options to request a discoverable credential, which is necessary for discoverable sign-ins.
-5.  **Configure User Verification**: Specify `userVerification: "preferred"` or `userVerification: "required"`. Many compliance use cases (e.g., finance, healthcare) require `'required'` to enforce user verification on creation.
-6.  **Determine Attachment Scope**:
-    - **Promotion Flow**: When proposing passkey creation right after standard password sign-ins or post-signup promotions, set `authenticatorAttachment: "platform"` to enforce platform authenticator and bypass external security key prompts.
-    - **Management Flow**: When called from a dedicated settings or security panel where external security keys are supported in addition to platform authenticator, omit the `authenticatorAttachment` property entirely.
-    - _Tip_: Accept a `promotion: boolean` request flag to conditionally handle both flows with a single endpoint.
+1. **Use the predefined RP ID**: Use the predefined proper RP ID as a constant string.
+2. **Create a secure Challenge**: Generate a high-entropy, cryptographically secure random buffer on the server, store it securely in the user's session, and encode it as Base64URL for options delivery.
+3. **Avoid Duplicate Passkeys**: Map the user's existing pre-registered credential IDs to the `excludeCredentials` options array. This prevents the authenticator from registering duplicate credentials on the same passkey provider account.
+4. **Enforce Discoverable Credentials**: Set `requireResidentKey: true` and `residentKey: "required"` in the `authenticatorSelection` options to request a discoverable credential, which is necessary for discoverable sign-ins.
+5. **Configure User Verification**: Specify `userVerification: "preferred"` or `userVerification: "required"`. Many compliance use cases (e.g., finance, healthcare) require `'required'` to enforce user verification on creation.
+6. **Determine Attachment Scope**:
+   - **Promotion Flow**: When proposing passkey creation right after standard password sign-ins or post-signup promotions, set `authenticatorAttachment: "platform"` to enforce platform authenticator and bypass external security key prompts.
+   - **Management Flow**: When called from a dedicated settings or security panel where external security keys are supported in addition to platform authenticator, omit the `authenticatorAttachment` property entirely.
+   - _Tip_: Accept a `promotion: boolean` request flag to conditionally handle both flows with a single endpoint.
 
 ```javascript
 // Options generation example
@@ -76,25 +76,25 @@ const options = {
 
 ### Verification
 
-1.  **Challenge Verification**: Securely verify the challenge against the expected session bound challenge.
-2.  **Verify User Presence**:
-    - Ensure that the User Present (UP) flag returned in the parsed authenticator data is `true` to confirm physical user presence at the time of creation.
-3.  **Relaxing Verification for 'preferred'**:
-    - When the creation options specified `userVerification: "preferred"`, the server-side verification call MUST be configured with `requireUserVerification: false`. Otherwise, authenticators that register without user verification (e.g., screen locks disabled) will trigger spurious server verification failures.
+1. **Challenge Verification**: Securely verify the challenge against the expected session bound challenge.
+2. **Verify User Presence**:
+   - Ensure that the User Present (UP) flag returned in the parsed authenticator data is `true` to confirm physical user presence at the time of creation.
+3. **Relaxing Verification for 'preferred'**:
+   - When the creation options specified `userVerification: "preferred"`, the server-side verification call MUST be configured with `requireUserVerification: false`. Otherwise, authenticators that register without user verification (e.g., screen locks disabled) will trigger spurious server verification failures.
 
 ## Client-Side Logic
 
-1.  **Gate the UI on page load**:
-    - On page load, call `PublicKeyCredential.getClientCapabilities()` and **disable the "Create passkey" button** if `conditionalGet` or `passkeyPlatformAuthenticator` is not available.
-2.  **Invoke creation & Serialize**: Decode server options with `PublicKeyCredential.parseCreationOptionsFromJSON()` and pass the resulting configuration to `navigator.credentials.create()`.
-    - Call `credential.toJSON()` to encode the `AuthenticatorAttestationResponse` into a valid, JSON-serializable object before fetching the verification endpoint.
-3.  **Handle WebAuthn Exceptions**:
-    - `InvalidStateError`: A matching passkey already exists (matched by `excludeCredentials`).
-    - `NotAllowedError`: The user cancelled or timed out the authentication passkey dialog.
-    - `AbortError`: The operation has been aborted.
-    - `SecurityError`: Secure origins (HTTPS) or RP ID mismatch errors (configuration issues).
-4.  **Try/Catch Segregation for Signal API**:
-    - Wrap server verification `fetch()` call in a try/catch block. Call `signalUnknownCredential()` when the server verification fetch fails (any status `response.ok === false` or network throws).
+1. **Gate the UI on page load**:
+   - On page load, call `PublicKeyCredential.getClientCapabilities()` and **disable the "Create passkey" button** if `conditionalGet` or `passkeyPlatformAuthenticator` is not available.
+2. **Invoke creation & Serialize**: Decode server options with `PublicKeyCredential.parseCreationOptionsFromJSON()` and pass the resulting configuration to `navigator.credentials.create()`.
+   - Call `credential.toJSON()` to encode the `AuthenticatorAttestationResponse` into a valid, JSON-serializable object before fetching the verification endpoint.
+3. **Handle WebAuthn Exceptions**:
+   - `InvalidStateError`: A matching passkey already exists (matched by `excludeCredentials`).
+   - `NotAllowedError`: The user cancelled or timed out the authentication passkey dialog.
+   - `AbortError`: The operation has been aborted.
+   - `SecurityError`: Secure origins (HTTPS) or RP ID mismatch errors (configuration issues).
+4. **Try/Catch Segregation for Signal API**:
+   - Wrap server verification `fetch()` call in a try/catch block. Call `signalUnknownCredential()` when the server verification fetch fails (any status `response.ok === false` or network throws).
 
 ```javascript
 // optionsFetch and registerVerifyFetch are app-defined HTTP methods
@@ -103,14 +103,18 @@ import { optionsFetch, registerVerifyFetch } from "./api.js";
 async function registerPasskey(isPromotion = false) {
   // Verify passkey capability and conditional UI are available
   const capabilities = await PublicKeyCredential.getClientCapabilities();
-  if (!capabilities.passkeyPlatformAuthenticator || !capabilities.conditionalGet) {
+  if (
+    !capabilities.passkeyPlatformAuthenticator ||
+    !capabilities.conditionalGet
+  ) {
     // Hide "Create passkey" buttons and fall back to password flows instead
     showStandardPasswordFallbackUI();
     return;
   }
 
   const creationOptionsJSON = await optionsFetch({ promotion: isPromotion });
-  const publicKey = PublicKeyCredential.parseCreationOptionsFromJSON(creationOptionsJSON);
+  const publicKey =
+    PublicKeyCredential.parseCreationOptionsFromJSON(creationOptionsJSON);
 
   let credential;
   try {

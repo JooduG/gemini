@@ -152,7 +152,10 @@ You can use `calc-size()` with any CSS math function—such as `min()`, `max()`,
     1. Enforcing boundaries using CSS math functions (min, clamp, etc.)
     2. Modifying the intrinsic size with fixed or relative offsets
   */
-  inline-size: calc-size(fit-content, min(size + var(--extra-space), var(--max-allowed)));
+  inline-size: calc-size(
+    fit-content,
+    min(size + var(--extra-space), var(--max-allowed))
+  );
 }
 ```
 

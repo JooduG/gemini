@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD033 -->
+
 # Build an address form that follows best practice
 
 Create a form that makes it as easy as possible for users to enter address data on desktop and mobile. Ensure the form makes the most of built-in browser features for autofill, validation and data entry constraints.
@@ -53,7 +55,12 @@ Use a single `<textarea>` element for the street address if possible.
 
 ```html
 <!-- textarea handles multi-line international address formats that split inputs can't accommodate -->
-<textarea id="address" name="address" autocomplete="street-address" required></textarea>
+<textarea
+  id="address"
+  name="address"
+  autocomplete="street-address"
+  required
+></textarea>
 ```
 
 This is the most flexible option for a variety of local and international address formats.
@@ -63,7 +70,13 @@ This is the most flexible option for a variety of local and international addres
 Add the `required` attribute to mandatory fields.
 
 ```html
-<input type="text" id="city" name="city" autocomplete="address-level2" required />
+<input
+  type="text"
+  id="city"
+  name="city"
+  autocomplete="address-level2"
+  required
+/>
 ```
 
 ### Fallback strategies
