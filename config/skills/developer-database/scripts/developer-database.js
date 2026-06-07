@@ -59,6 +59,38 @@ export class DeveloperDatabaseEngine {
     if (config.supabaseKey) this.#supabase_config.key = config.supabaseKey;
   }
 
+  /**
+   * Detects the active project name from path.
+   */
+  async #detect_project(rootPath) {
+    try {
+      const pkgPath = path.join(rootPath, "package.json");
+      const pkgContent = await fs.readFile(pkgPath, "utf-8");
+      const pkg = JSON.parse(pkgContent);
+      if (pkg.name) {
+        return pkg.name.trim().toLowerCase();
+      }
+    } catch {
+      // Ignore and fallback
+    }
+    try {
+      const gitConfigPath = path.join(rootPath, ".git", "config");
+      const gitConfig = await fs.readFile(gitConfigPath, "utf-8");
+      const remoteMatch = gitConfig.match(/url\s*=\s*.*github\.com[:/][^/]+\/(.+?)(\.git)?$/m);
+      if (remoteMatch && remoteMatch[1]) {
+        return remoteMatch[1].trim().toLowerCase();
+      }
+    } catch {
+      // Ignore and fallback
+    }
+    try {
+      return path.basename(rootPath).trim().toLowerCase();
+    } catch {
+      // Ignore
+    }
+    return null;
+  }
+
   // --- CORE NETWORKING UTILITIES ---
 
   /**
@@ -80,7 +112,7 @@ export class DeveloperDatabaseEngine {
       ...options.headers,
     };
 
-    if (!isAbsolute && endpoint.includes("/embed")) {
+    if (endpoint.includes("/embed")) {
       headers["X-Pinecone-API-Version"] = "2024-07";
     }
 
@@ -154,12 +186,20 @@ export class DeveloperDatabaseEngine {
    * @param {string} params.query Semantically queried string
    * @param {string[]} [params.namespaces] Namespaces to look up
    * @param {number} [params.top_k] Number of returned items
+   * @param {string} [params.project] Optional project filter
    */
   async query_knowledge_base({
     query,
     namespaces = ["knowledge-base.meta", "knowledge-base.external", "knowledge-base.src"],
     top_k = 5,
+    project = null,
   }) {
+    const resolvedProject = project || await this.#detect_project(process.cwd());
+    const targetNamespaces = namespaces.map((ns) => {
+      if (ns === "knowledge-base.external") return ns;
+      return resolvedProject ? `${resolvedProject}.${ns}` : ns;
+    });
+
     // 1. Generate Query Embedding
     const embed_data = await this.#pinecone_request("https://api.pinecone.io/embed", {
       method: "POST",
@@ -174,7 +214,7 @@ export class DeveloperDatabaseEngine {
     const vector = embed_data.data[0].values;
 
     // 2. Parallel Namespace Query
-    const query_promises = namespaces.map(async (ns) => {
+    const query_promises = targetNamespaces.map(async (ns) => {
       try {
         const data = await this.#pinecone_request("/query", {
           method: "POST",
@@ -223,11 +263,43 @@ export class DeveloperDatabaseEngine {
    */
   #chunk_content(content, ext) {
     const isMarkdown = ext.toLowerCase() === ".md";
-    const segments = isMarkdown
+    let segments = isMarkdown
       ? content.split(/^#+\s/gm).filter((s) => s.trim().length > 20)
       : content.split(/\n(?=\/\*\*|\/\/\s[A-Z]{3,})/).filter((s) => s.trim().length > 30);
 
-    return segments.length === 0 && content.trim().length > 0 ? [content] : segments;
+    if (segments.length === 0 && content.trim().length > 0) {
+      segments = [content];
+    }
+
+    const finalSegments = [];
+    const MAX_CHUNK_SIZE = 8000;
+
+    for (const seg of segments) {
+      if (seg.length <= MAX_CHUNK_SIZE) {
+        finalSegments.push(seg);
+      } else {
+        const lines = seg.split("\n");
+        let currentChunk = [];
+        let currentLen = 0;
+        for (const line of lines) {
+          if (currentLen + line.length + 1 > MAX_CHUNK_SIZE) {
+            if (currentChunk.length > 0) {
+              finalSegments.push(currentChunk.join("\n"));
+            }
+            currentChunk = [line];
+            currentLen = line.length;
+          } else {
+            currentChunk.push(line);
+            currentLen += line.length + 1;
+          }
+        }
+        if (currentChunk.length > 0) {
+          finalSegments.push(currentChunk.join("\n"));
+        }
+      }
+    }
+
+    return finalSegments;
   }
 
   /**
@@ -237,8 +309,14 @@ export class DeveloperDatabaseEngine {
    * @param {string[]} params.paths Target paths to index
    * @param {string} [params.namespace] Target namespace
    * @param {string} [params.root] Workspace root directory
+   * @param {string} [params.project] Optional project filter
    */
-  async write_knowledge_base({ paths, namespace = "knowledge-base.meta", root = process.cwd() }) {
+  async write_knowledge_base({ paths, namespace = "knowledge-base.meta", root = process.cwd(), project = null }) {
+    const resolvedProject = project || await this.#detect_project(root);
+    const targetNamespace = (namespace !== "knowledge-base.external" && resolvedProject)
+      ? `${resolvedProject}.${namespace}`
+      : namespace;
+
     let gitignore_filter = ignore();
     try {
       const git_content = await fs.readFile(path.join(root, ".gitignore"), "utf-8");
@@ -276,7 +354,7 @@ export class DeveloperDatabaseEngine {
       }
     }
 
-    console.error(`📑 Processing ${files.length} files for namespace: ${namespace}`);
+    console.error(`📑 Processing ${files.length} files for namespace: ${targetNamespace}`);
 
     /** @type {any[]} */
     const all_chunks = [];
@@ -285,17 +363,23 @@ export class DeveloperDatabaseEngine {
       const rel_path = path.relative(root, file).replace(/\\/g, "/");
 
       // 1. Delete existing vectors for this file to ensure clean overwrite
-      await this.#pinecone_request("/vectors/delete", {
-        method: "POST",
-        body: JSON.stringify({ namespace, filter: { source: { $eq: rel_path } } }),
-      });
+      try {
+        await this.#pinecone_request("/vectors/delete", {
+          method: "POST",
+          body: JSON.stringify({ namespace: targetNamespace, filter: { source: { $eq: rel_path } } }),
+        });
+      } catch (err) {
+        if (!err.message.includes("Namespace not found")) {
+          throw err;
+        }
+      }
 
       // 2. Fragment file content and map metadata chunks
       const segments = this.#chunk_content(content, path.extname(file));
       segments.forEach((seg, i) => {
         const id = crypto
           .createHash("sha256")
-          .update(namespace + rel_path + i)
+          .update(targetNamespace + rel_path + i)
           .digest("hex");
         all_chunks.push({
           id,
@@ -333,7 +417,7 @@ export class DeveloperDatabaseEngine {
 
       await this.#pinecone_request("/vectors/upsert", {
         method: "POST",
-        body: JSON.stringify({ namespace, vectors }),
+        body: JSON.stringify({ namespace: targetNamespace, vectors }),
       });
 
       process.stderr.write(
@@ -360,8 +444,15 @@ export class DeveloperDatabaseEngine {
    * @param {string} params.task_slug Task identifier
    * @param {string} params.content Narrative log content
    * @param {object} [params.metadata] Supplementary metadata object
+   * @param {string} [params.project] Optional project filter
    */
-  async archive_log({ session_id, task_slug, content, metadata = {} }) {
+  async archive_log({ session_id, task_slug, content, metadata = {}, project = null }) {
+    const resolvedProject = project || await this.#detect_project(process.cwd());
+    const finalMetadata = { ...metadata };
+    if (resolvedProject) {
+      finalMetadata.project = resolvedProject;
+    }
+
     return this.#supabase_request("/rest/v1/development_logs", {
       method: "POST",
       headers: { Prefer: "return=minimal" },
@@ -369,7 +460,7 @@ export class DeveloperDatabaseEngine {
         session_id,
         task_slug,
         content,
-        metadata,
+        metadata: finalMetadata,
         created_at: new Date().toISOString(),
       }),
     });
@@ -381,10 +472,19 @@ export class DeveloperDatabaseEngine {
    * @param {object} params
    * @param {string} [params.task_slug] Optional filter key
    * @param {number} [params.limit] Max items returned
+   * @param {string} [params.project] Optional project filter
    */
-  async query_logs({ task_slug, limit = 10 }) {
+  async query_logs({ task_slug, limit = 10, project = null }) {
+    const resolvedProject = project || await this.#detect_project(process.cwd());
     let endpoint = `/rest/v1/development_logs?select=*&order=created_at.desc&limit=${limit}`;
-    if (task_slug) endpoint += `&task_slug=eq.${task_slug}`;
+    const params = [];
+    if (task_slug) params.push(`task_slug=eq.${task_slug}`);
+    if (resolvedProject) {
+      params.push(`metadata->>project=eq.${resolvedProject}`);
+    }
+    if (params.length > 0) {
+      endpoint += `&${params.join("&")}`;
+    }
     return this.#supabase_request(endpoint, { method: "GET" });
   }
 
@@ -406,7 +506,10 @@ export class DeveloperDatabaseEngine {
           description: "Search technical KB via Pinecone vector databases.",
           inputSchema: {
             type: "object",
-            properties: { query: { type: "string" } },
+            properties: { 
+              query: { type: "string" },
+              project: { type: "string", description: "Optional project identifier to filter search." }
+            },
             required: ["query"],
           },
         },
@@ -421,6 +524,7 @@ export class DeveloperDatabaseEngine {
                 type: "string",
                 enum: ["knowledge-base.meta", "knowledge-base.external", "knowledge-base.src"],
               },
+              project: { type: "string", description: "Optional project identifier." }
             },
             required: ["paths", "namespace"],
           },
@@ -440,6 +544,7 @@ export class DeveloperDatabaseEngine {
               task_slug: { type: "string" },
               content: { type: "string" },
               metadata: { type: "object" },
+              project: { type: "string", description: "Optional project identifier." }
             },
             required: ["session_id", "task_slug", "content"],
           },
@@ -449,7 +554,11 @@ export class DeveloperDatabaseEngine {
           description: "Query and retrieve development logs from cold storage.",
           inputSchema: {
             type: "object",
-            properties: { task_slug: { type: "string" }, limit: { type: "number" } },
+            properties: { 
+              task_slug: { type: "string" }, 
+              limit: { type: "number" },
+              project: { type: "string", description: "Optional project identifier." }
+            },
           },
         },
       ],
@@ -524,6 +633,46 @@ export class DeveloperDatabaseEngine {
           namespace: "knowledge-base.meta",
         });
         break;
+      case "upsert-all": {
+        const projects = [
+          {
+            name: "joodug-rpglitch",
+            path: "C:/Users/johng/source/repos/RPGlitch",
+            paths: [".agents/skills", "tasks"],
+            namespace: "knowledge-base.meta",
+            project: "joodug-rpglitch"
+          },
+          {
+            name: "joodug-imageglitch",
+            path: "C:/Users/johng/source/repos/ImageGlitch",
+            paths: ["tasks", "src"],
+            namespace: "knowledge-base.meta",
+            project: "joodug-imageglitch"
+          },
+          {
+            name: "global-config",
+            path: "C:/Users/johng/.gemini",
+            paths: ["config/skills", "config/global_workflows"],
+            namespace: "knowledge-base.external",
+            project: null
+          }
+        ];
+        for (const proj of projects) {
+          console.error(`\n🔮 Ingesting '${proj.name}' at: ${proj.path}...`);
+          try {
+            await fs.access(proj.path);
+            await engine.write_knowledge_base({
+              paths: proj.paths,
+              namespace: proj.namespace,
+              root: proj.path,
+              project: proj.project
+            });
+          } catch (err) {
+            console.error(`⚠️ Skipping ${proj.name}: ${err.message}`);
+          }
+        }
+        break;
+      }
       case "select": {
         const query = args[1] || "";
         const results = await engine.query_knowledge_base({ query });
