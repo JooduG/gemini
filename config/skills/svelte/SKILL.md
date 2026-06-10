@@ -38,7 +38,7 @@ The `svelte` skill is the primary workflow for building and maintaining the proj
 
 1. **Research**: Consult the Svelte MCP and Bits UI documentation. Never hallucinate component APIs.
 2. **Logic Construction**: Use `$props()` for inputs and `$state()` for internal reactive data in universal modules.
-3. **Sensory Implementation**: Apply component-scoped styles using native CSS tokens (`var(--token)`) exclusively.
+3. **Sensory Implementation**: Apply component-scoped styles using native Tailwind CSS v4 utility classes exclusively.
 4. **Validation**: Run the `svelte-autofixer` to certify Svelte 5 compliance and fix semantic issues.
 
 ### Technical Constraints & State Management
@@ -75,7 +75,7 @@ Present the updated component and demonstrate its reactive behavior.
 
 ## Red Flags
 
-- **Utility Library Reliance**: Using Tailwind or Bootstrap classes instead of native design tokens.
+- **Custom CSS Reliance**: Writing custom CSS classes instead of using native Tailwind CSS v4 utility classes.
 - **Vibe Coding**: Guessing Bits UI or Svelte 5 syntax without consulting official documentation via MCP.
 - **Logic Leaks**: Managing design tokens within the Svelte logic script instead of the CSS module.
 
