@@ -38,6 +38,18 @@ export const runGroup = async (mode, scriptNames) => {
     "================================================================================\n",
   );
 
+  const summaryList = [];
+
+  const printSummaryBox = () => {
+    log("\n" + "=".repeat(80));
+    log(`🏁  EXECUTION SUMMARY [ MODE: ${mode.toUpperCase()} ]`);
+    log("=".repeat(80));
+    summaryList.forEach((item) => {
+      log(` ${item.status}  | npm run ${item.name}`);
+    });
+    log("=".repeat(80) + "\n");
+  };
+
   if (mode === "sequential") {
     for (const arg of scriptNames) {
       log(`🚀 Executing Sequentially: npm run ${arg}...\n`);
@@ -49,8 +61,13 @@ export const runGroup = async (mode, scriptNames) => {
           child.stderr.on("data", (data) => logRaw(data));
 
           child.on("close", (code) => {
-            if (code === 0) resolve();
-            else reject(new Error(`Exit code ${code}`));
+            if (code === 0) {
+              summaryList.push({ name: arg, status: "✅ PASSED" });
+              resolve();
+            } else {
+              summaryList.push({ name: arg, status: "❌ FAILED" });
+              reject(new Error(`Exit code ${code}`));
+            }
           });
         });
         log(
@@ -60,10 +77,12 @@ export const runGroup = async (mode, scriptNames) => {
         log(
           `\n❌ ${arg} failed. Fail-fast active: Halting execution pipeline.\n`,
         );
+        printSummaryBox();
         logStream.end();
         process.exit(1);
       }
     }
+    printSummaryBox();
   } else if (mode === "parallel") {
     log(`🚀 Launching Parallel Clusters simultaneously...\n`);
 
@@ -81,12 +100,15 @@ export const runGroup = async (mode, scriptNames) => {
 
         child.stderr.on("data", (data) => {
           buffer += `[STDERR] ${data.toString()}`;
-          // The line setting failed = true has been removed to prevent false positives
         });
 
         child.on("close", (code) => {
           if (code !== 0) failed = true;
           buffer += `\n🏁 Status: ${failed ? "❌ FAILED" : "✅ PASSED"} (Code: ${code})\n`;
+          summaryList.push({
+            name: arg,
+            status: failed ? "❌ FAILED" : "✅ PASSED",
+          });
           resolve({ arg, buffer, failed });
         });
       });
@@ -95,15 +117,13 @@ export const runGroup = async (mode, scriptNames) => {
     const results = await Promise.all(tasks);
     let totalFailures = 0;
 
-    // Dump aggregated buffers sequentially to keep the log file readable
     for (const res of results) {
       logRaw(res.buffer);
       if (res.failed) totalFailures++;
     }
 
-    log(
-      "\n================================================================================",
-    );
+    printSummaryBox();
+
     if (totalFailures > 0) {
       log(
         `❌ Parallel execution cycle complete with ${totalFailures} process failure(s).`,
@@ -115,9 +135,6 @@ export const runGroup = async (mode, scriptNames) => {
     }
   }
 
-  log(
-    "================================================================================\n",
-  );
   logStream.end();
 };
 
