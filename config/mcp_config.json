@@ -1,22 +1,23 @@
 {
   "mcpServers": {
-    "chrome-devtools": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\chrome-devtools-mcp.cmd",
-      "disabledTools": [
-        "lighthouse_audit",
-        "performance_analyze_insight",
-        "take_memory_snapshot",
-        "take_snapshot",
-        "emulate",
-        "handle_dialog",
-        "drag",
-        "upload_file",
-        "resize_page",
-        "select_page",
-        "fill_form",
-        "press_key"
+    "StitchMCP": {
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://stitch.googleapis.com/mcp",
+        "--header",
+        "X-Goog-Api-Key: AQ.Ab8RN6It7hqAz6cVyouzpdVFxQpeP2bkyWLp56g6iL7sR25Zpg"
       ],
+      "command": "npx"
+    },
+    "chrome-devtools": {
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--browser-url=http://127.0.0.1:9222",
+        "-y",
+        "--autoConnect"
+      ],
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\chrome-devtools-mcp.cmd",
       "disabled": false
     },
     "context7": {
@@ -26,153 +27,79 @@
       "serverUrl": "https://mcp.context7.com/mcp"
     },
     "deepwiki": {
-      "serverUrl": "https://mcp.deepwiki.com/mcp",
-      "disabledTools": []
+      "serverUrl": "https://mcp.deepwiki.com/mcp"
     },
-    "firecrawl-mcp": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\firecrawl-mcp.cmd",
-      "env": {
-        "FIRECRAWL_API_KEY": "fc-968e355e236f460092834ec49afdd6ae"
-      },
-      "disabledTools": [
-        "firecrawl_check_crawl_status",
-        "firecrawl_crawl",
-        "firecrawl_extract",
-        "firecrawl_agent",
-        "firecrawl_agent_status",
-        "firecrawl_browser_list"
-      ]
-    },
-    "github-copilot": {
-      "headers": {
-        "Authorization": "Bearer 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"
-      },
-      "serverUrl": "https://api.githubcopilot.com/mcp",
-      "disabled": false,
-      "disabledTools": [
-        "add_comment_to_pending_review",
-        "add_reply_to_pull_request_comment",
-        "assign_copilot_to_issue",
-        "create_branch",
-        "create_or_update_file",
-        "create_pull_request",
-        "create_pull_request_with_copilot",
-        "create_repository",
-        "delete_file",
-        "fork_repository",
-        "get_copilot_job_status",
-        "get_file_contents",
-        "get_latest_release",
-        "get_me",
-        "get_release_by_tag",
-        "get_tag",
-        "get_team_members",
-        "get_teams",
-        "issue_write",
-        "list_branches",
-        "list_commits",
-        "list_issue_types",
-        "list_releases",
-        "list_tags",
-        "merge_pull_request",
-        "push_files",
-        "request_copilot_review",
-        "run_secret_scanning",
-        "search_pull_requests",
-        "search_repositories",
-        "search_users",
-        "sub_issue_write",
-        "update_pull_request",
-        "update_pull_request_branch",
-        "add_issue_comment"
-      ]
-    },
-    "mcp-sequentialthinking-tools": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-sequentialthinking-tools.cmd"
-    },
-    "StitchMCP": {
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://stitch.googleapis.com/mcp",
-        "--header",
-        "X-Goog-Api-Key: AQ.Ab8RN6It7hqAz6cVyouzpdVFxQpeP2bkyWLp56g6iL7sR25Zpg"
-      ],
-      "command": "npx",
-      "env": {},
-      "disabledTools": [
-        "generate_screen_from_text",
-        "edit_screens",
-        "generate_variants",
-        "create_design_system",
-        "update_design_system",
-        "apply_design_system"
-      ]
-    },
-    "svelte": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\svelte-mcp.cmd",
-      "disabledTools": []
-    },
-    "waldzell-clear-thought": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\clear-thought.cmd"
-    },
-    "waldzell-collaborative-reasoning": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-collaborative-reasoning.cmd"
-    },
-    "waldzell-decision-framework": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-decision-framework.cmd"
-    },
-    "waldzell-metacognitive-monitoring": {
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-metacognitive-monitoring.cmd"
-    },
-    "waldzell-scientific-method": {
-      "disabled": true,
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-scientific-method.cmd"
-    },
-    "waldzell-stochastic-thinking": {
-      "disabled": true,
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-stochasticthinking.cmd"
-    },
-    "waldzell-structured-argumentation": {
-      "disabled": true,
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-structured-argumentation.cmd"
-    },
-    "waldzell-visual-reasoning": {
-      "disabled": true,
-      "args": [],
-      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
-    },
-        "developer-database": {
-      "command": "node",
+    "developer-database": {
       "args": [
         "C:/Users/johng/.gemini/config/skills/developer-database/scripts/developer-database.js"
       ],
+      "command": "node",
       "env": {
         "PINECONE_API_KEY": "pcsk_vvGN2_67wnzYvzpZzBpiTWu39K2hWCp19hnS7GDeXYm6PbWothAyacBq67wmcQwspSivq",
         "SUPABASE_ANON_KEY": "sb_secret_WG-bbN_0kXdKqyTCSKxd9A_MaSIdlZ3",
         "SUPABASE_URL": "https://zjoklmjvkxngbbneldht.supabase.co"
       }
     },
+    "firecrawl-mcp": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\firecrawl-mcp.cmd",
+      "disabledTools": [
+        "firecrawl_browser_list"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-968e355e236f460092834ec49afdd6ae"
+      }
+    },
+    "github-copilot": {
+      "disabled": false,
+      "disabledTools": [
+        "assign_copilot_to_issue",
+        "create_pull_request_with_copilot",
+        "get_copilot_job_status"
+      ],
+      "headers": {
+        "Authorization": "Bearer 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"
+      },
+      "serverUrl": "https://api.githubcopilot.com/mcp"
+    },
+    "mcp-sequentialthinking-tools": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-sequentialthinking-tools.cmd"
+    },
+    "svelte": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\svelte-mcp.cmd"
+    },
     "swarm": {
-      "command": "node",
       "args": [
         "C:/Users/johng/.gemini/config/skills/swarm/scripts/swarm-mcp.js"
       ],
+      "command": "node",
       "env": {
         "GITHUB_TOKEN": "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",
         "JULES_API_KEY": "AQ.Ab8RN6JghfvkDomx1jx6wEU23xg1wuh9WCiOO0EGOLKLrhWUcQ"
       }
+    },
+    "waldzell-clear-thought": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\clear-thought.cmd"
+    },
+    "waldzell-collaborative-reasoning": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-collaborative-reasoning.cmd"
+    },
+    "waldzell-decision-framework": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-decision-framework.cmd"
+    },
+    "waldzell-metacognitive-monitoring": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-metacognitive-monitoring.cmd"
+    },
+    "waldzell-scientific-method": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-scientific-method.cmd"
+    },
+    "waldzell-stochastic-thinking": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-stochasticthinking.cmd"
+    },
+    "waldzell-structured-argumentation": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-structured-argumentation.cmd"
+    },
+    "waldzell-visual-reasoning": {
+      "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
     }
-
   }
 }
