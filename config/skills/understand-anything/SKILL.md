@@ -8,4 +8,4 @@ Analyze the local repository structure, map code architectures, or generate visu
 
 When requested to visualize, graph, or analyze the codebase, invoke the underlying tool:
 
-- Execute: `understand --auto-update`
+- Execute: `node C:\Users\johng\.gemini\.understand-anything\main.js --auto-update`
