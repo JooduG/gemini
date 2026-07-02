@@ -23,7 +23,7 @@ import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // skills/understand/ -> plugin root is two dirs up
-const pluginRoot = resolve(__dirname, '../..');
+const pluginRoot = process.env.PLUGIN_ROOT || resolve(__dirname, '../..');
 const require = createRequire(resolve(pluginRoot, 'package.json'));
 
 // ---------------------------------------------------------------------------

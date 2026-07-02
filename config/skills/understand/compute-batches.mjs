@@ -27,7 +27,7 @@ import { createRequire } from 'node:module';
 const IO_PARALLELISM = 64;
 
 const __filename = fileURLToPath(import.meta.url);
-const PLUGIN_ROOT = resolve(dirname(__filename), '../..');
+const PLUGIN_ROOT = process.env.PLUGIN_ROOT || resolve(dirname(__filename), '../..');
 const require = createRequire(resolve(PLUGIN_ROOT, 'package.json'));
 
 let core;

@@ -10,7 +10,8 @@ Analyzes a Karpathy-pattern LLM wiki — a three-layer knowledge base with raw s
 
 ## What It Detects
 
-The **Karpathy LLM wiki pattern** (see https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f):
+The **Karpathy LLM wiki pattern** (see <https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>):
+
 - **Raw sources** — immutable source documents (articles, papers, data files)
 - **Wiki** — LLM-generated markdown files with wikilinks (`[[target]]` syntax)
 - **Schema** — CLAUDE.md, AGENTS.md, or similar configuration file
@@ -28,9 +29,11 @@ Detection signals: has `index.md` + multiple `.md` files with wikilinks. May hav
    - Otherwise, use the current working directory
 
 2. Run the format detection script bundled with this skill:
+
    ```
    python3 <SKILL_DIR>/parse-knowledge-base.py <TARGET_DIR>
    ```
+
    - If the script exits with an error, tell the user this doesn't appear to be a Karpathy-pattern wiki and explain what was expected
    - If successful, proceed. The script writes `scan-manifest.json` to `<TARGET_DIR>/.understand-anything/intermediate/`
 
@@ -41,6 +44,7 @@ Detection signals: has `index.md` + multiple `.md` files with wikilinks. May hav
 ### Phase 2: SCAN (already done)
 
 The parse script in Phase 1 already performed the deterministic scan. The scan-manifest.json contains:
+
 - Article nodes (one per wiki .md file) with extracted wikilinks, headings, frontmatter
 - Source nodes (one per raw/ file)
 - Topic nodes (from index.md section headings)
@@ -62,7 +66,7 @@ Dispatch `article-analyzer` subagents to extract implicit knowledge:
    - The full list of existing node IDs (so the agent can reference them)
    - The batch number for output file naming
    - The intermediate directory path: `$INTERMEDIATE_DIR = <TARGET_DIR>/.understand-anything/intermediate`
-   
+
    The agent will write `analysis-batch-{N}.json` to the intermediate directory.
 
 4. Run up to 3 batches concurrently. Wait for all batches to complete.
@@ -72,6 +76,7 @@ Dispatch `article-analyzer` subagents to extract implicit knowledge:
 ### Phase 4: MERGE
 
 1. Run the merge script bundled with this skill:
+
    ```
    python3 <SKILL_DIR>/merge-knowledge-graph.py <TARGET_DIR>
    ```
@@ -100,6 +105,7 @@ Dispatch `article-analyzer` subagents to extract implicit knowledge:
 3. Copy the validated graph to `<TARGET_DIR>/.understand-anything/knowledge-graph.json`
 
 4. Write metadata to `<TARGET_DIR>/.understand-anything/meta.json`:
+
    ```json
    {
      "lastAnalyzedAt": "<ISO timestamp>",
@@ -110,6 +116,7 @@ Dispatch `article-analyzer` subagents to extract implicit knowledge:
    ```
 
 5. Clean up intermediate files:
+
    ```
    rm -rf <TARGET_DIR>/.understand-anything/intermediate
    ```
@@ -120,6 +127,7 @@ Dispatch `article-analyzer` subagents to extract implicit knowledge:
    - "N layers, N tour steps"
 
 7. Auto-trigger the dashboard:
+
    ```
    /understand-dashboard <TARGET_DIR>
    ```

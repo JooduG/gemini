@@ -11,6 +11,7 @@ Provide a thorough, in-depth explanation of a specific code component.
 ## Graph Structure Reference
 
 The knowledge graph JSON has this structure:
+
 - `project` — {name, description, languages, frameworks, analyzedAt, gitCommitHash}
 - `nodes[]` — each has {id, type, name, filePath?, summary, tags[], complexity, languageNotes?}
   - Code node types: file, function, class, module, concept
