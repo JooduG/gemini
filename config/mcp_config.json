@@ -27,7 +27,12 @@
       "serverUrl": "https://mcp.context7.com/mcp"
     },
     "deepwiki": {
-      "serverUrl": "https://mcp.deepwiki.com/mcp"
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.deepwiki.com/mcp"
+      ],
+      "command": "npx"
     },
     "developer-database": {
       "args": [

@@ -1,64 +1,61 @@
 ---
 name: /refactor
-description: Universal SOTA Refactor, JS Logic Optimization, & DOM Harmonization.
+description: Universal Ground-Up Refactor, Svelte Rune Optimization, & DOM/CSS Harmonization.
 ---
 
-# SYSTEM DIRECTIVE: Universal SOTA Refactor & DOM Harmonization
+# SYSTEM DIRECTIVE: The Ground-Up Refactor Engine
 
 ## OBJECTIVE
 
-Execute a Mariana Trench-level deep-dive analysis into the provided file (.svelte, .js, .svelte.js, or .css). Deconstruct the entire file's content, optimize the architecture, and rebuild it from the ground up to achieve absolute clarity, unparalleled robustness, and an optimal logical flow (the "red thread").
+Execute a complete structural deconstruction and linear rebuild of the provided file (.svelte, .js, .svelte.js, or .css). Do not patch or tweak incrementally. Instead, analyze the core intent, dissolve technical debt, and reconstruct the codebase from scratch to achieve an optimal logical flow, immaculate readability, and absolute structural robustness.
 
-## EXECUTION PROTOCOLS
+---
 
-### 1. Structural Deconstruction, Reassembly & Complexity Reduction
+## PIER-TO-OUTPUT EXECUTION PIPELINE
 
-- **Persona Alignment**: Refactor for clarity and maintainability using the Simplification methodology to ensure long-term stability and legibility.
-- **Complexity Assessment**: Target complex code blocks (deep nesting, long functions, generic names). Understand the purpose, callers, and edge cases of the target code before refactoring.
-- **Technical Debt Reduction**: Reduce cyclomatic complexity without changing external behavior. Align code with project design system aesthetic standards and modern framework patterns.
-- **Incremental Extraction**: Rebuild the material as if starting from scratch with the optimal structure. Extract helpers or apply guard clauses one by one, maintaining all existing functionality.
-- **Verification Loop**: Run tests after every atomic change to ensure no regressions. Ensure all refactors are 100% covered by existing tests.
-- **Quality Gate**: Run `npm run verify` to ensure the project remains resonant and passes all quality checks.
-- **Documentation**: Update any relevant ADRs or internal documentation if the architecture shifted.
+### 1. Forensic Deconstruction & Analysis
 
-### 2. modern framework & JavaScript Logic Optimization (New)
+- **Intent Mapping**: Determine the exact purpose, upstream/downstream callers, and edge cases of the target code before writing a single line.
+- **Complexity Audit**: Target deeply nested blocks, high cyclomatic complexity, unoptimized loops, and ambiguous naming conventions.
+- **DOM & Style Scan**: Identify redundant wrapper elements, custom CSS overrides duplicating global styles, and missing design token implementations.
 
-- **Strict Runes Enforcement**: Convert legacy state (`let`, `$:`) to modern framework Runes (`$state`, `$derived`, `$effect`) when refactoring Svelte files. Ensure `$inspect` is used for debugging rather than inline console logs.
-- **State Flattening**: Break down overly deeply nested state objects into flat, tracked primitives or discrete modern framework Runes classes where appropriate to maximize reactivity efficiency.
-- **Declarative JS Conversion**: Convert imperative loops (`for`, `while`) and aggressive mutations into declarative array methodologies (`.map()`, `.filter()`, `.reduce()`) to optimize readability.
-- **Asynchronous Streamlining**: Refactor complex Promise chains or nested callbacks into linear, safe `async/await` blocks with robust `try/catch` error encapsulation.
+### 2. Logic Optimization & Clean-Slate Rebuild
 
-### 3. DOM Flattening (Zero-Design-Drift)
+- **Atomic Reconstruction**: Rebuild the logic sequentially as if starting the file from scratch, introducing helpers and guard clauses one by one.
+- **Svelte Runes Enforcement**: Convert all legacy state (`let`, `$:`) to modern Svelte Runes (`$state`, `$derived`, `$effect`). Utilize `$inspect` exclusively for debugging; purge all inline console logs.
+- **State Flattening**: Break down complex, deeply nested state objects into flat, tracked primitives or discrete Runes-driven classes to maximize reactivity efficiency.
+- **Declarative Paradigm**: Replace imperative loops (`for`, `while`) and destructive mutations with declarative array methods (`.map()`, `.filter()`, `.reduce()`).
+- **Asynchronous Streamlining**: Flatten complex Promise chains and callback hell into linear `async/await` blocks, protected by safe `try/catch` error encapsulation.
 
-- Audit the HTML/Markup for excessive nesting and over-complicated DOM trees.
-- Aggressively flatten the markup by removing unnecessary wrapper nodes.
-- **CRITICAL:** Maintain strict 1:1 visual parity. The flattened structure must not alter the application's existing UI/UX design or CSS layout integrity.
+### 3. DOM Streamlining (Zero-Design-Drift)
 
-### 4. CSS Nomenclature Harmonization ("Ultra-Lean" Standard)
+- **Tree Flattening**: Aggressively prune the HTML/markup by removing non-semantic wrapper nodes and structural clutter.
+- **Visual Parity Guarantee**: Ensure the structural optimization maintains a strict 1:1 layout match. The visual UI/UX and layout integrity must remain entirely unchanged.
 
-- Refactor all CSS classes and HTML identifiers to follow an "Ultra-Lean", flat, and functional naming convention.
-- Eliminate random, highly unique, or overly complex naming schemes.
-- Implement generic, semantic class names that mirror the component's internal structure (e.g., standardizing around terms like `.wrapper`, `.header`, `.body`, `.actions`, `.status`, `.primary`, etc., based on the file's context).
-- Harmonize the nomenclature across the entire file to ensure internal consistency and maximum readability.
+### 4. CSS Nomenclature & Token Harmonization
 
-### 5. Style De-Duplication & Bloat Elimination (The Lean Regime)
+- **Ultra-Lean Standard**: Standardize all class names around a flat, semantic, and functional naming convention reflecting internal component structure (e.g., `.wrapper`, `.header`, `.body`, `.actions`, `.status`).
+- **Design Token Sovereignty**: Purge hardcoded values, local custom dimensions, and custom colors. Replace them strictly with Nordic tokens from `DESIGN.md` (e.g., `--radius-standard`, `--duration-fast`).
+- **Pattern Registry Alignment**: If local styling closely mimics a standard registry pattern (e.g., `.glass-elevated`, `.interactable`), drop the local declarations completely and apply the global utility classes directly.
+- **Zero-Redundancy Inheritance**: Do not re-declare inherited or global styles within local `<style>` blocks. Let native CSS inheritance do the work.
+- **Svelte Prop Binding**: Apply custom utility classes to child components exclusively via standard Svelte `class` prop bindings. Never use React-style `className` attributes.
 
-- **Eliminate Redundant Local CSS**: Audit `<style>` blocks for custom overrides that duplicate standard components' built-in layout or typography physics. Trust atomic UI components (e.g., `<Button>`) to handle their own padding, alignment, cursor behavior, and click scales natively.
-- **Enforce Design Token Sovereignty**: Scan all styles and replace hardcoded values or local custom declarations with standard Nordic tokens from `DESIGN.md` (e.g., --radius-standard, --duration-fast, --ease-standard, --signature-color).
-- **Standardize Visual Elements**: If a visual element is custom-styled but closely matches a standard pattern registry element (e.g., `.glass-elevated`, `.interactable`, `.font-mono`), standard CSS classes from `DESIGN.md` MUST be leveraged directly in the markup rather than re-implementing them via custom classes.
-- **Forbid Prop Hallucinations**: Ensure custom utility classes on components are applied via standard Svelte `class` prop binding. Never use React-style `className` attributes which fail to bind to Svelte component custom class scopes.
-- **Remove Bloat & Avoid Unnecessary Local Styling**:
-  - **Zero-Redundancy Directive**: Do not override global or inherited class styles within a local `<style>` block using identical property values. If the global styling already achieves the look, let inheritance do its job without redundant rules.
-  - **No Custom Overrides for standard styles**: If a component has standard attributes (e.g. `size`, `variant`), use them instead of custom local styles. For example, do not customize `<Button>` borders or scales inside a parent Svelte file.
-  - **Aggressive Class Auditing**: When editing Svelte files, perform an active class audit. Identify any custom CSS rules that can be entirely replaced by utilizing global helper classes or standard theme classes from `DESIGN.md`, and delete the custom CSS rules.
-  - **Proximity Standardisation**: If local styling is close enough to a standard pattern registry element, migrate to the standard pattern immediately and purge the custom declarations.
+---
 
-## ANTI-PATTERNS
+## STRICT ANTI-PATTERNS
 
-- **Refactor-Features**: Changing behavior while simplifying or refactoring (creates unknown regressions).
-- **Monolithic Simplification/Refactoring**: Changing 100 lines at once without intermediate test runs.
+- **Feature Creep**: Do not alter, add, or remove functional behavior or external APIs while refactoring.
+- **Monolithic Refactoring**: Avoid modifying massive blocks of code simultaneously. Maintain an incremental micro-verification workflow.
 
-## REQUIRED OUTPUT
+---
 
-1. Output the fully refactored, production-ready code.
-2. Provide a concise changelog detailing the logical improvements, modern framework Runes updates, DOM nodes flattened, and the newly established generic CSS mapping system.
+## REQUIRED OUTPUT FORMAT
+
+Your response must follow this exact two-part layout:
+
+1. **Production-Ready Code**: The complete, fully refactored, and beautifully formatted file.
+2. **Refactor Changelog**: A highly concise, bulleted summary mapping out:
+   - Logical & architectural improvements made during the rebuild.
+   - Specific Svelte Runes conversions executed.
+   - Total DOM nodes eliminated / flattened.
+   - Custom CSS classes successfully mapped to the generic token system.
