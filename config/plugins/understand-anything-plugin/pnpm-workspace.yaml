@@ -1,6 +1,7 @@
 packages:
   - "packages/*"
 allowBuilds:
+  '@google/jules': set this to true or false
   '@tree-sitter-grammars/tree-sitter-kotlin': true
   esbuild: true
   tree-sitter-c: true

@@ -1,6 +1,6 @@
 ---
 name: /swarm
-description: Manual Swarm Orchestration. The human-initiated interface for deploying specialized sub-agents.
+description: Manual Swarm Orchestration. The human-initiated interface for deploying specialized sub-agents via jules-sdk.
 risk: high
 source: AI
 date_added: 2024-03-31
@@ -10,7 +10,7 @@ date_added: 2024-03-31
 
 ## Objectives: Parallel Multi-Agent Strategy
 
-- Manage user-requested parallel missions with surgical precision.
+- Manage user-requested parallel missions with surgical precision using `@google/jules`.
 - Coordinate the "Swarm" (the set of sub-agents) before technical dispatch.
 - Ensure all parallel operations are grounded in the same architectural truth.
 
@@ -35,16 +35,16 @@ date_added: 2024-03-31
 ### Phase 2: Planning (The Blueprint)
 
 1. **Agent Selection**: Map the task to specific file boundaries. Identify the specialized skill required for each boundary.
-2. **Task Creation**: Generate the `issue_tasks.json` defining the sub-agents and their restricted ranges. Verify no file ownership conflicts exist. Use the `swarm_plan` tool to register the plan.
+2. **Task Creation**: Generate the `issue_tasks.json` defining the sub-agents and their restricted ranges. Verify no file ownership conflicts exist. Use `jules-sdk` planning scripts if available.
 
 ### Phase 3: Tactical Dispatch (The Launch)
 
-1. **Handoff**: Invoke the `swarm` captain using the `swarm_dispatch` MCP tool to spin up parallel subagent sessions. They will automatically handle environment setup and task execution. [[Invoke: swarm]](../skills/swarm/SKILL.md)
-2. **Monitoring**: Track the swarm's progress through the `swarm_plan` tool or interactive agent states.
+1. **Handoff**: Invoke the `swarm` captain programmatically via `jules-sdk` scripts (e.g., `npm run swarm:dispatch`) or via GitHub Actions (e.g., commenting `@jules swarm`). They will automatically handle environment setup and task execution. [[Invoke: swarm]](../skills/swarm/SKILL.md)
+2. **Monitoring**: Track the swarm's progress through the SDK orchestration logs or CI workflow runs.
 
 ### Phase 4: Resonance Synthesis (The Merge)
 
-1. **Consolidation**: Consolidate the output of all sub-agents using the `swarm_merge` MCP tool. This tool finds the task outputs and performs the merge logic.
+1. **Consolidation**: Consolidate the output of all sub-agents via `jules-sdk` merge strategies (e.g., `@google/jules-merge`).
 2. **The 80% Gate**: Ensure the swarm has performed its own internal audit via the `swarm-review` prompt logic.
 3. **Global Audit**: Run a final compliance sweep and verify CI locally. [[Invoke: security]](../skills/security/SKILL.md)
 

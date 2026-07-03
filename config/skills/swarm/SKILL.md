@@ -22,7 +22,7 @@ The `swarm` skill governs the coordination of multiple sub-agents for high-veloc
 
 - **Directed Parallelism**: Triggered when a mission is modular enough for simultaneous execution.
 - **Fleet-Level Operations**: Use for tasks that touch the entire repository simultaneously (dependency upgrades, codebase-wide refactors).
-- **Intelligence Augmentation**: Jules acts as an external intelligence layer for high-complexity refactoring.
+- **Intelligence Augmentation**: Uses `@google/jules` SDK as an external intelligence layer for high-complexity parallel execution.
 - **Collective Grounding**: Every swarm must begin with shared context retrieval from the Knowledge Base.
 - **The 80% Gate**: Zero-tolerance policy for low-confidence merges. Every output must be peer-reviewed.
 
@@ -38,21 +38,19 @@ If a task matches the following categories, you MUST suggest using the `/jules` 
 - Perform a large-scale refactoring (e.g., project-wide symbol renaming).
 - Execute independent features in parallel.
 
-### 2. Swarm Initiation & MCP Tool Usage
+### 2. Swarm Initiation & jules-sdk Usage
 
-Use the following MCP tools to orchestrate the swarm lifecycle:
+Rather than relying on legacy MCP tools, you orchestrate swarms programmatically using the `@google/jules` SDK or GitHub Actions.
 
-- **`swarm_plan`**: Fetches git context and issues, and starts a planning session with Jules to generate the task manifest.
-- **`swarm_dispatch`**: Reads the generated manifest from `.agents/archive/swarm/YYYY_MM_DD/issue_tasks.json`, performs file ownership validation, and dispatches specialized sub-agents in parallel.
-- **`swarm_merge`**: Sequentially resolves branch updates, waits for CI, and merges PRs created by the parallel sessions.
+- **GitHub Actions (`jules-auto.yml`)**: When a repository is configured with a `jules-swarm` workflow, users can trigger parallel operations natively (e.g. `@jules swarm`).
+- **Programmatic Orchestration (`jules-sdk`)**: Build Node.js or TypeScript scripts that use `jules-sdk` to parse agent definition files (like `.md` subagents) and dispatch parallel Jules sessions directly from the repository.
 
 ## Usage
 
 ```bash
-# Swarm operations are natively triggered via MCP tools:
-# - mcp_swarm_swarm_plan
-# - mcp_swarm_swarm_dispatch
-# - mcp_swarm_swarm_merge
+# Programmatic Swarm execution via jules-sdk
+# Usually executed via local scripts built around @google/jules
+npm run swarm:dispatch -- --manifest issue_tasks.json
 ```
 
 ## Common Rationalizations
