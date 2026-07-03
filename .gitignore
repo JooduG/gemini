@@ -22,6 +22,7 @@ bin/
 extensions/
 
 # Node dependencies and lock files
-**/node_modules/
+**/node_modules/**
+**/packages/**
 **/*.lock
 .DS_Store
