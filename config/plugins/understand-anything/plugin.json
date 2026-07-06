@@ -1,0 +1,25 @@
+{
+  "name": "understand-anything",
+  "version": "1.0.0",
+  "description": "Antigravity native MCP integration for codebase mapping",
+  "mcpServers": {
+    "understand-anything": {
+      "command": "node",
+      "args": ["C:/Users/johng/.gemini/config/plugins/understand-anything/packages/core/dist/mcp-server.js"]
+    }
+  },
+  "commands": [
+    {
+      "name": "understand",
+      "description": "Generate or update the knowledge graph for this project",
+      "action": "run_skill",
+      "skillId": "understand"
+    },
+    {
+      "name": "understand-dashboard",
+      "description": "Open the visual graph dashboard in a webview",
+      "action": "run_skill",
+      "skillId": "understand-dashboard"
+    }
+  ]
+}

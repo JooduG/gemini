@@ -27,11 +27,7 @@
       "serverUrl": "https://mcp.context7.com/mcp"
     },
     "deepwiki": {
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.deepwiki.com/mcp"
-      ],
+      "args": ["-y", "mcp-remote", "https://mcp.deepwiki.com/mcp"],
       "command": "npx"
     },
     "developer-database": {
@@ -47,9 +43,7 @@
     },
     "firecrawl-mcp": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\firecrawl-mcp.cmd",
-      "disabledTools": [
-        "firecrawl_browser_list"
-      ],
+      "disabledTools": ["firecrawl_browser_list"],
       "env": {
         "FIRECRAWL_API_KEY": "fc-968e355e236f460092834ec49afdd6ae"
       }
@@ -105,6 +99,12 @@
     },
     "waldzell-visual-reasoning": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
+    },
+    "understand-anything": {
+      "args": [
+        "C:/Users/johng/.gemini/config/plugins/understand-anything/packages/core/dist/mcp-server.js"
+      ],
+      "command": "node"
     }
   }
 }
