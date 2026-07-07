@@ -62,16 +62,6 @@
     "svelte": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\svelte-mcp.cmd"
     },
-    "swarm": {
-      "args": [
-        "C:/Users/johng/.gemini/config/skills/swarm/scripts/swarm-mcp.js"
-      ],
-      "command": "node",
-      "env": {
-        "GITHUB_TOKEN": "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",
-        "JULES_API_KEY": "AQ.Ab8RN6JghfvkDomx1jx6wEU23xg1wuh9WCiOO0EGOLKLrhWUcQ"
-      }
-    },
     "waldzell-clear-thought": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\clear-thought.cmd"
     },
