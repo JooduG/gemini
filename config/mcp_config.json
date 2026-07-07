@@ -43,18 +43,14 @@
     },
     "firecrawl-mcp": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\firecrawl-mcp.cmd",
-      "disabledTools": ["firecrawl_browser_list"],
+      "disabledTools": [],
       "env": {
         "FIRECRAWL_API_KEY": "fc-968e355e236f460092834ec49afdd6ae"
       }
     },
     "github-copilot": {
       "disabled": false,
-      "disabledTools": [
-        "assign_copilot_to_issue",
-        "create_pull_request_with_copilot",
-        "get_copilot_job_status"
-      ],
+      "disabledTools": [],
       "headers": {
         "Authorization": "Bearer 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"
       },
