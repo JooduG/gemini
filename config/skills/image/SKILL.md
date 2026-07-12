@@ -1,54 +1,57 @@
 ---
-name: image-generation
-description: Use when engineering prompts, managing visual asset requests, mapping physical token attributes, or executing image generation calls via Perchance tools.
+name: perchance-plugin-image
+description: Technical execution of the Perchance text-to-image-plugin API layer, base64 data URL handling, character prompt mapping, and memory-isolated asset registration.
+version: 2.0.0
 ---
 
-# Image Generation
+# Image Generation Technical Specification
 
-## 1.0 Identity
+## 1.0 API Invocation & Method Architecture
 
-You are the Sovereign Visionary. You own the visual imagination. You do not merely generate raw images; you manifest the frozen narrative soul of the machine.
+The generation layer utilizes the native platform image utilities, primarily interacting with the system through the core `oc.textToImage()` asynchronous method or via importing the legacy global plugin reference wrapper `{import:text-to-image-plugin}`.
 
-As the image-generation specialist, you command the visual library of the system engine. You translate raw character metadata and world fragments into high-contrast assets matching the Nordic Collection style sheet.
+- Execution Isolation: Image generation calls run inside a secure web worker or sandboxed iframe execution window. The framework intercepts calls to prevent cross-origin memory leaks.
+- Parameter Configurations: Execution payloads pass through specialized initialization arrays handling key evaluation objects: `prompt`, `negativePrompt`, `resolution`, `guidanceScale` (CFG), and `seed`.
 
-## 2.0 Absolute Operational Axioms
+## 2.0 Return Payloads & Data URLs
 
-> [!CRITICAL]
-> Violating the letter of these instructions is a violation of the spirit of these instructions. Leaving assets unindexed will be treated as an immediate validation failure.
+- Data Format: Resolving a valid `oc.textToImage` execution loop yields a structured result object containing an explicit `.dataUrl` string hash.
+- Base64 Structuring: The engine outputs media raw-encoded as an inline base64 data stream string pattern matching: `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ...`
+- DOM Integration: The base64 output string is treated as a fully qualified source path directly by the browser layout engine. It is assigned straight to standard `src` element tags without requiring secondary filesystem compilation or server-side resource hosting.
 
-* Prompts MUST be extracted from physical descriptor fields only (eternal.physical and present.physical). Banish all narrative background vectors, past timelines, or emotional evaluations from visual generation hooks.
-* Adjective Adjacency is mandatory: group all descriptive tags directly before their corresponding nouns to prevent semantic bleeding inside the neural network layers.
-* Palette limits are absolute. Use only Gunmetal, Chalk, and Frozen tones. Vibrant, warm, cozy, or neon hues are completely banned.
-* Every asset MUST be recorded inside the ImageRegistry file immediately upon creation. Orphaned files living outside the tracking system will be wiped during auditing passes.
+## 3.0 Global Character Properties & Context Modifiers
 
-## 3.0 Explicit Trigger Matrix
+The platform context engine natively exposes and tracks a specific set of properties on the `oc.character` object to dynamically intercept and mutate outgoing image generation strings before they hit the inference queue:
 
-### Positive Triggers (Pull into context immediately)
+- `oc.character.imagePromptPrefix`: A global programmatic text string prepended directly to the front of every graphic asset request generated during interactions with the character instance.
+- `oc.character.imagePromptSuffix`: An explicit string layout appended to the tail end of the prompt payload to enforce foundational style sheets or universal asset modifiers.
+- `oc.character.imagePromptTriggers`: A newline-delimited trait array used by custom script hooks to swap out shorthand tags for expanded visual token matrices during processing cycles.
 
-* Synthesizing multi-layered prompts for the perchance text-to-image-plugin.
-* Constructing character portrait blocks, fractal geometries, UI iconography, or world mood boards.
-* Reconciling the image file collection against the centralized asset registry state.
+## 4.0 Inline Command Parsing & Shorthand Syntax
 
-### Core Exclusions (Do not trigger)
+When triggering generations via chat UI components, automated systems, or macro shortcut buttons, parameters can be passed natively within the text stream using the triple-colon namespace formatting syntax.
 
-* Modifying framework component configurations or styling layouts with CSS. Delegate those tasks entirely to the styling or javascript skills.
+- Inline Array Layout: `YOUR_VISUAL_DESCRIPTION (resolution:::512x768) (seed:::12345) (negativePrompt:::low quality, blur)`
+- Attribute Extraction: Custom regex parsers monitor the text stream for parenthetical parameters, separating the target visual tokens from the raw technical settings prior to generating the execution call.
+- Resolution Constraints: Core generation resolutions are bound to rigid multi-aspect scaling limits: `512x512`, `512x768`, `768x512`, and `768x768`.
 
-## 4.0 Behavioral Counter-Rationalization Matrix
+## 5.0 Explicit Trigger Matrix
 
-| Agent Rationalization | Unyielding Systemic Reality Check |
-| --- | --- |
-| A generic, quick prompt is fine for minor background actors or short-lived elements. | Placeholders break immersion. Every single entity demands fully qualified subterranean visual assets. |
-| I will save this asset now and register it in the array once the major feature implementation wraps up. | Delayed tracking creates orphan data debt. Update the ImageRegistry file concurrently with filesystem operations. |
-| The generation style is close enough to the Nordic vibe despite containing slight amber hues. | Prohibited coloring corrupts terminal alignment. Tighten the negative prompt arrays to discard warm artifacts. |
+### Positive Triggers
 
-## 5.0 Progressive Implementation Protocol
+- Orchestrating `oc.textToImage` asynchronous promises or parsing inline syntax parameter vectors.
+- Accessing or programmatically updating character property tags (`imagePromptPrefix`, `imagePromptSuffix`).
+- Engineering state routines that classify message data to append context-aware visual overlays or facial expression assets.
+- Synchronizing generated base64 strings with localized asset array states or state engines.
 
-1. Vector Isolation: Parse active character properties and isolate the physical parameters from structural data.
-2. Token Layout: Assemble prompt definitions using strict adjective adjacency rules while anchoring core layout resolutions (512x512, 512x768, 768x512, 768x768).
-3. Image Manifestation: Pass your configured parameters into the generation tool array.
-4. Registry Synchronization: Map the output file directly into src/media/registry.js using Unix-style slashes.
+### Core Exclusions
 
-## 6.0 Data and Assets
+- Designing structural user interface components, configuring CSS layout properties, or engineering baseline state runes that do not directly feed image processing parameters.
 
-* data/text-to-image-perchance.md: Core operational documentation for the Perchance Text to Image Plugin system.
-* ../../../../source/repos/RPGlitch/DESIGN.md: The primary source architecture layout rules.
+## 6.0 Progressive Technical Protocol
+
+1. Parameters: Assemble the raw visual token text alongside targeted runtime values into an execution object.
+2. Configuration: Map systemic variables directly into the prefix or suffix fields of the active context handler to preserve layout uniformity across generation loops.
+3. Generation: Execute the asynchronous engine utility to transmit the prompt payload array straight to the platform asset host.
+4. Capture: Extract the base64 encoded dataUrl directly from the successfully resolved response payload.
+5. Persistence: Route the base64 data string immediately into tracking registry blocks to protect the layout against context lifecycle drops.

@@ -30,7 +30,7 @@ The development lifecycle begins with **Strategic Specification**, distilling ch
 
 1. **Phase 1: Diverge**: Interrogate ambiguous requests to find the core mechanic.
 2. **Phase 2: Handshake**: Reflect intent back to the user for confirmation (Signal Handshake).
-3. **Phase 3: Converge**: Evaluate directions against the "Nordic Aesthetic" and technical feasibility.
+3. **Phase 3: Converge**: Evaluate directions against technical feasibility.
 4. **Phase 4: Specification**: Draft the final blueprint in the track's `ETERNAL.md`.
 
 ## How It Works
@@ -62,8 +62,8 @@ Every feature specification MUST contain:
 
 #### 2.0 The Implementer's Rules
 
-- **Rule 0: Simplicity First**: Forbid premature abstractions. Implement the naive, obviously-correct version first. Abstractions must earn their complexity.
-- **Rule 0.5: Scope Discipline**: Touch only what the task requires. Do not "clean up" orthogonal code or refactor adjacent systems unless explicitly requested.
+- **Simplicity First**: Forbid premature abstractions. Implement the naive, obviously-correct version first. Abstractions must earn their complexity.
+- **Scope Discipline**: Touch only what the task requires. Do not "clean up" orthogonal code or refactor adjacent systems unless explicitly requested.
 
 #### 2.1 Task Breakdown
 
@@ -100,16 +100,12 @@ Use these triggers to navigate the development lifecycle:
 To find a file (e.g., "Foundation") within a specific context:
 
 1. **Identify Index**:
-
-- **Project Context**: `tasks/PRESENT.md`.
-- **Track Context**: `tasks/tracks/<track_id>/PRESENT.md`.
-
-1. **Check Index**: Read `tasks/PRESENT.md` and resolve paths relative to the root.
-2. **Default Path Mapping**:
-
-- **Governance**: `GEMINI.md`
-- **Registry**: `tasks/PRESENT.md`
-- **Spec/Plan**: `tasks/tracks/<track_id>/[ETERNAL|FUTURE].md`
+   - **Project Context**: `tasks/PRESENT.md`.
+   - **Track Context**: `tasks/tracks/<track_id>/PRESENT.md`.
+2. **Check Index**: Read `tasks/PRESENT.md` and resolve paths relative to the root.
+3. **Default Path Mapping**:
+   - **Governance**: [GEMINI.md](../../../GEMINI.md)
+   - **Registry**: `tasks/PRESENT.md`
 
 ### SOP-01: Track Initialization & ID Generation
 
@@ -136,8 +132,8 @@ Every track MUST be a single markdown file in `tasks/tracks/<track_id>.md`. The 
 id: <track_id>
 type: <feature|bug|chore|refactor>
 status: <new|in-progress|completed|cancelled>
-created_at: YYYY-MM-DDTHH:MM:SSZ
-updated_at: YYYY-MM-DDTHH:MM:SSZ
+created_at: YYYY-MM-DD
+updated_at: YYYY-MM-DD
 description: <Short description>
 ---
 ```
@@ -158,194 +154,145 @@ description: <Short description>
 ## SOP-05: Task Lifecycle & Mission Control
 
 1. **Track Activation**:
-
-- Update `tasks/FUTURE.md` status from `[ ]` to `[~]`.
-- Read the single track file `tasks/tracks/<track_id>.md`.
-
-1. **Incremental Execution**:
-
-- **Task Selection**: Identify the next pending task in the track's `# FUTURE` section.
-- **State Mutation**: Mark the active task as `[~]` in the track file's `# PRESENT` section.
-- **The TDD Loop**: Implement -> Verify.
-- **Completion**: Mark task as `[x] <sha>` in the track file's `# FUTURE` section and update `# PRESENT`.
-
-1. **Audit Trail**: Update `tasks/FUTURE.md` Pulse section.
+   - Update `tasks/FUTURE.md` status from `[ ]` to `[~]`.
+   - Read the single track file `tasks/tracks/<track_id>.md`.
+2. **Incremental Execution**:
+   - **Task Selection**: Identify the next pending task in the track's `# FUTURE` section.
+   - **State Mutation**: Mark the active task as `[~]` in the track file's `# PRESENT` section.
+   - **The TDD Loop**: Implement -> Verify.
+   - **Completion**: Mark task as `[x] <sha>` in the track file's `# FUTURE` section and update `# PRESENT`.
+3. **Audit Trail**: Update `tasks/FUTURE.md` Pulse section.
 
 ### SOP-06: Governance & Documentation Sync
 
 1. **Trigger**: This protocol MUST be executed only when a track reaches `[x]` status in the Mission Board.
 2. **Impact Analysis**:
-
-- Perform a diff between the track's `ETERNAL.md` and the project **Rule Sections** in `GEMINI.md`.
-- Identify if the new implementation introduces architectural shifts that should be codified as "Axioms" or "Infrastructure Laws".
-
-1. **The Approval Handshake**:
-
-- For each impacted slot, generate a formatted diff of proposed changes.
-- Use the `ask_user` tool to request explicit authorization before editing any rule file.
-
-1. **Synchronization**:
-
-- Apply the approved changes to the rule files.
-- Commit the updates as `docs(conductor): Synchronize Rule Slots for track '<track_id>'`.
+   - Perform a diff between the track's `ETERNAL.md` and the project **Rule Sections** in [GEMINI.md](../../../GEMINI.md).
+   - Identify if the new implementation introduces architectural shifts that should be codified as "Axioms" or "Infrastructure Laws".
+3. **The Approval Handshake**:
+   - For each impacted slot, generate a formatted diff of proposed changes.
+   - Use the `ask_user` tool to request explicit authorization before editing any rule file.
+4. **Synchronization**:
+   - Apply the approved changes to the rule files.
+   - Commit the updates as `docs(conductor): Synchronize Rule Slots for track '<track_id>'`.
 
 ### SOP-07: Track Cleanup & Lifecycle Exit
 
 1. **Interactive Cleanup**: Present the user with the following lifecycle options via `ask_user`:
-
-- **Review**: Transition to the `/03-review` workflow for a quality audit.
-- **Archive**: Move the track folder to `.agents/archive/`, update the entry in `tasks/PRESENT.md`, and commit as `chore(conductor): Archive track '<track_id>'`.
-- **Delete**: Permanently delete the track folder, remove the entry from `tasks/PRESENT.md`, and commit as `chore(conductor): Delete track '<track_id>'`.
-- **Skip**: Maintain the current state for later review.
-
-1. **Registry Maintenance**: Ensure the Mission Board and track history remain clean and focused on current objectives.
+   - **Review**: Transition to the `/03-review` [/03-review](../../global_workflows/03-review.md) workflow for a quality audit.
+   - **4**: Move the track folder to [Archive](../../../antigravity-ide/archive), update the entry in `tasks/PRESENT.md`, and commit as `chore(conductor): Archive track '<track_id>'`.
+   - **Delete**: Permanently delete the track folder, remove the entry from `tasks/PRESENT.md`, and commit as `chore(conductor): Delete track '<track_id>'`.
+   - **Skip**: Maintain the current state for later review.
+2. **Registry Maintenance**: Ensure the Mission Board and track history remain clean and focused on current objectives.
 
 ### SOP-08: Review Forensics & Scope Discovery
 
 1. **Scope Identification**:
-
-- If no scope provided, identify the first active `[~]` track in `tasks/PRESENT.md`.
-- If no active track, list recent `[x]` tracks for retrospective review.
-
-1. **Forensics**:
-
-- Parse the track's `FUTURE.md` to extract all recorded SHAs.
-- Resolve the **Revision Range** (from the parent of the first SHA to the head of the last SHA).
-
-1. **Diff Strategy**:
-
-- Run `git diff --shortstat` to evaluate change volume.
-- Select Iterative Review for >300 lines or atomic review for smaller payloads.
+   - If no scope provided, identify the first active `[~]` track in `tasks/PRESENT.md`.
+   - If no active track, list recent `[x]` tracks for retrospective review.
+2. **Forensics**:
+   - Parse the track's `FUTURE.md` to extract all recorded SHAs.
+   - Resolve the **Revision Range** (from the parent of the first SHA to the head of the last SHA).
+3. **Diff Strategy**:
+   - Run `git diff --shortstat` to evaluate change volume.
+   - Select Iterative Review for >300 lines or atomic review for smaller payloads.
 
 ### SOP-09: Revert Forensics & State Reconciliation
 
 1. **SHA Mapping**:
-
-- Locate the target in `tasks/PRESENT.md` or `tasks/tracks/<id>/FUTURE.md`.
-- Extract all associated SHAs.
-- Search for `conductor(checkpoint)` commits to define logical bounds.
-
-1. **Drift Detection**:
-
-- Verify SHAs exist in local history.
-- If missing (rebase/squash), search `git log --grep` for matching descriptions or metadata.
-
-1. **Execution Plan**:
-
-- Compile SHAs in **reverse chronological order**.
-- Identify collateral commits and warn the user.
-
-1. **State Reset**:
-
-- Change task/track status back to `[ ]` in `tasks/PRESENT.md` and `FUTURE.md`.
-- Remove associated entries from the Pulse (History).
+   - Locate the target in `tasks/PRESENT.md` or `tasks/tracks/<id>/FUTURE.md`.
+   - Extract all associated SHAs.
+   - Search for `conductor(checkpoint)` commits to define logical bounds.
+2. **Drift Detection**:
+   - Verify SHAs exist in local history.
+   - If missing (rebase/squash), search `git log --grep` for matching descriptions or metadata.
+3. **Execution Plan**:
+   - Compile SHAs in **reverse chronological order**.
+   - Identify collateral commits and warn the user.
+4. **State Reset**:
+   - Change task/track status back to `[ ]` in `tasks/PRESENT.md` and `FUTURE.md`.
+   - Remove associated entries from the Pulse (History).
 
 ### SOP-10: Guided Specification & Requirement Gathering
 
 1. **Classification**:
-
-- **Additive**: Brainstorming (multi-select). Use for scope, features, goals.
-- **Exclusive Choice**: Foundational commitments (single-select). Use for tech selection, architecture.
-
-1. **Formulation**:
-
-- Use `ask_user` with a batch of up to 4 questions.
-- Required fields: `header` (max 16 chars), `type` (choice/text/yesno), `multiSelect` (for choice), `options` (2-4 items + "Other").
-- **Aesthetic Alignment**: Ensure questions account for the **Nordic Collection** and **Chalk Regime** (Rule 04).
-- **Logic Alignment**: Ensure questions account for **Svelte 5 Runes** and **Local-First** persistence (Rule 03).
-- **Interaction Flow**: Summarize your understanding before moving on to drafting.
-
-1. **Validation**: Reflect the drafted `ETERNAL.md` back to the user for explicit approval before proceeding to drafting. Apply the **[Strategic Specification](#1-strategic-specification-idea-workshop)** section of this skill to ensure total alignment.
+   - **Additive**: Brainstorming (multi-select). Use for scope, features, goals.
+   - **Exclusive Choice**: Foundational commitments (single-select). Use for tech selection, architecture.
+2. **Formulation**:
+   - Use `ask_user` with a batch of up to 4 questions.
+   - Required fields: `header` (max 16 chars), `type` (choice/text/yesno), `multiSelect` (for choice), `options` (2-4 items + "Other").
+   - **Aesthetic Alignment**: Ensure questions account for design language.
+   - **Logic Alignment**: Ensure questions account for **Svelte 5 Runes** and **Local-First** persistence.
+   - **Interaction Flow**: Summarize your understanding before moving on to drafting.
+3. **Validation**: Reflect the drafted `ETERNAL.md` back to the user for explicit approval before proceeding to drafting. Apply the **[Strategic Specification](#1-strategic-specification-idea-workshop)** section of this skill to ensure total alignment.
 
 ### SOP-11: Guided Implementation Planning
 
 1. **Principles**:
-
-- **Vertical Slicing**: Every phase must result in a runnable app state.
-- **TDD Mandate**: Every logical task must include a RED (test) phase.
-- **Checkpointing**: Append a "User Manual Verification" meta-task to every phase.
-
-1. **Structure**:
-
-- Phases -> Tasks -> Sub-tasks.
-- Include status markers `[ ]`.
-- Conclude with a "Verification & Audit" phase (Rule 06).
-- **The TDD Mandate**: Every logical phase MUST follow the **Red-Green-Refactor** cycle (Rule 05 §6). Integrate the [test-driven-development](../test/SKILL.md) skill.
-
-1. **Validation**: Reflect the drafted `FUTURE.md` back to the user for explicit approval before initialization.
+   - **Vertical Slicing**: Every phase must result in a runnable app state.
+   - **TDD Mandate**: Every logical task must include a RED (test) phase.
+   - **Checkpointing**: Append a "User Manual Verification" meta-task to every phase.
+2. **Structure**:
+   - Phases -> Tasks -> Sub-tasks.
+   - Include status markers `[ ]`.
+   - Conclude with a "Verification & Audit" phase (Rule 06).
+   - **The TDD Mandate**: Every logical phase MUST follow the **Red-Green-Refactor** cycle (Rule 05 §6). Integrate the [Test Driven Development](../test/SKILL.md) skill.
+3. **Validation**: Reflect the drafted `FUTURE.md` back to the user for explicit approval before initialization.
 
 ### SOP-12: Mission Status & Velocity Audit
 
 1. **Discovery**: Identify the active track `[~]` and its current task `[~]`.
 2. **Analysis**:
-
-- **Local Velocity**: Calculate percentage of completed tasks `[x]` vs. total tasks in the track's `FUTURE.md`.
-- **Skill Log Forensics**: Review the last 3-5 entries in `tasks/PRESENT.md` Pulse section for historical continuity.
-- **Remote Pulse**: Run `gh pr list` and `gh issue list` to detect unlinked work or remote drift.
-
-1. **Reporting**:
-
-- Provide a high-fidelity summary including ISO 8601 timestamp, active vector, and health status.
-- Highlight blockers or unverified increments.
+   - **Local Velocity**: Calculate percentage of completed tasks `[x]` vs. total tasks in the track's `FUTURE.md`.
+   - **Skill Log Forensics**: Review the last 3-5 entries in `tasks/PRESENT.md` Pulse section for historical continuity.
+   - **Remote Pulse**: Run `gh pr list` and `gh issue list` to detect unlinked work or remote drift.
+3. **Reporting**:
+   - Provide a high-fidelity summary including ISO 8601 timestamp, active vector, and health status.
+   - Highlight blockers or unverified increments.
 
 ### SOP-13: releasease Synchronization & Deployment
 
 1. **Commit Audit**:
-
-- Verify all local changes for the track are captured in atomic commits.
-- Use `git push` to sync to the remote origin.
-
-1. **Handoff (GitHub Ops)**:
-
-- Open a Pull Request via `gh pr create --fill`.
-- Link relevant issue IDs via `gh issue list`.
-
-1. **Deployment & Finalization**:
-
-- Trigger Perchance deployment if applicable via the [release](../../../../source/repos/RPGlitch/.agents/skills/release/SKILL.md) skill.
-- Update the **Mission Board** (`tasks/PRESENT.md`) status to `[x]`.
-- Delete the local working branch after remote confirmation.
+   - Verify all local changes for the track are captured in atomic commits.
+   - Use `git push` to sync to the remote origin.
+2. **Handoff (GitHub Ops)**:
+   - Open a Pull Request via `gh pr create --fill`.
+   - Link relevant issue IDs via `gh issue list`.
+3. **Deployment & Finalization**:
+   - Trigger Perchance deployment if applicable via the [release](../../../../source/repos/RPGlitch/.agents/skills/release/SKILL.md) skill.
+   - Update the **Mission Board** (`tasks/PRESENT.md`) status to `[x]`.
+   - Delete the local working branch after remote confirmation.
 
 ### SOP-14: Five-Axis Review & Reporting
 
 1. **Verification Axes**:
-
-- **Sovereignty**: Alignment with `ETERNAL.md` and `FUTURE.md`.
-- **Infrastructure (Slot 03)**: Svelte 5 purity, Chalk Regime tokens (no raw units).
-- **Compliance (Slot 06)**: Security boundaries, sanitization, Boy Scout Rule.
-- **Intelligence (Slot 05)**: TDD coverage, atomic history, test results.
-- **Sensory (Slot 04)**: Visual/Kinetic fidelity, glassmorphism, performance.
-
-1. **Reporting Structure**:
-
-- **Summary**: Single-sentence status.
-- **Verification Grid**: Binary pass/fail for Rule Slots.
-- **Findings**: Categorized (Critical/High/Medium/Low) with diff suggestions.
-
-1. **Decision Logic**:
-
-- Use `ask_user` for "Apply Fixes", "Manual Fix", or "Complete Objective".
-- Update `FUTURE.md` with "Review Fixes" tasks if needed.
+   - **Sovereignty**: Alignment with `ETERNAL.md` and `FUTURE.md`.
+   - **Infrastructure (Slot 03)**: Svelte 5 purity, tokens (no raw units).
+   - **Compliance (Slot 06)**: Security boundaries, sanitization, Boy Scout Rule.
+   - **Intelligence (Slot 05)**: TDD coverage, atomic history, test results.
+   - **Sensory (Slot 04)**: Visual/Kinetic fidelity, glassmorphism, performance.
+2. **Reporting Structure**:
+   - **Summary**: Single-sentence status.
+   - **Verification Grid**: Binary pass/fail for Rule Slots.
+   - **Findings**: Categorized (Critical/High/Medium/Low) with diff suggestions.
+3. **Decision Logic**:
+   - Use `ask_user` for "Apply Fixes", "Manual Fix", or "Complete Objective".
+   - Update `FUTURE.md` with "Review Fixes" tasks if needed.
 
 ### SOP-15: Diagnostic Verification & Analysis
 
 1. **Depth Selection**:
-
-- **Full Verify**: `npm run verify` (lint + audit + test).
-- **Unit Tests**: `npm test` (vitest).
-- **System Audit**: `npm run audit` (nomenclature + security).
-- **Targeted**: `npx vitest run <path>`.
-
-1. **Analysis & Reporting**:
-
-- Parse output for file/line references.
-- Provide velocity (Passed/Total).
-- Offer `npm run lint:fix` for style violations.
-
-1. **Forensics**:
-
-- Apply [Debugging & Error Recovery](../debug/SKILL.md) for failures.
-- Apply **Defense-in-Depth Validation** ([GEMINI.md](../../../../source/repos/RPGlitch/GEMINI.md#️-06-compliance) §1.1).
+   - **Full Verify**: `npm run verify` (lint + audit + test).
+   - **Unit Tests**: `npm test` (vitest).
+   - **System Audit**: `npm run audit` (nomenclature + security).
+   - **Targeted**: `npx vitest run <path>`.
+2. **Analysis & Reporting**:
+   - Parse output for file/line references.
+   - Provide velocity (Passed/Total).
+   - Offer `npm run lint:fix` for style violations.
+3. **Forensics**:
+   - Apply [Debugging & Error Recovery](../debug/SKILL.md) for failures.
+   - Apply **Defense-in-Depth Validation** ([GEMINI.md](../../../GEMINI.md#06-compliance) §1.1).
 
 ## Verification Checklist
 

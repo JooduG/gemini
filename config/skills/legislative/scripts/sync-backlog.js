@@ -23,6 +23,18 @@ export function scanForTodo(dir, items_found = []) {
     const fullPath = path.join(dir, item);
     const relPath = path.relative(ROOT_DIR, fullPath).replace(/\\/g, "/");
 
+    // Skip environment/system folders immediately
+    if (
+      item === ".agents" ||
+      item === ".gemini" ||
+      item === "tmp" ||
+      item === "dist" ||
+      item === "node_modules" ||
+      item === ".git"
+    ) {
+      continue;
+    }
+
     if (ig.ignores(relPath)) continue;
 
     const stat = fs.statSync(fullPath);
@@ -34,11 +46,24 @@ export function scanForTodo(dir, items_found = []) {
 
       const content = fs.readFileSync(fullPath, "utf8");
       const lines = content.split("\n");
+      const isMarkupOrText = /\.(md|txt)$/.test(item);
+
       lines.forEach((line, index) => {
-        if (line.includes("#TODO-AI") && !line.includes('line.includes("#TODO-AI")')) {
-          const taskMatch = line.match(/#TODO-AI:?\s*(.*)$/);
-          const taskDesc = taskMatch ? taskMatch[1].trim() : "Unspecified debt";
-          items_found.push(`- [ ] **${relPath}:${index + 1}**: ${taskDesc}`);
+        const hasTodo = line.includes("#TODO-AI");
+        if (hasTodo) {
+          // JS/TS/Svelte files must match a comment structure, markdown/text can match directly
+          const isComment = isMarkupOrText || /(?:\/\/|\/\*|<!--|^\s*\*)\s*#TODO-AI/i.test(line);
+          const isSelfMatch = line.includes('line.includes("#TODO-AI")') || line.includes('hasTodo = line.includes');
+
+          if (isComment && !isSelfMatch) {
+            const taskMatch = line.match(/#TODO-AI:?\s*(.*)$/i);
+            if (taskMatch) {
+              const taskDesc = taskMatch[1].trim();
+              // Clean up trailing comment markers like */ or -->
+              const cleanDesc = taskDesc.replace(/\*\/|-->/, "").trim();
+              items_found.push(`- [ ] **${relPath}:${index + 1}**: ${cleanDesc}`);
+            }
+          }
         }
       });
     }
@@ -54,11 +79,6 @@ export function syncBacklog() {
   console.log("🧹 Scanning for #TODO-AI tags...");
   const found = scanForTodo(ROOT_DIR);
 
-  if (found.length === 0) {
-    console.log("✅ No new AI debt found.");
-    return;
-  }
-
   if (!fs.existsSync(TODO_FILE)) {
     console.warn("⚠️ tasks/PRESENT.md not found. Creating it...");
     fs.mkdirSync(path.dirname(TODO_FILE), { recursive: true });
@@ -69,9 +89,10 @@ export function syncBacklog() {
   const backlogHeader = "## 🧹 Backlog (Automated)";
   const markerStart = "<!-- BACKLOG_START -->";
   const markerEnd = "<!-- BACKLOG_END -->";
-  const lastSwept = `Last Swept: ${new Date().toISOString().replace(/T/, " ").substring(0, 16)}`;
+  const lastSwept = `Last Swept: ${new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" }).substring(0, 16)}`;
 
-  const newBacklogContent = `${markerStart}\n${lastSwept}\n\n${found.join("\n")}\n${markerEnd}`;
+  const backlogItems = found.length > 0 ? found.join("\n") : "No active AI debt found.";
+  const newBacklogContent = `${markerStart}\n${lastSwept}\n\n${backlogItems}\n${markerEnd}`;
 
   const sectionRegex = new RegExp(
     `${backlogHeader.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?${markerEnd}`,

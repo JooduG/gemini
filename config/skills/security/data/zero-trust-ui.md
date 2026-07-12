@@ -52,7 +52,7 @@ function loadProfile(raw_data) {
 
 ## State Isolation & Encapsulation
 
-The Nordic Regime utilizes encapsulated state to prevent lateral data leakage between entities.
+This utilizes encapsulated state to prevent lateral data leakage between entities.
 
 ### Scope Purity
 
@@ -70,13 +70,13 @@ When a contract breach or engine failure occurs, we never crash. We transition t
 
 1. **Detection**: Catch exceptions in Svelte's `onerror` lifecycle or via `$effect` error guards.
 2. **Containment**: Isolate the broken component (e.g., the specific Profile Slot).
-3. **Degradation**: Render a "Chalk Regime" error token with diagnostic info for the user, while keeping the rest of the simulation round active.
+3. **Degradation**: Render an error token with diagnostic info for the user, while keeping the rest of the simulation round active.
 
 ```svelte
 <script>
   let error_state = $state(null);
 
-  // Custom boundary logic in Nordic Regime
+  // Custom boundary logic
   $effect(() => {
     if (critical_failure) {
       error_state = "simulation-desync";

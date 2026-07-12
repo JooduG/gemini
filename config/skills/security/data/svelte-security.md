@@ -1,6 +1,6 @@
-# Svelte 5 Security Protocols: The Nordic Shield
+# Svelte 5 Security Protocols: The Shield
 
-> "Reactivity is a vector. We treat every Rune as a boundary and every Snippet as a sanitization checkpoint. The Nordic Regime demands absolute state purity."
+> "Reactivity is a vector. We treat every Rune as a boundary and every Snippet as a sanitization checkpoint. This demands absolute state purity."
 
 ## 🔬 Table of Contents
 

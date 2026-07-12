@@ -35,7 +35,7 @@ Execute a complete structural deconstruction and linear rebuild of the provided 
 ### 4. CSS Nomenclature & Token Harmonization
 
 - **Ultra-Lean Standard**: Standardize all class names around a flat, semantic, and functional naming convention reflecting internal component structure (e.g., `.wrapper`, `.header`, `.body`, `.actions`, `.status`).
-- **Design Token Sovereignty**: Purge hardcoded values, local custom dimensions, and custom colors. Replace them strictly with Nordic tokens from `DESIGN.md` (e.g., `--radius-standard`, `--duration-fast`).
+- **Design Token Sovereignty**: Purge hardcoded values, local custom dimensions, and custom colors. Replace them strictly with tokens from `DESIGN.md` (e.g., `--radius-standard`, `--duration-fast`).
 - **Pattern Registry Alignment**: If local styling closely mimics a standard registry pattern (e.g., `.glass-elevated`, `.interactable`), drop the local declarations completely and apply the global utility classes directly.
 - **Zero-Redundancy Inheritance**: Do not re-declare inherited or global styles within local `<style>` blocks. Let native CSS inheritance do the work.
 - **Svelte Prop Binding**: Apply custom utility classes to child components exclusively via standard Svelte `class` prop bindings. Never use React-style `className` attributes.

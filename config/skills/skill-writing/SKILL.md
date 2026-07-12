@@ -19,7 +19,7 @@ This skill implements strict Test-Driven Development (TDD) for process documenta
 
 ## When NOT to Use
 
-* Do not use for ephemeral, one-off conversational corrections or project-specific context (use `GEMINI.md` or local workspace configs instead).
+* Do not use for ephemeral, one-off conversational corrections or project-specific context (use [GEMINI.md](../../../GEMINI.md) or local workspace configs instead).
 * Do not use for generic language guidelines or basic tasks that Gemini 3.5 models intuitively compute natively without assistance.
 
 ---

@@ -5,14 +5,6 @@ description: Authoritative style rules and memory-safety patterns for C++ develo
 
 # Google C++ Style Guide Summary
 
-> [!IMPORTANT]
-> When operating within this repository, local project rules supersede the generic guidelines in this document. In the event of a conflict, the authoritive [rules/](../../../../rules/) are absolute, like in these cases (but not limited to):
->
-> 1. **Lexical & Workflow**: Naming conventions and process logic defined in [05-intelligence.md](../../../../../.agents/rules/05-intelligence.md) take precedence. (e.g., Use `snake_case` for variables and `kebab-case` for files regardless of generic language standards).
-> 2. **Aesthetics & UI**: Design tokens and visual laws defined in [04-aesthetics.md](../../../../../.agents/rules/04-aesthetics.md) take precedence. Never use raw CSS values (`px`, `#`, `rem`) when tokens are available.
-> 3. **Framework Logic**: If this project uses **Svelte**, all UI and state logic must adhere to [03-infrastructure.md](../../../../../.agents/rules/03-infrastructure.md).
-> 4. **General Precedence**: Any and all information found in [rules/](../../../../rules/) is master above the information found in this file.
-
 ## 1. Naming
 
 - **General:** Optimize for readability. Be descriptive but concise. Use inclusive language.

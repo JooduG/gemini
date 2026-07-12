@@ -72,17 +72,18 @@ Never create temporary diagnostic files, logs, or command redirects in the proje
 
 ### Skill Discovery Map
 
-Use this map to route your current task to the appropriate specialized global skill:
+Use to route your current task to the appropriate specialized global skill:
 
-- **Planning & Spec**: `planning`, `api`, `stitch`.
-- **Engineering**: `svelte`, `javascript`, `typescript`, `html`, `provenance`, `performance`, `migration`, `swarm`.
-- **Governance**: `master-dispatcher`, `context`, `security`.
-- **Research & Context**: `modern-web-guidance`, `find-docs`, `developer-database`, `deepwiki`, `firecrawl`, `text`.
-- **Verification**: `test`, `devtools`, `debug`, `review`.
-- **Delivery**: `git`, `release`.
+- **Planning & Spec**: [Planning](../planning/SKILL.md), [API](../api/SKILL.md).
+- **Engineering**: [Svelte](../svelte/SKILL.md), [JavaScript](../javascript/SKILL.md), [TypeScript](../Typescript/SKILL.md), [HTML](../html/SKILL.md), [Provenance](../provenance/SKILL.md), [Performance](../performance/SKILL.md), [Migration](../migration/SKILL.md).
+- **Perchance**: [Text Generation](../text/SKILL.md), [Text-to-Image Generation](../image/SKILL.md).
+- **Governance**: [Master Dispatcher](../master-dispatcher/SKILL.md), [Context](../context/SKILL.md), [Security](../security/SKILL.md), [Skill Writing](../skill-writing/SKILL.md), [Legislative](../legislative/SKILL.md).
+- **Research & Context**: [Modern Web Guidance](../modern-web-guidance/SKILL.md), [Developer Database](../developer-database/SKILL.md).
+- **Verification**: [Test Driven Development](../test/SKILL.md), [Chrome DevTools](../devtools/SKILL.md), [Debug](../debug/SKILL.md), [Review](../review/SKILL.md).
+- **Delivery**: [Git](../git/SKILL.md).
 
 > [!IMPORTANT]  
-> **Delegation Protocol**: For local project-specific skills, aesthetic/UI changes, or local simulation logic, defer entirely to the `local-dispatcher`.
+> **Delegation Protocol**: For local project-specific skills, aesthetic/UI changes, or local simulation logic, defer entirely to the [Local Dispatcher](file:///C:/Users/johng/source/repos/RPGlitch/.agents/skills/local-dispatcher/SKILL.md).
 
 ### Complexity Triage
 
@@ -94,7 +95,7 @@ Use this map to route your current task to the appropriate specialized global sk
 
 ### Skill Invocation Protocol
 
-Declare your anchor and active state via the **Turn Signal** (Rule 05):
+Declare your anchor and active state via the **Turn Signal**:
 
 ```text
 > [Role emoji] [Role] | [active-skill] / [/workflow]

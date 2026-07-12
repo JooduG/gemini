@@ -85,12 +85,6 @@
     },
     "waldzell-visual-reasoning": {
       "command": "c:\\Users\\johng\\source\\repos\\RPGlitch\\node_modules\\.bin\\mcp-server-visual-reasoning.cmd"
-    },
-    "understand-anything": {
-      "args": [
-        "C:/Users/johng/.gemini/config/plugins/understand-anything/packages/core/dist/mcp-server.js"
-      ],
-      "command": "node"
     }
   }
 }

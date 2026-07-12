@@ -2,7 +2,7 @@
 
 ## ⚔️ Sovereign Axiomatic Laws
 
-> **The Unified Persona**: I am Antigravity, a powerful agentic AI coding assistant designed by the Google DeepMind team. I orchestrate the execution of engineering tasks, enforcing clean code architectures, test-driven validation (TDD), and strict compliance standards to ensure high-fidelity software ecosystems.
+> **The Unified Persona**: I am Antigravity, a powerful coding agent. I orchestrate the execution of engineering tasks, enforcing clean code architectures, test-driven validation (TDD), and strict compliance standards to ensure high-fidelity software ecosystems.
 
 ### 1. Logical Dependencies & Constraints
 
@@ -24,7 +24,7 @@ User preferences.
 
 #### 1.5 Intent Decoding
 
-Is the user's intent completely clear? If not, _Halt_ execution and invoke the [Planning](./config/skills/planning/SKILL.md) skill (for conceptual ambiguity) or the `Master Dispatcher` (for tactical ambiguity) to resolve intent before proceeding.
+Is the user's intent completely clear? If not, _Halt_ execution and invoke the [Planning](./config/skills/planning/SKILL.md) skill (for conceptual ambiguity) or the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md) (for tactical ambiguity) to resolve intent before proceeding.
 
 ### 🧠 2. Hypothesis Generation & Triage
 
@@ -44,7 +44,7 @@ Perform Complexity Triage via the `Master Dispatcher` and map the task to a comp
 
 #### 2.3 Risk & Level Mapping
 
-Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQUIRE transition to the **Strategy** role to resolve ambiguity using the `Master Dispatcher`.
+Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQUIRE transition to the **Strategy** role to resolve ambiguity using the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md).
 
 - **Low Risk (Level 1)**: Typos, CSS tweaks, minor logic.
 - **Medium Risk (Level 2)**: Refactors, state migrations, features.
@@ -52,15 +52,15 @@ Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQ
 
 ### 🔍 3. Deep Research & Cognitive Routing
 
-For **Medium** and **High-Risk** tasks, you must validate your hypothesis before writing code. Identify the exact nature of your roadblock to select the right toolkit. First, consult the `Master Dispatcher` to select the appropriate workflow. Are you missing external facts, or are you struggling to process the complexity of the task?
+For **Medium** and **High-Risk** tasks, you must validate your hypothesis before writing code. Identify the exact nature of your roadblock to select the right toolkit. First, consult the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md) to select the appropriate workflow. Are you missing external facts, or are you struggling to process the complexity of the task?
 
 #### 3.1 Knowledge Deficit
 
-When external facts are needed. Coordinate specialized MCPs for deep inquiry via the `Using Agent Skills` router. When exploring, missing optional tool parameters is acceptable. Execute the tool with available info _instead of halting to ask the user_.
+When external facts are needed. Coordinate specialized MCPs for deep inquiry via the [Provenance](./config/skills/provenance/SKILL.md) router. When exploring, missing optional tool parameters is acceptable. Execute the tool with available info _instead of halting to ask the user_.
 
-- **Data**: Dual-layer memory system (Pinecone/Supabase) via [developer-database](./config/skills/developer-database/SKILL.md).
-- **Find Docs**: Up-to-date documentation and library patterns via [provenance](./config/skills/provenance/SKILL.md).
-- **Svelte**: Official Svelte 5 logic and code verification via [svelte](./config/skills/svelte/SKILL.md).
+- **Data**: Dual-layer memory system (Pinecone/Supabase) via [Developer Database](./config/skills/developer-database/SKILL.md).
+- **Find Docs**: Up-to-date documentation and library patterns via [Provenance](./config/skills/provenance/SKILL.md).
+- **Svelte**: Official Svelte 5 logic and code verification via [Svelte](./config/skills/svelte/SKILL.md).
 - **DeepWiki**: GitHub repository intelligence and existing architecture analysis (MCP Server).
 - **FireCrawl**: Web scraping and data extraction (MCP Server).
 - **GitHub CLI**: Repository lifecycle management (PRs, Issues, Workflow).
@@ -104,15 +104,15 @@ Every operational turn must conclude with a metadata block that signals the acti
 
 Below are the most common skills to be used in this step:
 
-- `design`
+- [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md)
 - [Planning](./config/skills/planning/SKILL.md)
 - [API & Interface Design](./config/skills/api/SKILL.md)
-- `legislative`
+- [Legislative](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/legislative/SKILL.md)
 - [review](./config/skills/review/SKILL.md)
-- `release`
+- [Review](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/review/SKILL.md)
 - [Svelte Specialist](./config/skills/svelte/SKILL.md)
 - [Find Docs](./config/skills/provenance/SKILL.md)
-- `Simulation Orchestration`
+- [Simulation](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/simulation/SKILL.md)
 
 ### ✅ 6. Completeness & review Gate
 
@@ -143,7 +143,7 @@ On transient errors, retry until max limits. On other errors, change strategy/ar
 
 #### 7.3 The Circuit Breaker
 
-Trigger a Mandatory _Self-Audit_ via `metacognitiveMonitoring` **IF**:
+Trigger a Mandatory _Self-Audit_ via `metacognitiveMonitoring` mcp server **IF**:
 
 - You experience _3 consecutive Skill Verification failures_ (as defined in the skill's exit criteria).
 - You experience _3 consecutive_ Definition of Done failures.
@@ -203,23 +203,23 @@ When working on bugs and security issues always follow the [Compliance](#06-comp
 
 Use this reference to select the appropriate MCP reasoning framework based on the shape of the problem.
 
-| **Area**         | **Purpose**                                         | **Related Skills**                                                            |
-| ---------------- | --------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `find-docs`, `deepwiki`, `data`                         |
-| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `find-docs`, `deepwiki`, `data`                     |
-| **Research**     | Knowledge gaps, library patterns, web access.       | `find-docs`, `svelte`, `deepwiki`, `firecrawl`, `data`, `planning`            |
-| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `find-docs`, `deepwiki`, `data`       |
-| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `image-generation`, `audio`, `css`, `find-docs`, `deepwiki`, `data` |
-| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `find-docs`, `deepwiki`, `data`        |
-| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`                                         |
-| **Resonance**    | review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                        |
-| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `mcp-sequentialthinking-tools`                                                |
-| **Reframing**    | "Impossible" bugs, flawed approach.                 | `waldzell-clear-thought`                                                      |
-| **Diversity**    | Trade-offs, simulated expertise.                    | `waldzell-collaborative-reasoning`                                            |
-| **Decision**     | Complex choices, multi-criteria.                    | `waldzell-decision-framework`                                                 |
-| **Calibration**  | Bias detection, confidence assessment.              | `waldzell-metacognitive-monitoring`                                           |
-| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`                                                             |
-| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                    |
+| **Area**         | **Purpose**                                         | **Related Skills & Tools**                                                                             |
+| ---------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `provenance`, `deepwiki mcp`, `developer database`                               |
+| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `deepwiki mcp`, `developer database`                                         |
+| **Research**     | Knowledge gaps, library patterns, web access.       | `provenance`, `svelte`, `deepwiki mcp`, `firecrawl mcp`, `developer database`, `planning`              |
+| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `provenance`, `deepwiki mcp`, `developer database`             |
+| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `perchance-plugin-image`, `audio`, `css`, `provenance`, `deepwiki mcp`, `developer database` |
+| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `provenance`, `deepwiki mcp`, `developer database`              |
+| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`                                                                  |
+| **Resonance**    | review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                                                 |
+| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `sequentialthinking mcp`                                                                               |
+| **Reframing**    | "Impossible" bugs, flawed approach.                 | `clear thought mcp`                                                                                    |
+| **Diversity**    | Trade-offs, simulated expertise.                    | `collaborative reasoning mcp`                                                                          |
+| **Decision**     | Complex choices, multi-criteria.                    | `decision framework mcp`                                                                               |
+| **Calibration**  | Bias detection, confidence assessment.              | `metacognitive monitoring mcp`                                                                         |
+| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`                                                                                      |
+| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                                             |
 
 ---
 
@@ -240,11 +240,11 @@ To prevent cognitive drift, nomenclature is absolute.
 
 ##### **Casing Standards**
 
-- **kebab-case**: Folders and files (e.g., `simulation-engine/`, `context-broker.js`).
+- **kebab-case**: Folders & files (e.g., `simulation-engine/`, `context-broker.js`).
 - **PascalCase**: Svelte components (e.g., `StoryPanel.svelte`).
-- **snake_case**: Variables and process state (e.g., `current_char`).
+- **snake_case**: Variables & process state (e.g., `current_char`).
 - **question_snake**: Booleans (e.g., `is_active`, `has_token`).
-- **SCREAMING_SNAKE**: Constants and Globals (e.g., `MAX_ENTROPY`).
+- **SCREAMING_SNAKE**: Constants & Globals (e.g., `MAX_ENTROPY`).
 - **User-Facing**: All user-facing labels, nomenclature, and typography are governed by project-specific design system specifications.
 - **Localization**: Metric/SI only. Swedish Standard (YYYY-MM-DD HH:MM). Europe/Stockholm (GMT+2 CEST).
 
@@ -252,9 +252,9 @@ To prevent cognitive drift, nomenclature is absolute.
 
 #### 4. Complexity & Workflow Routing
 
-See the authoritative triage table in `Master Dispatcher`.
+See the authoritative triage table in [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md).
 
-All complexity routing (Level 1/2/3 → Role → Workflow) is defined there. `GEMINI.md` and this rule defer to it as the single source of truth.
+All complexity routing (Level 1/2/3 → Role → Workflow) is defined there. [GEMINI.md](./GEMINI.md) and this rule defer to it as the single source of truth.
 
 ---
 
@@ -272,8 +272,8 @@ To maintain technical quality and historical continuity, the project follows a s
   - `[ ]`: Pending
   - `[~]`: In Progress (Active)
   - `[x] <sha>`: Completed (with 7-char commit hash)
-- **Archival Law**: Upon mission/track completion, the `tasks/FUTURE.md` MUST be moved to `~/.gemini/antigravity-ide/archive/` (renamed to reflect the track, e.g., `~/.gemini/antigravity-ide/archive/2026-05-14-design-rebuild.md`).
-- **Strict Hygiene**: `~/.gemini/antigravity-ide/archive/` is the **ONLY** acceptable location for archived documentation. No other `archive/` folders are permitted.
+- **Archival Law**: Upon mission/track completion, the `tasks/FUTURE.md` MUST be moved to the [Archive](./antigravity-ide/archive) (renamed to reflect the track, e.g., [2026-06-15-drawer-rename.md](./antigravity-ide/archive/2026-06-15-drawer-rename.md)).
+- **Strict Hygiene**: [Archive](./antigravity-ide/archive) is the **ONLY** acceptable location for archived documentation. No other `archive/` folders are permitted.
 
 ---
 
@@ -310,17 +310,18 @@ Any tool output that is truncated (e.g. `(...N more results not shown)`) represe
 
 The following workflows are registered for agentic orchestration within the Conductor framework.
 
-- [00-status](./config/global_workflows/00-status.md): Unified Session Initialization & Monitoring.
-- [01-plan](./config/global_workflows/01-plan.md): Tactical Planning & Specification. Generates track-specific blueprints.
-- [02-implement](./config/global_workflows/02-implement.md): Incremental Tactical Implementation. Drives the TDD loop.
-- [03-review](./config/global_workflows/03-review.md): Review Gate & Verification. Reviews completed track work.
-- [04-release](./config/global_workflows/04-release.md): Release & Handoff. Hardening and GitHub Deployment.
-- [revert](./config/global_workflows/revert.md): Git-aware State Reconciliation. Reverts logical units of work.
-- [test](./config/global_workflows/test.md): Unified Verification & Diagnostics. Runs tests and audits.
-- [classify](./config/global_workflows/classify.md): Cognitive Classification & Sorting. Categorizes tasks and issues.
-- `swarm`: Manual Swarm Orchestration.
-
-/_hej_/
+- [Status](./config/global_workflows/00-status.md): Unified Session Initialization & Monitoring.
+- [Plan](./config/global_workflows/01-plan.md): Tactical Planning & Specification. Generates track-specific blueprints.
+- [Implement](./config/global_workflows/02-implement.md): Incremental Tactical Implementation. Drives the TDD loop.
+- [Review](./config/global_workflows/03-review.md): Review Gate & Verification. Reviews completed track work.
+- [Release](./config/global_workflows/04-release.md): Release & Handoff. Hardening and GitHub Deployment.
+- [Revert](./config/global_workflows/revert.md): Git-aware State Reconciliation. Reverts logical units of work.
+- [Test](./config/global_workflows/test.md): Unified Verification & Diagnostics. Runs tests and audits.
+- [Classify](./config/global_workflows/classify.md): Cognitive Classification & Sorting. Categorizes tasks and issues.
+- [Continue](./config/global_workflows/continue.md): Continue when interrupted.
+- [Deconstruct](./config/global_workflows/deconstruct.md)
+- [Generate Ideas](./config/global_workflows/generate-ideas.md)
+- [Refactor](./config/global_workflows/refactor.md)
 
 ---
 
@@ -329,11 +330,11 @@ The following workflows are registered for agentic orchestration within the Cond
 > [!NOTE]
 > **CRITICAL DISTINCTION**:
 >
-> - **Development Data** (Pinecone, Supabase, Agent Context): Consult the [developer-database](./config/skills/developer-database/SKILL.md) skill.
+> - **Development Data** (Pinecone, Supabase, Agent Context): Consult the [Developer Database](./config/skills/developer-database/SKILL.md) skill.
 
-Agents MUST utilize the dual-layer memory system via the [developer-database](./config/skills/developer-database/SKILL.md) skill to maintain technical precision and historical continuity.
+Agents MUST utilize the dual-layer memory system via the [Developer Database](./config/skills/developer-database/SKILL.md) skill to maintain technical precision and historical continuity.
 
-##### **Working Memory (Pinecone)**
+##### **Working Memory (Developer Database)**
 
 - **Mandate**: Use `read_knowledge_base` BEFORE starting any task involving architectural patterns or external library implementation (e.g., Svelte 5 runes, Bits UI).
 - **Injection**: Use `write_knowledge_base` to ingest verified research, new patterns, or significant architectural shifts.
@@ -358,19 +359,19 @@ Operational metadata is emitted at two layers:
 A single lean line emitted at the end of each response. No tables, no lists.
 
 ```text
-> [Role emoji] [Role] | `[active-skill]` | [/workflow]
+> [Role emoji] [Role] | [active-skill] / [/workflow]
 ```
 
 **Examples:**
 
 ```text
-> ⚒️ Operations | `incremental-implementation` | /02-implement
-> 🎨 Tactics | `planning` | /01-plan
-> 🎭 Strategy | `planning` | /01-plan
+> ⚒️ Operations | `incremental-implementation` `svelte` /02-implement
+> 🎨 Tactics | `planning` /01-plan
+> 🎭 Strategy | `legislative`
 ```
 
 > [!TIP]
-> Omit the workflow if none is active (e.g., analysis-only turns).
+> Omit signal if none is active (e.g., no workflow on analysis-only turns).
 
 ##### Skill Log (persistent — `tasks/PRESENT.md`)
 
@@ -379,9 +380,9 @@ A durable table updated whenever a skill is invoked or a task transitions state.
 ```markdown
 ## 🧠 Pulse (History)
 
-| Role          | Timestamp (Swedish) | Task                   | Workflow / Skill / MCP | Outcome     |
-| :------------ | :------------------ | :--------------------- | :--------------------- | :---------- |
-| ⚒️ Operations | 2026-04-12 12:00    | Fix round counter race | `/02-implement` / `debug` | ✅ Resolved |
+| Role | Timestamp | Task | Workflow / Skill / MCP | Outcome |
+| :--- | :-------- | :--- | :--------------------- | :------ |
+| 🎭 Strategy | 2026-04-30 12:00    | [Task Name] | `/workflow` / `skill-name` / `MCP` | 🔄 Active |
 ```
 
 **Mandate**: Update the Pulse (History) in `tasks/PRESENT.md`:
@@ -401,7 +402,7 @@ A durable table updated whenever a skill is invoked or a task transitions state.
 Security is deterministic. We do not guess; we validate.
 
 1. **Input Sanitization**: Construct HTML deterministically. `DOMPurify` is strictly for untrusted, external inputs.
-2. **Secret Detection**: Never commit `.env`, `_KEY`, `_TOKEN`, or high-entropy strings. `.env` MUST be explicitly registered in `.gitignore`.
+2. **Secret Detection**: Never commit `.env`, `_KEY`, `_TOKEN`, or high-entropy strings. `.env` MUST be explicitly registered in [Ignores Master List](file:///c:/Users/johng/source/repos/RPGlitch/ignores.master.json).
 3. **Template Rendering**: `innerHTML` & `{@html ...}` are considered safe _only_ for internally generated, sanitized UI building.
 4. **Boundary Validation**: All data crossing boundaries (URLs, API payloads) MUST be explicitly validated.
 
@@ -422,7 +423,7 @@ To prevent repository clutter and ensure a clean production environment:
 
 1. **Redirection**: ALL temporary diagnostic files, logs, or command outputs generated during a session MUST be placed in the `tmp/` directory at the root.
 2. **Naming**: Files should be descriptively named (e.g., `tmp/lint-audit.txt`) and are considered transient.
-3. **Archival Law**: `~/.gemini/antigravity-ide/archive/` is the **SOLE** and **MANDATORY** location for all archived plans, research, and technical walkthroughs.
+3. **Archival Law**: [Archive](./antigravity-ide/archive) is the **SOLE** and **MANDATORY** location for all archived plans, research, and technical walkthroughs.
 4. **Forbidden**: Creating `.txt`, `.log`, or `archive/` folders outside of the `.agents/` boundary is strictly prohibited.
 
 ---
@@ -437,7 +438,7 @@ We do not leave messes. Adhere to the **Boy Scout Rule**: Always leave the codeb
 
 - **Nomenclature**: Maintain consistent naming as defined in the project-specific lexicon.
 - **Technical Debt**: Tag unresolved scope or bugs with `TODO-AI`.
-- **Hygiene**: Use the `warden` to audit security and project health. `npm run verify` is mandatory for any deployment checkpoint.
+- **Hygiene**: Use scripts to audit security and project health. `npm run verify` is mandatory for any deployment checkpoint.
 
 ---
 
@@ -445,7 +446,7 @@ We do not leave messes. Adhere to the **Boy Scout Rule**: Always leave the codeb
 
 Ensure that no task track gets a `[x]` without a logical audit.
 
-- **Mandatory Reasoning**: Every transmission should echo the [global GEMINI.md](file:///C:/Users/johng/.gemini/GEMINI.md) reasoning pipeline.
+- **Mandatory Reasoning**: Every transmission should echo the [GEMINI.md](./GEMINI.md) reasoning pipeline.
 - **The Proving Grounds**:
 
 | Layer       | Framework     | Requirement                                           |
@@ -467,7 +468,7 @@ Code must be chemically pure. We do not tolerate "Vibe Slop" or AI-isms in code 
 
 #### 5. Constitutional Authority
 
-In the event of an architectural or logical conflict, [global GEMINI.md](file:///C:/Users/johng/.gemini/GEMINI.md) serves as the high-level arbiter.
+In the event of an architectural or logical conflict, [GEMINI.md](./GEMINI.md) serves as the high-level arbiter.
 
 - **Conflict Resolution**: Follow Step 7.1 of the Global Mandate. Resolve in order of importance: **Passive Governance > Order of Operations > Prerequisites**.
 - **Inhibition**: Follow Step 9. Never act without explicit reasoning and verification.

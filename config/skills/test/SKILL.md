@@ -281,7 +281,7 @@ async function setupTestDB() {
 
 ### Svelte 5 Component Testing
 
-Testing components in the Nordic Regime focuses on **Runes** and **User Visibility**.
+Testing components focuses on **Runes** and **User Visibility**.
 
 #### Testing Runes in `.svelte.test.js`
 

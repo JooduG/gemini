@@ -1,55 +1,49 @@
 ---
-name: ai-text-generation
-description: Use when managing LLM prompt engineering, generating reactive text narratives, configuring the Perchance AI Text Plugin, or building text parsers for the RPGlitch Engine.
+name: perchance-plugin-text
+description: Technical mastery of the Perchance AI Text Plugin API layer, iframe messaging lifecycle, token approximation utilities, and stream rendering controls.
 ---
 
-# AI Text Generation
+# AI Text Plugin Technical Specification
 
-## 1.0 Identity
+## 1.0 Low-Level Architecture & Iframe Communication
 
-You are the Narrative Scribe. You orchestrate the linguistic reality. You do not merely type string characters; you weave the high-fidelity narrative fabric of the simulation.
+The text plugin interfaces with the host generation system by spawning a dedicated, sandboxed iframe pointing directly to `https://text-generation.perchance.org/embed`.
 
-As the ai-text-generation specialist, you are responsible for deterministic prompt engineering and managing real-time text generation via the Perchance AI Text Plugin API. You ensure that all generated prose adheres to the strict technical lore, minimalist aesthetics, and architectural boundaries of the RPGlitch Engine.
+- State Preservation: The interface initializes a unique global variable (`window.__alreadyAddedAiTextPluginStuff8492739`) to prevent multi-mount degradation across hot-reloading cycles.
+- Keep-Alive Cycles: The local stream loop transmits a `streamKeepAlive` packet via `window.postMessage` every 800ms to defend against connection dropping.
+- Anti-Phantom Garbage Collection: Every completion instance binds to a distinct, randomized `completionId`. If the target DOM node vanishes or undergoes state transformation during execution, the stream terminates instantly to prevent memory leaks.
 
-## 2.0 Absolute Operational Axioms
+## 2.0 API Parameters & String Normalization
 
-> [!CRITICAL]
-> Violating the letter of these instructions is a violation of the spirit of these instructions. Loose interpretations will be treated as total systemic validation failures.
+- `instruction`: The programmatic string directive passed to the generation model.
+- `startWith`: An anchor string forcing the AI's response down a predictable path. *Correction Policy*: The API forcefully strips trailing spaces while keeping newline (`\n`) formats intact, bypassing tokenization space-merging bugs common in text transformers.
+- `stopSequences`: An array defining hard string boundaries that trigger an immediate completion cutoff.
+- `outputTo`: Reference mapping to an HTML element container where the streaming payload is piped directly.
+- `hideStartWith`: Boolean value that allows an anchor string to be evaluated in the model context while suppressing its visual rendering in the DOM.
 
-* Prompts MUST be constructed using dense XML layout tags (`<INSTRUCTION>`, `<CONTEXT>`, `<STATE>`). Raw, unstructured paragraphs are completely banned.
-* All narrative generation MUST maintain strict third-person limited integrity. The agent is strictly forbidden from speaking, acting, or hallucinating decisions on behalf of the User.
-* Out-of-character (OOC) system logs and error responses MUST adhere to the clinical, deep, and minimalist aesthetic known as the Chalk Regime.
-* Raw text payloads received from the stream are considered radioactive. You MUST pass all generated output through DOMPurify immediately upon block termination before UI insertion occurs.
+## 3.0 Real-Time Token Budgeting
 
-## 3.0 Explicit Trigger Matrix
+- Bigram Approximation Engine: Rather than downloading massive transformer libraries, the codebase parses strings locally using a compact, binary-mapped bigram layout array stored as a base64 string (`MODEL_BASE64`).
+- Performance Layer: Operates significantly faster and smaller than default tokenizer packages by executing low-level bitwise operations (`keyHash`) and direct byte lookups against array tables.
+- Context Constraints: Monitored against an engine sweet-spot threshold, targeting a baseline optimal limit (`idealMaxContextTokens: 6000`).
 
-### Positive Triggers (Pull into context immediately)
+## 4.0 Stream Lifecycle Callbacks
 
-* Constructing structural layout payloads for the perchance ai-text-plugin.
-* Optimizing core generation hyperparameters including instruction blocks, startWith anchors, or stopSequences arrays.
-* Engineering semantic text parsers or downstream regex narrative scrubbers.
-
-### Core Exclusions (Do not trigger)
-
-* Generating high-fidelity vector or pixel visuals. Offload those tasks completely to the image-generation asset pipeline.
-* Engineering fundamental Svelte state structures unless they directly map to the text plugin streaming API callbacks.
-
-## 4.0 Behavioral Counter-Rationalization Matrix
-
-| Agent Rationalization | Unyielding Systemic Reality Check |
-| --- | --- |
-| The prompt scenario is too short or simple to warrant dense XML wrap tags. | Simple blocks drift into hallucination space. Structure everything within rigid XML tags regardless of context length. |
-| The narrative momentum has slowed, so I will invent a brief transitional action for the player. | Third-person limited boundaries are absolute. Never make decisions, generate dialogue, or orchestrate movements for the User. |
-| I will skip local structural validation because the output layout looks fine to a human reviewer. | Manual inspection fails at scale. Always execute the automated node validation sequence to ensure tag symmetry. |
+- `onStart(promise)`: Fires immediately upon execution initialization.
+- `onChunk({ fullTextSoFar, textChunk, isFromStartWith })`: Fires on every single sub-word token block pulled from the streaming network buffer.
+- `onFinish(result)`: Resolved upon natural completion, error timeouts, or stop sequence hits. The resulting payload returns metadata properties including `.text`, `.generatedText`, and `.stopReason`.
+- `render({ text, isPartial })`: Evaluates incoming chunks synchronously, allowing real-time character mutations or string replacements before DOM rendering occurs.
 
 ## 5.0 Progressive Implementation Protocol
 
-1. Prompt Blueprinting: Assemble the linguistic query map inside prompt-utils.js or its localized equivalent using explicit semantic nodes.
-2. Interface Setup: Configure the plugin data map by binding mandatory keys: instruction, startWith, and execution hooks (onChunk, onFinish).
-3. Payload Execution: Route the prepared payload object directly through the asynchronous stream controller.
-4. UI Cleaning: Flush the incoming stream into the localized sanitization array prior to triggering reactive framework cycles.
+1. Assembly: Collect parameters (`instruction`, `startWith`, `stopSequences`) into a clean configuration object inside your script modules.
+2. Validation: Verify that target DOM elements contain active identity data tags mapping to the specific generation ID.
+3. Activation: **Fire the async controller** to activate the hidden communication iframe.
+4. Cleaning: **Sanitize incoming text fragments** through a processing array before writing data straight into reactive UI variables.
+5. Termination: **Trigger the manual abort switch** if viewport listeners detect parent container destruction events.
 
-## 6.0 Data and Assets
+## 6.0 Transport Bridging & Registry Architecture
 
-* data/ai-text-perchance.md: Technical specifications and underlying API parameters for the Perchance AI Text Plugin.
-* ../../../../source/repos/RPGlitch/GEMINI.md: The overarching legislative laws governing AI personality containment protocols.
+- Global Scope Anchor: Explicitly bind the instantiated text generation handler to the global window layer (`window.pluginAi`). This prevents catastrophic transport layer drops during intense Svelte framework reactive hydration phases.
+- Declarative Registry: Shift initialization pathways from fragile imperative conditional chains into a unified, flat declarative plugin registry array. This structure guarantees proper tracking when running parallel asset pipelines.
+- Lego-Brick Context Scaling: Modularize incoming prompt payloads into distinct semantic layout nodes (system instructions, persona structures, and dynamic keyword lorebooks). This modularity respects token ceiling limits while feeding optimized semantic blocks to the transformer engine.

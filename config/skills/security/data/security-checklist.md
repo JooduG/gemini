@@ -54,7 +54,7 @@ Quick reference for simulation engine security. Use alongside the `security` ski
 ## Build & Distribution (Perchance Logic)
 
 - [ ] **ESM Purity**: All external modules imported via verified `esm.sh` CDN links.
-- [ ] **CSS Sovereignty**: No third-party remote CSS; all styles are local to the Nordic Regime.
+- [ ] **CSS Sovereignty**: No third-party remote CSS; all styles are local.
 - [ ] **Manifest Safety**: Simulation manifest follows the Zero-Trust configuration.
 
 ---

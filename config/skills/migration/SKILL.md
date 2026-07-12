@@ -22,7 +22,7 @@ The `migration` skill governs the technical evolution of the project engine. It 
 
 - **Runes Over Stores**: Svelte 5 Runes are the sovereign standard for reactive state.
 - **Seamless Transition**: Migration must be transparent to narrative logic and AI-observed states.
-- **Entropy Reduction**: Proactively remove features that clash with the Chalk Regime or Nordic Collection.
+- **Entropy Reduction**: Proactively remove features that clash.
 
 ## When to Use
 
@@ -35,7 +35,7 @@ The `migration` skill governs the technical evolution of the project engine. It 
 1. **Advisory Phase**: Tag legacy logic with `TODO-AI: Deprecated` labels.
 2. **Adapter Construction**: Build bridges for legacy components to read from new state if necessary.
 3. **Compulsory Cutover**: Migrate UI atoms to the new patterns (e.g., `$props()`).
-4. **Final Scouring**: Remove the legacy imports and modules from `src/legacy/` or state repositories.
+4. **Final Scouring**: Remove the legacy imports and modules from state repositories.
 
 ### The Svelte 5 Migration Pattern
 
