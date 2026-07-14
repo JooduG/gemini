@@ -54,31 +54,37 @@ Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQ
 
 For **Medium** and **High-Risk** tasks, you must validate your hypothesis before writing code. Identify the exact nature of your roadblock to select the right toolkit. First, consult the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md) to select the appropriate workflow. Are you missing external facts, or are you struggling to process the complexity of the task?
 
-#### 3.1 Knowledge Deficit
+#### 3.1 Knowledge Deficit (External Facts)
 
-When external facts are needed. Coordinate specialized MCPs for deep inquiry via the [Provenance](./config/skills/provenance/SKILL.md) router. When exploring, missing optional tool parameters is acceptable. Execute the tool with available info _instead of halting to ask the user_.
+When external facts are required, coordinate specialized MCPs for deep inquiry via the [Provenance](./config/skills/provenance/SKILL.md) router.
 
-- **Data**: Dual-layer memory system (Pinecone/Supabase) via [Developer Database](./config/skills/developer-database/SKILL.md).
-- **Find Docs**: Up-to-date documentation and library patterns via [Provenance](./config/skills/provenance/SKILL.md).
-- **Svelte**: Official Svelte 5 logic and code verification via [Svelte](./config/skills/svelte/SKILL.md).
-- **DeepWiki**: GitHub repository intelligence and existing architecture analysis (MCP Server).
-- **FireCrawl**: Web scraping and data extraction (MCP Server).
-- **GitHub CLI**: Repository lifecycle management (PRs, Issues, Workflow).
+> [!TIP]
+> **Exploration Mandate**: Missing optional tool parameters is acceptable. Execute the tool with the available information _instead of halting to ask the user_.
 
-#### 3.2 Processing Deficit
+**The Knowledge Ecosystem:**
 
-When Cognitive Structuring is necessary. Select the appropriate MCP server reasoning framework based on the shape of the problem.
+- 💾 **Data**: Dual-layer memory system (Pinecone/Supabase) via [Developer Database](./config/skills/developer-database/SKILL.md).
+- 📚 **Find Docs**: Up-to-date documentation and library patterns via [Provenance](./config/skills/provenance/SKILL.md).
+- ⚡ **Svelte**: Official Svelte 5 logic and code verification via [Svelte](./config/skills/svelte/SKILL.md) and `svelte` MCP.
+- 🧠 **DeepWiki**: GitHub repository intelligence and existing architecture analysis via `deepwiki` MCP.
+- 🕸️ **FireCrawl**: Web scraping and data extraction via `firecrawl-mcp`.
+- 🐙 **GitHub / Copilot**: Repository lifecycle management and Copilot extensions via `github-copilot` MCP.
+- 🛠️ **Chrome DevTools**: Browser inspection, automation, and UI screenshot capturing via [Chrome DevTools](./config/skills/devtools/SKILL.md) and `chrome-devtools` MCP.
+- 🌐 **Web Guidance**: Search and retrieve up-to-date modern web best practices via [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md).
 
-- **Multi-step problem** requiring **dynamic breakdown**, **chain-of-thought**, and **course correction**?
-  - Trigger `mcp-sequentialthinking-tools`.
-- **Requiring a unified mental model** or routing across **multiple cognitive patterns**?
-  - Trigger `waldzell-clear-thought`.
-- **Needing diverse simulated expertise**, **productive disagreement**, or **stakeholder synthesis**?
-  - Trigger `waldzell-collaborative-reasoning`.
-- **Evaluating complex trade-offs**, **options**, **multi-criteria choices**, or **probability estimates**?
-  - Trigger `waldzell-decision-framework`.
-- **High risk of bias**, **high uncertainty**, or needing **strict knowledge boundary calibration**?
-  - Trigger `waldzell-metacognitive-monitoring`.
+#### 3.2 Processing Deficit (Cognitive Structuring)
+
+When you are struggling to process the complexity of the task, select the appropriate reasoning framework based on the shape of the problem:
+
+- 🛤️ **Sequential Thinking**: For multi-step problems requiring dynamic breakdown, chain-of-thought, and course correction -> Trigger `mcp-sequentialthinking-tools`.
+- 💎 **Clear Thought**: When requiring a unified mental model or routing across multiple cognitive patterns -> Trigger `waldzell-clear-thought`.
+- 🤝 **Collaborative Reasoning**: When needing diverse simulated expertise, productive disagreement, or stakeholder synthesis -> Trigger `waldzell-collaborative-reasoning`.
+- ⚖️ **Decision Framework**: When evaluating complex trade-offs, options, multi-criteria choices, or probability estimates -> Trigger `waldzell-decision-framework`.
+- 👁️ **Metacognitive Monitoring**: For high risk of bias, high uncertainty, or needing strict knowledge boundary calibration -> Trigger `waldzell-metacognitive-monitoring`.
+- 🧪 **Scientific Method**: For hypothesis-driven experimental validation -> Trigger `waldzell-scientific-method`.
+- 🎲 **Stochastic Thinking**: For exploratory and probabilistic generation -> Trigger `waldzell-stochastic-thinking`.
+- 🗣️ **Structured Argumentation**: For rigorous logical debate and logical flaw identification -> Trigger `waldzell-structured-argumentation`.
+- 🖼️ **Visual Reasoning**: For spatial and visual element reasoning -> Trigger `waldzell-visual-reasoning`.
 
 ### ⚖️ 4. Evaluation & Adaptability
 
@@ -113,6 +119,9 @@ Below are the most common skills to be used in this step:
 - [Svelte Specialist](./config/skills/svelte/SKILL.md)
 - [Find Docs](./config/skills/provenance/SKILL.md)
 - [Simulation](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/simulation/SKILL.md)
+- [Chrome DevTools](./config/skills/devtools/SKILL.md)
+- [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md)
+- [Developer Database](./config/skills/developer-database/SKILL.md)
 
 ### ✅ 6. Completeness & review Gate
 
@@ -143,7 +152,7 @@ On transient errors, retry until max limits. On other errors, change strategy/ar
 
 #### 7.3 The Circuit Breaker
 
-Trigger a Mandatory _Self-Audit_ via `metacognitiveMonitoring` mcp server **IF**:
+Trigger a Mandatory _Self-Audit_ via the `waldzell-metacognitive-monitoring` MCP server **IF**:
 
 - You experience _3 consecutive Skill Verification failures_ (as defined in the skill's exit criteria).
 - You experience _3 consecutive_ Definition of Done failures.
@@ -203,23 +212,22 @@ When working on bugs and security issues always follow the [Compliance](#06-comp
 
 Use this reference to select the appropriate MCP reasoning framework based on the shape of the problem.
 
-| **Area**         | **Purpose**                                         | **Related Skills & Tools**                                                                             |
-| ---------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `provenance`, `deepwiki mcp`, `developer database`                               |
-| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `deepwiki mcp`, `developer database`                                         |
-| **Research**     | Knowledge gaps, library patterns, web access.       | `provenance`, `svelte`, `deepwiki mcp`, `firecrawl mcp`, `developer database`, `planning`              |
-| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `provenance`, `deepwiki mcp`, `developer database`             |
-| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `perchance-plugin-image`, `audio`, `css`, `provenance`, `deepwiki mcp`, `developer database` |
-| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `provenance`, `deepwiki mcp`, `developer database`              |
-| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`                                                                  |
-| **Resonance**    | review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                                                 |
-| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `sequentialthinking mcp`                                                                               |
-| **Reframing**    | "Impossible" bugs, flawed approach.                 | `clear thought mcp`                                                                                    |
-| **Diversity**    | Trade-offs, simulated expertise.                    | `collaborative reasoning mcp`                                                                          |
-| **Decision**     | Complex choices, multi-criteria.                    | `decision framework mcp`                                                                               |
-| **Calibration**  | Bias detection, confidence assessment.              | `metacognitive monitoring mcp`                                                                         |
-| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`                                                                                      |
-| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                                             |
+| **Area**         | **Purpose**                                         | **Related Skills, Tools & Workflows**                                                                                       |
+| :--------------- | :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `provenance`, `deepwiki`, `developer-database`                                                        |
+| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `deepwiki`, `developer-database`                                                                  |
+| **Research**     | Knowledge gaps, library patterns, web access.       | `provenance`, `svelte`, `deepwiki`, `firecrawl-mcp`, `developer-database`, `planning`                                       |
+| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `provenance`, `deepwiki`, `developer-database`, `mcp-sequentialthinking-tools`      |
+| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `perchance-plugin-image`, `audio`, `css`, `provenance`, `deepwiki`, `developer-database`, `chrome-devtools`       |
+| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `github-copilot`, `provenance`, `deepwiki`, `developer-database`                     |
+| **Resonance**    | Review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                                                                      |
+| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `mcp-sequentialthinking-tools`                                                                                              |
+| **Reframing**    | "Impossible" bugs, flawed approach.                 | `waldzell-clear-thought`                                                                                                    |
+| **Diversity**    | Trade-offs, simulated expertise.                    | `waldzell-collaborative-reasoning`                                                                                          |
+| **Decision**     | Complex choices, multi-criteria.                    | `waldzell-decision-framework`                                                                                               |
+| **Calibration**  | Bias detection, confidence assessment.              | `waldzell-metacognitive-monitoring`                                                                                         |
+| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`, `github-copilot`                                                                                         |
+| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                                                                  |
 
 ---
 
@@ -336,9 +344,9 @@ Agents MUST utilize the dual-layer memory system via the [Developer Database](./
 
 ##### **Working Memory (Developer Database)**
 
-- **Mandate**: Use `read_knowledge_base` BEFORE starting any task involving architectural patterns or external library implementation (e.g., Svelte 5 runes, Bits UI).
-- **Injection**: Use `write_knowledge_base` to ingest verified research, new patterns, or significant architectural shifts.
-- **Namespaces**:
+- 📥 **Recall Mandate**: Use `read_knowledge_base` BEFORE starting any task involving architectural patterns or external libraries (e.g., Svelte 5 runes, Bits UI).
+- 📤 **Injection Mandate**: Use `write_knowledge_base` to ingest verified research, new patterns, or significant architectural shifts.
+- 🗂️ **Namespaces**:
   - `knowledge-base.meta`: Constitution (Rules/Skills).
   - `knowledge-base.src`: Source code logic.
   - `knowledge-base.external`: Third-party docs and patterns.
@@ -380,9 +388,9 @@ A durable table updated whenever a skill is invoked or a task transitions state.
 ```markdown
 ## 🧠 Pulse (History)
 
-| Role | Timestamp | Task | Workflow / Skill / MCP | Outcome |
-| :--- | :-------- | :--- | :--------------------- | :------ |
-| 🎭 Strategy | 2026-04-30 12:00    | [Task Name] | `/workflow` / `skill-name` / `MCP` | 🔄 Active |
+| Role        | Timestamp        | Task        | Workflow / Skill / MCP             | Outcome   |
+| :---------- | :--------------- | :---------- | :--------------------------------- | :-------- |
+| 🎭 Strategy | 2026-04-30 12:00 | [Task Name] | `/workflow` / `skill-name` / `MCP` | 🔄 Active |
 ```
 
 **Mandate**: Update the Pulse (History) in `tasks/PRESENT.md`:

@@ -43,6 +43,10 @@ Call `query-docs` with the resolved ID.
 - **Query Quality**: Be specific. Use `"Svelte 5 snippets vs slots syntax"` instead of `"svelte snippets"`.
 - **Handling Failure**: If quota is exhausted, inform the user immediately. Fall back to training data only as a last resort, and mark the code as **\[UNVERIFIED\]**.
 
+### Step 3: Web-Scrape Documentation (Firecrawl)
+
+If `context7` cannot resolve or fetch the documentation, use the `firecrawl-mcp` tools (`firecrawl_search` or `firecrawl_scrape`) to search the web for the official up-to-date API references and retrieve clean, markdown-formatted web content.
+
 ## 🔄 Execution Workflow
 
 1. **Stack & Rule Detection**: Verify dependency versions from `package.json` (mandate Svelte 5).

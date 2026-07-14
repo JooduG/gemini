@@ -75,7 +75,7 @@ Never create temporary diagnostic files, logs, or command redirects in the proje
 Use to route your current task to the appropriate specialized global skill:
 
 - **Planning & Spec**: [Planning](../planning/SKILL.md), [API](../api/SKILL.md).
-- **Engineering**: [Svelte](../svelte/SKILL.md), [JavaScript](../javascript/SKILL.md), [TypeScript](../Typescript/SKILL.md), [HTML](../html/SKILL.md), [Provenance](../provenance/SKILL.md), [Performance](../performance/SKILL.md), [Migration](../migration/SKILL.md).
+- **Engineering**: [Svelte](../svelte/SKILL.md), [JavaScript](../javascript/SKILL.md), [TypeScript](../typescript/SKILL.md), [HTML](../html/SKILL.md), [Provenance](../provenance/SKILL.md), [Performance](../performance/SKILL.md), [Migration](../migration/SKILL.md).
 - **Perchance**: [Text Generation](../text/SKILL.md), [Text-to-Image Generation](../image/SKILL.md).
 - **Governance**: [Master Dispatcher](../master-dispatcher/SKILL.md), [Context](../context/SKILL.md), [Security](../security/SKILL.md), [Skill Writing](../skill-writing/SKILL.md), [Legislative](../legislative/SKILL.md).
 - **Research & Context**: [Modern Web Guidance](../modern-web-guidance/SKILL.md), [Developer Database](../developer-database/SKILL.md).

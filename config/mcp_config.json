@@ -52,7 +52,7 @@
       "disabled": false,
       "disabledTools": [],
       "headers": {
-        "Authorization": "Bearer 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"
+        "Authorization": "Bearer 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"
       },
       "serverUrl": "https://api.githubcopilot.com/mcp"
     },
