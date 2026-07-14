@@ -83,7 +83,7 @@ Use to route your current task to the appropriate specialized global skill:
 - **Delivery**: [Git](../git/SKILL.md).
 
 > [!IMPORTANT]  
-> **Delegation Protocol**: For local project-specific skills, aesthetic/UI changes, or local simulation logic, defer entirely to the [Local Dispatcher](file:///C:/Users/johng/source/repos/RPGlitch/.agents/skills/local-dispatcher/SKILL.md).
+> **Delegation Protocol**: For local project-specific skills or utility tools, defer entirely to the [Local Scripts](file:///C:/Users/johng/source/repos/RPGlitch/.agents/skills/local-scripts/SKILL.md).
 
 ### Complexity Triage
 

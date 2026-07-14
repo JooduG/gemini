@@ -303,3 +303,9 @@ description: <Short description>
 - [ ] Tasks are ordered bottom-up by technical dependency.
 - [ ] No single increment touches more than ~5 files.
 - [ ] Each increment was independently verified (tests pass, build clean).
+
+
+## Language-Specific Templates
+
+Depending on the active workspace's tech stack, you MUST read the corresponding language standard in your `templates/skills/` folder (e.g., `python.md`, `go.md`) before generating a plan.
+

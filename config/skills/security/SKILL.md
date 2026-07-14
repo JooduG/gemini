@@ -91,3 +91,9 @@ Present the security audit findings and confirmation of hardened logic.
 - [ ] Final narrative output passes through the `DOMPurify` service.
 - [ ] No secrets or high-entropy tokens are present in the code or history.
 - [ ] **Hard Evidence Recorded**: A Warden protocol report confirming zero security "Heresies".
+
+
+## Security References
+
+For deep context on zero-trust UI patterns, forensics, and diagnostics, consult the reference files inside the `data/` folder.
+

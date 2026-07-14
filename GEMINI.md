@@ -325,7 +325,6 @@ The following workflows are registered for agentic orchestration within the Cond
 - [Release](./config/global_workflows/04-release.md): Release & Handoff. Hardening and GitHub Deployment.
 - [Revert](./config/global_workflows/revert.md): Git-aware State Reconciliation. Reverts logical units of work.
 - [Test](./config/global_workflows/test.md): Unified Verification & Diagnostics. Runs tests and audits.
-- [Classify](./config/global_workflows/classify.md): Cognitive Classification & Sorting. Categorizes tasks and issues.
 - [Continue](./config/global_workflows/continue.md): Continue when interrupted.
 - [Deconstruct](./config/global_workflows/deconstruct.md)
 - [Generate Ideas](./config/global_workflows/generate-ideas.md)

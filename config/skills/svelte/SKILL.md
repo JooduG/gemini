@@ -90,3 +90,9 @@ Present the updated component and demonstrate its reactive behavior.
 - [ ] `svelte-autofixer` tool was invoked and all suggestions implemented.
 - [ ] Component inputs managed via `$props()` with strict typing.
 - [ ] **Hard Evidence Recorded**: A Svelte Playground link or terminal verification of reactive state behavior.
+
+
+## Reference Data and Templates
+
+When working on Svelte components or APIs, consult the heavy reference files in the `data/` and `templates/` folders for official API patterns and Rune usage.
+

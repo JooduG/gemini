@@ -373,3 +373,150 @@ test("user can cycle characters during a simulation round", async ({
 - [ ] 100% pass rate in local Vitest runner.
 - [ ] Zero usage of legacy `jest` or `react-testing-library` patterns.
 - [ ] Narrative grounding verified via Behavioral Probes.
+
+
+## Templates
+
+
+### bug-report.template.md
+
+# 🐞 Warden Bug Report
+
+**Severity**: [Critical / High / Medium / Low]
+**Impact**: [UI / Logic / State / Security]
+**File(s)**: `src/...`
+
+## 🩺 Diagnosis
+
+- **Symptom**: <What is visibly wrong?>
+- **Root Cause**: <The specific line of code or logic flow causing the issue>
+  - _Evidence_: `{{log_snippet_or_trace}}`
+- **Reproduction**:
+    1. Go to...
+    2. Click...
+    3. Error occurs.
+
+## 🧪 Prescription (The Fix)
+
+- [ ] **Patch**: <Description of code change>
+- [ ] **Validation**: Run `{{test_command}}` to verify.
+
+## 🛡️ Prevention
+
+- **New Rule**: Should we add a linting rule or test case to prevent recurrence?
+
+### debug-protocol.template.md
+
+# 🛡️ Debug Protocol (Warden)
+
+This protocol is triggered for **High-Risk** or persistent failures. It enforces a scientific approach to troubleshooting to prevent regression and cognitive drift.
+
+---
+
+## 🚀 1. Symptom & Environment
+
+### **Raw Observation**
+
+- **Error Message**: [Exact string or stack trace]
+- **Behavior**: [What happened vs what was expected]
+- **Context**: [Active Round/Turn, Entity state, UI component]
+
+### **Reactive State (Runes)**
+
+Compare the current `$state` values against the physical laws defined in Rule 03.
+
+- `current_state`: [JSON or summary]
+- `expected_state`: [JSON or summary]
+
+---
+
+## 🧪 2. Hypothesis Triage
+
+Rank suspected causes by likelihood and impact.
+
+| Rank | Hypothesis | Evidence For | Difficulty to Test |
+| :--- | :--- | :--- | :--- |
+| 1 | [Most Likely] | [Code snippet/Logic flaw] | [High/Mid/Low] |
+| 2 | [Alternative] | [Edge case/Race condition] | [High/Mid/Low] |
+
+---
+
+## 🛠️ 3. Reproduction & Isolation
+
+### **Minimal Reproduction Case**
+
+- **Steps**:
+    1. [Step 1]
+    2. [Step 2]
+- **Tool**: [Vitest / Playwright / Script]
+
+---
+
+## 🏁 4. Resolution & Post-Mortem
+
+### **The Fix**
+
+- **Changes**: [Link to files/diffs]
+- **Verification**: [Command/Test output]
+
+### **The Echo (Learning)**
+
+- **What went wrong?**: [Root cause analysis]
+- **Prevention**: [Update to `project-management/insights.md` or a new Rule]
+- **Warden Sweep**: Run `metacognitiveMonitoring` to ensure the fix doesn't violate existing physics.
+
+---
+
+> "Logic is the only immunity."
+
+### security-audit.template.md
+
+# 🛡️ Security & Hygiene Audit
+
+**Date**: {{date}}
+**Target Scope**: {{scope}}
+
+## 🚨 Critical Vulnerabilities (Immediate Action Required)
+
+| Risk Level | Type | Location | Remediation |
+| :--- | :--- | :--- | :--- |
+| **CRITICAL** | XSS / Secret Leak | `src/component.svelte` | Sanitize input / Rotate key |
+
+## ⚠️ Hygiene Violations
+
+- [ ] **Hardcoded Secrets**: {{count}} found (Check `.env` usage).
+- [ ] **Unsafe HTML**: {{count}} instances of `{@html}` without `DOMPurify`.
+- [ ] **Magic Numbers**: {{count}} detected in CSS/JS (Move to `theme` or `constants`).
+
+## ✅ Verification Steps
+
+- [ ] `npm audit` passed.
+- [ ] `analyze_css.js` passed.
+- [ ] Zero-Trust input validation confirmed for API endpoints.
+
+### test-plan.template.md
+
+# 🧪 Test Plan: {{feature_name}}
+
+## 1. Unit Tests (Vitest)
+
+**Location**: `src/core/tests/{{feature}}.test.js`
+
+- [ ] **Happy Path**: Verify standard input returns expected state.
+- [ ] **Edge Case**: Verify `null`, `undefined`, or empty array inputs.
+- [ ] **Error State**: Verify logic handles exceptions gracefully.
+
+## 2. Component Tests (Svelte)
+
+**Location**: `src/ui/tests/{{component}}.test.js`
+
+- [ ] **Render**: Component mounts without crashing.
+- [ ] **Reactivity**: `$state` updates reflect in the DOM correctly.
+- [ ] **Events**: Dispatch events fire correctly.
+
+## 3. E2E Scenarios (Playwright)
+
+**Location**: `tests/e2e/{{feature}}.spec.js`
+
+- [ ] **User Flow**: Simulate complete user journey (Click -> Action -> Result).
+- [ ] **Visual Regression**: Snapshot comparison (if UI heavy).
