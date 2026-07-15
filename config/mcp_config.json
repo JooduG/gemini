@@ -27,8 +27,10 @@
       "serverUrl": "https://mcp.context7.com/mcp"
     },
     "deepwiki": {
-      "args": ["-y", "mcp-remote", "https://mcp.deepwiki.com/mcp"],
-      "command": "npx"
+      "command": "node",
+      "args": [
+        "c:/Users/johng/source/repos/RPGlitch/.agents/skills/local-scripts/scripts/deepwiki-bridge.cjs"
+      ]
     },
     "developer-database": {
       "args": [
