@@ -110,15 +110,15 @@ Every operational turn must conclude with a metadata block that signals the acti
 
 Below are the most common skills to be used in this step:
 
-- [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md)
+- Design: Project-level design skill (in project repo at .agents/skills/design/SKILL.md)
 - [Planning](./config/skills/planning/SKILL.md)
 - [API & Interface Design](./config/skills/api/SKILL.md)
-- [Legislative](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/legislative/SKILL.md)
+- Legislative: Project-level legislative skill (in project repo at .agents/skills/legislative/SKILL.md)
 - [review](./config/skills/review/SKILL.md)
-- [Review](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/review/SKILL.md)
+- Review: Project-level review skill (in project repo at .agents/skills/review/SKILL.md)
 - [Svelte Specialist](./config/skills/svelte/SKILL.md)
 - [Find Docs](./config/skills/provenance/SKILL.md)
-- [Simulation](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/simulation/SKILL.md)
+- Simulation: Project-level simulation skill (in project repo at .agents/skills/simulation/SKILL.md)
 - [Chrome DevTools](./config/skills/devtools/SKILL.md)
 - [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md)
 - [Developer Database](./config/skills/developer-database/SKILL.md)
@@ -212,22 +212,22 @@ When working on bugs and security issues always follow the [Compliance](#06-comp
 
 Use this reference to select the appropriate MCP reasoning framework based on the shape of the problem.
 
-| **Area**         | **Purpose**                                         | **Related Skills, Tools & Workflows**                                                                                       |
-| :--------------- | :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `provenance`, `deepwiki`, `developer-database`                                                        |
-| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `deepwiki`, `developer-database`                                                                  |
-| **Research**     | Knowledge gaps, library patterns, web access.       | `provenance`, `svelte`, `deepwiki`, `firecrawl-mcp`, `developer-database`, `planning`                                       |
-| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `provenance`, `deepwiki`, `developer-database`, `mcp-sequentialthinking-tools`      |
-| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `perchance-plugin-image`, `audio`, `css`, `provenance`, `deepwiki`, `developer-database`, `chrome-devtools`       |
-| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `github-copilot`, `provenance`, `deepwiki`, `developer-database`                     |
-| **Resonance**    | Review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                                                                      |
-| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `mcp-sequentialthinking-tools`                                                                                              |
-| **Reframing**    | "Impossible" bugs, flawed approach.                 | `waldzell-clear-thought`                                                                                                    |
-| **Diversity**    | Trade-offs, simulated expertise.                    | `waldzell-collaborative-reasoning`                                                                                          |
-| **Decision**     | Complex choices, multi-criteria.                    | `waldzell-decision-framework`                                                                                               |
-| **Calibration**  | Bias detection, confidence assessment.              | `waldzell-metacognitive-monitoring`                                                                                         |
-| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`, `github-copilot`                                                                                         |
-| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                                                                  |
+| **Area**         | **Purpose**                                         | **Related Skills, Tools & Workflows**                                                                                  |
+| :--------------- | :-------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| **Strategy**     | Product vision, blueprints, specs.                  | `planning`, `design`, `provenance`, `deepwiki`, `developer-database`                                                   |
+| **Tactics**      | Task breakdown, implementation tracks.              | `planning`, `provenance`, `deepwiki`, `developer-database`                                                             |
+| **Research**     | Knowledge gaps, library patterns, web access.       | `provenance`, `svelte`, `deepwiki`, `firecrawl-mcp`, `developer-database`, `planning`                                  |
+| **Simulation**   | Core engine mutations, **Enhancement**, unit tests. | `simulation`, `node`, `vitest` (Local), `provenance`, `deepwiki`, `developer-database`, `mcp-sequentialthinking-tools` |
+| **Sensory**      | Vision, **Optics**, Audio, Design.                  | `design`, `perchance-plugin-image`, `audio`, `css`, `provenance`, `deepwiki`, `developer-database`, `chrome-devtools`  |
+| **Operations**   | Repository lifecycle, PRs, Issues.                  | `/04-release` ↔ `release`, `security`, `github-copilot`, `provenance`, `deepwiki`, `developer-database`                |
+| **Resonance**    | Review gates, template compliance, health.          | `/03-review` ↔ `review`, `legislative`                                                                                 |
+| **Reasoning**    | Multi-step breakdown, chain-of-thought.             | `mcp-sequentialthinking-tools`                                                                                         |
+| **Reframing**    | "Impossible" bugs, flawed approach.                 | `waldzell-clear-thought`                                                                                               |
+| **Diversity**    | Trade-offs, simulated expertise.                    | `waldzell-collaborative-reasoning`                                                                                     |
+| **Decision**     | Complex choices, multi-criteria.                    | `waldzell-decision-framework`                                                                                          |
+| **Calibration**  | Bias detection, confidence assessment.              | `waldzell-metacognitive-monitoring`                                                                                    |
+| **VCS**          | Reverts, branch management, history.                | `/revert` ↔ `git`, `github-copilot`                                                                                    |
+| **Verification** | Tests, audits, TDD cycles.                          | `/test` ↔ `test`, `review`                                                                                             |
 
 ---
 
@@ -280,8 +280,8 @@ To maintain technical quality and historical continuity, the project follows a s
   - `[ ]`: Pending
   - `[~]`: In Progress (Active)
   - `[x] <sha>`: Completed (with 7-char commit hash)
-- **Archival Law**: Upon mission/track completion, the `tasks/FUTURE.md` MUST be moved to the [Archive](./antigravity-ide/archive) (renamed to reflect the track, e.g., [2026-06-15-drawer-rename.md](./antigravity-ide/archive/2026-06-15-drawer-rename.md)).
-- **Strict Hygiene**: [Archive](./antigravity-ide/archive) is the **ONLY** acceptable location for archived documentation. No other `archive/` folders are permitted.
+- **Archival Law**: Upon mission/track completion, the `tasks/FUTURE.md` MUST be moved to the archive directory at `tasks/tracks/` in the project repo (renamed to reflect the track, e.g., `tasks/tracks/2026-06-15-drawer-rename.md`).
+- **Strict Hygiene**: `tasks/tracks/` is the **ONLY** acceptable location for archived documentation. No other `archive/` folders are permitted.
 
 ---
 
@@ -409,7 +409,7 @@ A durable table updated whenever a skill is invoked or a task transitions state.
 Security is deterministic. We do not guess; we validate.
 
 1. **Input Sanitization**: Construct HTML deterministically. `DOMPurify` is strictly for untrusted, external inputs.
-2. **Secret Detection**: Never commit `.env`, `_KEY`, `_TOKEN`, or high-entropy strings. `.env` MUST be explicitly registered in [Ignores Master List](file:///c:/Users/johng/source/repos/RPGlitch/ignores.master.json).
+2. **Secret Detection**: Never commit `.env`, `_KEY`, `_TOKEN`, or high-entropy strings. `.env` MUST be explicitly registered in the project's Ignores Master List (`ignores.master.json`).
 3. **Template Rendering**: `innerHTML` & `{@html ...}` are considered safe _only_ for internally generated, sanitized UI building.
 4. **Boundary Validation**: All data crossing boundaries (URLs, API payloads) MUST be explicitly validated.
 
@@ -430,7 +430,7 @@ To prevent repository clutter and ensure a clean production environment:
 
 1. **Redirection**: ALL temporary diagnostic files, logs, or command outputs generated during a session MUST be placed in the `tmp/` directory at the root.
 2. **Naming**: Files should be descriptively named (e.g., `tmp/lint-audit.txt`) and are considered transient.
-3. **Archival Law**: [Archive](./antigravity-ide/archive) is the **SOLE** and **MANDATORY** location for all archived plans, research, and technical walkthroughs.
+3. **Archival Law**: `tasks/tracks/` is the **SOLE** and **MANDATORY** location for all archived plans, research, and technical walkthroughs.
 4. **Forbidden**: Creating `.txt`, `.log`, or `archive/` folders outside of the `.agents/` boundary is strictly prohibited.
 
 ---
