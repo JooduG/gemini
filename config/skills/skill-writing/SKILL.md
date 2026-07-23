@@ -42,7 +42,7 @@ config/skills/your-skill-name/
 > [!IMPORTANT]
 > **Hygiene Rules:**
 >
-> * The names `references` or `resources` are strictly forbidden as folder names under our legislative rules. Use `data` and `assets` instead.
+> * The names `references` or `resources` are strictly forbidden as folder names under our governance rules. Use `data` and `assets` instead.
 > * Ensure all scripts are JavaScript/TypeScript based (`.js`/`.ts`) executed via `node`. Do not use Python scripts.
 
 ---
@@ -136,7 +136,7 @@ Gemini 3.5 token efficiency is maximized by offloading semantic analysis to loca
 4. **Sync any newly identified technical debt** to the project backlog using the automated sync script:
 
    ```bash
-   node config/skills/legislative/scripts/sync-backlog.js
+   node config/skills/planning/scripts/sync-backlog.js
    ```
 
 ---

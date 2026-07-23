@@ -24,7 +24,7 @@ User preferences.
 
 #### 1.5 Intent Decoding
 
-Is the user's intent completely clear? If not, _Halt_ execution and invoke the [Planning](./config/skills/planning/SKILL.md) skill (for conceptual ambiguity) or the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md) (for tactical ambiguity) to resolve intent before proceeding.
+Is the user's intent completely clear? If not, _Halt_ execution and invoke the [Planning](./config/skills/planning/SKILL.md) skill to resolve conceptual or tactical ambiguity before proceeding.
 
 ### 🧠 2. Hypothesis Generation & Triage
 
@@ -36,7 +36,7 @@ Rank your hypotheses by likelihood. **Do not** discard outliers prematurely.
 
 #### 2.2 Complexity Triage
 
-Perform Complexity Triage via the `Master Dispatcher` and map the task to a complexity level to determine the active role and thinking approach.
+Perform Complexity Triage (see Section 4) and map the task to a complexity level to determine the active role and thinking approach.
 
 - **Level 1** _Code Building_: ⚒️ **Operations** Role -> ⚡ -> _[implement](./config/global_workflows/02-implement.md)_.
 - **Level 2** _Concrete Planning_: 🎨 **Tactics** Role -> 🧠 _[plan](./config/global_workflows/01-plan.md)_ -> **Level 1**.
@@ -44,7 +44,7 @@ Perform Complexity Triage via the `Master Dispatcher` and map the task to a comp
 
 #### 2.3 Risk & Level Mapping
 
-Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQUIRE transition to the **Strategy** role to resolve ambiguity using the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md).
+Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQUIRE transition to the **Strategy** role to resolve ambiguity using [Planning](./config/skills/planning/SKILL.md).
 
 - **Low Risk (Level 1)**: Typos, CSS tweaks, minor logic.
 - **Medium Risk (Level 2)**: Refactors, state migrations, features.
@@ -52,7 +52,7 @@ Map the risk tier based on your most severe likely hypothesis. Level 3 tasks REQ
 
 ### 🔍 3. Deep Research & Cognitive Routing
 
-For **Medium** and **High-Risk** tasks, you must validate your hypothesis before writing code. Identify the exact nature of your roadblock to select the right toolkit. First, consult the [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md) to select the appropriate workflow. Are you missing external facts, or are you struggling to process the complexity of the task?
+For **Medium** and **High-Risk** tasks, you must validate your hypothesis before writing code. Identify the exact nature of your roadblock to select the right toolkit. First, select the appropriate workflow via Complexity Triage (Section 4). Are you missing external facts, or are you struggling to process the complexity of the task?
 
 #### 3.1 Knowledge Deficit (External Facts)
 
@@ -194,6 +194,18 @@ Adhere to the **Cognitive Protocols** in [GEMINI.md](./GEMINI.md) and the [Intel
 - **Inhibition**: Follow Step 9 of the Mandate—reason through all logical dependencies before taking any irreversible action.
 - **The Handoff Law**: Ending a session without updating the root `tasks/` directory is strictly prohibited.
 
+#### Core Operating Behaviors
+
+These non-negotiable behaviors govern all agent actions across all skills:
+
+1. **Surface Assumptions**: Explicitly state assumptions before implementing non-trivial work. Surface uncertainty early.
+2. **Manage Confusion Actively**: When encountering inconsistencies or unclear specifications, **STOP**. Name the confusion, present tradeoffs, and wait for resolution.
+3. **Push Back When Warranted**: Point out technical flaws directly and propose better alternatives rather than giving false agreement.
+4. **Enforce Simplicity**: Actively resist overcomplication. Implement simple, readable code before creating abstractions.
+5. **Maintain Scope Discipline**: Touch only what the task requires. Do not refactor or clean up orthogonal code without explicit approval.
+6. **Verify, Don't Assume**: Tasks are incomplete until verified via tests, build outputs, or empirical runtime evidence.
+7. **Maintain Workspace Hygiene**: Never create temporary diagnostic files or command logs in the project root; use `tmp/`.
+
 #### Security & Safety
 
 When working on bugs and security issues always follow the [Compliance](#06-compliance) rule.
@@ -260,9 +272,33 @@ To prevent cognitive drift, nomenclature is absolute.
 
 #### 4. Complexity & Workflow Routing
 
-See the authoritative triage table in [Master Dispatcher](./config/skills/master-dispatcher/SKILL.md).
+All agent tasks must be triaged by complexity level to determine the operational role, workflow, and skill routing:
 
-All complexity routing (Level 1/2/3 → Role → Workflow) is defined there. [GEMINI.md](./GEMINI.md) and this rule defer to it as the single source of truth.
+##### Complexity Triage Matrix
+
+| Level | Role | Workflow | Scope |
+| :--- | :--- | :--- | :--- |
+| **Level 1** | ⚒️ Operations | ⚡ `/test` → `/02-implement` | Typos, CSS tweaks, minor logic. |
+| **Level 2** | 🎨 Tactics | 🧠 `/01-plan` → `/02-implement` | New features, refactors, multi-file changes. |
+| **Level 3** | 🎭 Strategy | 🤔 `/01-plan` (spec) → `/01-plan` → `/02-implement` | Architectural shifts, high ambiguity, core systems. |
+
+##### Skill Discovery Map
+
+Use to route tasks to the appropriate specialized skill:
+
+- **Planning & Spec**: [Planning](./config/skills/planning/SKILL.md), [API](./config/skills/api/SKILL.md).
+- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript](./config/skills/javascript/SKILL.md), [TypeScript](./config/skills/typescript/SKILL.md), [HTML & CSS](./config/skills/html/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Provenance](./config/skills/provenance/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Migration](./config/skills/migration/SKILL.md).
+- **Perchance**: [Text Generation](./config/skills/text/SKILL.md), [Text-to-Image Generation](./config/skills/image/SKILL.md).
+- **Governance**: [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Skill Writing](./config/skills/skill-writing/SKILL.md).
+- **Research & Context**: [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md), [Developer Database](./config/skills/developer-database/SKILL.md).
+- **Verification**: [Test Driven Development](./config/skills/test/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [Debug](./config/skills/debug/SKILL.md), [Review](./config/skills/review/SKILL.md).
+- **Delivery**: [Git](./config/skills/git/SKILL.md).
+
+##### Invocation Protocol & Red Flags
+
+- **Turn Signal Protocol**: Declare active role and skill via Turn Signal (`> [Role emoji] [Role] | [active-skill] / [/workflow]`) and update `tasks/PRESENT.md` Pulse.
+- **Red Flags**: Avoid Logic Drift (modifying code without an active skill declaration or task anchor) and Role Mismatch (attempting Level 3 Strategy tasks with a Level 1 Operations workflow).
+- **Troubleshooting**: If a task maps to multiple skills, trigger Planning first to resolve intent. Use Context when memory degrades.
 
 ---
 

@@ -7,8 +7,6 @@ description: Authoritative style rules and idiomatic patterns for Dart and Flutt
 
 This guide summarizes key recommendations from the official Effective Dart documentation, covering style, documentation, language usage, and API design principles. Adhering to these guidelines promotes consistent, readable, and maintainable Dart code.
 
-This guide summarizes key recommendations from the official Effective Dart documentation, covering style, documentation, language usage, and API design principles. Adhering to these guidelines promotes consistent, readable, and maintainable Dart code.
-
 ## 1. Style
 
 ### 1.1. Identifiers

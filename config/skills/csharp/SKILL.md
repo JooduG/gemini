@@ -1,6 +1,6 @@
 ---
 name: csharp
-description: Authoritative style rules and C# idiom patterns.
+description: Authoritative style rules and C# idiom patterns for .NET development.
 ---
 
 # Google C# Style Guide Summary

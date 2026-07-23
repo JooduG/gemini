@@ -55,7 +55,7 @@ export const runGroup = async (mode, scriptNames) => {
       log(`🚀 Executing Sequentially: npm run ${arg}...\n`);
       try {
         await new Promise((resolve, reject) => {
-        const child = spawn(`npm run ${arg}`, { shell: true });
+          const child = spawn(`npm run ${arg}`, { shell: true });
 
           child.stdout.on("data", (data) => logRaw(data));
           child.stderr.on("data", (data) => logRaw(data));
