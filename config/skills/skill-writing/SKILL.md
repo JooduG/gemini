@@ -1,148 +1,97 @@
 ---
 name: agent-skill-architect
-description: Use when creating a new agent skill from scratch, refactoring an underperforming skill directory, optimizing frontmatter descriptions for precise Gemini triggering, or debugging agent compliance failures within the Antigravity IDE workspace.
+description: Use when creating a new agent skill from scratch, refactoring an underperforming skill directory, optimizing frontmatter descriptions for precise triggering, or debugging compliance failures.
 ---
 
 # Agent Skill Architect
 
-## Overview
-
-This skill implements strict Test-Driven Development (TDD) for process documentation and agent behavior tuning. It treats prompt engineering as deterministic system configuration, using bright-line constraints, automated execution gates, and behavioral psychology to enforce 100% agent compliance under operational pressure.
+Wrangle determinism out of a stochastic model by applying Test-Driven Development (TDD) to process documentation and agent instructions.
 
 ---
 
-## When to Use (Triggers)
+## Triggers & Invocation
 
-* When an agent bypasses documented workflows, invents "pragmatic" workarounds, or ignores structural instructions.
-* When Gemini 3.5 undertriggers or overtriggers a skill due to ambiguous frontmatter descriptions.
-* When wrapping complex, multi-stage developer workflows (e.g., database migrations, API transformations) into modular, reusable packages.
+### Model-Invoked (When to Trigger)
 
-## When NOT to Use
+* An agent bypasses documented workflows, invents pragmatic workarounds, or ignores structural instructions.
+* Frontmatter descriptions cause undertriggering or overtriggering under operational pressure.
+* Wrapping complex multi-stage developer tasks into modular, reusable packages.
 
-* Do not use for ephemeral, one-off conversational corrections or project-specific context (use [GEMINI.md](../../../GEMINI.md) or local workspace configs instead).
-* Do not use for generic language guidelines or basic tasks that Gemini 3.5 models intuitively compute natively without assistance.
+### User-Invoked (When NOT to Trigger)
+
+* Ephemeral, one-off conversational corrections or project-specific context (use workspace rules like `GEMINI.md` instead).
+* Basic tasks or generic language guidelines that models handle natively without instruction.
 
 ---
 
-## Architecture Blueprint (Progressive Disclosure)
+## 3-Layer Directory Taxonomy
 
-Gemini 3.5 thrives on cleanly tiered file structures. Do not force-feed the agent thousands of tokens at startup. Organize your skill directory as a 3-layer information hierarchy adhering to the project's folder taxonomy rules:
+Keep `SKILL.md` lightweight (<500 lines). Tier heavy reference material and tools into child directories:
 
 ```text
 config/skills/your-skill-name/
-├── SKILL.md            # Tier 1 & 2: Metadata + high-level conditional workflows (<500 lines)
-├── scripts/            # Tier 3: Node.js helper scripts and utilities
-│   ├── validate.js     # Deterministic JS sanity-checker
-│   └── forge-skill.js  # Automation/instantiation utility
-├── templates/          # Tier 3: Boilerplate or starting templates
-├── assets/             # Tier 3: Media, icons, and visual assets
-└── data/               # Tier 3: Additional documentation, references, and static data
-```
-
-> [!IMPORTANT]
-> **Hygiene Rules:**
->
-> * The names `references` or `resources` are strictly forbidden as folder names under our governance rules. Use `data` and `assets` instead.
-> * Ensure all scripts are JavaScript/TypeScript based (`.js`/`.ts`) executed via `node`. Do not use Python scripts.
-
----
-
-## Core Behavioral Antidote Pattern
-
-### Anti-Pattern: The Politeness Loophole
-
-Loose, academic instructions let smart models rationalize away tedious work when deadlines close in.
-
-```markdown
-# ❌ BAD (Permissive & Wordy)
-Please try to write your unit tests before implementing the production code whenever possible. If you are in a hurry, make sure to add them later during the refactoring phase.
-```
-
-### Best Practice: The Bright-Line Constraint
-
-Forcible authority mechanics cut off the model's psychological exit ramps before it can start negotiating.
-
-```markdown
-# ✅ GOOD (Imperative & Absolute)
-Write implementation code before the test? Delete it. Start over. 
-
-**No exceptions:**
-* Do not keep non-compliant code as a "temporary reference."
-* Do not "adapt" unauthorized code blocks during the test phase.
-* Delete means delete.
+├── SKILL.md            # Tier 1 & 2: Metadata, triggers, and primary workflow steps
+├── scripts/            # Tier 3: Deterministic Node.js/TypeScript utilities
+│   ├── validate.js     # Runtime verification script
+│   └── forge-skill.js  # Automation and scaffolding tool
+├── templates/          # Tier 3: Boilerplate files
+├── assets/             # Tier 3: Media, diagrams, and visual assets
+└── data/               # Tier 3: Disclosed references, static datasets, GLOSSARY.md
 ```
 
 ---
 
-## Step-by-Step Skill Generation Workflow
+## Core Engineering Principles
 
-Follow this cycle to build or refine any agent skill.
+### 1. The Bright-Line Constraint
 
-### Phase 1: The RED Step (Capture the Baseline Failure)
+Replace permissive prose with non-negotiable execution boundaries.
 
-Before writing a single line of documentation, you must watch the agent fail under stress. If you haven't observed it fail without the skill, you cannot know if your skill fixes the right vulnerability.
+* **❌ Permissive:** *"Please try to write unit tests before production code when possible."*
+* **✅ Imperative:** *"Write implementation code before the test? Delete it. Start over. **No exceptions.**"*
 
-1. **Construct a high-pressure scenario prompt** that packs at least three compounding operational constraints (e.g., severe time limits, high sunk costs, and authoritative demands to skip steps).
-2. **Execute the baseline test scenario** via a parallel subagent workspace with zero skill access.
-3. **Capture the agent's exact verbal rationalizations** and bypass patterns word-for-word.
+### 2. Leading Words (*Leitwörter*)
 
-### Phase 2: The GREEN Step (Draft the Minimal Instruction)
+Recruit model pretraining priors using concise, high-density terms (e.g., *tight*, *red*, *tracer bullets*) rather than multi-sentence restatements.
 
-Build a razor-sharp prompt payload tailored explicitly to dismantle the baseline failure modes you just documented.
+### 3. Progressive Disclosure & Context Pointers
 
-1. **Initialize the skill structure using `forge-skill.js`**. Run the script in your terminal to scaffold the new skill:
+Inline only what every execution branch requires. Push specialized or detailed reference down into `data/` files (e.g., [`data/GLOSSARY.md`](https://www.google.com/search?q=data/GLOSSARY.md)) using explicit context pointers.
 
-   ```bash
-   node config/skills/skill-writing/scripts/forge-skill.js create "your-skill-name" skill "Brief description of trigger conditions"
-   ```
-
-2. **Configure the standard YAML frontmatter** in the newly created `SKILL.md` exactly as shown below, ensuring the description states *only* when to pull the skill into context, never what the workflow does.
-
-```yaml
 ---
-name: semantic-hyphenated-identifier
-description: Use when [insert precise user symptoms, environment errors, or explicit triggering conditions].
----
-```
 
-1. **Inject a foundational rule early** stating: *"Violating the letter of these instructions is a violation of the spirit of these instructions."*
-2. **Build an explicit Counter-Rationalization Table** matching every recorded agent excuse with an unyielding systemic reality check.
-3. **Deploy fully qualified MCP tool strings** using the explicit format `ServerName:tool_name` to prevent execution resolution failures inside the Antigravity workspace.
+## Skill Creation Lifecycle (TDD Workflow)
 
-| Agent Excuse | Operational Reality Check |
-| --- | --- |
-| "The task is too simple to warrant an automated validation run." | Simple tasks break silently. Run the validation pass anyway. |
-| "I will write the test payload immediately after this deploy." | Testing after deployment tests what the code *does*, not what it *should do*. |
+* **RED Phase: Capture Baseline Failure:** Observe unassisted model behavior.
+  1. **Construct a stress scenario** packing at least three compounding constraints (e.g., time pressure, high sunk costs, authoritative pressure to skip steps).
+  2. **Execute the baseline scenario** in a isolated context without access to the skill.
+  3. **Record exact rationalizations** and failure modes word-for-word.
 
-### Phase 3: The REFACTOR Step (Automate and Optimize)
+* **GREEN Phase: Draft Minimal Instructions:** Build targeted counter-measures.
+  1. **Scaffold the skill structure**: `node config/skills/skill-writing/scripts/forge-skill.js create "your-skill-name" skill "Trigger conditions"`
+  2. **Configure YAML frontmatter** using precise user symptoms or error triggers.
+  3. **Inject the core compliance rule**: *"Violating the letter of these instructions is a violation of the spirit of these instructions."*
+  4. **Build a Counter-Rationalization Table** matching observed excuses with operational realities:
 
-Gemini 3.5 token efficiency is maximized by offloading semantic analysis to localized execution code.
+      | Observed Excuse | Operational Reality Check |
+      | --- | --- |
+      | *"Task is too simple for validation."* | Simple tasks break silently. **Run validation pass.** |
+      | *"I'll write tests after deploy."* | Testing after deploy tests what code *does*, not what it *should do*. |
 
-1. **Extract all deterministic verification logic** out of text prompts and compile them into standalone Node.js verification scripts inside `scripts/` (utilizing JS/TS).
-2. **Instruct the skill to generate intermediate, machine-verifiable files** (e.g., `changes.json`) before making destructive changes.
-3. **Validate codebase and logic health** by executing verification tools:
-   * For auditing style/linting/heresy rules:
+  5. **Deploy MCP tool strings** using fully qualified identifiers (`ServerName:tool_name`).
 
-     ```bash
-     npm run audit
-     ```
-
-   * For verifying unit tests and project integration:
-
-     ```bash
-     npm run verify
-     ```
-
-4. **Sync any newly identified technical debt** to the project backlog using the automated sync script:
-
-   ```bash
-   node config/skills/planning/scripts/sync-backlog.js
-   ```
+* **REFACTOR Phase: Optimize & Automate:** Prune text and offload logic.
+  1. **Extract verification logic** from text prompts into Node.js scripts under `scripts/`.
+  2. **Require machine-verifiable intermediary files** (e.g., `changes.json`) before destructive operations.
+  3. **Execute lint and test checks**:
+     * Audit: `npm run audit`
+     * Verify: `npm run verify`
+  4. **Sync technical debt** to backlog: `node config/skills/planning/scripts/sync-backlog.js`
 
 ---
 
 ## Script & Tool Standards
 
-* **Error Handling:** Write utility scripts that actively catch errors and emit explicit remediation pathways (e.g., `"Field X not found. Available options: Y, Z"`) instead of crashing and punting the recovery to the LLM.
-* **Paths:** Enforce Unix-style forward slashes (`/`) globally across all internal skill documentation. Never write a Windows backslash (`\`) into a paths document.
-* **Voodoo Constants:** Ban arbitrary parameters. All timeout thresholds, loop ceilings, and hyper-parameters must be paired with an inline comment justifying their exact structural count.
+* **Self-Remediating Errors:** Scripts must output actionable remediation options upon failure (e.g., `"Field X missing. Valid options: Y, Z"`).
+* **Path Normalization:** **Enforce Unix-style forward slashes (`/`) globally across all documentation.**
+* **No Voodoo Constants:** **Document the structural rationale for every timeout, loop ceiling, or numerical threshold in inline comments.**
