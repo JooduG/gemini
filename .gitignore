@@ -26,3 +26,5 @@ extensions/
 **/packages/**
 **/*.lock
 .DS_Store
+
+*mcp_config.json

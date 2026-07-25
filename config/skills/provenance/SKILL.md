@@ -1,7 +1,7 @@
 ---
 name: provenance
 description: >-
-  Grounds every implementation decision in official documentation and sovereign rules. 
+  Grounds every implementation decision by querying Developer Database vector memory first, official documentation, and sovereign rules. 
   Provides the active research protocol for retrieving authoritative, source-cited code.
 persona:
   name: Sovereign Truthseeker
@@ -22,30 +22,38 @@ The `provenance` skill ensures that all code in the project engine adheres to th
 
 ### Strategic Context
 
-- **Authoritative Hierarchy**: 1. Sovereign Rules → 2. Svelte MCP/Official Docs → 3. Library Docs (via Context7) → 4. Web Standards (MDN).
-- **Verification First**: Never rely on training data for API signatures. If you haven't fetched it this session, you don't "know" it.
+- **Authoritative Hierarchy**: 1. Sovereign Rules & Developer Database (`knowledge-base.meta` & `knowledge-base.external`) → 2. Svelte MCP / Official Docs → 3. Library Docs (Context7 / DeepWiki) → 4. Web Search & Scraping (Firecrawl).
+- **Verification First**: Never rely on training data for API signatures. Query the Developer Database first; if missing, fetch up-to-date docs.
 - **Translucency**: Cite sources in comments and turn summaries to build auditable trust.
 
-## 🛠️ Operational Research Protocol (Context7)
+## 🛠️ Operational Research Protocol
 
-When documentation is required to ground a decision, follow this internal research loop:
+When documentation or architectural verification is required to ground a decision, follow this internal research loop:
 
-### Step 1: Resolve the Library ID
+### Step 1: Query Developer Database Vector Memory (First Stop)
 
-Call `resolve-library-id` from the `context7` MCP server.
+Before making external API calls or web searches, query the local dual-layer memory using the `developer-database` skill (`read_knowledge_base`).
+
+- **Query `knowledge-base.meta`**: For existing project architecture patterns, Sovereign Rules, design specs, and past session decisions.
+- **Query `knowledge-base.external`**: For pre-ingested library documentation (Svelte 5 Runes, Bits UI, Dexie.js, Tailwind v4, WebAuthn).
+- **Action**: If a high-confidence match is returned (score > 80%), use the retrieved pattern to ground the implementation immediately without external calls.
+
+### Step 2: Resolve the Library ID (Context7)
+
+If the Developer Database does not contain the required library pattern, call `resolve-library-id` from the `context7` MCP server.
 
 - **Selection Criteria**: Prioritize exact name matches, high reputation, and specific version IDs (e.g., `/svelte/v5.0.0`).
 
-### Step 2: Fetch & Verify Documentation
+### Step 3: Fetch & Verify Documentation (Context7 / DeepWiki)
 
-Call `query-docs` with the resolved ID.
+Call `query-docs` with the resolved ID, or query `deepwiki` for repository structure intelligence.
 
 - **Query Quality**: Be specific. Use `"Svelte 5 snippets vs slots syntax"` instead of `"svelte snippets"`.
-- **Handling Failure**: If quota is exhausted, inform the user immediately. Fall back to training data only as a last resort, and mark the code as **\[UNVERIFIED\]**.
+- **Handling Failure**: If quota is exhausted, fall back to Firecrawl or mark the code as **[UNVERIFIED]**.
 
-### Step 3: Web-Scrape Documentation (Firecrawl)
+### Step 4: Web-Scrape Documentation (Firecrawl)
 
-If `context7` cannot resolve or fetch the documentation, use the `firecrawl-mcp` tools (`firecrawl_search` or `firecrawl_scrape`) to search the web for the official up-to-date API references and retrieve clean, markdown-formatted web content.
+If `developer-database` and `context7` cannot resolve or fetch the documentation, use the `firecrawl-mcp` tools (`firecrawl_search` or `firecrawl_scrape`) to search the web for official up-to-date API references.
 
 ## 🔄 Execution Workflow
 
