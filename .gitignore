@@ -17,17 +17,7 @@ history/
 # Application binaries and IDE internal data
 antigravity/
 antigravity-cli/
-antigravity-ide/brain/
-antigravity-ide/knowledge/
-antigravity-ide/annotations/
-antigravity-ide/antigravity-browser-profile/
-antigravity-ide/browser_recordings/
-antigravity-ide/conversations/
-antigravity-ide/plugins/
-antigravity-ide/code_tracker/
-antigravity-ide/implicit/
-antigravity-ide/mcp/
-antigravity-ide/archive/
+antigravity-ide/
 bin/
 extensions/
 
