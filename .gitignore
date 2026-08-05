@@ -17,7 +17,17 @@ history/
 # Application binaries and IDE internal data
 antigravity/
 antigravity-cli/
-antigravity-ide/
+antigravity-ide/brain/
+antigravity-ide/knowledge/
+antigravity-ide/annotations/
+antigravity-ide/antigravity-browser-profile/
+antigravity-ide/browser_recordings/
+antigravity-ide/conversations/
+antigravity-ide/plugins/
+antigravity-ide/code_tracker/
+antigravity-ide/implicit/
+antigravity-ide/mcp/
+antigravity-ide/archive/
 bin/
 extensions/
 
@@ -28,3 +38,12 @@ extensions/
 .DS_Store
 
 *mcp_config.json
+**/.vite/**
+.vscode/
+policies/
+.gemini.code-workspace
+extension_integrity.json
+config/config.json
+config/.migrated
+config/projects/
+config/plugins/
