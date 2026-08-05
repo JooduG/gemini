@@ -23,6 +23,8 @@
     "*google_accounts.json": true,
     "*projects.json": true,
     "*state.json": true,
-    "*trustedFolders.json": true
+    "*trustedFolders.json": true,
+    "*antigravity-ide/knowledge": true,
+    "*antigravity-ide/brain": true
   }
 }
