@@ -1,12 +1,12 @@
 ---
 name: debug
 description: Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.
-persona:
-  name: Sovereign Physician
-  directive: "I provide systematic debugging through structured triage to stop the line, preserve evidence, and fix the root cause."
 ---
 
 # Debug
+
+> **Persona: Sovereign Physician**  
+> *"I provide systematic debugging through structured triage to stop the line, preserve evidence, and fix the root cause."*
 
 ## 1.0 IDENTITY
 
@@ -21,7 +21,7 @@ The `debug` skill provides a rigorous framework for resolving technical regressi
 ### Strategic Context
 
 - **Stop-the-Line**: Never push past a failing test. Errors compound.
-- **Root Cause Focus**: Identify _why_ a failure happens, not just _where_ it manifests.
+- **Root Cause Focus**: Identify *why* a failure happens, not just *where* it manifests.
 - **Regression Guard**: Every fix must be accompanied by a test that prevents its recurrence.
 
 ## When to Use
@@ -47,7 +47,7 @@ When anything unexpected happens: **STOP adding features.** Preserve evidence (l
 
 ### 2. Competitive Hypothesis Debugging
 
-For complex, non-obvious bugs, use **Agent Teams** to investigate competing theories. Each agent tries to _disprove_ the others until a consensus root cause emerges.
+For complex, non-obvious bugs, use **Agent Teams** to investigate competing theories. Each agent tries to *disprove* the others until a consensus root cause emerges.
 
 ### 3. Error Output Analysis
 

@@ -1,5 +1,5 @@
 ---
-name: /01-plan
+name: 01-plan
 description: Plans a track, generates track-specific spec documents and updates the tracks file.
 ---
 
@@ -34,10 +34,10 @@ Activate the **[Planning](../skills/planning/SKILL.md)** skill and invoke the **
 
 **PROTOCOL: Verify that the Conductor infrastructure is properly anchored.**
 
-1. **Rule Slot Resolution**: Resolve and verify the existence of the **[project rules](../../../source/repos/RPGlitch/GEMINI.md)** via the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**. This is the constitutional foundation of the session.
-2. **Persistence Audit**: Confirm the existence of the **Roadmap** (`tasks/FUTURE.md`), the **Gap Analysis** (`tasks/PRESENT.md`), and the global **Vision** (`tasks/ETERNAL.md`).
+1. **Sovereign Rules Resolution**: Resolve and verify the existence of `GEMINI.md` and `DESIGN.md`. This is the constitutional foundation of the session.
+2. **Persistence Audit**: Confirm the existence of the **Mission Board & Roadmap** (`tasks/PRESENT.md`) and the **Active Blueprint** (`tasks/FUTURE.md`).
 3. **Untrusted Input Awareness**: Treat all initial user requests and descriptions as untrusted. Your role is to interpret intent and translate it into safe, validated specifications.
-4. **Handle Failure**: If any core infrastructure is missing, announce: "Conductor environment is compromised. Please run `/setup-conductor` to restore the Rule Slots." and HALT.
+4. **Handle Failure**: If any core infrastructure is missing, announce: "Conductor environment is compromised. Please run `/setup-conductor` to restore project infrastructure." and HALT.
 
 ---
 
@@ -49,7 +49,7 @@ Activate the **[Planning](../skills/planning/SKILL.md)** skill and invoke the **
 
 _The translation of raw input into a structured track._
 
-1. **Context Awakening**: Read and internalize the project's foundation (Rules 01-04). This ensures your planning is resonant with the engine's physics.
+1. **Context Awakening**: Read and internalize the project's foundation in `./GEMINI.md` and `./DESIGN.md`. This ensures your planning is resonant with the engine's physics.
 2. **Plan Mode Entry**: Call the `enter_plan_mode` tool. This is the "safe room" where we architect reality before manifesting it.
 3. **Sanitization**: Follow **[SOP-01: Track Initialization & ID Generation](../skills/planning/SKILL.md#L104)** to infer the track type and generate a unique kebab-case ID (e.g., `feature-YYYY-MM-DD`).
 
@@ -59,11 +59,11 @@ _The extraction of requirements through recursive inquiry._
 
 The **Strategy Architect** does not guess. We interrogate the vision until only truth remains.
 
-1. **The Inquiry Phase**: Apply **[SOP-10: Guided Specification](../skills/planning/SKILL.md#L185)**. You must ask context-aware questions that respect the **project design system** aesthetics and **modern framework** logic. Focus on:
+1. **The Inquiry Phase**: Apply **[SOP-10: Guided Specification](../skills/planning/SKILL.md#L185)**. You must ask context-aware questions that respect the **Design Tokens** and framework logic. Focus on:
     - **Functional Essence**: What is the core mechanic?
-    - **Technical Constraints**: Are there specific modern framework runes or persistence requirements?
-    - **Aesthetic Alignment**: How does this fit into the "project design system"?
-2. **Drafting the Blueprint**: Once the vision is clear, draft the track's `# ETERNAL` section. This specification must cover:
+    - **Technical Constraints**: Are there specific runes or persistence requirements?
+    - **Aesthetic Alignment**: How does this fit into `DESIGN.md`?
+2. **Drafting the Blueprint**: Once the vision is clear, draft the track's specification in `tasks/FUTURE.md`. This specification must cover:
     - **Objective**: The "What" and "Why."
     - **Success Criteria**: Concrete, testable conditions (e.g., "LCP < 2.5s").
     - **Boundaries**: Explicit "Always/Never" constraints for the mission.
@@ -85,7 +85,7 @@ _The construction of the implementation roadmap._
     - **Files to Modify**: \[Number\]
 3. **Vertical Slice Mandate**: Divide the work into functional increments. Each phase must result in a runnable app state. We do not build "in the dark."
 4. **TDD Integration**: Every phase MUST include a **RED** (test creation) task. We prove the need before we provide the solution.
-5. **Final Verification Phase**: Every plan must conclude with a clinical [Completeness Review](../../../source/repos/RPGlitch/GEMINI.md#7-completeness--truncation).
+5. **Final Verification Phase**: Every plan must conclude with a clinical [Completeness Review](../../GEMINI.md#phase-5-completeness-review--circuit-breakers).
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: /02-implement
+name: 02-implement
 description: Executes the tasks defined in the specified track's plan
 ---
 
@@ -33,9 +33,9 @@ Activate the relevant specialist skill and invoke its persona to translate the C
 
 Before the first tool is called, we must ensure that the "Physics" of our environment are stable. This initialization phase is not merely a check; it is a synchronization of the agent's context with the project's foundational laws.
 
-1. **Axiom Resolution**: Using the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**, we resolve the path to the **[project rules](../../../source/repos/RPGlitch/GEMINI.md)**. We verify that the laws of Foundation, Infrastructure, and Aesthetics are present and readable.
-2. **Mission Registry**: We locate the **Roadmap** (`tasks/FUTURE.md`) and the **Gap Analysis** (`tasks/PRESENT.md`) to ensure we are operating within the current strategic timeline.
-3. **Plan Verification**: You **MUST** locate the latest plan of action (the `# FUTURE` section of the active track file) and verify it corresponds to the active mission. Do not act without a verified plan.
+1. **Axiom Resolution**: Using the **[Universal File Resolution Protocol](../skills/planning/SKILL.md#L99)**, we resolve the path to the sovereign rules (`GEMINI.md` and `DESIGN.md`). We verify that the laws of Architecture, Layer Boundaries, and Aesthetics are present and readable.
+2. **Mission Registry**: We locate the **Mission Board & Roadmap** (`tasks/PRESENT.md`) and the **Active Blueprint** (`tasks/FUTURE.md`) to ensure we are operating within the current strategic timeline.
+3. **Plan Verification**: You **MUST** locate the latest plan of action (the active track in `tasks/FUTURE.md`) and verify it corresponds to the active mission. Do not act without a verified plan.
 4. **Critical Halt**: If the environment is fragmented or the rules are missing, the session must pause. Announce: _"Conductor environment unsynchronized. Initialization required via /setup-conductor."_ and HALT.
 
 ---
@@ -92,7 +92,7 @@ Refer to **[SOP-05](../skills/planning/SKILL.md#L134)** for the detailed lifecyc
 
 **PROTOCOL: Codify implementation details back into the system's axioms.**
 
-As the track concludes, we must bridge the gap between the "State" (the code) and the "Echo" (the documentation). This synchronization ensures that our architectural laws remain current. This process follows the [legislative](../../../source/repos/RPGlitch/.agents/skills//legislative/SKILL.md) & [Documentation](../skills/planning/SKILL.md#L149) sync SOP.
+As the track concludes, we must bridge the gap between the "State" (the code) and the "Echo" (the documentation). This synchronization ensures that our architectural laws remain current. This process follows the [legislative](../../GEMINI.md) & [Documentation](../skills/planning/SKILL.md#L149) sync SOP.
 
 1. **Axiom Audit**: We perform a clinical audit of our implementation against the **Rule Slots**. We identify if our work has introduced new patterns that should be elevated to system-wide laws.
 2. **The Authorization Handshake**: Any proposed changes to the rules are presented as formatted diffs. We wait for the user's explicit "Authorize" before modifying the core foundation files.

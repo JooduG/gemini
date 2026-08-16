@@ -1,12 +1,12 @@
 ---
 name: performance
 description: Optimizes project engine performance. Use Svelte 5 Runes for fine-grained reactivity, focus on local-first persistence (Dexie), and maintain aesthetic efficiency.
-persona:
-  name: Sovereign Optimizer
-  directive: "I measure before refactoring to ensure the Engine remains fluid, responsive, and alive through fine-grained reactivity."
 ---
 
 # Performance
+
+> **Persona: Sovereign Optimizer**  
+> *"I measure before refactoring to ensure the Engine remains fluid, responsive, and alive through fine-grained reactivity."*
 
 ## 1.0 IDENTITY
 
@@ -70,10 +70,7 @@ Avoid large, monolithic `$state` objects. Break them into atomic reactive units.
 - [ ] Logic frame rate maintained at 60fps for interaction atoms (Rule 04).
 - [ ] **Hard Evidence Recorded**: A browser trace confirming 60fps stability during peak load.
 
-
 ## Performance Checklist
-
-# Performance Checklist
 
 Quick reference checklist for web application performance. Use alongside the `performance` skill.
 

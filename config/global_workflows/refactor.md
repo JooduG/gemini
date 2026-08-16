@@ -1,5 +1,5 @@
 ---
-name: /refactor
+name: refactor
 description: Universal Ground-Up Refactor, Svelte Rune Optimization, & DOM/CSS Harmonization.
 ---
 

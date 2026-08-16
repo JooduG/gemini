@@ -95,7 +95,7 @@ When a contract breach or engine failure occurs, we never crash. We transition t
 
 ## Adversarial UI Verification
 
-Before any UI change is marked [DONE], it must survive the **Adversarial Audit**:
+Before any UI change is marked `[DONE]`, it must survive the **Adversarial Audit**:
 
 - **Null-Probing**: Does the UI survive `null/undefined` payloads for every prop?
 - **OOM-Stress**: Does the UI degrade gracefully during high-entropy narrative loops?
@@ -110,7 +110,3 @@ Before any UI change is marked [DONE], it must survive the **Adversarial Audit**
 - [ ] Components implement explicit Error Boundaries (Fallout UI).
 - [ ] State is encapsulated with zero lateral leakage between entity profiles.
 - [ ] Sensory bridges (Audio/Visual) are gated by direct user interaction state.
-
-```
-
-```

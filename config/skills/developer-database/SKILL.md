@@ -1,12 +1,12 @@
 ---
 name: developer-database
 description: Triggered by any task involving developer database ingestion, cold storage archival, or historical forensics.
-persona:
-  name: Sovereign Archivist
-  directive: "I preserve the 'Living Memory' and 'Permanent Record' of the project engine, ensuring that every session is grounded in historical truth."
 ---
 
 # Developer Database & Memory
+
+> **Persona: Sovereign Archivist**  
+> *"I preserve the 'Living Memory' and 'Permanent Record' of the project engine, ensuring that every session is grounded in historical truth."*
 
 ## 1.0 IDENTITY
 
@@ -20,14 +20,14 @@ As the `developer-database` specialist, you are the keeper of the engine's colle
 
 ### 📁 Namespace: `knowledge-base.external`
 
-_Technical specifications and community-proven patterns._
+*Technical specifications and community-proven patterns.*
 
 - **Svelte 5 Sovereignty**: Official Svelte 5 logic (Runes, State, Migration) \[Source: Svelte 5 Stable Documentation\] — **\[INGESTED\]**
 - **Library Intelligence**: Best practices for core dependencies (Bits UI, Dexie.js) — **\[INGESTED\]**
 
 ### 📁 Namespace: `knowledge-base.meta`
 
-_The agentic constitution and behavioral directives._
+*The agentic constitution and behavioral directives.*
 
 - **Project Blueprint**: Macro-architectural mapping of the project (Core, UI, Data, Intelligence layers) — **\[INGESTED\]**
 - **Behavioral References**: Prompting Matrix, Warden Security SOPs, and Trace Guidelines — **\[PENDING INGESTION\]**
@@ -106,7 +106,7 @@ Present the retrieved context or confirmation of the archival action.
 
 | Agent Excuse                       | The Reality                                                                       |
 | :--------------------------------- | :-------------------------------------------------------------------------------- |
-| "I'll just search the codebase."   | Source code shows _what_, but memory shows _why_. Use the database.               |
+| "I'll just search the codebase."   | Source code shows *what*, but memory shows *why*. Use the database.               |
 | "I'll archive this later."         | Delayed archival leads to loss of context and decision nuance.                    |
 | "The history isn't relevant here." | Every change is part of a larger technical narrative; history is always relevant. |
 

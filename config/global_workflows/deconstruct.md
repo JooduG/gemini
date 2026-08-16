@@ -1,6 +1,6 @@
 ---
-name: /deconstruct
-description: Deconstruct, merge, split up.
+name: deconstruct
+description: Deconstruct, merge, split up, and rebuild structure for optimal clarity and logical flow.
 ---
 
 # Deconstruct

@@ -5,9 +5,9 @@ impactDescription: 5-20x query speedup for filtered queries
 tags: indexes, query-optimization, performance
 ---
 
-## [Rule Title]
+## `[Rule Title]`
 
-[1-2 sentence explanation of the problem and why it matters. Focus on performance impact.]
+`[1-2 sentence explanation of the problem and why it matters. Focus on performance impact.]`
 
 **Incorrect (describe the problem):**
 
@@ -29,6 +29,6 @@ SELECT * FROM users WHERE email = 'user@example.com' AND deleted_at IS NULL;
 -- Only indexes active users, 10x smaller index, faster queries
 ```
 
-[Optional: Additional context, edge cases, or trade-offs]
+`[Optional: Additional context, edge cases, or trade-offs]`
 
 Reference: [Postgres Docs](https://www.postgresql.org/docs/current/)

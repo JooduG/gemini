@@ -1,5 +1,5 @@
 ---
-name: /03-review
+name: 03-review
 description: Reviews the completed track work against guidelines and the plan
 ---
 
@@ -14,8 +14,8 @@ You are the **[Quality Auditor](../skills/review/SKILL.md)**. Your function is t
 **Objectives**:
 
 - **Delta Analysis**: Dissect the change payload to identify unintended side effects.
-- **Sovereignty Verification**: Ensure all changes align perfectly with the `ETERNAL.md` and `FUTURE.md`.
-- **Infrastructure Audit**: Enforce modern framework purity and "project design system" token usage.
+- **Sovereignty Verification**: Ensure all changes align perfectly with `./GEMINI.md`, `./DESIGN.md`, and `tasks/FUTURE.md`.
+- **Infrastructure Audit**: Enforce Svelte 5 / framework purity and `DESIGN.md` token usage.
 - **Cognitive Hygiene**: Remove "vibe slop" and AI tropes from code and comments.
 - **Resource Consciousness**: Ensure the review is efficient and targeted.
 
@@ -46,20 +46,20 @@ Apply **[SOP-14: Five-Axis Review](../skills/planning/SKILL.md#L241)** to perfor
 
 ### Axis 1: Sovereignty (Intent Alignment)
 
-- **Question**: Does the implementation solve the problem defined in the track's `# ETERNAL` section?
+- **Question**: Does the implementation solve the problem defined in the track's specification (`tasks/FUTURE.md`) and `./GEMINI.md`?
 - **Check**: Compare the final state against the `Success Criteria`. Verify that all tasks in the track's `# FUTURE` section are marked `[x]` with valid SHAs.
 
-### Axis 2: Infrastructure (Slot 03 - Physics)
+### Axis 2: Infrastructure & Architecture (`GEMINI.md` & `DESIGN.md`)
 
-- **Question**: Does the code violate the laws of modern framework or the project design system?
-- **Check**: Audit for legacy patterns (`writable()`, `export let`). Verify that ALL styling uses variables from `design.css` (No raw `px` or `#` values).
+- **Question**: Does the code violate the laws of the framework or the design system?
+- **Check**: Audit for legacy patterns (`writable()`, `export let`). Verify that ALL styling uses tokens from `DESIGN.md` (No raw `px` or `#` values).
 
-### Axis 3: Compliance (Slot 06 - Security)
+### Axis 3: Compliance & Security (`GEMINI.md`)
 
 - **Question**: Is the code hardened against vulnerability and debt?
 - **Check**: Verify `DOMPurify` usage for external inputs. Check for secret leakage and ensure `Boy Scout Rule` compliance. **Prevent Leaks**: Do not repeat full file contents in the report.
 
-### Axis 4: Intelligence (Slot 05 - Logic)
+### Axis 4: Intelligence & Verification (TDD Loop)
 
 - **Question**: Is the implementation backed by verifiable proof?
 - **Check**: Review TDD coverage. Verify that all logic paths have corresponding tests. Audit the commit history for atomic, descriptive messages.

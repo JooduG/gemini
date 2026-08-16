@@ -110,10 +110,6 @@ for (const user of users) {
 ```
 ````
 
-```
-
-```
-
 **Correct (batch query):**
 
 ```typescript
@@ -169,7 +165,3 @@ Before submitting a reference:
 - [ ] Reference links included
 - [ ] `npm run validate` passes
 - [ ] `npm run build` generates correct output
-
-```
-
-```

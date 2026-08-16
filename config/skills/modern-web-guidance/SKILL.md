@@ -1,23 +1,12 @@
 ---
 name: modern-web-guidance
-description: |
-  Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns.
-
-  Trigger immediately for:
-  - UI/Layout: Modals, dialogs, popovers, Glassmorphism/backdrop-filters, anchor positioning, container queries, `:has()`, `:user-valid`.
-  - Scroll/Motion: View Transitions, Scroll-driven animations, scroll parallax/reveals.
-  - Performance: CWV (LCP, INP), content-visibility, Fetch Priority, image optimization.
-  - System/APIs: Local filesystem access, WebUSB, WebSockets sync, WebAssembly widgets.
-  - Frameworks: Adapting layout/styles in React, Vue, Angular.
-  - General Frontend: Forms, autofill, advanced inputs, custom scrollbars, modern component states, etc.
-
-  DO NOT trigger for:
-  - Backend: Database SQL, ORMs, Express API routes.
-  - Pipelines: CI/CD deployment, Docker, Actions.
-  - Generic: Local scripts (Python/Go tools), ESLint, Git.
+description: Search tool for modern web development best practices. Execute FIRST for all HTML/CSS, UI layouts, animations, and client-side JS tasks to retrieve current web platform patterns.
 ---
 
 # Modern Web Guidance
+
+> **Persona: Sovereign Web Navigator**  
+> *"I anchor web development in modern browser capabilities and official platform standards, preventing obsolete patterns and framework bloat."*
 
 A skill to search for specific web development use cases and retrieve their corresponding best practice guides.
 
@@ -28,6 +17,21 @@ Must use this skill:
 - At the **start** of implementing any web feature.
 - Before creating a new component, to check if a standardized pattern already exists.
 - To avoid implementing ad-hoc solutions or loading large dependencies unnecessarily.
+
+### Trigger Immediately For
+
+- **UI/Layout**: Modals, dialogs, popovers, Glassmorphism/backdrop-filters, anchor positioning, container queries, `:has()`, `:user-valid`.
+- **Scroll/Motion**: View Transitions, Scroll-driven animations, scroll parallax/reveals.
+- **Performance**: CWV (LCP, INP), content-visibility, Fetch Priority, image optimization.
+- **System/APIs**: Local filesystem access, WebUSB, WebSockets sync, WebAssembly widgets.
+- **Frameworks**: Adapting layout/styles in React, Vue, Angular.
+- **General Frontend**: Forms, autofill, advanced inputs, custom scrollbars, modern component states, etc.
+
+### Do NOT Trigger For
+
+- **Backend**: Database SQL, ORMs, Express API routes.
+- **Pipelines**: CI/CD deployment, Docker, Actions.
+- **Generic**: Local scripts (Python/Go tools), ESLint, Git.
 
 ## Usage Instructions
 
@@ -102,10 +106,10 @@ npx -y modern-web-guidance@latest retrieve "<id>"
 - **Custom Policies**: If the user has already defined explicit browser support requirements, use the browser compatibility data in the guide to determine if a fallback can be safely ignored.
   - For Baseline YYYY targets, a feature satisfies this target if its "Baseline since" date is <= YYYY.
   - **Policy Examples**:
-    - _"Do not implement feature fallbacks."_ (for exploratory prototypes of the cutting-edge web)
-    - _"Safari 17.4+"_ (for internal tools targeting macOS or Tauri-based desktop apps)
-    - _"Never recommend or implement polyfills; if a Baseline Newly Available feature is required for core functionality, provide a lightweight custom fallback or redesign the approach."_ (to minimize bundle size and avoid technical debt)
-    - _"Assume a modern execution environment where Baseline Newly Available features can be used natively, provided they are strictly feature-detected and degrade gracefully."_ (for progressive enhancement strategies)
+    - *"Do not implement feature fallbacks."* (for exploratory prototypes of the cutting-edge web)
+    - *"Safari 17.4+"* (for internal tools targeting macOS or Tauri-based desktop apps)
+    - *"Never recommend or implement polyfills; if a Baseline Newly Available feature is required for core functionality, provide a lightweight custom fallback or redesign the approach."* (to minimize bundle size and avoid technical debt)
+    - *"Assume a modern execution environment where Baseline Newly Available features can be used natively, provided they are strictly feature-detected and degrade gracefully."* (for progressive enhancement strategies)
 - **Reactive Policy Discovery**: Watch for environmental cues to suggest documenting a policy in CLAUDE.md or AGENTS.md. Suggest this if the developer:
   - Mentions building for a restricted runtime (e.g., Electron or Tauri).
   - Explicitly excludes specific targets (e.g., "we don't support Desktop Chrome").

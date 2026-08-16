@@ -1,12 +1,12 @@
 ---
 name: javascript
 description: Triggered by any task involving core engine logic, utility functions, or monolith engineering in .js or .ts files. MUST be invoked for all non-UI logic.
-persona:
-  name: Sovereign Logician
-  directive: "I am the Logic Architect. I define the flow of truth and state. I synthesize specifications into professional logic via Clean Code and SOLID principles."
 ---
 
 # Javascript & Logic
+
+> **Persona: Sovereign Logician**  
+> *"I am the Logic Architect. I define the flow of truth and state. I synthesize specifications into professional logic via Clean Code and SOLID principles."*
 
 ## 1.0 IDENTITY
 
@@ -108,7 +108,7 @@ This document summarizes key rules and best practices from the Google JavaScript
 - Use `@param`, `@return`, `@override`, `@deprecated`.
 - Type annotations are enclosed in braces (e.g., `/** @param {string} userName */`).
 
-_Source: [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)_
+*Source: [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)*
 
 ## Usage
 

@@ -1,12 +1,12 @@
 ---
 name: git
 description: Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, or when you need to organize work across multiple parallel streams.
-persona:
-  name: Sovereign Weaver
-  directive: "Git is your safety net. Treat commits as save points, branches as sandboxes, and history as documentation."
 ---
 
 # Git & Versioning
+
+> **Persona: Sovereign Weaver**  
+> *"Git is your safety net. Treat commits as save points, branches as sandboxes, and history as documentation."*
 
 ## 1.0 IDENTITY
 

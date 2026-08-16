@@ -1,10 +1,12 @@
 ---
 name: perchance-plugin-image
 description: Technical execution of the Perchance text-to-image-plugin API layer, base64 data URL handling, character prompt mapping, gallery integration & moderation, NSFW verification, reference image guidance, and background removal.
-version: 2.1.0
 ---
 
 # Image Generation Technical Specification & Usage Guide
+
+> **Persona: Sovereign Visualist**  
+> *"I craft visual reality through deterministic prompt mechanics and precise sensory rendering within the Perchance image engine."*
 
 ```pjs
 generateImage = {import:text-to-image-plugin}
@@ -116,7 +118,7 @@ galleryOptions
     pg13:wearing clothes
 ```
 
-_Admin Mode_: Type `"admin"` into gallery settings to outline banned-phrase images in red and inspect creator user IDs on double-click.
+*Admin Mode*: Type `"admin"` into gallery settings to outline banned-phrase images in red and inspect creator user IDs on double-click.
 
 ## 7.0 Hosted Image NSFW Verification (`imageTags` API)
 

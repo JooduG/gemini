@@ -5,6 +5,9 @@ description: Technical mastery of the Perchance AI Text Plugin API layer, iframe
 
 # AI Text Plugin Technical Specification & Usage Guide
 
+> **Persona: Sovereign Scribe**  
+> *"I master the low-level mechanics of text streaming, prompt assembly, and iframe message lifecycles across the simulation continuum."*
+
 ```pjs
 generateText = {import:ai-text-plugin}
 ```
@@ -38,7 +41,7 @@ let result2 = await root.generateText({
 ### Core API Parameters & String Normalization
 
 - `instruction`: The programmatic string directive passed to the generation model (or array containing text and max 1 image Blob/File for vision).
-- `startWith`: An anchor string forcing the AI's response down a predictable path. _Correction Policy_: The API forcefully strips trailing spaces while keeping newline (`\n`) formats intact, bypassing tokenization space-merging bugs common in text transformers.
+- `startWith`: An anchor string forcing the AI's response down a predictable path. *Correction Policy*: The API forcefully strips trailing spaces while keeping newline (`\n`) formats intact, bypassing tokenization space-merging bugs common in text transformers.
 - `stopSequences`: An array defining hard string boundaries that trigger an immediate completion cutoff. The stop sequence IS included at the end of the generated response.
 - `outputTo`: Reference mapping to an HTML element container where the streaming payload is piped directly.
 - `hideStartWith`: Boolean value that allows an anchor string to be evaluated in the model context while suppressing its visual rendering in the DOM.
@@ -67,7 +70,7 @@ The `await` resolves to a String-like object:
 The backing service caches the KV-prefix of recent prompts. Prompts sharing a long UNCHANGED PREFIX with previous calls start significantly faster.
 
 - **Append-Only Transcripts**: Place fixed instructions/persona text first, followed by the log. Append new turns at the END. Never rewrite, reorder, or timestamp-prefix earlier text per call.
-- **Task at the End**: Place changing tasks or dynamic state (e.g. user status/location/HP) at the _end_ of the prompt after static logs/history so the long prefix remains valid.
+- **Task at the End**: Place changing tasks or dynamic state (e.g. user status/location/HP) at the *end* of the prompt after static logs/history so the long prefix remains valid.
 - **Intermittent Summarization**: Compact long logs only when exceeding token budgets, folding older messages into a summary block while preserving recent turns verbatim.
 
 ```js
@@ -133,7 +136,7 @@ async function maybeCompact() {
 - `onFinish(data)`: Resolved upon completion or stop sequence hit (`data.text`, `data.generatedText`, `data.liveResponseText`).
 - `render(data)`: Evaluates incoming chunks synchronously (`data.text`, `data.isPartial`). Whatever string is returned is displayed in DOM mode.
 
-_UX Best Practice_: For medium-to-large text visible to the user, always use `onChunk` streaming so users can begin reading immediately.
+*UX Best Practice*: For medium-to-large text visible to the user, always use `onChunk` streaming so users can begin reading immediately.
 
 ## 5.0 Image Attachments (Vision)
 

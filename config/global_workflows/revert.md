@@ -1,5 +1,5 @@
 ---
-name: /revert
+name: revert
 description: Reverts previous work
 ---
 
@@ -15,7 +15,7 @@ You are the **[State Reconciler](../skills/git/SKILL.md)**. Your function is to 
 
 - **Forensic Mapping**: Identify the exact set of commits that constitute a logical unit of work.
 - **State Restoration**: Revert the filesystem to the pre-mission state without collateral damage.
-- **Registry Reconciliation**: Sync the [PRESENT](../../../source/repos/RPGlitch/tasks/PRESENT.md) to reflect the excision.
+- **Registry Reconciliation**: Sync `tasks/PRESENT.md` to reflect the excision.
 - **Drift Detection**: Identify and warn about "Collateral Commits" that might be affected by the revert.
 
 > [!IMPORTANT]

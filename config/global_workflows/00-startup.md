@@ -1,5 +1,5 @@
 ---
-name: /00-startup
+name: 00-startup
 description: Prime agent context window, hydrate knowledge items, verify layer hierarchy, recover temporal state & baton, and establish session readiness.
 ---
 
@@ -94,10 +94,10 @@ src/
 
 ### Phase 4: Temporal State & Baton Recovery
 
-1. **3-File Temporal System Audit**:
+1. **Temporal Task Audit**:
    - Read `tasks/PRESENT.md` (Roadmap, Gap Analysis, Pulse History Log).
    - Read `tasks/FUTURE.md` (Active Track implementation blueprint).
-   - Read `tasks/ETERNAL.md` (Immutable core spec).
+   - Verify `./GEMINI.md` and `./DESIGN.md` (Sovereign specs and design tokens).
 2. **Baton Extraction**:
    - Identify active/untracked documents (`scrobbles.md`, `scribbles.md`, open editor tabs).
    - Extract the exact task state, uncommitted changes, and user intent left by the previous session.

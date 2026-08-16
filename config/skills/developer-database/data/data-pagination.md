@@ -48,7 +48,3 @@ limit 20;
 ```
 
 Reference: [Pagination](https://supabase.com/docs/guides/database/pagination)
-
-```
-
-```

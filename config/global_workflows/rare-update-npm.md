@@ -1,48 +1,62 @@
 ---
-name: /update-npm-dependencies-check-updates
+name: update-npm-dependencies-check-updates
 description: Interactively check and update outdated packages
-risk: low
-source: AI
-date_added: 2024-03-29
 ---
 
-# [/update-npm-dependencies-check-updates](./rare-update-npm.md) - Interactive Dependency Maintenance Loop
+# Interactive Dependency Maintenance Loop
 
-## Objectives: Phase CI/CD & AUTOMATION - Update
+> **Persona: Release Engineer & Dependency Auditor**  
+> *"I maintain dependency health, eliminating vulnerabilities and version lag through rigorous, test-verified updates."*
 
-- Objective: Synchronize the repository dependencies with the latest stable versions.
-- Objective: Minimize security vulnerabilities and technical debt.
+---
 
-## Context-Injection: Dependency Management
+## 1.0 Objectives: Phase CI/CD & AUTOMATION - Update
 
-- Rules: [Compliance](../../project compliance rules)
-- Skill: [CI/CD & Automation](../skills/git/SKILL.md)
-- Tool: [npm-check-updates (ncu)](../../../source/repos/RPGlitch/package.json)
+- Synchronize repository dependencies with the latest stable releases.
+- Eliminate security vulnerabilities and technical debt with zero regression risk.
 
-## Capabilities: Dependency Audit
+---
 
-- **Vulnerability Scan**: npm audit.
-- **Update Check**: ncu --interactive.
+## 2.0 Context Injection: Sovereign Invariants
 
-## Procedure
+- **Sovereignty & Governance**: [`../../GEMINI.md`](../../GEMINI.md)
+- **CI/CD & Delivery Skill**: [Git & CI/CD](../skills/git/SKILL.md)
+- **Security Skill**: [Security](../skills/security/SKILL.md)
+- **Tooling**: `npm-check-updates` (`ncu`) & `npm audit`
 
-### Phase 1: Pre-Audit (Step 3: Research)
+---
 
-1. **Hygiene Scan**: Run `npm audit` to determine the current security risk. [[Invoke: security]](../../../source/repos/RPGlitch/.agents/skills//security/)
-2. **Current Baseline**: Record the current versions of any major dependencies (Svelte, Vite).
+## 3.0 Capabilities: Dependency Audit
 
-### Phase 2: Interactive Update (Step 5: Execution)
+- **Vulnerability Scan**: `npm audit`
+- **Update Check**: `ncu --interactive`
 
-1. **Candidate Review**: Run npm run update:check (or ncu -i). Select the packages for update. [[Invoke: ci-cd-and-automation]](../skills/git/)
-2. **Execution**: Apply the updates and run `npm install`.
+---
 
-### Phase 3: Finalization
+## 4.0 Procedure
 
-- **Definition of Done**: Updated package.json and package-lock.json verified via regression tests.
-- **Expected Output**: Normalized dependency baseline and verified scan results (Update Log).
+### Phase 1: Pre-Audit & Baseline Assessment
 
-## Anti-Patterns
+1. **Hygiene Scan**: Run `npm audit` to determine the current security risk via [Security](../skills/security/SKILL.md).
+2. **Current Baseline**: Record the current versions of any major dependencies (e.g., Svelte, Vite).
 
-- **Blind Updating**: Updating all packages without a post-update test suite.
-- **Dependency Bloat**: Adding new packages instead of updating existing ones.
-- **Ignoring Warnings**: Closing the update turn while audit warnings still exist.
+### Phase 2: Interactive Update & Verification
+
+1. **Candidate Review**: Run `npm run update:check` (or `ncu -i`). Select packages for update via [Git](../skills/git/SKILL.md).
+2. **Execution**: Apply package updates and run `npm install`.
+3. **Verification**: Run `npm run verify` / test suite to prove zero regression.
+
+### Phase 3: Finalization & Anchor
+
+- **Definition of Done**: Updated `package.json` and `package-lock.json` verified via 100% green test passes.
+- **Expected Output**: Normalized dependency baseline, zero high-severity audit vulnerabilities, and clean commit record.
+
+---
+
+## 5.0 Anti-Patterns
+
+- **Blind Updating**: Updating all packages without running post-update test suites.
+- **Dependency Bloat**: Adding new redundant libraries instead of upgrading existing ones.
+- **Ignoring Warnings**: Closing the update turn while audit warnings or test failures still exist.
+
+> 🎭 Strategy | git / `[/update-npm-dependencies-check-updates]`
