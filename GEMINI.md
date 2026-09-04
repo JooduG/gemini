@@ -35,7 +35,7 @@
 
 #### 1.1 Intent Resolution
 
-If user intent or task specifications are ambiguous, **HALT execution immediately and invoke [Planning**](./config/skills/planning/SKILL.md) to resolve conceptual or tactical ambiguity.
+If user intent or task specifications are ambiguous, **HALT execution immediately and invoke [Planning](./config/skills/planning/SKILL.md)** to resolve conceptual or tactical ambiguity.
 
 #### 1.2 Complexity & Risk Mapping
 
@@ -107,13 +107,13 @@ When struggling to process task complexity, **select a reasoning tool tailored t
 
 ### Phase 3: Blueprint & Memory Synchronization
 
-#### 3.1 The 3-File Temporal System
+#### 3.1 The 2-File Temporal System
 
 Maintain task state strictly inside the `tasks/` directory:
 
-- **`tasks/ETERNAL.md`**: Immutable technical foundation, vision, and core laws.
-- **`tasks/PRESENT.md`**: Active mission board, Roadmap (Tracks), and Pulse (History/Skill log).
+- **`tasks/PRESENT.md`**: Active mission board, Roadmap (Tracks), and Pulse (History/Log).
 - **`tasks/FUTURE.md`**: Implementation blueprint for the active track (Goal, Research, Audit, TDD, Steps).
+  _(Immutable architecture, lore, and foundational engine laws reside directly in `GEMINI.md` and `GLOSSARY.md`.)_
 
 #### 3.2 Task Lifecycle & Archival Standards
 
@@ -213,23 +213,46 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 - _Layer 3 (Environment)_: Restrict dangerous actions in specific environments (e.g. test mocks).
 - _Layer 4 (Debug)_: Capture complete stack traces for forensic analysis.
 
-### 3. Metadata & Logging Protocols
+### 3. Metadata, Turn Signals & Pulse Synchronization
 
 #### Turn Signal (Inline Output)
 
-Emit a single line at the end of every operational response:
+Every operational response **MUST** conclude with a single, highly informative turn signal on its own line:
 
 ```text
-> [Role emoji] [Role] | [active-skill] / [/workflow]
+> [Role emoji] [Role] | [Active Skill(s)] | [Active Workflow(s)] | [Active MCP Server(s) or Tool(s)] | [Status / Summary]
 ```
 
-#### Pulse Skill Log (`tasks/PRESENT.md`)
+**Formatting Rules**:
 
-Maintain a durable log table in `tasks/PRESENT.md`:
+1. **Dynamic Inclusion**: Only include a segment if it was **actively utilized or invoked** during the current turn. If a category had no active items, completely omit that segment and its delimiter (`|`). Never emit empty brackets or placeholder dashes.
+2. **Comprehensive Enumeration**:
+   - **Skills**: List all skills actively referenced or loaded (e.g., `local-scripts, git, test`).
+   - **Workflows**: List all workflows actively driving execution (e.g., `/implement, /test`).
+   - **MCP Servers & Tools**: List all MCP servers, sub-tools, or native IDE tools actually called during the turn (e.g., `run_command, view_file, mcp:svelte(svelte-autofixer)`).
+3. **Status Summary**: Conclude with a terse 3–6 word synopsis of the primary outcome or immediate next step.
 
-| Role        | Timestamp        | Task          | Workflow / Skill / MCP             | Outcome   |
-| ----------- | ---------------- | ------------- | ---------------------------------- | --------- |
-| 🎭 Strategy | 2026-04-30 12:00 | `[Task Name]` | `/workflow` / `skill-name` / `MCP` | 🔄 Active |
+_Segment Schemas_:
+
+- Full execution: `> [Role] | [Active Skills] | [Active Workflows] | [Active MCPs & Tools] | [Status]`
+- No workflow: `> [Role] | [Active Skills] | [Active MCPs & Tools] | [Status]`
+- Pure reasoning / no tools: `> [Role] | [Active Skills] | [Status]`
+- Direct response / no skills, workflows, or tools: `> [Role] | [Status]`
+
+_Examples_:
+
+- With full stack: `> ⚒️ Operations | local-scripts, git | /implement | run_command, replace_file_content | Verified hook contracts`
+- Query / Research: `> 🎨 Tactics | devtools | call_mcp_tool(chrome-devtools:navigate_page), view_file | Inspected DOM layout`
+- Conversational / No active workflow: `> 🎭 Strategy | planning | Question answered`
+- Pure text clarification: `> 🎭 Strategy | Turn signal rules clarified`
+
+#### Pulse Synchronization (`tasks/PRESENT.md`)
+
+Before ending any turn where codebase modifications or substantive decisions occurred, synchronize Section 3.0 (🧠 Pulse) in `tasks/PRESENT.md`:
+
+```markdown
+| YYYY-MM-DD HH:MM | [Summary of Changes, rationale, and verified tests/audits] | [Active Workflow(s)], [Active Skill(s)], [MCP Tools] | [Status: ✅ Completed / 🔄 In Progress / ⚠️ Blocked] |
+```
 
 #### Universal File Architecture
 
