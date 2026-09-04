@@ -62,10 +62,10 @@ Resolve operational conflicts strictly in this order of priority:
 
 #### 2.1 Knowledge Deficit (External Facts)
 
-When facts or library details are missing, **coordinate specialized tools through the [Provenance](./config/skills/provenance/SKILL.md) router**:
+When facts or library details are missing, **coordinate specialized tools through the [Context](./config/skills/context/SKILL.md) router**:
 
 - **Memory & Storage**: Query dual-layer memory via [Developer Database](./config/skills/developer-database/SKILL.md).
-- **Docs & Web Guidance**: Fetch library patterns via [Provenance](./config/skills/provenance/SKILL.md) and [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md).
+- **Docs & Web Guidance**: Fetch library patterns via [Context](./config/skills/context/SKILL.md) and [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md).
 - **Framework Logic**: Verify Svelte 5 logic via [Svelte](./config/skills/svelte/SKILL.md) and `svelte` MCP.
 - **Codebase Intelligence**: Analyze repository architecture using `deepwiki` MCP.
 - **Web Scraping**: Extract web data via `firecrawl-mcp`.
@@ -91,17 +91,17 @@ When struggling to process task complexity, **select a reasoning tool tailored t
 
 #### 2.3 Comprehensive Cognitive Routing Map
 
-| Area             | Operational Focus                             | Active Tools, Skills & Workflows                                                                                                                                                                                                                                       |
-| ---------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Strategy**     | Vision, blueprints, structural specifications | [Planning](./config/skills/planning/SKILL.md), [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md), [Provenance](./config/skills/provenance/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md) |
-| **Tactics**      | Track breakdowns, implementation plans        | [Planning](./config/skills/planning/SKILL.md), [Provenance](./config/skills/provenance/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                                        |
-| **Research**     | Knowledge gaps, library patterns, web access  | [Provenance](./config/skills/provenance/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                           |
-| **Simulation**   | Engine mutations, unit tests, core logic      | [Simulation](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/simulation/SKILL.md), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                        |
-| **Sensory**      | Optics, UI/UX, CSS, Audio                     | [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), `perchance-plugin-image`                                                                                                  |
-| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Release](./config/global_workflows/04-release.md), `security`, `github-copilot`, [Provenance](./config/skills/provenance/SKILL.md)                                                                                                                                    |
-| **Resonance**    | Review gates, template health, compliance     | [Review](./config/global_workflows/03-review.md), [Review Skill](./config/skills/review/SKILL.md)                                                                                                                                                                      |
-| **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                                               |
-| **Verification** | Test suites, audits, TDD cycles               | [Test](./config/global_workflows/test.md), [Test Skill](./config/skills/test/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                      |
+| Area             | Operational Focus                             | Active Tools, Skills & Workflows                                                                                                                                                                                                                                 |
+| ---------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Strategy**     | Vision, blueprints, structural specifications | [Planning](./config/skills/planning/SKILL.md), [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md) |
+| **Tactics**      | Track breakdowns, implementation plans        | [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                                        |
+| **Research**     | Knowledge gaps, library patterns, web access  | [Context](./config/skills/context/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                           |
+| **Simulation**   | Engine mutations, unit tests, core logic      | [Simulation](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/simulation/SKILL.md), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                  |
+| **Sensory**      | Optics, UI/UX, CSS, Audio                     | [Design](file:///c:/Users/johng/source/repos/RPGlitch/.agents/skills/design/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/skills/devtools/SKILL.md), `perchance-plugin-image`                                    |
+| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Release](./config/global_workflows/04-release.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                                    |
+| **Resonance**    | Review gates, template health, compliance     | [Review](./config/global_workflows/03-review.md), [Review Skill](./config/skills/review/SKILL.md)                                                                                                                                                                |
+| **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                                         |
+| **Verification** | Test suites, audits, TDD cycles               | [Test](./config/global_workflows/test.md), [Test Skill](./config/skills/test/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                |
 
 ---
 
@@ -196,9 +196,10 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 
 - **kebab-case**: Folders & files (e.g., `simulation-engine/`, `context-broker.js`).
 - **PascalCase**: Svelte components (e.g., `StoryPanel.svelte`).
-- **snake_case**: Variables & process state (e.g., `current_char`).
+- **snake_case**: Variables & process state (e.g., `current_character`).
 - **question_snake**: Booleans (e.g., `is_active`, `has_token`).
 - **SCREAMING_SNAKE**: Constants & globals (e.g., `MAX_ENTROPY`).
+- **Full-Name & Anti-Abbreviation Mandate**: **Never use lazy abbreviations, truncated stems, or clipped names**. Always prefer the full, explicit domain word (e.g., `developer` over `dev`, `configuration` over `config`, `parameters` over `params`, `temporary` over `tmp`, `character` over `char`, `application` over `app`, `repository` over `repo`, `generation` over `gen`, `element` over `el`, `button` over `btn`, `message` over `msg`, `context` over `ctx`, `previous` over `prev`, `reference` over `ref`, `document` over `doc`, `destination` over `dest`). Exceptions are strictly limited to universally recognized platform acronyms/primitives (e.g., `id`, `html`, `css`, `ui`, `url`, `tts`, `db`).
 - **Localization**: Metric/SI units, Swedish Date Standard (YYYY-MM-DD HH:MM), Europe/Stockholm timezone (GMT+2 CEST).
 
 ### 2. Security Policy & Defense-in-Depth
@@ -243,11 +244,12 @@ All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `
 Route tasks to specialized skills using this map:
 
 - **Planning & Spec**: [Planning](./config/skills/planning/SKILL.md), [API & Interface Design](./config/skills/api/SKILL.md)
-- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript](./config/skills/javascript/SKILL.md), [TypeScript](./config/skills/typescript/SKILL.md), [HTML & CSS](./config/skills/html/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Provenance](./config/skills/provenance/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Migration](./config/skills/migration/SKILL.md)
-- **Perchance Tools**: [Text Generation](./config/skills/text/SKILL.md), [Text-to-Image Generation](./config/skills/image/SKILL.md)
+- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [Modern Web (HTML & CSS)](./config/skills/modern-web-guidance/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Context](./config/skills/context/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Migration](./config/skills/migration/SKILL.md)
+- **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [HTML & CSS](./config/skills/modern-web-guidance/SKILL.md)
+- **Perchance Tools**: [Text Generation](./config/skills/perchance-plugin-text/SKILL.md), [Text-to-Image Generation](./config/skills/perchance-plugin-image/SKILL.md)
 - **Governance**: [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Skill Writing](./config/skills/skill-writing/SKILL.md)
 - **Research & Context**: [Modern Web Guidance](./config/skills/modern-web-guidance/SKILL.md), [Developer Database](./config/skills/developer-database/SKILL.md)
-- **Verification & Debug**: [Test-Driven Development](./config/skills/test/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [Debug](./config/skills/debug/SKILL.md), [Review](./config/skills/review/SKILL.md)
+- **Verification & Debug**: [Test-Driven Development](./config/skills/test/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [Debug](./config/skills/debug/SKILL.md), [Review](./config/skills/review/SKILL.md)
 - **Delivery**: [Git](./config/skills/git/SKILL.md)
 
 ### 5. Workflow Registry

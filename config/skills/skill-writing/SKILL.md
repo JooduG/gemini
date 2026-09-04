@@ -16,6 +16,7 @@ You are the **Sovereign Skill Architect**—the master of process engineering an
 
 ### Core Tenets
 
+* **Foundational Alignment**: All custom skills compile directly against the built-in [agy-customizations](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/agy-customizations/SKILL.md) and [antigravity-guide](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/antigravity_guide/SKILL.md) standards.
 * **Documentation as Code**: Instructions are compiled constraints, not polite suggestions.
 * **Minimal Frontmatter**: YAML frontmatter contains strictly `name` and `description`. All behavioral personas and directives belong in the Markdown body.
 * **Tight Boundaries**: Soft guidelines fail under pressure; Bright-Line Constraints enforce compliance.
@@ -74,19 +75,20 @@ description: <concise-symptom-and-trigger-oriented-description>
 
 ---
 
-## 4. 3-Layer Directory Taxonomy
+## 4. Standard Directory Taxonomy
 
-Keep `SKILL.md` lightweight (<500 lines). Tier heavy reference material and tools into child directories:
+Keep `SKILL.md` lightweight (<500 lines). Tier heavy reference material, helpers, and assets into standard subdirectories per the Antigravity specification:
 
 ```text
-config/skills/your-skill-name/
-├── SKILL.md            # Tier 1 & 2: Metadata, persona, triggers, and primary workflow steps
-├── scripts/            # Tier 3: Deterministic Node.js/TypeScript utilities
+skills/<skill_name>/
+├── SKILL.md            # Required: Main instruction file with frontmatter & workflow
+├── scripts/            # Optional: Deterministic Node.js/TypeScript utilities & helpers
 │   ├── validate.js     # Runtime verification script
 │   └── autofix.js      # Automation and linting tool
-├── templates/          # Tier 3: Boilerplate files and code references
-├── assets/             # Tier 3: Media, diagrams, and visual assets
-└── data/               # Tier 3: Disclosed references, static datasets, GLOSSARY.md
+├── examples/           # Optional: Reference implementations and code samples
+├── resources/          # Optional: Additional assets, templates, or media
+└── references/         # Optional: Detailed documentation, manuals, and deep-dive guides
+    └── architecture.md # Disclosed deep reference
 ```
 
 ---
@@ -106,7 +108,11 @@ Recruit model pretraining priors using concise, high-density terms (e.g., *tight
 
 ### 3. Progressive Disclosure & Context Pointers
 
-Inline only what every execution branch requires. Push specialized or detailed reference down into `data/` files (e.g., [`data/GLOSSARY.md`](data/GLOSSARY.md)) using explicit context pointers.
+Inline only what every execution branch requires. Push bulky, specialized reference material down into `references/` files (e.g., [`references/architecture.md`](references/architecture.md)) using explicit relative markdown links. The agent will read reference files only when a specific task branch demands it, conserving context tokens.
+
+### 4. Executable Helpers & Validation Steps
+
+Encapsulate multi-step verification and complex commands in scripts within `scripts/`. Always specify how the agent verifies success (e.g., running a test command, checking an output status). Never instruct the agent on generic coding practices it already knows.
 
 ---
 

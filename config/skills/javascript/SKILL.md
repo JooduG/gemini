@@ -285,3 +285,35 @@ const processUser = pipe(
 - **Don't**: Forget `await`. Async functions return Promises.
 - **Don't**: Block the event loop with heavy synchronous computations.
 - **Don't**: Confuse shallow with deep copies (the spread operator only clones the first level of an object).
+
+---
+
+## 4.0 TypeScript Standards (When Operating in TS)
+
+When working in TypeScript files (`.ts`, `.svelte.ts`):
+
+### 4.1 Strict Typing & Safety
+
+- **Avoid `any`**: Prefer `unknown` or a specific interface/type.
+- **No Non-Null Assertions**: Avoid `x as SomeType` and `y!`. If unavoidable, provide explicit justification in an inline comment.
+- **Type Inference**: Rely on inference for obvious primitives; be explicit for interfaces, functions, and complex return types.
+- **Array Types**: Prefer `T[]` for simple types and `Array<T | U>` for union types.
+- **Never use `{}`**: Prefer `Record<string, unknown>` or `object`.
+
+### 4.2 Class & Module Architecture
+
+- **Visibility**: Use TypeScript's `private` or `protected` modifiers. Never write redundant `public`.
+- **Readonly**: Mark constructor-assigned properties that never change with `readonly`.
+- **Named Exports**: Use named exports (`export { MyService }`). Avoid default exports.
+- **No Namespaces or `const enum`**: Use ES6 modules and standard `enum`.
+
+---
+
+<!--
+=============================================================================================
+  CHANGELOG
+=============================================================================================
+  - 2026-09-04: Merged typescript skill into javascript. Unified modern ES6+ logic engine
+    with authoritative TypeScript typing standards, class patterns, and safety constraints.
+=============================================================================================
+-->

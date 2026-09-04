@@ -6,7 +6,7 @@ description: Structures git workflow practices. Use when making any code change.
 # Git & Versioning
 
 > **Persona: Sovereign Weaver**  
-> *"Git is your safety net. Treat commits as save points, branches as sandboxes, and history as documentation."*
+> _"Git is your safety net. Treat commits as save points, branches as sandboxes, and history as documentation."_
 
 ## 1.0 IDENTITY
 
@@ -16,35 +16,42 @@ As the `git` specialist, you are the keeper of the engine's timeline and the gua
 
 ## Overview
 
-The `git-workflow-and-versioning` skill manages the lifecycle of code changes in the project engine. It ensures that every modification is atomic, reviewable, and reversible. By enforcing trunk-based development and disciplined commit messaging, this skill maintains a high-velocity, low-risk development environment suitable for both human and agentic coordination.
+The `git` skill manages the lifecycle of code changes in the project engine. It ensures that every modification is atomic, reviewable, and reversible. By enforcing trunk-based development, disciplined commit messaging, and verifiable CI gates, this skill maintains a high-velocity, low-risk development environment suitable for both human and agentic coordination.
 
 ### Strategic Context
 
 - **Trunk-Based Development**: Keep `main` always deployable. Feature branches should be short-lived (1-3 days).
 - **Atomic Commits**: Each commit must do exactly one logical thing. Never mix formatting with behavior changes.
-- **Forensic Messaging**: Use the Conventional Commits specification (`feat`, `fix`, `refactor`) to document the "why" behind every change.
+- **Forensic Messaging**: Use the Conventional Commits specification (`feat`, `fix`, `refactor`, `chore`) to document the "why" behind every change.
+- **Auditable Proof**: Attach verification reports and task summaries to commits using `git notes`.
 
 ## When to Use
 
-- **Positive Triggers**: Making any code change, initializing a feature branch, resolving merge conflicts, or performing repository maintenance via the GitHub CLI (`gh`). Triggered by the `/04-release` and `/revert` workflows.
-- **release Triggers**: Preparing a production build or stabilizing a version branch via `/04-release`.
-- **EXCLUSIONS**: Do not use for local-only scratch scripts; handle those via the `tmp/` directory as defined in the `planning` skill.
+- **Positive Triggers**: Making any code change, initializing a feature branch, resolving merge conflicts, or performing repository maintenance via the GitHub CLI (`gh`). Triggered by the `/04-release`, `/revert`, and `/housekeeping` workflows.
+- **Release Triggers**: Preparing a production build, verifying CI gates, or stabilizing a release branch via `/04-release`.
+- **EXCLUSIONS**: Do not use for local-only scratch scripts; handle those via the `tmp/**` directory as defined in the `planning` skill.
 
 ## How It Works
 
 1. **Feature Branching**: Create a focused branch from `main` using the `feature/` or `fix/` prefix.
-2. **Incremental Implementation**: Follow the "Slam and Verify" loop: Build small → Test → Commit.
-3. **Pre-Commit Hygiene**: Run `npm test`, `npm run lint`, and `npx tsc --noEmit` before every commit.
-4. **Pull Request Orchestration**: Use `gh pr create --fill` to submit changes for review.
-5. **Merge & Scour**: Finalize the merge into `main` and delete the feature branch.
+2. **Incremental Implementation**: Follow the Red-Green-Refactor loop: Build small → Test → Commit.
+3. **Pre-Commit Hygiene**: Run local verification (`npm run deploy:prepare` or `npm run verify`) before committing to ensure 0 lint, type, and test errors.
+4. **Task Checkpointing**: For logical task completion, use dedicated `conductor(checkpoint)` commits or attach structured task summaries via `git notes`.
+5. **Pull Request Orchestration**: Use `gh pr create --fill` to submit changes for review.
+6. **CI Gate Verification**: Monitor remote GitHub Actions pipelines via `gh run watch` to ensure the cloud build passes cleanly.
+7. **Merge & Scour**: Finalize the merge into `main` and delete stale feature branches.
 
 ### The Save Point Pattern
 
-Commits are save points. If a change breaks the simulation, `git reset --hard HEAD` provides an instant recovery path. Never lose more than one increment of work.
+Commits are save points. If a change breaks the build or runtime environment, `git reset --hard HEAD` provides an instant recovery path. Never lose more than one increment of work.
 
-### GitHub CLI (gh) Operations
+### GitHub CLI (gh) Operations & Sandbox Permissions
 
-Leverage `gh` for PR management, checking remote CI runs (`gh run watch`), and tracking assigned issues. This is the primary interface for repository lifecycle beyond local commits.
+Leverage `gh` for PR management, checking remote CI runs (`gh run watch`, `gh run list`), and tracking assigned issues.
+
+#### Sandbox Permissions
+
+When running in sandboxed environments, remote `git` and `gh` commands may be restricted by default. Consult the authoritative built-in [permissioned-github](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/permissioned-github/SKILL.md) skill for the exact escalation protocol, resource schemas, and `ask_permission` syntax.
 
 ## Usage
 
@@ -52,11 +59,18 @@ Leverage `gh` for PR management, checking remote CI runs (`gh run watch`), and t
 # Create and switch to a new feature branch
 git checkout -b feature/atomic-state-locking
 
+# Run sovereign verification suite
+npm run deploy:prepare
+
 # Commit with a conventional message
 git commit -m "feat: implement atomic round locking in DynamicsEngine"
 
-# Submit a PR using GitHub CLI
+# (Optional) Attach auditable proof or task notes
+git notes add -m "Verified via npm run deploy:prepare: 71 suites passed, 0 lint errors."
+
+# Submit a PR using GitHub CLI and monitor CI
 gh pr create --fill
+gh run watch
 ```
 
 ## Present Results
@@ -77,8 +91,9 @@ Present the git history and the status of the current branch.
 ## Red Flags
 
 - **Mixed Concerns**: A single commit that refactors an auth module and adds a UI button.
-- **Blind Commits**: Skipping `git diff --staged` and committing secrets or debug logs.
+- **Blind Commits**: Skipping `git diff --staged` and committing secrets, keys, or debug logs.
 - **Stale Branches**: Keeping feature branches open for weeks while `main` diverges.
+- **Skipped CI**: Merging before `gh run watch` confirms the remote workflow passed.
 
 ## Troubleshooting
 
@@ -90,4 +105,5 @@ Present the git history and the status of the current branch.
 - [ ] Commit is atomic and addresses exactly one logical intent.
 - [ ] Message follows Conventional Commits and includes the "why".
 - [ ] No secrets, debug logs, or unrelated formatting changes in the diff.
+- [ ] Local verification suite (`npm run deploy:prepare`) passed with 0 errors.
 - [ ] **Hard Evidence Recorded**: A clean `git status` and a summary of the pushed commits.

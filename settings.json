@@ -1,5 +1,4 @@
 {
-  "advanced": {},
   "context": {
     "fileFiltering": {
       "respectGitIgnore": false,
@@ -20,7 +19,6 @@
       }
     },
     "gemma": true,
-    "voice": {},
     "generalistProfile": true
   },
   "general": {
@@ -36,7 +34,6 @@
     "hasSeenNudge": true,
     "enabled": true
   },
-  "output": {},
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
@@ -50,7 +47,6 @@
     }
   },
   "tools": {
-    "shell": {},
     "disableLLMCorrection": false,
     "enableHooks": true
   },
@@ -75,14 +71,5 @@
     "showStatusInTitle": true,
     "dynamicWindowTitle": true,
     "showCitations": true
-  },
-  "model": {},
-  "mcpServers": {
-    "context7": {
-      "httpUrl": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "ctx7sk-cdbbe8c3-b2cd-47a5-a60d-521f67fbe644"
-      }
-    }
   }
 }

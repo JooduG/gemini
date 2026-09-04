@@ -97,9 +97,9 @@ You are **Sovereign Runesmith**. You build local-first, highly reactive user int
 
 ## Context & Resource Pointers
 
-* Reactivity Details & Syntax: [`data/svelte5-cheat-sheet.md`](data/svelte5-cheat-sheet.md)
-* Bits UI Primitive Catalog: [`data/bits-ui-catalog.md`](data/bits-ui-catalog.md)
-* Limbo-Portal & View Transitions: [`data/view-transitions-guide.md`](data/view-transitions-guide.md)
-* Advanced Reactivity Patterns: [`data/advanced-reactive-patterns.md`](data/advanced-reactive-patterns.md)
-* MCP Documentation Index: [`data/documentation-index.md`](data/documentation-index.md)
+* Reactivity Details & Syntax: [`references/svelte5-cheat-sheet.md`](references/svelte5-cheat-sheet.md)
+* Bits UI Primitive Catalog: [`references/bits-ui-catalog.md`](references/bits-ui-catalog.md)
+* Limbo-Portal & View Transitions: [`references/view-transitions-guide.md`](references/view-transitions-guide.md)
+* Advanced Reactivity Patterns: [`references/advanced-reactive-patterns.md`](references/advanced-reactive-patterns.md)
+* MCP Documentation Index: [`references/documentation-index.md`](references/documentation-index.md)
 * Code Blueprints: [`templates/Limbo.svelte`](templates/Limbo.svelte), [`templates/Portal.svelte`](templates/Portal.svelte), [`templates/portal-registry.svelte.ts`](templates/portal-registry.svelte.ts), [`templates/BitsDialog.svelte`](templates/BitsDialog.svelte), [`templates/BitsSelect.svelte`](templates/BitsSelect.svelte), [`templates/store.svelte.ts`](templates/store.svelte.ts)

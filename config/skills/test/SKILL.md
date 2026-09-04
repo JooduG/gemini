@@ -68,35 +68,34 @@ Determine the lowest possible level that captures the behavior:
 
 ---
 
-## 4. Technology Patterns
+## 4.0 Technology Patterns
 
-### 4.1 Vitest & Triple-A Structure
+### 4.1 Unit Testing & Triple-A Structure (Universal)
 
-Structure every test strictly around **Arrange-Act-Assert**:
+Structure every unit and logic test strictly around **Arrange-Act-Assert**:
 
 ```typescript
 import { it, expect, describe } from "vitest";
 
-describe("DynamicsEngine", () => {
-  it("increments round counter after user submission", () => {
+describe("UserSessionService", () => {
+  it("increments access count and updates timestamp upon session activation", () => {
     // Arrange: Establish baseline state
-    const engine = new DynamicsEngine();
-    const character = createEntity({ name: "Kael", stress: 10 });
+    const service = new UserSessionService();
+    const session = createSession({ userId: "usr-42", accessCount: 0 });
 
     // Act: Perform state mutation
-    engine.processTick(character, { intensity: "high" });
+    service.activateSession(session);
 
     // Assert: Verify state outcome
-    expect(character.stress).toBeGreaterThan(10);
-    expect(character.entropy).toBe(1);
+    expect(session.accessCount).toBe(1);
+    expect(session.lastActiveAt).toBeDefined();
   });
 });
-
 ```
 
-### 4.2 Svelte 5 Rune Testing
+### 4.2 Reactive UI Testing (If Web / Svelte / React)
 
-Verify runes and reactive bindings using `flushSync`:
+Verify reactive components and DOM bindings using deterministic update flushes:
 
 ```typescript
 import { flushSync, mount } from "svelte";
@@ -117,12 +116,11 @@ describe("Counter Component", () => {
     expect(document.body.innerHTML).toContain("5");
   });
 });
-
 ```
 
-### 4.3 Database Boundary Mocking (Dexie)
+### 4.3 Database & Persistence Boundary Mocking (If Database / Store)
 
-Isolate IndexedDB tests using in-memory databases rather than mocking store APIs:
+Isolate database and persistence tests using in-memory stores rather than mocking raw queries:
 
 ```typescript
 import Dexie from "dexie";
@@ -134,10 +132,9 @@ async function createTestDatabase() {
   await db.open();
   return db;
 }
-
 ```
 
-### 4.4 End-to-End Verification (Playwright)
+### 4.4 End-to-End Verification (Playwright / Integration)
 
 Validate multi-step user interactions and diegetic interfaces:
 
@@ -273,3 +270,11 @@ Enclosed templates for bug isolation, debug post-mortems, and test planning.
 - [ ] **State Persistence**: Reloading preserves expected session data.
 
 ```
+
+---
+
+## 6. Reference Library
+
+For specialized testing runbooks and patterns:
+
+* [Async & Svelte Testing Procedures](references/async_and_svelte_testing.md): Condition-based polling, race-condition mitigation, and Svelte 5 rune verification.

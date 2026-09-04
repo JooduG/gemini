@@ -16,7 +16,7 @@ As the `api-design` specialist, you are the visionary of system boundaries and t
 
 ## Overview
 
-The `api-design` skill is the authoritative protocol for designing stable, well-documented interfaces that are hard to misuse. This applies to REST APIs, Svelte 5 Rune contracts, module boundaries, and any surface where one piece of logic interacts with another. It ensures the Engine remains modular and that system boundaries are clearly defined and protected.
+The `api` skill is the authoritative protocol for designing stable, well-documented interfaces that are hard to misuse. This applies to REST APIs, gRPC services, typed module interfaces, library contracts, and any surface where one piece of logic interacts with another. It ensures systems remain modular and that boundaries are clearly defined and protected.
 
 ### Strategic Context
 

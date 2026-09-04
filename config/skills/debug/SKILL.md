@@ -101,3 +101,9 @@ Present the root cause diagnosis and the verified fix.
 - [ ] Minimal reproduction case exists and is verified.
 - [ ] A regression test exists that fails without the fix.
 - [ ] **Hard Evidence Recorded**: A clean test run and verified manual reproduction step.
+
+---
+
+## Reference Library
+
+- [The Divergence Protocol](references/divergence_protocol.md): Mental debugging checklist, cognitive reframing, and assumption checking when fixes fail.

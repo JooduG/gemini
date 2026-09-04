@@ -19,13 +19,17 @@ _Triggered at session start or via `/00-startup`._
 
 ---
 
-### Phase 1: Infrastructure & Sovereignty Resonance
+### Phase 1: Infrastructure, Sovereignty & Context Resonance
 
-1. **Sovereignty & Rule Alignment**:
+1. **Context Window Priming & Grounding (`/context`)**:
+   - **Sovereign Hierarchy**: Ingest and ground the context window strictly in order: **Rules (`GEMINI.md`)** ➔ **Spec/Design (`DESIGN.md`, `GLOSSARY.md`)** ➔ **Active State (`tasks/PRESENT.md`, `tasks/FUTURE.md`)** ➔ **Active Target Code (`src/**`)** ➔ **Feedback (Tests/Logs)**.
+   - **Targeted Source Ingestion**: Load the exact source files and matching test suites required for the session. Avoid context flooding (>2000 lines without ranges); maintain razor-sharp signal-to-noise ratio.
+   - **Enforce Anti-Hallucination Boundaries**: Never guess or invent API signatures or state models. Read authoritative source declarations (`src/state/`, `src/intelligence/`, `src/data/`) directly into context before generating code.
+2. **Sovereignty & Rule Alignment**:
    - Resolve local `GEMINI.md` and global laws.
    - Enforce Core Engineering Laws: **SOLID**, **DRY & KISS**, **TDD Mandate**, and **No Backwards Compatibility**.
-2. **Workspace & Shell Audit**:
-   - Inspect repository status via `git status` (active branch, uncommitted edits, untracked drafts such as `scrobbles.md`).
+3. **Workspace & Shell Audit**:
+   - Inspect repository status via `git status` (active branch, uncommitted edits, untracked drafts such as `scribbles.md` / `scrobbles.md`).
    - Audit running process state (e.g. Vite dev server on port 4000).
    - Enforce **Svelte 5 Sovereignty**: Runes exclusively (`$state()`, `$derived()`, `$effect()`, `{@render}`). Legacy primitives (`export let`, `$:`, `writable()`, `<slot />`) are forbidden.
    - Enforce **Singlefile Distribution**: Vite 8 singlefile bundle constraints.

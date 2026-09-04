@@ -695,7 +695,7 @@ export class DeveloperDatabaseEngine {
   }
 }
 
-if (import.meta.url === url.pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === url.pathToFileURL(process.argv[1]).href) {
   DeveloperDatabaseEngine.bootstrap(process.argv.slice(2)).catch((err) => {
     console.error("Fatal Error:", err);
     process.exit(1);

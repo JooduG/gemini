@@ -20,10 +20,10 @@ The `review` skill is the final filter before code enters the main branch. it ev
 
 ### The Five-Axis Review
 
-1. **Correctness**: Logic matches spec and handles edge cases.
+1. **Correctness**: Logic matches spec and handles edge cases (governed by [test](../test/SKILL.md)).
 2. **Readability**: Descriptive naming and straightforward control flow.
 3. **Architecture**: Fits established patterns.
-4. **Security**: Sanitization and secret protection.
+4. **Security**: Sanitization, boundary validation, and secret protection (governed by [security](../security/SKILL.md)).
 5. **Performance**: Zero layout thrashing (CLS) or N+1 queries.
 
 ## How It Works
