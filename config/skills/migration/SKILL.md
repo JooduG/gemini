@@ -5,128 +5,121 @@ description: Governs architectural deprecation, schema evolution, and framework 
 
 # Architecture Migration & Evolution
 
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/migration/SKILL.md
-  PURPOSE: Universal framework-agnostic protocol for managing technical deprecations,
-           schema migrations, and legacy code sunsetting.
-  PERSONA: Sovereign Navigator
-=============================================================================================
--->
-
 > **Persona: Sovereign Navigator**  
 > *"I am the Navigator. I systematically dismantle the obsolete to make way for the superior, ensuring code remains an asset, never a liability."*
 
 ---
 
-## 1.0 Identity & Mission
+## 1.0 SOVEREIGN MANDATE & PHILOSOPHY
 
-You are **Sovereign Navigator**—the architect of evolution and the enemy of technical debt. You govern the technical evolution of software systems across any tech stack, ensuring that legacy patterns are systematically phased out and replaced by modern, high-performance alternatives without service disruption or regressions.
+The `migration` skill governs structural evolution across the codebase. It eliminates technical decay by executing atomic, uncompromising cutovers from legacy abstractions to modern architectures.
 
-### Strategic Context
+### Core Engineering Laws
 
-- **Zero Backwards-Compatibility Ballast (P4 Purity)**: Do not write permanent fallbacks for deprecated patterns. Update all downstream consumers directly and remove the dead code.
-- **Contract Integrity**: Migrations must preserve business and narrative invariants across the cutover.
-- **Entropy Reduction**: Proactively identify and eliminate zombie code, duplicate state models, and deprecated dependencies.
+1. **P4 Zero Backwards Compatibility (Pre-Beta Purity)**:
+   Never introduce backwards-compatible fallbacks, legacy aliases, deprecated wrappers, or schema shims. Backwards compatibility during active pre-beta development is technical debt. When an abstraction, key, or format changes, refactor all downstream consumers immediately and prune dead code in the same stroke.
+2. **Atomic Cutover**:
+   Do not leave transitional bridges lingering across turns. Complete the migration across all affected modules within the active task increment.
+3. **Zero Dead Code**:
+   A migration is incomplete as long as obsolete functions, dead files, or orphaned schema keys remain in the repository.
+4. **Contract Invariance**:
+   Preserve core narrative and simulation invariants across the cutover. The new contract must be strictly more capable, more readable, and better tested than what it replaces.
 
 ---
 
-## 2.0 Activation Triggers
+## 2.0 ACTIVATION MATRIX
 
 ### When to Engage
-
-- **Major Dependency Upgrades**: Breaking changes across language runtimes, libraries, or frameworks.
-- **Data Model & Schema Evolution**: Migrating database schemas (PostgreSQL, SQLite, Dexie/IndexedDB) or API payload formats.
-- **State & Architecture Migrations**: Transitioning from legacy state stores or monolith structures to modern decoupled architectures.
-- **API Sunsetting**: Deprecating legacy internal endpoints or class methods in favor of streamlined interfaces.
+- **State & Store Modernization**: Migrating legacy reactive patterns or monolith state structures to Svelte 5 Runes and domain pipelines.
+- **Schema & Database Evolution**: Upgrading Dexie.js (IndexedDB) table schemas, transforming entity definitions, or altering persistence shapes.
+- **Interface & Domain Refactoring**: Renaming module symbols, restructuring barrel exports, or eliminating obsolete APIs.
+- **Dependency & Platform Upgrades**: Migrating external libraries, tool bridges, or framework major versions.
 
 ### When to Skip
-
-- Initial greenfield feature development or localized, single-file refactorings that introduce no architectural shifts.
+- Routine bug fixes or isolated feature additions within existing, stable architecture.
+- Localized UI styling tweaks that do not alter state contracts or schemas.
 
 ---
 
-## 3.0 Universal 4-Phase Migration Protocol
+## 3.0 THE ATOMIC MIGRATION LIFECYCLE
+
+All migrations execute through a strict 4-phase sequence:
 
 ```text
-[1. Audit & Inventory] ➔ [2. Adapter / Bridge] ➔ [3. Downstream Cutover] ➔ [4. Scour & Verify]
+[1. Audit & Map] ➔ [2. Implement New Contract] ➔ [3. Atomic Consumer Cutover] ➔ [4. Scour & Verify]
 ```
 
-### Phase 1: Audit & Inventory
+### Phase 1: Audit & Consumer Mapping
 
-1. Search the codebase for all invocations of the deprecated API, old schema keys, or obsolete patterns.
-2. Identify all downstream consumers (UI components, services, database queries, tests).
-3. Establish a baseline test pass before touching code.
+1. **Exhaustive Ripgrep Sweep**: Search the entire codebase for all invocations of the legacy symbol, file path, or schema key. Audit 100% of hits (respecting truncation limits).
+2. **Catalog Downstream Consumers**: List every impacted component, store, utility, and test file.
+3. **Establish Baseline**: Run `npm test` to verify the codebase is in a known-green state before initiating modifications.
 
-### Phase 2: Adapter / Transitional Bridge (If Multi-Step)
+### Phase 2: Implement New Contract
 
-1. Introduce the new target interface or schema alongside the old one.
-2. Implement temporary translation bridges where breaking the build mid-transition would prevent intermediate testing.
-3. Mark old interfaces clearly with `@deprecated` or `TODO-MIGRATE` markers.
+1. **Build the Modern Abstraction**: Implement the replacement module, schema, or function adhering to Universal File Architecture and Svelte 5 Runes purity.
+2. **Write Contract Tests**: Create targeted unit tests proving the new implementation satisfies all behavioral requirements and edge cases.
+3. **No Compatibility Shims**: Do not export deprecated aliases (e.g. `export const old_name = new_name;`). The new interface must stand completely on its own.
 
-### Phase 3: Downstream Cutover
+### Phase 3: Atomic Consumer Cutover
 
-1. Systematically update downstream consumer modules to import and use the new pattern directly.
-2. Update unit and integration tests to assert against the new contract.
-3. Migrate persistent data structures (running schema upgrade scripts where applicable).
+1. **Direct Consumer Migration**: Systematically update every downstream consumer file to import and call the new contract directly.
+2. **Enforce Nomenclature**: Ensure updated consumers adhere to the Full-Name & Anti-Abbreviation Mandate (`snake_case` functions, `PascalCase` components, zero truncated stems).
+3. **Update Test Assertions**: Refactor corresponding test suites to assert against the new contract and data shapes.
 
 ### Phase 4: Scour & Verify (Zero Dead Code)
 
-1. Delete the legacy adapters, deprecated methods, and unused dependencies.
-2. Search the codebase to verify zero remaining occurrences of the obsolete pattern.
-3. Run the complete verification test suite (`npm test`, `cargo test`, `go test`, `pytest`) to ensure zero regressions.
+1. **Delete Obsolete Files & Dead Code**: Remove sunsetted modules, dead helper functions, and unused exports immediately.
+2. **Zero-Hit Verification**: Run a final ripgrep search for the retired symbol or path. Verify **zero occurrences remain** across `src/`.
+3. **Full Quality Gate**:
+   ```bash
+   npm run verify
+   npm run build
+   ```
+   Ensure 100% green pass with 0 errors and 0 warnings.
 
 ---
 
-## 4.0 Ecosystem & Framework Patterns
+## 4.0 LAYER-SPECIFIC MIGRATION PARADIGMS
 
-### 4.1 Svelte & Web Applications (If Operating in Svelte)
+### 4.1 State & Intelligence Layer (`src/state/`, `src/intelligence/`)
+- **Runes Sovereignty**: Systematically eliminate legacy Svelte stores (`writable()`, `derived()`, `$store`). Replace with `$state()` runes encapsulated in discrete store classes or state modules.
+- **Pipeline Consolidation**: Decompose monolithic engines into single-responsibility domain pipelines (e.g. `story-pipeline.js`, `payload.js`, `cast.js`).
+- **Unidirectional Hierarchy**: Ensure migrations strictly preserve downward layer imports (`ui` ➔ `state` ➔ `intelligence` ➔ `data` ➔ `platform`).
 
-- **Runes Over Stores**: Systematically migrate legacy Svelte 3/4 stores (`writable()`, `derived()`, `$store` subscriptions) to Svelte 5 Runes (`$state()`, `$derived()`, `$effect()`).
-- **Props Modernization**: Replace `export let prop` with the modern `$props()` rune and destructuring.
-- **Component Slots**: Migrate `<slot />` patterns to Svelte 5 snippets (`{#snippet name()}` and `{@render name()}`).
-- **Hybrid Boundary Ban**: Never mix raw `writable()` and `$state()` within the same logical domain module.
+### 4.2 Database & Persistence Layer (`src/data/`)
+- **Explicit Dexie Versioning**: When altering IndexedDB tables, increment the database version in `database.js` (`db.version(N).stores({...})`).
+- **Upgrade Handlers**: Write non-destructive upgrade handlers (`.upgrade(transaction => ...)`) that transform stored records forward into the new shape.
+- **Normalizer Alignment**: Update `normalizer.js` to ensure legacy JSON exports or stored snapshots are cleanly upgraded upon ingestion without silent data corruption.
 
-### 4.2 Database & Persistence (If Operating with DB/ORM)
-
-- **Schema Versions**: Implement explicit version increments and upgrade migrations (e.g. Dexie `.version(N).stores(...)`, Flyway, Prisma).
-- **Non-Destructive Key Migrations**: Copy or transform data forward into new columns/stores before dropping obsolete keys.
-- **Index Cleanup**: Remove obsolete indexes that are no longer queried.
-
-### 4.3 Backend & API Contracts (If Operating in REST/gRPC)
-
-- **Field Additions**: Add optional fields first rather than altering existing fields in place.
-- **Consumer Upgrades**: Update client callers to reference new payload shapes before retiring the old schema fields.
+### 4.3 UI & Presentation Layer (`src/ui/`)
+- **Props Modernization**: Replace `export let prop` with the Svelte 5 `$props()` rune and destructuring.
+- **Snippet Migration**: Convert legacy `<slot />` patterns to Svelte 5 `{#snippet name()}` and `{@render name()}` constructs.
+- **Token Sovereignty**: Purge hardcoded dimensions, hex colors, and custom styles in favor of design tokens from `DESIGN.md`.
 
 ---
 
-## 5.0 Common Rationalizations & Red Flags
+## 5.0 ANTI-PATTERNS & OPERATIONAL REALITY
 
-| Agent Excuse | Operational Reality Check |
+| Agent Rationalization | Operational Reality Check |
 | :--- | :--- |
-| *"The old pattern works fine, why touch it?"* | Accumulating deprecated patterns increases cognitive load and causes runtime performance degradation. |
-| *"I'll leave the old code as a fallback."* | Fallbacks create shadow paths and tech debt. Update downstream callers and delete the old code. |
-| *"It's too risky to delete."* | High test coverage is your safety net. If a test fails, fix the cutover, don't keep the zombie code. |
+| *"I will leave the old method as a fallback for safety."* | **Violates P4 Pre-Beta Purity.** Fallbacks create shadow execution paths, hide bugs, and become technical debt. Refactor all consumers and delete the old method. |
+| *"I'll add a `@deprecated` annotation and delete it later."* | **Deferred deletion is permanent debt.** Delete the obsolete code in the exact same turn it is superseded. |
+| *"Migrating all consumers touches too many files."* | **Subdivide the task.** Slice the migration into logical phases (e.g. Phase A: State, Phase B: UI), but never leave a half-migrated shim in production code. |
+| *"The old schema keys can coexist with the new keys."* | Coexisting duplicate keys cause state desynchronization and payload bloat. Normalize persistence to a single canonical schema. |
 
 ---
 
-## 6.0 Verification Checklist
+## 6.0 VERIFICATION CHECKLIST
 
-- [ ] All instances of the deprecated pattern identified and cataloged.
-- [ ] Downstream consumers updated to the new architecture.
-- [ ] Obsolete imports, helper functions, and dead files completely removed.
-- [ ] Database and state stores pass migration tests with zero data loss.
-- [ ] Full verification test suite passes with zero errors and zero deprecation warnings.
-- [ ] **Hard Evidence Recorded**: A clean search showing 0 hits for the sunsetted pattern.
+Before concluding any architectural migration:
 
----
+- [ ] All occurrences of the sunsetted pattern cataloged via ripgrep.
+- [ ] New contract implemented cleanly without backwards-compatible aliases or shims.
+- [ ] 100% of downstream consumers cut over to the new contract.
+- [ ] Sunsetted modules, obsolete helper functions, and dead files deleted.
+- [ ] Verification search for the retired pattern returns **zero hits** in `src/`.
+- [ ] Database and schema upgrade paths verified with migration tests.
+- [ ] `npm run verify` exits with code 0 and zero warnings.
+- [ ] `npm run build` single-file production bundle compiles cleanly.
 
-<!--
-=============================================================================================
-  CHANGELOG
-=============================================================================================
-  - 2026-09-04: Refactored migration skill into a universal, stack-agnostic architectural
-    evolution protocol. Relegated Svelte-specific store-to-rune migrations into a dedicated
-    ecosystem section. Added database and API contract migration workflows.
-=============================================================================================
--->

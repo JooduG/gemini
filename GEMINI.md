@@ -107,24 +107,27 @@ When struggling to process task complexity, **select a reasoning tool tailored t
 
 ### Phase 3: Blueprint & Memory Synchronization
 
-#### 3.1 The 2-File Temporal System
+#### 3.1 The Temporal System
 
 Maintain task state strictly inside the `tasks/` directory:
 
-- **`tasks/PRESENT.md`**: Active mission board, Roadmap (Tracks), and Pulse (History/Log).
-- **`tasks/FUTURE.md`**: Implementation blueprint for the active track (Goal, Research, Audit, TDD, Steps).
-  _(Immutable architecture, lore, and foundational engine laws reside directly in `GEMINI.md` and `GLOSSARY.md`.)_
+- **`tasks/PRESENT.md`**: Temporal Mission Board containing:
+  - `## ⚡ Present`: Active track reference and active task vector.
+  - `### 🔍 Detected TODOs`: Automated scan marker area for active codebase debt.
+  - `## 🚀 Future`: Queued tracks awaiting execution.
+  - `## 📜 Past`: Recent pulse log (historical entries archived to `archive/`).
+- **`tasks/future/<track>.md`**: Dedicated implementation blueprint for the active track (Vision, Architecture, Playbook with TDD Red-Green-Refactor checklists, and Changelog).
 
 #### 3.2 Task Lifecycle & Archival Standards
 
-- **Lifecycle Syntax**: Track tasks using strict indicators: `[ ]` (Pending), `[~]` (Active), `[x] <sha>` (Completed with 7-char commit hash).
-- **Archival Mandate**: Upon track completion, **move `tasks/FUTURE.md` to `C:\Users\johng\.gemini\antigravity-ide\archive\`** (e.g.`C:\Users\johng\.gemini\antigravity-ide\archive\2026-06-15-drawer-rename.md`).
-- **Strict Hygiene**: `C:\Users\johng\.gemini\antigravity-ide\archive\` is the **ONLY** permissible location for archived task plans.
+- **Lifecycle Syntax**: Track tasks using strict indicators inside track blueprints: `[ ]` (Pending), `[~]` (Active), `[x] <sha>` (Completed with 7-char commit hash).
+- **Archival Mandate**: Upon track completion, **move `tasks/future/<track>.md` to `archive/YYYY-MM/<date>-<track>.md`** (e.g. `C:\Users\johng\.gemini\antigravity-ide\archive\2026-09\2026-09-05-track-generation-flow.md`).
+- **Strict Hygiene**: `archive/` is the **ONLY** permissible location for archived task plans.
 
 #### 3.3 Inhibition & Planning Rules
 
-- **Planning Precondition**: **Never write implementation code without initializing `tasks/FUTURE.md**`.
-- **State Synchronization**: **Update `tasks/PRESENT.md` and `tasks/FUTURE.md` before terminating any turn**.
+- **Planning Precondition**: **Never write implementation code without an initialized active track specification in `tasks/future/`**.
+- **State Synchronization**: **Update `tasks/PRESENT.md` and the active track file before terminating any turn**.
 - **The Handoff Law**: **Ending an operational session without updating `tasks/` is strictly prohibited**.
 
 #### 3.4 Memory Protocol (Agent vs App State)
@@ -256,11 +259,11 @@ Before ending any turn where codebase modifications or substantive decisions occ
 
 #### Universal File Architecture
 
-All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `.md` files) **MUST** follow this structural formatting protocol:
+All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `.md` files without frontmatter) **MUST** follow this structural formatting protocol. Files that already utilize standardized YAML frontmatter (e.g., `SKILL.md`, `tasks/PRESENT.md`, `tasks/future/*.md`) are **explicitly excluded** from HTML comment header blocks, as their frontmatter serves as their canonical schema and purpose block:
 
-1. **Instructional Header Block**: A large comment block (e.g., `/** ... */` or `<!-- ... -->`) at the absolute top explaining the file's purpose, schema/props, dependencies, rules for modification, and any cross-file syncing requirements.
+1. **Instructional Header Block**: A comment block (e.g., `/** ... */` or `<!-- ... -->`) at the absolute top explaining the file's purpose, schema/props, dependencies, rules for modification, and any cross-file syncing requirements.
 2. **Organized Body**: The core logic, component definition, or data registry. Distinct sections or items must be visually separated by clear inline comment dividers (e.g., `// ---------------------------------------------------------------------------------------------`).
-3. **Changelog Footer**: A large comment block (e.g., `/** CHANGELOG ... */` or `<!-- CHANGELOG ... -->`) at the absolute bottom of the file documenting historical refactors, rationale for structural changes, and migration details. **Do not remove old changelog entries; always append to the existing changelog.**
+3. **Changelog Footer**: A comment block (e.g., `/** CHANGELOG ... */` or `<!-- CHANGELOG ... -->`) at the absolute bottom of the file documenting historical refactors, rationale for structural changes, and migration details. **Do not remove old changelog entries; always append to the existing changelog.**
 
 ### 4. Skill Discovery Map
 
