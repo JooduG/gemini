@@ -653,7 +653,7 @@ export class DeveloperDatabaseEngine {
           {
             name: "global-config",
             path: path.join(home_dir, ".gemini"),
-            paths: ["config/skills", "config/global_workflows"],
+            paths: ["config/skills"],
             namespace: "knowledge-base.external",
             project: null
           }

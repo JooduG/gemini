@@ -134,8 +134,8 @@ Maintain task state strictly inside the `tasks/` directory:
 
 Agents maintain continuity using the [Developer Database](./config/skills/developer-database/SKILL.md) skill:
 
-- **Working Memory**: **Call `read_knowledge_base` before starting tasks** involving architectural patterns; **store verified patterns using `write_knowledge_base**`.
-- **Cold Storage**: **Persist completed plans and research to Supabase via `archive_log_entry**`;**resolve historical architectural choices using `query_cold_storage\*\*`.
+- **Working Memory**: **Call `read_knowledge_base` before starting tasks** involving architectural patterns; **store verified patterns using `write_knowledge_base`**.
+- **Cold Storage**: **Persist completed plans and research to Supabase via `archive_log_entry`**; **resolve historical architectural choices using `query_cold_storage`**.
 
 ---
 
@@ -152,9 +152,9 @@ Every implementation must follow the Red-Green-Refactor cycle:
 #### 4.2 Code Grounding & Proof Requirements
 
 - **Quoting Mandate**: **Verify state by quoting exact code snippets**.
-- **Path Sovereignty**: **Use relative paths for all file references** (e.g., `tasks/FUTURE.md`).
+- **Path Sovereignty**: **Use relative paths for all file references** (e.g., `tasks/future/<track>.md`).
 - **Absolute Mapping**: Map all technical explanations to exact relative file paths and line numbers.
-- **Auditable Proof**: **Attach verification reports and task summaries to commits using `git notes**`.
+- **Auditable Proof**: **Attach verification reports and task summaries to commits using `git notes`**.
 
 #### 4.3 Phase Checkpointing
 
@@ -180,7 +180,7 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 - [ ] Spec matches codebase reality with **Auditable Proof** (File paths & line numbers).
 - [ ] **Reproduction Case** verified for bug fixes.
 - [ ] **Performance Budget** respected (CLS < 0.1, LCP < 2.5s).
-- [ ] **Local CI Pass**: **Run \`npm run verify\` locally and achieve 0 errors**.
+- [ ] **Local CI Pass**: **Run `npm run verify` locally and achieve 0 errors**.
 - [ ] Compliance laws satisfied.
 
 #### 5.2 Circuit Breaker & Resilience
