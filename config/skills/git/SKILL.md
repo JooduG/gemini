@@ -51,7 +51,7 @@ Leverage `gh` for PR management, checking remote CI runs (`gh run watch`, `gh ru
 
 #### Sandbox Permissions
 
-When running in sandboxed environments, remote `git` and `gh` commands may be restricted by default. Consult the authoritative built-in [permissioned-github](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/permissioned-github/SKILL.md) skill for the exact escalation protocol, resource schemas, and `ask_permission` syntax.
+When running in sandboxed environments, remote `git` and `gh` commands may be restricted by default. Consult the authoritative built-in `permissioned-github` skill for the exact escalation protocol, resource schemas, and `ask_permission` syntax.
 
 ## Usage
 

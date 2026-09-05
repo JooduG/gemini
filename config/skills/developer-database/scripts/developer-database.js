@@ -634,24 +634,25 @@ export class DeveloperDatabaseEngine {
         });
         break;
       case "upsert-all": {
+        const home_dir = (await import("node:os")).homedir();
         const projects = [
           {
             name: "joodug-rpglitch",
-            path: "C:/Users/johng/source/repos/RPGlitch",
+            path: path.join(home_dir, "source/repos/RPGlitch"),
             paths: [".agents/skills", "tasks"],
             namespace: "knowledge-base.meta",
             project: "joodug-rpglitch"
           },
           {
             name: "joodug-imageglitch",
-            path: "C:/Users/johng/source/repos/ImageGlitch",
+            path: path.join(home_dir, "source/repos/ImageGlitch"),
             paths: ["tasks", "src"],
             namespace: "knowledge-base.meta",
             project: "joodug-imageglitch"
           },
           {
             name: "global-config",
-            path: "C:/Users/johng/.gemini",
+            path: path.join(home_dir, ".gemini"),
             paths: ["config/skills", "config/global_workflows"],
             namespace: "knowledge-base.external",
             project: null

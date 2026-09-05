@@ -66,4 +66,4 @@ Before generating ideas, anchor into the project's foundation:
 - **Vibe Blindness**: Failing to account for actual user feedback, test evidence, or performance budgets.
 - **Scope Creep**: Accumulating loose, disconnected features that bloat the engine without coherent purpose.
 
-> 🎭 Strategy | planning / [/generate-ideas](file:///c:/Users/johng/.gemini/config/global_workflows/generate-ideas.md)
+> 🎭 Strategy | planning / [/generate-ideas](./generate-ideas.md)

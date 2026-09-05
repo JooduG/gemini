@@ -16,7 +16,7 @@ You are the **Sovereign Skill Architect**—the master of process engineering an
 
 ### Core Tenets
 
-* **Foundational Alignment**: All custom skills compile directly against the built-in [agy-customizations](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/agy-customizations/SKILL.md) and [antigravity-guide](file:///c:/Users/johng/.gemini/antigravity-ide/builtin/skills/antigravity_guide/SKILL.md) standards.
+* **Foundational Alignment**: All custom skills compile directly against the built-in `agy-customizations` and `antigravity-guide` standards.
 * **Documentation as Code**: Instructions are compiled constraints, not polite suggestions.
 * **Minimal Frontmatter**: YAML frontmatter contains strictly `name` and `description`. All behavioral personas and directives belong in the Markdown body.
 * **Tight Boundaries**: Soft guidelines fail under pressure; Bright-Line Constraints enforce compliance.
@@ -108,7 +108,7 @@ Recruit model pretraining priors using concise, high-density terms (e.g., *tight
 
 ### 3. Progressive Disclosure & Context Pointers
 
-Inline only what every execution branch requires. Push bulky, specialized reference material down into `references/` files (e.g., [`references/architecture.md`](references/architecture.md)) using explicit relative markdown links. The agent will read reference files only when a specific task branch demands it, conserving context tokens.
+Inline only what every execution branch requires. Push bulky, specialized reference material down into `references/` files (e.g., `references/architecture.md`) using explicit relative markdown links. The agent will read reference files only when a specific task branch demands it, conserving context tokens.
 
 ### 4. Executable Helpers & Validation Steps
 

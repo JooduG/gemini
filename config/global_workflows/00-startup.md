@@ -104,7 +104,7 @@ Bridge past session artifacts with active execution:
    - Update `### 🩺 System & Session Readiness` under `## ⚡ Present` in `tasks/PRESENT.md`:
      - **Active Baton**: Target working document (e.g. `scribbles.md`) and uncommitted delta summary.
      - **Environmental Health**: Current branch, working tree state, and hook contract verification pass count.
-     - **Sovereign Constraints**: Affirmation of Svelte 5 Runes only, single-file bundle distribution, and P4 Zero Backwards Compatibility.
+     - **Sovereign Constraints**: Affirmation of project-specific sovereign rules and architecture invariants (read from local `GEMINI.md`).
      - **Last Startup Verification**: Timestamped audit record.
 
 ---
@@ -112,7 +112,7 @@ Bridge past session artifacts with active execution:
 ### Phase 5: Verification Baseline & Executive Briefing
 
 1. **Lean Awakening Sanity Checks**:
-   - If the project defines lifecycle hook contracts, run the verification command (e.g. `npm run test:hooks` — currently 11/11 passing in RPGlitch) to confirm all hooks pass.
+   - If the project defines lifecycle hook contracts, run the verification command (e.g. `npm run test:hooks`) to confirm all hooks pass.
    - Check `git status -s` to verify clean working tree state and uncommitted edits.
    - Run `npm run sync` only if `DESIGN.md` tokens were altered.
    - _Note_: Full multi-suite audits (`npm run verify`, `npm run build`) are deferred to `/02-implement` checkpoints and `/03-review` quality gates to keep startup fast and token-efficient.
