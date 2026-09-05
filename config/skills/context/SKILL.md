@@ -28,7 +28,7 @@ As the `context` specialist, you operate both the **Internal Context Hierarchy**
 ### Strategic Context
 
 - **Authoritative Hierarchy**:
-  1. *Sovereign Rules & Project State*: `GEMINI.md` → `tasks/ETERNAL.md` → `developer-database` (`knowledge-base.meta`).
+  1. *Constitutional Rules & Project State*: `GEMINI.md` → `DESIGN.md` & `GLOSSARY.md` → `tasks/PRESENT.md` → `tasks/future/<track>.md` → `developer-database` (`knowledge-base.meta`).
   2. *Codebase Reality*: Source files, unit tests, and runtime feedback (read via line ranges).
   3. *Pre-Ingested External Intelligence*: `developer-database` (`knowledge-base.external`).
   4. *Live External Research*: Framework MCPs (Svelte) → Library Docs (Context7 / DeepWiki) → Web Search (Firecrawl).
@@ -60,7 +60,7 @@ As the `context` specialist, you operate both the **Internal Context Hierarchy**
 
 ### Step 1: Establish Sovereign Hierarchy & Grounding
 
-1. Ensure the relevant `GEMINI.md` rules and `tasks/ETERNAL.md` specs are active.
+1. Ensure the relevant `GEMINI.md` rules, `DESIGN.md` tokens, `tasks/PRESENT.md`, and the active track specification in `tasks/future/<track>.md` are active.
 2. Read the targeted source files and tests using line ranges (`view_file(StartLine=..., EndLine=...)`). **Never dump entire large directories into context.**
 3. Feed compiler errors, test failures, or console logs directly into the problem frame.
 
@@ -97,7 +97,7 @@ If `developer-database` and `context7` cannot resolve the pattern, invoke `firec
 
 - **TRUSTED**: Original source code, test suites, and sovereign rule files (`GEMINI.md`).
 - **VERIFY**: Config files, external documentation, and history logs.
-- **SPEC OVERRIDE**: If `tasks/ETERNAL.md` contradicts current code, the Spec is the target reality.
+- **SPEC OVERRIDE**: If `tasks/future/<track>.md` or `GEMINI.md` contradicts current code, the Spec is the target reality.
 
 ### The Echo (Citation Mandate)
 
@@ -123,7 +123,7 @@ When implementing non-trivial architecture or newly verified framework logic, ci
 
 ## 6.0 Verification Checklist
 
-- [ ] Sovereign Rules (`GEMINI.md`) and Spec (`tasks/ETERNAL.md`) loaded and respected.
+- [ ] Sovereign Rules (`GEMINI.md`) and Active Track (`tasks/future/<track>.md`) loaded and respected.
 - [ ] Targeted source files and tests read using specific line ranges (zero context flooding).
 - [ ] Vector memory queried first via `developer-database` before making external calls.
 - [ ] External APIs and library semantics verified against official docs (Context7 / Firecrawl).

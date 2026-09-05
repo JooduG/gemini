@@ -115,7 +115,7 @@ Maintain task state strictly inside the `tasks/` directory:
   - `## ⚡ Present`: Active track reference and active task vector.
   - `### 🔍 Detected TODOs`: Automated scan marker area for active codebase debt.
   - `## 🚀 Future`: Queued tracks awaiting execution.
-  - `## 📜 Past`: Recent pulse log (historical entries archived to `archive/`).
+  - `## 📜 Past`: Recent pulse log strictly limited to the **10 most recent entries** (rolling buffer: when adding 1 on top, prune 1 from the bottom, rotating older entries into `archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`).
 - **`tasks/future/<track>.md`**: Dedicated implementation blueprint for the active track (Vision, Architecture, Playbook with TDD Red-Green-Refactor checklists, and Changelog).
 
 #### 3.2 Task Lifecycle & Archival Standards
@@ -163,7 +163,7 @@ Upon completing a logical blueprint phase:
 1. **Audit Diffs**: **Run `git diff --name-only <last_sha>` to verify changed files**.
 2. **Coverage Check**: Ensure every updated code file has a matching test file.
 3. **Verification Plan**: Present a manual verification sequence before final checkpointing.
-4. **Checkpoint Commit**: **Create a dedicated `conductor(checkpoint)` commit**.
+4. **Checkpoint Commit**: When checkpointing, use semantic track scope (e.g., `track(implement): ...`, `track(review): ...`, `track(plan): ...`).
 
 #### 4.4 Truncation & Exhaustive Searching
 
@@ -256,6 +256,9 @@ Before ending any turn where codebase modifications or substantive decisions occ
 ```markdown
 | YYYY-MM-DD HH:MM | [Summary of Changes, rationale, and verified tests/audits] | [Active Workflow(s)], [Active Skill(s)], [MCP Tools] | [Status: ✅ Completed / 🔄 In Progress / ⚠️ Blocked] |
 ```
+
+> [!IMPORTANT]
+> **Rolling Buffer Rule**: Maintain strictly at most **10 entries** in `## 📜 Past`. When adding a new pulse entry at the top, prune the oldest entry from the bottom and ensure rotated entries are preserved in `archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`.
 
 #### Universal File Architecture
 

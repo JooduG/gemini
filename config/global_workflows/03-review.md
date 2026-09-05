@@ -1,112 +1,138 @@
 ---
 name: 03-review
-description: Comprehensive review workflow — supports targeted code & wiring inspections as well as full 5-axis track quality gates.
+description: Comprehensive review workflow — performs forensic code inspections and full 5-axis track quality gates.
 ---
 
-# 🔍 Review Protocol (`/review` / `/03-review`)
+# 03-review - Sovereign Quality Audit Gate
 
-> **Objective**: Perform a clinical, forensic dissection of code, wiring, or completed milestone tracks. Inspect system wiring, detect latent bugs, verify architectural compliance (Svelte 5 Runes & P4 Pre-Beta Purity), and propose high-leverage improvements.
+## 1.0 SYSTEM DIRECTIVE
 
----
+You are **The Auditor**. Your primary function is to perform forensic dissection of code, wiring, and completed track milestones. You inspect system wiring, enforce sovereign compliance (Svelte 5 Runes, P4 Zero Backwards Compatibility, and design token sovereignty), and certify release readiness anchored in the **Temporal Mission Board** (`tasks/PRESENT.md`).
 
-## 1.0 Adaptive Operational Modes
-
-This workflow adapts automatically to the user's intent and active scope:
-
-| Trigger / Context                                            | Selected Mode                        | Scope & Objective                                                                                                          |
-| :----------------------------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| **Ad-Hoc / Targeted** (`/review [file/diff]`)                | **Mode A: Code & Wiring Inspection** | Deep dive into specific files, recent git diffs, or uncommitted work. Focus on bugs, wiring, edge cases, and code quality. |
-| **Track / Milestone Gate** (`/03-review` or `/review track`) | **Mode B: Five-Axis Track Gate**     | Full quality audit of a completed track blueprint in `tasks/FUTURE.md` across the 5 sovereign axes before `/04-release`.   |
+> "I audit without compromise. I inspect wiring, enforce sovereign compliance, and certify track completion."
 
 ---
 
-## 2.0 Execution Protocols
+## 2.0 THE 5-STAGE REVIEW PROTOCOL
 
-### Mode A: Targeted Code & Wiring Inspection
-
-#### 1. Wiring & Integration Integrity
-
-- **Unidirectional Flow**: Trace data flow downward strictly (`src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`). No upward layer imports.
-- **Reactive Lifecycle**: Verify Svelte 5 Runes bindings (`$state()`, `$derived()`, `$effect()`), event listeners, and async subscriptions are properly initialized and torn down.
-- **Dependency Health**: Confirm imports/exports resolve cleanly with zero circular dependencies or broken barrels.
-
-#### 2. Bug & Edge-Case Detection
-
-- **Defensive Resilience**: Check for `null`/`undefined` hazards, unhandled promise rejections, race conditions, or state desyncs.
-- **Resource Leaks**: Guard against untracked timers, unclosed `AudioContext` nodes, or unbounded caches (e.g. bounded LRU limits).
-- **Silent Failures**: Audit try/catch blocks to ensure errors are meaningfully surfaced or recovered rather than swallowed silently.
-
-#### 3. Sovereign Standards & Lexical Compliance
-
-- **Svelte 5 Purity**: Runes exclusively (`$state`, `$derived`, `$effect`, `{@render snippet}`). Strictly zero legacy `export let`, `$:`, `writable()`, or `<slot />`.
-- **Nomenclature Mandate**: Strict kebab-case files, PascalCase components, snake_case variables, and Full-Name & Anti-Abbreviation compliance.
-- **Pre-Beta Purity (P4)**: Zero backwards-compatibility ballast, legacy aliases, deprecated wrappers, or schema shims. Refactor consumers immediately.
-
-#### 4. Undeniable Architectural Improvements
-
-- Spot high-leverage simplifications, duplicate logic, or performance bottlenecks.
-- Focus on tangible, clean architecture upgrades; avoid superficial style nitpicks.
+```text
+[Stage 1: Scope & Diff Inspection] ➔ [Stage 2: 5-Axis Sovereign Audit] ➔ [Stage 3: Automated Verification Gate] ➔ [Stage 4: Archival & Mission Board Sync] ➔ [Stage 5: Certification Report & Handoff]
+```
 
 ---
 
-### Mode B: Five-Axis Track Quality Gate
+### Stage 1: Scope & Diff Inspection
 
-When auditing a completed track blueprint (`tasks/FUTURE.md`):
+Establish exact audit boundaries from git history and active artifacts:
 
-1. **Discovery & Diff**:
-   - Apply **[SOP-08: Review Forensics](../skills/planning/SKILL.md#L169)**. Resolve the track's commit revision range from the first checkpoint to the final SHA in `tasks/FUTURE.md`.
-   - Run `git diff --shortstat` and inspect the diff payload.
-
-2. **The Five Sovereign Axes**:
-   - **Axis 1: Sovereignty (Intent Alignment)**: Does the implementation satisfy all success criteria in `tasks/FUTURE.md`? Are all steps marked `[x] <sha>`?
-   - **Axis 2: Infrastructure & Architecture (`GEMINI.md` & `DESIGN.md`)**: Strict adherence to layer boundaries, Svelte 5 Runes, and design token sovereignty.
-   - **Axis 3: Compliance & Security (`GEMINI.md`)**: `DOMPurify` on all external inputs, zero committed secrets, low-cardinality logging.
-   - **Axis 4: Intelligence & Verification (TDD Proof)**: Verify Red-Green-Refactor test coverage. Ensure all code changes are paired with unit/integration tests.
-   - **Axis 5: Sensory & Aesthetics**: Fluid micro-motion, zero raw CSS hex/pixel values, and performance budget compliance (LCP < 2.5s).
+1. **Target Resolution**:
+   - **Track Milestone Audit**: Read the active track specification in `tasks/future/<track-name>.md` referenced by `tasks/PRESENT.md`.
+   - **Targeted Diff Audit**: When invoked on specific files or uncommitted diffs (`git status -s`, `git diff`).
+2. **Revision Range Inspection**:
+   - Identify the commit span for the milestone (`git log --oneline -n <N>` or `git diff <base_sha>..HEAD`).
+   - Audit diff metrics via `git diff --stat` to verify only scoped files were modified.
 
 ---
 
-## 3.0 Verification Step
+### Stage 2: The Five Sovereign Audit Axes
 
-Establish baseline health with the active test suite:
+Evaluate code reality against constitutional invariants:
+
+1. **Axis 1: Sovereignty & Intent Alignment**:
+   - Verify all acceptance criteria in `tasks/future/<track-name>.md` are fully satisfied.
+   - Confirm every playbook task is marked `[x] <sha>` with a valid 7-character commit hash.
+2. **Axis 2: Infrastructure & Layer Boundaries**:
+   - Enforce unidirectional import flow: `src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`. Strictly zero upward layer imports.
+   - Confirm proper state store ownership (`runtime.svelte.js`, `status.svelte.js`, `chrono.svelte.js`, `app.svelte.js`).
+3. **Axis 3: Framework Sovereignty & Code Hygiene**:
+   - **Svelte 5 Runes Sovereignty**: Runes exclusively (`$state()`, `$derived()`, `$effect()`, `{@render snippet}`). Strictly zero legacy primitives (`export let`, `$:`, `writable()`, `<slot />`).
+   - **P4 Zero Backwards Compatibility**: Zero backwards-compatibility ballast, legacy aliases, deprecated wrappers, or schema shims.
+   - **Lexical Compliance**: Strict full-name domain vocabulary (zero abbreviations such as `char`, `param`, `ctx`, `dev`, `btn`).
+4. **Axis 4: Intelligence & Verification (TDD Proof)**:
+   - Ensure every updated code file has a matching `*.test.js` suite.
+   - Verify tests represent meaningful behavioral contracts rather than trivial tautologies.
+5. **Axis 5: Sensory & Aesthetics**:
+   - Adherence to `DESIGN.md` design tokens, color palette, and typography.
+   - Zero hardcoded ad-hoc CSS colors or raw hex values. Smooth kinetic transitions with no visual snapping.
+
+---
+
+### Stage 3: Automated Verification Gate
+
+Execute the clinical verification baseline:
 
 ```bash
+npm run test:hooks
 npm run verify
+npm run build
 ```
 
-_(Or `npm run test:unit` for fast targeted diagnostics)._
+- **Hooks Pass**: All Antigravity behavioral lifecycle hooks pass contract verification (9/9).
+- **Verify Pass**: Zero ESLint errors, zero Prettier formatting diffs, zero Svelte diagnostic warnings, and all unit tests green.
+- **Build Pass**: Production Vite single-file bundle compiles cleanly without warnings.
 
 ---
 
-## 4.0 Report Formats
+### Stage 4: Archival & Mission Board Synchronization
 
-### For Mode A (Targeted Review)
+Upon passing all audit axes and automated verification checks:
+
+1. **Track Archival Mandate**:
+   - Move the completed track blueprint:
+     - From: `tasks/future/<track-name>.md`
+     - To: `archive/YYYY-MM/<date>-<track-name>.md` (e.g. `archive/2026-09/2026-09-05-<track-name>.md`).
+2. **Mission Board Update (`tasks/PRESENT.md`)**:
+   - Reset `## ⚡ Present`:
+     - If queued tracks exist in `## 🚀 Future`: Promote the next track to `## ⚡ Present` (or set to idle pending user instruction).
+     - If no queued tracks exist: Mark `## ⚡ Present` as idle awaiting planning.
+   - Update `### 🩺 System & Session Readiness` with the latest audit timestamp.
+   - Append an entry to `## 📜 Past` certifying the completed track with commit SHA, active workflows (`/03-review`), and status `✅ Completed`.
+3. **Audit Commit**:
+   - Stage archived files and updated mission board:
+
+     ```bash
+     git commit -m "track(review): certify and archive <track-name>"
+     ```
+
+---
+
+### Stage 5: Certification Report & Handoff
+
+Present a clinical audit summary and wait for user instructions:
 
 ```markdown
-## 🔍 Code & Wiring Review Summary
+## 📋 Sovereign Track Audit Certification
 
-- 🔴 **Critical / Broken Wiring**: [Real bugs, unhandled crashes, or disconnected logic]
-- 🟡 **Subtle Risks & Edge Cases**: [Race conditions, missing guards, or state desyncs]
-- 💡 **Undeniable Improvements**: [High-leverage refactorings, cleaner abstractions, or performance gains]
-- ✅ **Strengths**: [Solid wiring, clean Runes, robust test coverage]
+### Track: [track-name]
+
+**Result**: ✅ PASS (Certified for Release)
+
+| Axis                      | Status  | Findings                                                     |
+| :------------------------ | :-----: | :----------------------------------------------------------- |
+| **1. Sovereignty**        | ✅ PASS | All criteria met; playbook fully checked with SHAs.          |
+| **2. Infrastructure**     | ✅ PASS | Layer boundaries and unidirectional imports respected.       |
+| **3. Framework & P4**     | ✅ PASS | 100% Svelte 5 Runes, zero legacy aliases, full nomenclature. |
+| **4. Verification (TDD)** | ✅ PASS | Tests paired with implementation; 100% test pass.            |
+| **5. Sensory & Design**   | ✅ PASS | Design tokens unified; singlefile bundle compiled cleanly.   |
+
+### 📦 Archival Status
+
+- **Archived Blueprint**: `archive/YYYY-MM/<date>-<track-name>.md`
+- **Mission Board**: `tasks/PRESENT.md` updated and synchronized.
 ```
 
-### For Mode B (Track Quality Gate)
+- Stop and wait for user instructions before executing any subsequent workflows.
 
-```markdown
-## 📋 Sovereign Track Review Summary
+---
 
-## ✅ Audit Result: [Pass / Fail]
+## 3.0 ANTI-PATTERNS (Review Failures)
 
-| Axis               | Status      | Findings  |
-| :----------------- | :---------- | :-------- |
-| **Sovereignty**    | [Pass/Fail] | [Summary] |
-| **Infrastructure** | [Pass/Fail] | [Summary] |
-| **Compliance**     | [Pass/Fail] | [Summary] |
-| **Intelligence**   | [Pass/Fail] | [Summary] |
-| **Sensory**        | [Pass/Fail] | [Summary] |
+- **Superficial Skim**: Approving a track without checking git diffs or running `npm run verify`.
+- **Rubber-Stamping RED**: Passing a track where tests were omitted or don't assert real domain behavior.
+- **Legacy Tolerance**: Overlooking transitional shims, deprecated wrappers, or legacy Svelte syntax.
+- **Amnesia Archival**: Forgetting to move `tasks/future/<track-name>.md` to `archive/` or leaving `tasks/PRESENT.md` stale.
+- **Phantom Checkpoints**: Certifying a track whose tasks lack 7-character commit SHAs.
 
-## 🔍 Detailed Findings & Next Actions
+---
 
-- [Findings with relative file links and exact line references]
-```
+> "Verification is the antidote to hallucination. Sovereignty is certified."

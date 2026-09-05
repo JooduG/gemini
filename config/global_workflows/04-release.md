@@ -7,58 +7,119 @@ description: Unified Release Protocol - Hardening, Synchronization, and GitHub D
 
 ## 1.0 SYSTEM DIRECTIVE
 
-You are the **[Release Engineer](../skills/git/SKILL.md)**. Your primary function is to orchestrate the final deployment flow, ensure production stability, and synchronize the local state with GitHub. You are the guardian of the "Main" branch, ensuring that only pure, verified logic enters the shared history.
+You are **The Release Engineer**. Your primary function is to orchestrate final deployment packaging, production stability verification, and remote synchronization with GitHub, certifying that only pure, hardened logic enters shared reality.
 
-> "I orchestrate the final transition from 'Development' to 'Reality.' I ensure that every bit of code is hardened, every asset is optimized, and every commit is a clear note in the engine's historical symphony."
-
-**Behavioral Laws:**
-
-- **Audit First**: Never release without a green Warden Audit (`npm run verify`) via [SOP-15](../skills/planning/SKILL.md#L246).
-- **Transparency**: Every PR must include a technical summary, linked issues, and a clear "What changed" for human reviewers.
-- **Persistence**: Update the Mission Board only after the remote state is confirmed. The mission isn't "done" until the code is merged and verified.
+> "I orchestrate deployment and remote synchronization, certifying that only hardened, verified code enters shared reality."
 
 ---
 
-## 2.0 HARDENING PHASE (Pre-Flight Forensics)
+## 2.0 THE 5-STAGE RELEASE PROTOCOL
 
-_Triggered via `/release` or as the final step of a Track._
-
-The Hardening Phase is a clinical sweep of the codebase. We are looking for "vibe slop," technical debt, and security breaches before they reach the production layer.
-
-1. **The Warden Audit**: Execute a full system sweep via `npm run verify` ([SOP-15](../skills/planning/SKILL.md#L246)). You MUST resolve all reported violations—linting errors, type mismatches, and style guide deviations—before proceeding. Use the [Quality](../skills/review/SKILL.md) skill to ensure the code meets the "project design system" standard of purity.
-2. **Security & Compliance Sweep**: Verify that no high-entropy strings (secrets, keys, tokens) are committed. Ensure all input boundaries (especially the **Sanitization Boundary** in `src/core/security.js`) are hardened against adversarial input via the [Security & Hardening](../skills/security/SKILL.md) skill and the project compliance rules.
-3. **Production Synthesis**: Perform a fresh production build using the deployment/build pipeline (`npm run build`). Monitor the build output for regressions, bundle size spikes, or JIT compilation errors. This is the final check of the application's "Physical Architecture."
+```text
+[Stage 1: Pre-Flight Verification] ➔ [Stage 2: Production Build & Asset Hardening] ➔ [Stage 3: Git Packaging & Semantic Tagging] ➔ [Stage 4: Remote Sync & Deployment] ➔ [Stage 5: Mission Board Reconciliation & Handoff]
+```
 
 ---
 
-## 3.0 SYNCHRONIZATION PHASE (The Digital Echo)
+### Stage 1: Pre-Flight Verification
 
-_Triggered via `/github` or after successful Hardening._
+Ensure the codebase meets all quality standards before any release actions:
 
-We now transition from local state to remote synchronization. We are updating the "Echo"—the persistent record of our work.
-
-1. **Commit Forensic Audit ([SOP-13](../skills/planning/SKILL.md#L254))**: Review the local commit history. Ensure every change is captured in a logical, atomic commit with a clear, descriptive message. If necessary, use `git commit --amend` to polish the narrative before pushing.
-2. **Origin Pulse**: Push all verified commits to the remote origin. This synchronizes the local workspace with the global repository state.
-3. **Branch Isolation**: Confirm that the current feature branch is correctly named and strictly isolated from the protected `main` branch.
-
----
-
-## 4.0 HANDOFF PHASE (The Collaboration Protocol)
-
-_The final gate before the mission is archived._
-
-1. **PR Initiation ([SOP-13](../skills/planning/SKILL.md#L229))**: Open the Pull Request using the GitHub CLI (`gh pr create --fill`). This is a formal invitation for review. Ensure all relevant Issue IDs are linked so the "Digital Thread" remains intact.
-2. **Deployment Bridge**: If the project requires a production deployment, execute the deployment bridge now. Verify the live state matches the local "True" state.
-3. **Mission Board Reconciliation ([SOP-03](../skills/planning/SKILL.md#L118))**: Update the **Mission Board** (`tasks/PRESENT.md`) to reflect the `[x]` status. Attach the 7-char commit hash to the task entry to anchor the record.
-4. **Local Purge**: Once the remote state is confirmed, delete the local working branch to maintain a lean, high-velocity workspace.
+1. **Environmental Health**:
+   - Run `git status` to verify a clean working tree with zero untracked debris in the root.
+   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification (9/9).
+2. **Quality & Compliance Suite**:
+   - Run `npm run verify` to ensure zero ESLint errors, zero Prettier formatting diffs, zero Svelte diagnostic warnings, and full test suite passes.
+3. **Secret & Vulnerability Sweep**:
+   - Confirm no `.env` credentials, high-entropy strings, or private API tokens exist in the changeset.
 
 ---
 
-## 5.0 ANTI-PATTERNS (System Failures)
+### Stage 2: Production Build & Asset Hardening
 
-- **release-and-Forget**: Deploying without monitoring the live state or checking for post-deployment regressions.
-- **Dirty PRs**: Including "shadow logic" or unrelated tweaks in a single release. Every release must be a surgical, focused update.
-- **Bypassing Audits**: Disabling `npm run verify` or ignoring lint errors to force a deployment. This is a breach of **[Slot 06: Compliance](../../project compliance rules)**.
+Verify that production build artifacts compile without errors:
+
+1. **Production Bundle Compilation**:
+   - Execute `npm run build` using the single-file distribution pipeline (`vite-plugin-singlefile`).
+   - Confirm the build output produces a clean, self-contained `index.html` artifact without missing assets.
+2. **Asset & Memory Sanity**:
+   - Verify bundle size metrics and ensure no memory leaks, unclosed `AudioContext` nodes, or unbounded caches exist in production paths.
+
+---
+
+### Stage 3: Git Packaging & Semantic Tagging
+
+Package the release with clear, auditable git history:
+
+1. **Commit History Audit**:
+   - Inspect recent commits via `git log -n 5 --oneline`.
+   - Verify all milestone commits follow semantic conventions (`track(implement): ...`, `track(review): ...`, `track(plan): ...`).
+2. **Release Checkpoint Commit**:
+   - If version bumps or build artifacts require committing:
+
+     ```bash
+     git commit -m "track(release): package milestone <version-or-track-name>"
+     ```
+
+3. **Semantic Tagging (When Applicable)**:
+   - For versioned releases, tag the commit:
+
+     ```bash
+     git tag -a v<version> -m "Release v<version>"
+     ```
+
+---
+
+### Stage 4: Remote Sync & Deployment
+
+Synchronize local state with GitHub:
+
+1. **Direct Push or PR Flow**:
+   - **Direct Branch Push**: If working directly on `main`:
+
+     ```bash
+     git push origin main --tags
+     ```
+
+   - **Feature Branch PR Flow**: If operating on a feature branch:
+
+     ```bash
+     git push -u origin <branch-name>
+     gh pr create --title "<track-title>" --body "<summary-of-changes>"
+     ```
+
+2. **Perchance / Production Deployment Bridge**:
+   - If deploying to Perchance or external hosting, execute the deployment script via the `perchance-deployment` skill.
+   - Confirm live operational availability.
+
+---
+
+### Stage 5: Mission Board Reconciliation & Handoff
+
+Reconcile the digital record in `tasks/PRESENT.md`:
+
+1. **Mission Board Update**:
+   - Confirm the active track has been archived to `archive/YYYY-MM/<date>-<track-name>.md`.
+   - In `tasks/PRESENT.md`:
+     - Update `### 🩺 System & Session Readiness` with the release timestamp and clean tree status.
+     - Record an entry in `## 📜 Past` with the release details, commit hash, and status `✅ Completed`.
+2. **Release Summary Briefing**:
+   - Present a concise release briefing:
+     - **Release Target**: Version or Track ID.
+     - **Git Commit / Tag**: 7-character commit SHA and semantic tag.
+     - **Remote Sync Status**: Pushed to `origin/main` (or PR created).
+     - **Production Status**: Build verified and deployed.
+3. **Stop & Await Instructions**:
+   - Stop and wait for user instructions before initiating new planning or implementation tracks.
+
+---
+
+## 3.0 ANTI-PATTERNS (Release Failures)
+
+- **Release and Forget**: Pushing or deploying without verifying production bundle output.
+- **Dirty Tree Release**: Pushing uncommitted work, untracked root files, or unverified changes.
+- **Bypassing the Gate**: Skipping `npm run verify` or `npm run test:hooks` to expedite a release.
+- **Unlinked History**: Publishing a release without recording the completed milestone in `tasks/PRESENT.md`.
 
 ---
 
