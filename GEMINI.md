@@ -115,14 +115,14 @@ Maintain task state strictly inside the `tasks/` directory:
   - `## ⚡ Present`: Active track reference and active task vector.
   - `### 🔍 Detected TODOs`: Automated scan marker area for active codebase debt.
   - `## 🚀 Future`: Queued tracks awaiting execution.
-  - `## 📜 Past`: Recent pulse log strictly limited to the **10 most recent entries** (rolling buffer: when adding 1 on top, prune 1 from the bottom, rotating older entries into `archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`).
+  - `## 📜 Past`: Recent pulse log strictly limited to the **10 most recent entries** (rolling buffer: when adding 1 on top, prune 1 from the bottom, rotating older entries into `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`).
 - **`tasks/future/<track>.md`**: Dedicated implementation blueprint for the active track (Vision, Architecture, Playbook with TDD Red-Green-Refactor checklists, and Changelog).
 
 #### 3.2 Task Lifecycle & Archival Standards
 
 - **Lifecycle Syntax**: Track tasks using strict indicators inside track blueprints: `[ ]` (Pending), `[~]` (Active), `[x] <sha>` (Completed with 7-char commit hash).
-- **Archival Mandate**: Upon track completion, **move `tasks/future/<track>.md` to `archive/YYYY-MM/<date>-<track>.md`** (e.g. `archive/2026-09/2026-09-05-track-generation-flow.md`).
-- **Strict Hygiene**: `archive/` is the **ONLY** permissible location for archived task plans.
+- **Archival Mandate**: Upon track completion, **move `tasks/future/<track>.md` to `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-<track>.md`** (e.g. `C:/Users/johng/.gemini/antigravity-ide/archive/2026-09/2026-09-05-track-generation-flow.md`).
+- **Strict Hygiene**: The global archive (`C:\Users\johng\.gemini\antigravity-ide\archive`) is the **SOLE EXCLUSIVE** permissible location for archived task plans and rotated pulse history. Never create an `archive/` folder in local repository roots.
 
 #### 3.3 Inhibition & Planning Rules
 
@@ -256,7 +256,7 @@ Before ending any turn where codebase modifications or substantive decisions occ
 ```
 
 > [!IMPORTANT]
-> **Rolling Buffer Rule**: Maintain strictly at most **10 entries** in `## 📜 Past`. When adding a new pulse entry at the top, prune the oldest entry from the bottom and ensure rotated entries are preserved in `archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`.
+> **Rolling Buffer Rule**: Maintain strictly at most **10 entries** in `## 📜 Past`. When adding a new pulse entry at the top, prune the oldest entry from the bottom and ensure rotated entries are preserved in `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`.
 
 #### Universal File Architecture
 

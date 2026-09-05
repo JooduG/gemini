@@ -128,7 +128,7 @@ A track is complete only when all quality gates pass:
 1. **Full Verification**: Run `npm run verify` (ESLint, Prettier, Svelte check, nomenclature audit, and test suites) with **0 errors and 0 warnings**.
 2. **Production Bundle Verification**: Run `npm run build` to ensure the Vite bundle compiles cleanly.
 3. **Archival Mandate**:
-   - Move the track specification from `tasks/future/<track_name>.md` to `archive/YYYY-MM/<date>-<track_name>.md`.
+   - Move the track specification from `tasks/future/<track_name>.md` to `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-<track_name>.md`.
    - Update `tasks/PRESENT.md`: reset `## ⚡ Present` and record an entry in `## 📜 Past`.
 
 ---

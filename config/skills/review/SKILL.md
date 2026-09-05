@@ -89,7 +89,7 @@ Upon passing all audit axes and automated verification checks:
 1. **Track Archival Mandate**:
    * Move the completed track blueprint:
      * From: `tasks/future/<track-name>.md`
-     * To: `archive/YYYY-MM/<date>-<track-name>.md` (e.g. `archive/2026-09/2026-09-05-<track-name>.md`).
+     * To: `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-<track-name>.md` (e.g. `C:/Users/johng/.gemini/antigravity-ide/archive/2026-09/2026-09-05-<track-name>.md`).
 2. **Mission Board Update (`tasks/PRESENT.md`)**:
    * Reset `## ⚡ Present`: Promote the next queued track or set to idle.
    * Update `### 🩺 System & Session Readiness` with the latest audit timestamp.
@@ -124,7 +124,7 @@ Present a clinical audit summary and wait for user instructions:
 
 ### 📦 Archival Status
 
-- **Archived Blueprint**: `archive/YYYY-MM/<date>-<track-name>.md`
+- **Archived Blueprint**: `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-<track-name>.md`
 - **Mission Board**: `tasks/PRESENT.md` updated and synchronized.
 ```
 
