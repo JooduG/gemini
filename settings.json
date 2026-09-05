@@ -39,7 +39,7 @@
       "selectedType": "oauth-personal"
     },
     "autoAddToPolicyByDefault": true,
-    "disableYoloMode": false,
+    "disableYoloMode": true,
     "enablePermanentToolApproval": true,
     "enableConseca": true,
     "folderTrust": {

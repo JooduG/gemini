@@ -74,23 +74,25 @@ Hydrate domain memory and institutional precedents before undertaking new work:
 
 ### Phase 3: Architectural Domain Map & Entity Taxonomy
 
-Maintain a precise mental model of subsystem domains and entry points:
+Maintain a precise mental model of the active project's subsystem domains and entry points.
 
-| Domain                  | Entry Points & Core Modules                                                  | Primary Responsibilities                                                                           |
-| :---------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
-| **`src/state/`**        | `runtime.svelte.js`, `status.svelte.js`, `chrono.svelte.js`, `app.svelte.js` | Single source of truth for Svelte 5 Runes, simulation heartbeat, phase state, and UI navigation.   |
-| **`src/intelligence/`** | `kernel.js`, `prompts.js`, `context.svelte.js`, `temporal.js`, `parser.js`   | Turn orchestration pipeline, XML prompt compilation, semantic vector RAG, and pseudo-JSON parsing. |
-| **`src/data/`**         | `repository.js`, `normalizer.js`, `narrative-styles.js`, `visual-styles.js`  | Dexie.js persistence layer, schema validation, premades, and authorial style definitions.          |
-| **`src/media/`**        | `optics.js`, `sound.js`, `voice.js`                                          | Diffusion prompt generation, aesthetic mapping, audio synthesis, and neural TTS.                   |
-| **`src/platform/`**     | `transport.js`, `security.js`                                                | LLM transport streams, external API bridges, Perchance integration, and DOMPurify sanitization.    |
-| **`src/ui/`**           | `organisms/`, `molecules/`, `atoms/`, `motion/`                              | Atomic Svelte 5 sensory components subscribing reactively to state stores.                         |
+> [!IMPORTANT]
+> **Project-Specific Architecture**: The exact domain map, layer boundaries, and entry points are defined in the **local workspace `GEMINI.md`** (or equivalent specification document). Read it during Phase 1 Constitutional Grounding. Do not assume a specific file layout — inspect the local `GEMINI.md` for:
+>
+> - Layer boundaries and unidirectional import hierarchy (`src/ui` ➔ `src/state` ➔ ... or equivalent).
+> - Domain entry points and core module responsibilities per layer.
+> - Persistence strategy (IndexedDB, LocalStorage, REST API, etc.).
+> - Framework constraints and entity/data model taxonomies.
 
-**The Four Entity Fragments**:
+**Generic Domain Pattern** (adapt to the active project's actual structure):
 
-- **Eternal**: Baseline physical features and core essence.
-- **Present**: Immediate physical conditions and active processing states (governed by pseudo-JSON bracket parameters `[KEY: VALUE]`).
-- **Past**: Historical anchors and session memories stored in the `past` vector array (scored via semantic RAG in `temporal.js`).
-- **Future**: Active trajectory, impending intent, and standing agenda consolidated as a prose field.
+| Domain             | Typical Responsibility                                                    |
+| :----------------- | :------------------------------------------------------------------------ |
+| **UI Layer**       | Presentation components, input capture, reactive state subscriptions.     |
+| **State Layer**    | Single source of truth for reactive state (Runes, stores, signals, etc.). |
+| **Logic Layer**    | Business logic, orchestration pipelines, AI drivers.                      |
+| **Data Layer**     | Persistence (DB, API), schema validation, data normalization.             |
+| **Platform Layer** | External integrations, transport, security/sanitization bridges.          |
 
 ---
 
@@ -117,7 +119,7 @@ Bridge past session artifacts with active execution:
 ### Phase 5: Verification Baseline & Executive Briefing
 
 1. **Lean Awakening Sanity Checks**:
-   - Run `npm run test:hooks` to verify lifecycle hook contracts (9/9 passing).
+   - Run `npm run test:hooks` to verify lifecycle hook contracts (10/10 passing).
    - Check `git status -s` to verify clean working tree state and uncommitted edits.
    - Run `npm run sync` only if `DESIGN.md` tokens were altered.
    - _Note_: Full multi-suite audits (`npm run verify`, `npm run build`) are deferred to `/02-implement` checkpoints and `/03-review` quality gates to keep startup fast and token-efficient.

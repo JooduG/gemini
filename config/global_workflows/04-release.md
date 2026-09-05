@@ -27,7 +27,7 @@ Ensure the codebase meets all quality standards before any release actions:
 
 1. **Environmental Health**:
    - Run `git status` to verify a clean working tree with zero untracked debris in the root.
-   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification (9/9).
+   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification (10/10).
 2. **Quality & Compliance Suite**:
    - Run `npm run verify` to ensure zero ESLint errors, zero Prettier formatting diffs, zero Svelte diagnostic warnings, and full test suite passes.
 3. **Secret & Vulnerability Sweep**:
@@ -88,9 +88,10 @@ Synchronize local state with GitHub:
      gh pr create --title "<track-title>" --body "<summary-of-changes>"
      ```
 
-2. **Perchance / Production Deployment Bridge**:
-   - If deploying to Perchance or external hosting, execute the deployment script via the `perchance-deployment` skill.
-   - Confirm live operational availability.
+2. **Platform-Specific Deployment Bridge**:
+   - If deploying to a platform-specific target (e.g. Perchance, Netlify, Vercel), delegate to the project's deployment skill.
+   - **Responsibility Boundary**: `04-release` owns **git release, semantic tagging, version commits, and GitHub synchronization** exclusively. Platform-specific build compilation, bundle constraints, and automated upload pipelines are owned by the project's dedicated deployment skill (e.g. `perchance-deployment`). Do not duplicate deployment logic here.
+   - Confirm live operational availability after the deployment skill reports success.
 
 ---
 
