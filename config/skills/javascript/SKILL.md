@@ -16,7 +16,7 @@ As the `javascript` specialist, you are the master of core engine logic and func
 
 ## Overview
 
-The `javascript` skill is the authoritative workflow for core engine logic, state management, and utility functions within the project engine. It enforces modern ES6+ standards, functional programming patterns, and robust encapsulation to ensure the engine's "heartbeat" remains predictable and maintainable. This skill governs the "how" of the simulation's mechanical truth.
+The `javascript` skill is the authoritative standard and operational guide for core engine logic, state management, and utility functions within the project engine. It enforces modern ES6+ standards, functional programming patterns, and robust encapsulation to ensure the engine's "heartbeat" remains predictable and maintainable. This skill governs the "how" of the simulation's mechanical truth.
 
 ### Strategic Context
 

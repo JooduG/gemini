@@ -27,8 +27,8 @@ The `git` skill manages the lifecycle of code changes in the project engine. It 
 
 ## When to Use
 
-- **Positive Triggers**: Making any code change, initializing a feature branch, resolving merge conflicts, or performing repository maintenance via the GitHub CLI (`gh`). Triggered by the `/04-release`, `/revert`, and `/housekeeping` workflows.
-- **Release Triggers**: Preparing a production build, verifying CI gates, or stabilizing a release branch via `/04-release`.
+- **Positive Triggers**: Making any code change, initializing a feature branch, resolving merge conflicts, or performing repository maintenance via the GitHub CLI (`gh`). Triggered when executing code changes, releases, reverts, or housekeeping routines.
+- **Release Triggers**: Preparing a production build, verifying CI gates, or stabilizing a release branch.
 - **EXCLUSIONS**: Do not use for local-only scratch scripts; handle those via the `tmp/**` directory as defined in the `planning` skill.
 
 ## How It Works
@@ -107,3 +107,39 @@ Present the git history and the status of the current branch.
 - [ ] No secrets, debug logs, or unrelated formatting changes in the diff.
 - [ ] Local verification suite (`npm run deploy:prepare`) passed with 0 errors.
 - [ ] **Hard Evidence Recorded**: A clean `git status` and a summary of the pushed commits.
+
+---
+
+## State Reconciliation & Forensic Revert Protocol
+
+When work needs to be undone or rolled back, restore the repository with surgical precision:
+
+1. **Forensic Mapping**:
+   - Locate the target track or task in `tasks/PRESENT.md` or `tasks/future/<track>.md`.
+   - Extract all associated commit SHAs. Look for `conductor(checkpoint)` or `track(...)` commits defining boundaries.
+   - Verify extracted SHAs exist in local history (`git log --grep`).
+2. **State Reconciliation**:
+   - Compile target SHAs in **reverse chronological order** to undo dependencies in correct sequence.
+   - Inspect commits made _after_ target SHAs touching the same files (`git log <sha>..HEAD -- <affected-files>`) and warn of potential conflicts.
+   - Execute `git revert <sha>` for each commit. If conflicts occur, resolve cleanly or abort (`git revert --abort`).
+   - Verify the filesystem returns to the previous checkpoint's known green baseline (`npm test`).
+3. **Registry Reconciliation**:
+   - Reset track/task status back to `[ ]` in `tasks/PRESENT.md` and the active track file.
+   - Add an audit entry to `## 📜 Past` in `tasks/PRESENT.md` documenting the rollback, target SHAs, and rationale with status `✅ Completed`.
+
+---
+
+## Interactive Dependency Maintenance Protocol
+
+Maintain dependency health and eliminate vulnerabilities with zero regression risk:
+
+1. **Pre-Audit & Baseline Assessment**:
+   - Run `npm audit` to determine the current security risk.
+   - Record current versions of major dependencies (Svelte, Vite, TypeScript).
+2. **Interactive Update & Verification**:
+   - Run `npm run update:check` or `npx npm-check-updates -i` to interactively select candidate updates.
+   - Apply package updates and run `npm install`.
+   - Run `npm run verify` and the full test suite to prove zero regression.
+3. **Finalization & Commit**:
+   - Ensure `package.json` and `package-lock.json` are verified via 100% green test passes.
+   - Commit with semantic message: `git commit -m "chore(deps): update dependencies and verify clean test baseline"`.

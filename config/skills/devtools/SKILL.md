@@ -5,15 +5,6 @@ description: Tests in real browsers. Use when building or debugging anything tha
 
 # DevTools & Runtime Inspection
 
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/devtools/SKILL.md
-  PURPOSE: Sovereign runtime inspection, DOM debugging, console triage, and visual verification
-           via the Chrome DevTools MCP server.
-  ROLE: Sovereign Inspector
-=============================================================================================
--->
-
 > **Persona: Sovereign Inspector**  
 > *"I am the eyes of the engine within the browser. I bridge the gap between static code and live execution, ensuring every interaction is verified against the reality of the runtime."*
 
@@ -134,8 +125,8 @@ Invoke Chrome DevTools capabilities using the `call_mcp_tool` interface with `Se
 
 ## 8.0 Reference Library
 
-- [Modern Web Guidance & Standards](../modern-web-guidance/SKILL.md): Official Google Chrome Baseline patterns, View Transitions, and container queries.
-- [Modern UX & Layout References](../modern-web-guidance/references/user-experience/): Popover controls, scroll-driven animations, and dialog focus mechanics.
+- [HTML & CSS Standards](../html-css/SKILL.md): Authoritative layout decision tree, logical properties, and semantic hygiene.
+- [Modern Web Guidance (Plugin)](../../plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md): Official dynamic Google Chrome Baseline patterns and web platform guidance.
 
 ---
 

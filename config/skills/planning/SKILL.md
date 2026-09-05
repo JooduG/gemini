@@ -73,8 +73,9 @@ Every unit of work progresses through five linear stages:
 ### Stage 1: Shape (Intent & Assumption Triage)
 
 1. **Diverge & Clarify**: Interrogate ambiguous requests to isolate the core user-facing and mechanical needs.
-2. **Surface Assumptions**: Explicitly declare technical assumptions before drafting specifications.
-3. **Success Criteria**: Translate vague desires into concrete, testable conditions (e.g., *"Render speaker avatar indicator within 50ms of Quick Shot resolution"*).
+2. **Deconstruct & Partition (First-Principles)**: When restructuring tangled modules or specifications, audit responsibilities, strip orthogonal concerns to their canonical domains, and consolidate tightly coupled fragments.
+3. **Surface Assumptions**: Explicitly declare technical assumptions before drafting specifications.
+4. **Success Criteria**: Translate vague desires into concrete, testable conditions (e.g., *"Render speaker avatar indicator within 50ms of Quick Shot resolution"*).
 
 ### Stage 2: Blueprint (Universal Track Architecture)
 
@@ -111,6 +112,14 @@ Decompose each phase into bite-sized increments:
 2. **GREEN**: Write minimal code to turn tests green.
 3. **REFACTOR**: Eliminate duplication and align nomenclature while tests remain green.
 4. **CHECKPOINT**: Mark `[x] <sha>` with the 7-character git commit hash in the track blueprint.
+
+**Resuming Interrupted Work (Continue Protocol)**:
+When execution resumes after interruption or compaction:
+
+1. Audit the working tree with `git status -s` and `git diff`.
+2. Inspect `tasks/PRESENT.md` (`## ⚡ Present`) and open the active track in `tasks/future/<track>.md`.
+3. Locate the task marked `[~]` (Active) or the first pending `[ ]` task following the last completed `[x] <sha>`.
+4. Resume the TDD cycle directly without state amnesia or duplicate work.
 
 ### Stage 5: Gate & Archive (Lifecycle Exit)
 
@@ -153,3 +162,9 @@ Before concluding any planning session or marking a track ready for execution:
 - [ ] Every playbook increment sized to $\le$ 5 files.
 - [ ] No duplicated checkboxes between board and track blueprint.
 - [ ] `npm run test:hooks` passes 100% green.
+
+---
+
+## 6.0 Specialized Strategic Runbooks
+
+- [Strategic Product Ideation (10x Mode)](./references/generate-ideas.md): Moonshot feature generation, gap analysis, and founder-level scaling.

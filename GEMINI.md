@@ -41,11 +41,11 @@ If user intent or task specifications are ambiguous, **HALT execution immediatel
 
 Triage tasks into complexity levels to assign operational roles and workflows:
 
-| Level       | Role          | Workflow                                                                                                                                                       | Scope & Risk Matrix                                                      |
-| ----------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Level 1** | ⚒️ Operations | ⚡ [implement](./config/global_workflows/02-implement.md)                                                                                                      | **Low Risk**: Typos, CSS tweaks, minor isolated logic.                   |
-| **Level 2** | 🎨 Tactics    | 🧠 [plan](./config/global_workflows/01-plan.md) → [implement](./config/global_workflows/02-implement.md)                                                       | **Medium Risk**: Feature builds, state migrations, refactors.            |
-| **Level 3** | 🎭 Strategy   | 🤔 [plan](./config/global_workflows/01-plan.md) (spec) → [plan](./config/global_workflows/01-plan.md) → [implement](./config/global_workflows/02-implement.md) | **High Risk**: Structural changes, mission board resets, high ambiguity. |
+| Level       | Role          | Workflow                                                                                                                                                  | Scope & Risk Matrix                                                      |
+| ----------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Level 1** | ⚒️ Operations | ⚡ [implement](./config/skills/implement/SKILL.md)                                                                                                        | **Low Risk**: Typos, CSS tweaks, minor isolated logic.                   |
+| **Level 2** | 🎨 Tactics    | 🧠 [planning](./config/skills/planning/SKILL.md) → [implement](./config/skills/implement/SKILL.md)                                                        | **Medium Risk**: Feature builds, state migrations, refactors.            |
+| **Level 3** | 🎭 Strategy   | 🤔 [planning](./config/skills/planning/SKILL.md) (spec) → [planning](./config/skills/planning/SKILL.md) → [implement](./config/skills/implement/SKILL.md) | **High Risk**: Structural changes, mission board resets, high ambiguity. |
 
 #### 1.3 Order of Operations
 
@@ -98,10 +98,10 @@ When struggling to process task complexity, **select a reasoning tool tailored t
 | **Research**     | Knowledge gaps, library patterns, web access  | [Context](./config/skills/context/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                                            |
 | **Simulation**   | Engine mutations, unit tests, core logic      | Local `.agents/skills/` (if present), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                                                                                            |
 | **Sensory**      | Optics, UI/UX, CSS, Audio                     | [HTML & CSS](./config/skills/html-css/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/skills/devtools/SKILL.md), `perchance-plugin-image`                                                                                           |
-| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Release](./config/global_workflows/04-release.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                                                     |
-| **Resonance**    | Review gates, template health, compliance     | [Review](./config/global_workflows/03-review.md), [Review Skill](./config/skills/review/SKILL.md)                                                                                                                                                                                 |
+| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Git](./config/skills/git/SKILL.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                                                                    |
+| **Resonance**    | Review gates, template health, compliance     | [Review](./config/skills/review/SKILL.md)                                                                                                                                                                                                                                         |
 | **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                                                          |
-| **Verification** | Test suites, audits, TDD cycles               | [Test](./config/global_workflows/test.md), [Test Skill](./config/skills/test/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                                 |
+| **Verification** | Test suites, audits, TDD cycles               | [Test](./config/skills/test/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                                                                                  |
 
 ---
 
@@ -223,30 +223,28 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 Every operational response **MUST** conclude with a single, highly informative turn signal on its own line:
 
 ```text
-> [Role emoji] [Role] | [Active Skill(s)] | [Active Workflow(s)] | [Active MCP Server(s) or Tool(s)] | [Status / Summary]
+> [Role emoji] [Role] | [Active Skill(s)] | [Active MCP Server(s) or Tool(s)] | [Status / Summary]
 ```
 
 **Formatting Rules**:
 
 1. **Dynamic Inclusion**: Only include a segment if it was **actively utilized or invoked** during the current turn. If a category had no active items, completely omit that segment and its delimiter (`|`). Never emit empty brackets or placeholder dashes.
 2. **Comprehensive Enumeration**:
-   - **Skills**: List all skills actively referenced or loaded (e.g., `local-scripts, git, test`).
-   - **Workflows**: List all workflows actively driving execution (e.g., `/implement, /test`).
+   - **Skills**: List all skills actively referenced or loaded (e.g., `git, test, planning`).
    - **MCP Servers & Tools**: List all MCP servers, sub-tools, or native IDE tools actually called during the turn (e.g., `run_command, view_file, mcp:svelte(svelte-autofixer)`).
 3. **Status Summary**: Conclude with a terse 3–6 word synopsis of the primary outcome or immediate next step.
 
 _Segment Schemas_:
 
-- Full execution: `> [Role] | [Active Skills] | [Active Workflows] | [Active MCPs & Tools] | [Status]`
-- No workflow: `> [Role] | [Active Skills] | [Active MCPs & Tools] | [Status]`
+- Full execution: `> [Role] | [Active Skills] | [Active MCPs & Tools] | [Status]`
 - Pure reasoning / no tools: `> [Role] | [Active Skills] | [Status]`
-- Direct response / no skills, workflows, or tools: `> [Role] | [Status]`
+- Direct response / no skills or tools: `> [Role] | [Status]`
 
 _Examples_:
 
-- With full stack: `> ⚒️ Operations | local-scripts, git | /implement | run_command, replace_file_content | Verified hook contracts`
+- With full stack: `> ⚒️ Operations | implement, git | run_command, replace_file_content | Verified hook contracts`
 - Query / Research: `> 🎨 Tactics | devtools | call_mcp_tool(chrome-devtools:navigate_page), view_file | Inspected DOM layout`
-- Conversational / No active workflow: `> 🎭 Strategy | planning | Question answered`
+- Conversational / Pure reasoning: `> 🎭 Strategy | planning | Question answered`
 - Pure text clarification: `> 🎭 Strategy | Turn signal rules clarified`
 
 #### Pulse Synchronization (`tasks/PRESENT.md`)
@@ -254,7 +252,7 @@ _Examples_:
 Before ending any turn where codebase modifications or substantive decisions occurred, synchronize Section 3.0 (🧠 Pulse) in `tasks/PRESENT.md`:
 
 ```markdown
-| YYYY-MM-DD HH:MM | [Summary of Changes, rationale, and verified tests/audits] | [Active Workflow(s)], [Active Skill(s)], [MCP Tools] | [Status: ✅ Completed / 🔄 In Progress / ⚠️ Blocked] |
+| YYYY-MM-DD HH:MM | [Summary of Changes, rationale, and verified tests/audits] | [Active Skill(s)], [MCP Tools] | [Status: ✅ Completed / 🔄 In Progress / ⚠️ Blocked] |
 ```
 
 > [!IMPORTANT]
@@ -272,31 +270,17 @@ All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `
 
 Route tasks to specialized skills using this map:
 
-- **Planning & Spec**: [Planning](./config/skills/planning/SKILL.md), [API & Interface Design](./config/skills/api/SKILL.md)
-- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Context](./config/skills/context/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Migration](./config/skills/migration/SKILL.md)
+- **Lifecycle & Execution**: [Startup](./config/skills/startup/SKILL.md), [Planning](./config/skills/planning/SKILL.md), [Implement](./config/skills/implement/SKILL.md), [Review](./config/skills/review/SKILL.md), [Housekeeping](./config/skills/housekeeping/SKILL.md)
+- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Context](./config/skills/context/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Refactor](./config/skills/refactor/SKILL.md)
 - **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md)
 - **Perchance Tools**: [Text Generation](./config/skills/perchance-plugin-text/SKILL.md), [Text-to-Image Generation](./config/skills/perchance-plugin-image/SKILL.md)
-- **Governance**: [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Skill Writing](./config/skills/skill-writing/SKILL.md)
+- **Governance**: [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Agent Customization](./config/skills/agent-customization/SKILL.md)
 - **Research & Context**: [Modern Web Guidance](./config/plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md), [Developer Database](./config/skills/developer-database/SKILL.md)
 - **Verification & Debug**: [Test-Driven Development](./config/skills/test/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [Debug](./config/skills/debug/SKILL.md), [Review](./config/skills/review/SKILL.md)
 - **Delivery**: [Git](./config/skills/git/SKILL.md)
-
-### 5. Workflow Registry
-
-- [Startup](./config/global_workflows/00-startup.md): Initialization & Monitoring
-- [Plan](./config/global_workflows/01-plan.md): Tactical Planning & Specification
-- [Implement](./config/global_workflows/02-implement.md): Incremental Implementation & TDD
-- [Review](./config/global_workflows/03-review.md): Verification & Audit Gate
-- [Release](./config/global_workflows/04-release.md): Release & Deployment
-- [Revert](./config/global_workflows/revert.md): Git State Reconciliation
-- [Test](./config/global_workflows/test.md): Verification & Diagnostics
-- [Continue](./config/global_workflows/continue.md): Resuming Session State
-- [Deconstruct](./config/global_workflows/deconstruct.md)
-- [Generate Ideas](./config/global_workflows/generate-ideas.md)
-- [Refactor](./config/global_workflows/refactor.md)
 
 ---
 
 ### 🏛️ Constitutional Authority
 
-In the event of architectural or logical conflicts, [GEMINI.md](./GEMINI.md) serves as the supremearbiter. **Always resolve conflicts in favor of Passive Governance and Core Compliance Laws**.
+In the event of architectural or logical conflicts, [GEMINI.md](./GEMINI.md) serves as the supreme arbiter. **Always resolve conflicts in favor of Passive Governance and Core Compliance Laws**.

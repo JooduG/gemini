@@ -153,8 +153,29 @@ test("cycles active character selection", async ({ page }) => {
 
   await expect(page.locator(".active-profile")).toContainText("Elara");
 });
-
 ```
+
+### 4.5 Condition-Based Waiting & Stability
+
+Flaky tests often fail due to race conditions or arbitrary `setTimeout` calls. Wait for the actual condition, not a guess at timing:
+
+```typescript
+// ✅ Correct: Deterministic condition-based waiting
+await waitFor(() => getResult() !== undefined, "Result initialization");
+const result = getResult();
+expect(result).toBeDefined();
+```
+
+* **Polling Standard**: Poll every 10ms (responsive yet efficient).
+* **Timeout Budget**: Default to 5000ms with a descriptive message on timeout.
+* **Fresh Closures**: Call the getter inside the loop to avoid stale closure data.
+
+### 4.6 Svelte 5 Runes Testing Rules (Vitest)
+
+* **Hydration**: Use `mount` and `unmount` from `svelte` for component mounting tests.
+* **Test File Extension**: Test files containing Svelte runes must end in `.svelte.test.js` or `.svelte.test.ts`.
+* **Side Effects**: Wrap tests triggering `$effect` runes inside `$effect.root(...)`.
+* **Synchronous Updates**: Call `flushSync()` to force state updates before asserting DOM bindings.
 
 ---
 
@@ -164,6 +185,7 @@ test("cycles active character selection", async ({ page }) => {
 * **Global State Contamination**: Reusing singletons or database instances across tests without running a cleanup hook in `beforeEach`.
 * **Arbitrary Timeouts**: Using fixed `setTimeout` calls rather than deterministic polling (`waitFor`) or `vi.advanceTimersByTime`.
 * **Testing Non-Deterministic Prose**: Asserting on exact AI text generation instead of validating schema properties, tokens, and kernel state updates.
+* **Banned Patterns**: Leaving obsolete patterns (`writable`, `export let`) in Svelte 5 suites.
 
 ---
 
@@ -176,17 +198,37 @@ Execute these actionable gates before marking any task complete:
 * [ ] **Boundary Coverage**: Happy path, empty inputs (`null`/`undefined`), and error branches are tested.
 * [ ] **Zero Flakiness**: Suite executes cleanly without race conditions or shared database state.
 * [ ] **Green Pipeline**: **`npm run test` exits with a 100% pass rate.**
+* [ ] **Structural & Reactive Hygiene**: Svelte components pass linting and contain no banned patterns.
 
 ---
 
-## 7. Artifact Templates
+## 7. Root Cause Tracing & Diagnostics
+
+Trace backward through the call chain:
+
+1. **Observe Symptom**: Identify where the failure manifests (UI glitch, error log).
+2. **Immediate Cause**: Find the code directly throwing the error (e.g. `undefined` access).
+3. **Trace Up**: Ask "What called this?" and "What value was passed?" until the origin point is found.
+4. **Fix Source**: Never patch the symptom. Add validation or fix logic at the origin.
+
+### Diagnostics Toolbox
+
+| Method | Narrative | Trigger |
+| :--- | :--- | :--- |
+| **Binary Search** | Comment out 50% of the logic to isolate the failure region. | "I have no idea where the bug is." |
+| **Rubber Ducking** | Explain the code line-by-line to the user or yourself. | "The logic seems correct but fails." |
+| **Clear Thought** | Use `mcp_waldzell_clear-thought` to map findings formally before editing. | Complex, multi-file logic errors. |
+
+---
+
+## 8. Artifact Templates
 
 Enclosed templates for bug isolation, debug post-mortems, and test planning.
 
 ### Bug Report Template
 
 ```markdown
-# 🐞 Bug Report
+# 🐛 Bug Report: {{defect_title}}
 
 **Severity**: `[Critical | High | Medium | Low]`
 **Impact**: `[UI | Logic | State | Security]`
@@ -209,7 +251,6 @@ Enclosed templates for bug isolation, debug post-mortems, and test planning.
 - [ ] **Reproduction Test**: Add test to `src/...` proving failure.
 - [ ] **Patch**: `[Description of code changes]`
 - [ ] **Verification**: Run `npm test` to confirm pass.
-
 ```
 
 ### Debug Protocol Template
@@ -229,7 +270,6 @@ Enclosed templates for bug isolation, debug post-mortems, and test planning.
   "expected_state": {}
 }
 ```
-````
 
 ## 2. Hypothesis Triage
 
@@ -243,6 +283,7 @@ Enclosed templates for bug isolation, debug post-mortems, and test planning.
 * **Root Cause**: `[Detailed root cause]`
 * **Fix**: `[Diff or list of modified files]`
 * **Prevention**: `[New test case or lint rule to avoid recurrence]`
+````
 
 ### Test Plan Template
 
@@ -268,13 +309,4 @@ Enclosed templates for bug isolation, debug post-mortems, and test planning.
 
 - [ ] **User Journey**: Full interaction flow completes from start to finish.
 - [ ] **State Persistence**: Reloading preserves expected session data.
-
 ```
-
----
-
-## 6. Reference Library
-
-For specialized testing runbooks and patterns:
-
-* [Async & Svelte Testing Procedures](references/async_and_svelte_testing.md): Condition-based polling, race-condition mitigation, and Svelte 5 rune verification.
