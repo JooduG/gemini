@@ -107,8 +107,8 @@ Keep the digital record locked with codebase reality:
 ### Stage 5: Quality Gate & Phase Checkpoint
 
 1. **Verification Gate**:
-   * Run hook contract tests: `npm run test:hooks`.
-   * Run linter and formatting checks: `npm run verify`.
+   * If the project defines hook contract tests, run: `npm run test:hooks`.
+   * Run project verification checks: `npm run verify` (or `npm test`).
    * Confirm 0 errors and 0 warnings.
 2. **Semantic Commit**:
    * Stage modified code, tests, track blueprint, and `tasks/PRESENT.md`.

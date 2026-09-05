@@ -138,7 +138,7 @@ A track is complete only when all quality gates pass:
 ### 4.1 Automated Debt Sweeps (`### 🔍 Detected TODOs`)
 
 - Mark actionable technical debt directly in code comments using the `#TODO-AI` tag.
-- Execute `npm run audit:backlog` (backed by `sync-backlog.js`) to automatically sweep `#TODO-AI` tags into `tasks/PRESENT.md`.
+- If the project defines an automated backlog tool (e.g. `npm run audit:backlog`), execute it to sweep `#TODO-AI` tags into `tasks/PRESENT.md`.
 
 ### 4.2 Workspace Hygiene
 

@@ -70,13 +70,11 @@ Evaluate code reality against constitutional invariants:
 
 Execute the clinical verification baseline:
 
-```bash
-npm run test:hooks
-npm run verify
-npm run build
-```
+1. **Lifecycle Hooks**: If the project defines lifecycle hook contracts, run `npm run test:hooks`.
+2. **Full Verification**: Run the project's verification suite (`npm run verify` or `npm test`).
+3. **Production Build**: Run `npm run build` to verify clean compilation.
 
-* **Hooks Pass**: All Antigravity behavioral lifecycle hooks pass contract verification.
+* **Hooks Pass**: All behavioral lifecycle hooks pass contract verification (if configured).
 * **Verify Pass**: Zero linter errors, zero formatting diffs, zero type warnings, and all unit tests green.
 * **Build Pass**: Production bundle compiles cleanly without warnings.
 

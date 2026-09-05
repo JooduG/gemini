@@ -42,7 +42,7 @@ Audit environment configurations and reconcile ignore boundaries:
    * Verify that all active keys in `.env` have corresponding sanitized placeholder templates in `.env.example`.
    * Ensure strictly zero private tokens, high-entropy secrets, or API keys exist in `.env.example`.
 2. **Ignore Layer Synchronization**:
-   * Reconcile ignore layers via the automated script:
+   * If the project defines an ignore layer reconciliation script, run it:
 
      ```bash
      npm run sync:ignores
@@ -58,7 +58,7 @@ Ensure external developer database memory reflects latest project architecture:
 
 1. **Living Vector Memory (Pinecone)**:
    * Query vector status via `developer-database:describe_knowledge_base`.
-   * When architectural documents, skills, rules, or track blueprints have evolved, update the vector index:
+   * When architectural documents, skills, rules, or track blueprints have evolved, update the vector index (if the project defines a knowledge upsert script):
 
      ```bash
      npm run knowledge:upsert
@@ -79,7 +79,7 @@ Enforce workspace cleanliness and pre-beta purity:
    * Inspect the repository root for transient files, loose logs, or diagnostic dumps.
    * Enforce the **Workspace Hygiene Law**: All throwaway scripts, diagnostics, and test benchmarks belong exclusively in `tmp/**`. Purge stale artifacts from `tmp/`.
 2. **Technical Debt Sweep (`### 🔍 Detected TODOs`)**:
-   * Scan codebase for actionable `#TODO-AI` tags:
+   * Scan codebase for actionable `#TODO-AI` tags (if the project defines an automated backlog sweep script):
 
      ```bash
      npm run audit:backlog
@@ -97,20 +97,21 @@ Enforce workspace cleanliness and pre-beta purity:
 Execute the clinical health baseline:
 
 1. **Lifecycle Hook Contracts**:
+   * If the project defines lifecycle hook contracts, run contract verification:
 
-   ```bash
-   npm run test:hooks
-   ```
+     ```bash
+     npm run test:hooks
+     ```
 
-   * Confirm all Antigravity behavioral lifecycle hooks pass contract verification.
+   * Confirm all behavioral lifecycle hooks pass contract verification.
 
 2. **Full System Verification**:
+   * Run the project's verification suite (e.g. `npm run verify` or `npm test`):
 
-   ```bash
-   npm run verify
-   ```
+     ```bash
+     npm run verify
+     ```
 
-   * Run linters, formatters, type checks, and test suites.
    * Confirm **0 errors and 0 warnings**.
 
 3. **Token Synchronization (When Applicable)**:
