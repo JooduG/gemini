@@ -27,7 +27,7 @@ Ensure the codebase meets all quality standards before any release actions:
 
 1. **Environmental Health**:
    - Run `git status` to verify a clean working tree with zero untracked debris in the root.
-   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification (10/10).
+   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification (11/11).
 2. **Quality & Compliance Suite**:
    - Run `npm run verify` to ensure zero ESLint errors, zero Prettier formatting diffs, zero Svelte diagnostic warnings, and full test suite passes.
 3. **Secret & Vulnerability Sweep**:

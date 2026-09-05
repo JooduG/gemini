@@ -33,17 +33,16 @@ Establish the baseline rules of engagement and verify environmental health befor
      2. **Sensory & Spec Tokens**: `DESIGN.md` (Design tokens, palette, Weaver rules) and `GLOSSARY.md` (Domain terminology).
      3. **Active Temporal State**: `tasks/PRESENT.md` (Mission Board) and the active track specification in `tasks/future/<track>.md`.
      4. **Working Focus & Baton**: Untracked/active notes (`scribbles.md`) and working tree diffs (`git status -s`).
-     5. **Target Modules & Stores**: Explicit line-range inspection of active stores (`src/state/runtime.svelte.js`, `src/state/status.svelte.js`, `src/state/chrono.svelte.js`).
-     6. **Verification Feedback**: Unit tests (`npm test`), hook contracts (`npm run test:hooks`), and runtime diagnostics.
+     5. **Target Modules & Stores**: Inspect active state stores and domain entry points as defined in the local `GEMINI.md` architecture map.
+     6. **Verification Feedback**: Unit tests (`npm test`), hook contracts (if applicable), and runtime diagnostics.
 2. **Sovereignty & Architecture Invariants**:
    - **SOLID, DRY & KISS**: Modular single-responsibility units, no over-engineering.
    - **TDD Mandate**: Every behavior mutation requires a failing red test prior to implementation.
    - **P4 Zero Backwards Compatibility**: Pre-beta purity. Never write shims, deprecation fallbacks, or transitional adapters. Refactor downstream consumers directly.
-   - **Svelte 5 Runes Sovereignty**: Runes exclusively (`$state()`, `$derived()`, `$effect()`, `{@render snippet}`). Legacy primitives (`export let`, `$:`, `writable()`, `<slot />`, `createEventDispatcher`) are strictly forbidden.
-   - **Single-File Bundle Constraint**: Vite 8 single-file distribution (`vite-plugin-singlefile`) within Perchance iframe limits.
+   - **Framework Constraints**: Read the local `GEMINI.md` for project-specific framework rules (e.g. UI framework, state primitives, build pipeline, distribution constraints).
 3. **Workspace & Tooling Audit**:
    - Run `git status` to verify the active branch, uncommitted modifications, and untracked drafts.
-   - Run `npm run test:hooks` to confirm all Antigravity behavioral lifecycle hooks pass contract verification.
+   - If the project defines lifecycle hook contracts, run the appropriate verification command (e.g. `npm run test:hooks`) to confirm all hooks pass.
 
 ---
 
@@ -58,17 +57,11 @@ Hydrate domain memory and institutional precedents before undertaking new work:
 2. **Developer Database & Cold Storage Query**:
    - Query local dual-layer vector memory via `developer-database:read_knowledge_base`:
      - `knowledge-base.meta`: Historical architecture decisions, sovereign rules, and design rationale.
-     - `knowledge-base.external`: Verified third-party documentation patterns (Svelte 5, Bits UI, Dexie.js, Tailwind v4).
+     - `knowledge-base.external`: Verified third-party documentation patterns for the active project's tech stack (read from local `GEMINI.md`).
    - Resolve historical context using `developer-database:query_cold_storage` if investigating past refactors.
 3. **State Ownership & Layer Boundaries**:
-   - Enforce unidirectional import hierarchy:
-     `src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`
-   - Verify state domain owners:
-     - `runtime.svelte.js`: Live entity models, macro chronology, and turn tracking.
-     - `status.svelte.js`: Simulation phase transitions and UI stasis lock.
-     - `chrono.svelte.js`: Synchronous round and turn loop orchestration, state mutations, and physics.
-     - `app.svelte.js`: Ephemeral UI navigation, modal views, and user preferences.
-     - `src/media/`: Audio context and visual generation (AudioContext initialized strictly on direct user gesture).
+   - Enforce the project's unidirectional import hierarchy as defined in the local `GEMINI.md` (e.g. `src/ui` ➔ `src/state` ➔ `src/data` ➔ `src/platform` or equivalent).
+   - Verify state domain owners and their responsibilities by reading the **State Ownership Matrix** in the local `GEMINI.md`. Do not assume specific file names — consult the local spec.
 
 ---
 
@@ -119,7 +112,7 @@ Bridge past session artifacts with active execution:
 ### Phase 5: Verification Baseline & Executive Briefing
 
 1. **Lean Awakening Sanity Checks**:
-   - Run `npm run test:hooks` to verify lifecycle hook contracts (10/10 passing).
+   - If the project defines lifecycle hook contracts, run the verification command (e.g. `npm run test:hooks` — currently 11/11 passing in RPGlitch) to confirm all hooks pass.
    - Check `git status -s` to verify clean working tree state and uncommitted edits.
    - Run `npm run sync` only if `DESIGN.md` tokens were altered.
    - _Note_: Full multi-suite audits (`npm run verify`, `npm run build`) are deferred to `/02-implement` checkpoints and `/03-review` quality gates to keep startup fast and token-efficient.
