@@ -37,3 +37,4 @@ config/config.json
 config/.migrated
 config/projects/
 config/plugins/
+scribbles.md
