@@ -1,0 +1,12 @@
+{
+  "imports": [
+    {
+      "name": "i-have-adhd",
+      "source": "antigravity",
+      "importedAt": "2026-09-22T14:35:22Z",
+      "components": [
+        "skills"
+      ]
+    }
+  ]
+}
