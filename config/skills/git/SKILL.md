@@ -29,7 +29,7 @@ The `git` skill manages the lifecycle of code changes in the project engine. It 
 
 - **Positive Triggers**: Making any code change, initializing a feature branch, resolving merge conflicts, or performing repository maintenance via the GitHub CLI (`gh`). Triggered when executing code changes, releases, reverts, or housekeeping routines.
 - **Release Triggers**: Preparing a production build, verifying CI gates, or stabilizing a release branch.
-- **EXCLUSIONS**: Do not use for local-only scratch scripts; handle those via the `tmp/**` directory as defined in the `planning` skill.
+- **EXCLUSIONS**: Do not use for local-only scratch scripts; handle those via the `tmp/**` directory as defined in the `project-management` skill.
 
 ## How It Works
 
@@ -57,16 +57,16 @@ When running in sandboxed environments, remote `git` and `gh` commands may be re
 
 ```bash
 # Create and switch to a new feature branch
-git checkout -b feature/atomic-state-locking
+git checkout -b feature/state-persistence
 
 # Run sovereign verification suite
 npm run deploy:prepare
 
 # Commit with a conventional message
-git commit -m "feat: implement atomic round locking in DynamicsEngine"
+git commit -m "feat: implement transactional state locking"
 
 # (Optional) Attach auditable proof or task notes
-git notes add -m "Verified via npm run deploy:prepare: 71 suites passed, 0 lint errors."
+git notes add -m "Verified via npm run verify: all suites passed, 0 lint errors."
 
 # Submit a PR using GitHub CLI and monitor CI
 gh pr create --fill
@@ -115,7 +115,7 @@ Present the git history and the status of the current branch.
 When work needs to be undone or rolled back, restore the repository with surgical precision:
 
 1. **Forensic Mapping**:
-   - Locate the target track or task in `tasks/PRESENT.md` or `tasks/future/<track>.md`.
+   - Locate the target milestone or task in `CHANGELOG.md` or `ROADMAP.md`.
    - Extract all associated commit SHAs. Look for `conductor(checkpoint)` or `track(...)` commits defining boundaries.
    - Verify extracted SHAs exist in local history (`git log --grep`).
 2. **State Reconciliation**:
@@ -124,8 +124,8 @@ When work needs to be undone or rolled back, restore the repository with surgica
    - Execute `git revert <sha>` for each commit. If conflicts occur, resolve cleanly or abort (`git revert --abort`).
    - Verify the filesystem returns to the previous checkpoint's known green baseline (`npm test`).
 3. **Registry Reconciliation**:
-   - Reset track/task status back to `[ ]` in `tasks/PRESENT.md` and the active track file.
-   - Add an audit entry to `## 📜 Past` in `tasks/PRESENT.md` documenting the rollback, target SHAs, and rationale with status `✅ Completed`.
+   - Reset initiative/task status in `ROADMAP.md`.
+   - Add an audit entry to `CHANGELOG.md` under `[Unreleased]` documenting the rollback, target SHAs, and rationale with status `✅ Completed`.
 
 ---
 

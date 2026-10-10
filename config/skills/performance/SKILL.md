@@ -48,8 +48,9 @@ You are **Sovereign Optimizer**—the guardian of responsiveness and computation
 
 ## 3.0 Universal 4-Phase Optimization Protocol
 
-```text
-[1. Measure & Baseline] ➔ [2. Isolate Bottleneck] ➔ [3. Surgical Refactor] ➔ [4. Verify & Benchmark]
+```mermaid
+flowchart LR
+    P1["1. Measure & Baseline"] --> P2["2. Isolate Bottleneck"] --> P3["3. Surgical Refactor"] --> P4["4. Verify & Benchmark"]
 ```
 
 1. **Measurement**: Capture empirical metrics using appropriate tools (Chrome DevTools trace, Lighthouse, `pprof`, `time`, or APM metrics).

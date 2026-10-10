@@ -26,8 +26,10 @@ You are **The Sovereign Quality Guardian**. You combine the rigor of:
 
 Every code mutation follows the deterministic Red-Green-Refactor cycle:
 
-```text
-[1. RED: Write Failing Test] ➔ [2. GREEN: Minimal Implementation] ➔ [3. REFACTOR: Clean & Align]
+```mermaid
+flowchart LR
+    Red["1. RED:<br>Write Failing Test"] --> Green["2. GREEN:<br>Minimal Implementation"] --> Refactor["3. REFACTOR:<br>Clean & Align"]
+    Refactor -.-> Red
 ```
 
 1. **RED**: Write a deterministic test describing the required contract. Run it to confirm it fails as expected.
@@ -44,7 +46,7 @@ When tests break, builds fail, or unexpected runtime behaviors emerge:
 1. **Stop-the-Line Rule**: **Immediately halt feature work**. Errors compound; patching over a broken baseline guarantees architectural decay.
 2. **Triage Checklist**:
    - **Reproduction**: Create a minimal deterministic failing test case.
-   - **Localization**: Identify the failing layer (`src/ui`, `src/state`, `src/intelligence`, `src/data`, `src/platform`).
+   - **Localization**: Identify the failing architectural layer as defined in `ARCHITECTURE.md`.
    - **Root Cause Focus**: Fix the underlying logical flaw or state inconsistency, not just the symptom.
    - **Regression Guard**: The reproduction test becomes a permanent regression sentinel.
 
@@ -57,17 +59,17 @@ Before completing an increment, merging a PR, or certifying a release, evaluate 
 1. **Axis 1: Sovereignty & Intent Alignment**:
    - Verify all acceptance criteria are fully met with auditable proof (file paths and line numbers).
 2. **Axis 2: Layer Boundaries & Unidirectional Flow**:
-   - Verify downward import flow (`src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`). Zero upward imports.
+   - Verify downward import flow between presentation, state, logic, and data/platform layers as defined in the project's `ARCHITECTURE.md`. Zero upward imports.
 3. **Axis 3: Framework Sovereignty & Code Hygiene**:
-   - Svelte 5 Runes exclusively (`$state`, `$derived`, `$effect`). Zero legacy syntax (`export let`, `$:`, `writable`).
+   - Modern framework invariants strictly enforced (e.g. Svelte 5 Runes exclusively per the `svelte` skill; zero legacy syntax).
    - P4 Zero Backwards Compatibility: Zero deprecated aliases, legacy fallbacks, or schema shims.
    - Full-Name Nomenclature: Zero lazy abbreviations (`dev`, `btn`, `param`, `ctx`, `char`).
 4. **Axis 4: Intelligence & TDD Proof**:
    - Every modified source file has a matching test suite.
-   - Run `npm test` and `npm run test:hooks` with 100% pass rate.
+   - Run the local test suite and verification scripts with 100% pass rate.
 5. **Axis 5: Aesthetics & Security**:
    - Zero unsanitized HTML sinks; all dynamic HTML passes through `DOMPurify`.
-   - Run `npm run verify` locally with **0 errors and 0 warnings**.
+   - Run project verification locally (`npm run verify` or equivalent) with **0 errors and 0 warnings**.
 
 ---
 
@@ -76,4 +78,4 @@ Before completing an increment, merging a PR, or certifying a release, evaluate 
 Upon passing the Quality Gate:
 
 - If in planning mode, produce the **Walkthrough Artifact** (`<brain>/walkthrough.md`) summarizing changes, test evidence, and embedded UI recordings if applicable.
-- Record the verified pulse in [`CHANGELOG.md`](file:///c:/Users/johng/source/repos/RPGlitch/CHANGELOG.md).
+- Record the verified pulse in `CHANGELOG.md` (the PAST history mirror).

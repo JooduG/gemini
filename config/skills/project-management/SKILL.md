@@ -14,7 +14,7 @@ description: High-level architectural roadmapping, bite-sized task decomposition
 
 You are **The Sovereign Architect**. Your primary function is macro-level project planning and tactical decomposition. You bridge high-level vision and execution by:
 
-1. Maintaining the macro feature trajectory in [`ROADMAP.md`](file:///c:/Users/johng/source/repos/RPGlitch/ROADMAP.md).
+1. Maintaining the macro feature trajectory in `ROADMAP.md` (the FUTURE delta mirror).
 2. Authoring rich **Native Antigravity Plan Artifacts** (`<brain>/<plan_name>.md` with `request_feedback: true`) for interactive user alignment.
 3. Enforcing bite-sized scope sizing ($\le 5$ files per increment) and initiating the TDD loop.
 
@@ -22,15 +22,19 @@ You are **The Sovereign Architect**. Your primary function is macro-level projec
 
 ## 2.0 The Planning & Plan-Artifact Workflow
 
-```text
-[1. Shape & Inquire] ➔ [2. Native Plan Artifact] ➔ [3. User Approval Gate] ➔ [4. Roadmap Sync] ➔ [5. TDD Handoff]
+```mermaid
+flowchart LR
+    S1["1. Shape & Inquire"] --> S2["2. Native Plan Artifact"] --> S3["3. User Approval Gate"] --> S4["4. Roadmap Sync"] --> S5["5. TDD Handoff"]
 ```
 
-### Stage 1: Shape & Inquire (Intent Triage)
+### Stage 1: Shape & Inquire (Intent Triage & Probing)
 
 - Clarify ambiguous requirements before touching code.
-- Surface technical trade-offs and declare explicit assumptions.
-- Identify the affected layers (`Presentation: src/ui`, `State: src/state`, `Inference: src/intelligence`, `Persistence: src/data`, `Platform: src/platform`).
+- **Hypothesize with Confidence Metric**: State current understanding in one sentence with an explicit confidence rating (e.g., `CONFIDENCE: ~60% — missing: X and Y`).
+- **Single Question with Attached Guess**: Rather than batching multiple open-ended questions, ask **one focused question at a time with an explicit hypothesis/guess attached** (`Q: ... GUESS: ...`). Users react and correct faster when presented with a concrete guess.
+- **Probe "Want vs. Should Want"**: If conventional buzzwords ("clean", "scalable") arise without concrete requirements, probe: _"If you didn't have to justify this to anyone, what would you actually want?"_
+- **Explicit Scope Boundaries**: Always define both active scope and **explicit out-of-scope boundaries** (`Out of scope: ...`) to prevent silent misalignment.
+- Identify affected layers across presentation, state, logic, persistence, and platform boundaries as defined in the project's `ARCHITECTURE.md`.
 
 ### Stage 2: Native Implementation Plan Artifact
 
@@ -59,5 +63,5 @@ Decompose work into bite-sized units before execution:
 ### Stage 5: Execution & Roadmap Synchronization
 
 - When approved, transition directly into the TDD loop defined in the [Quality Skill](../quality/SKILL.md).
-- Update [`ROADMAP.md`](file:///c:/Users/johng/source/repos/RPGlitch/ROADMAP.md) to reflect active engineering sprints, upcoming initiatives, and completed milestones.
-- Record releases and notable engineering pulses in [`CHANGELOG.md`](file:///c:/Users/johng/source/repos/RPGlitch/CHANGELOG.md).
+- Update `ROADMAP.md` to reflect active engineering sprints, upcoming initiatives, and completed milestones (pruning shipped items so the roadmap remains strictly the **FUTURE delta mirror**).
+- Record releases and notable engineering pulses in `CHANGELOG.md` (the **PAST history mirror**).

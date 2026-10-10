@@ -50,10 +50,10 @@ This document summarizes key rules and best practices from the Google JavaScript
 > [!IMPORTANT]
 > When operating within this repository, local project rules supersede the generic guidelines in this document. In the event of a conflict, the authoritive user rules (`GEMINI.md`) are absolute, like in these cases (but not limited to):
 >
-> 1. **Lexical & Workflow**: Naming conventions and process logic defined in the `05-intelligence` rule take precedence. (e.g., Use `snake_case` for variables and `kebab-case` for files regardless of generic language standards).
-> 2. **Aesthetics & UI**: Design tokens and visual laws defined in the `04-aesthetics` rule take precedence. Never use raw CSS values (`px`, `#`, `rem`) when tokens are available.
-> 3. **Framework Logic**: If this project uses **Svelte**, all UI and state logic must adhere to the `03-infrastructure` rule.
-> 4. **General Precedence**: Any and all information found in the user rules is master above the information found in this file.
+> 1. **Lexical & Workflow**: Naming conventions and process logic defined in `GEMINI.md` (Lexical Standards & Nomenclature) take precedence. (e.g., Use `snake_case` for variables, `PascalCase` for components, and `kebab-case` for files regardless of generic language standards).
+> 2. **Aesthetics & UI**: Design tokens and visual laws defined in `DESIGN.md` and `GEMINI.md` take precedence. Never use raw CSS values (`px`, `#`, `rem`) when design tokens are available.
+> 3. **Framework Logic**: If this project uses a reactive framework (e.g. Svelte 5), all UI and state logic must adhere to the framework's dedicated skill (e.g., `svelte`) and `ARCHITECTURE.md`.
+> 4. **General Precedence**: Any and all information found in authoritative user rules (`GEMINI.md`) is master above the information found in this file.
 
 ### 1. Source File Basics
 

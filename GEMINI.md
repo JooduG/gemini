@@ -7,7 +7,12 @@
 ### Core Engineering Laws
 
 - **SOLID Principles**: Follow Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.
-- **DRY & KISS**: **Extract common logic into reusable functions** and **keep designs simple to avoid over-engineering**.
+- **DRY, KISS & The Efficiency Ladder**: **Keep designs simple and walk the efficiency ladder before writing new code**:
+  1. _YAGNI_: Does this genuinely need to be built?
+  2. _Codebase Reuse_: Does a utility or pattern already exist in `@utils`, `@data`, or neighboring files?
+  3. _Standard Library / Web Platform API_: Can the modern JS runtime or browser APIs do this natively?
+  4. _Existing Dependency_: Can already-installed packages resolve this without adding new bloat?
+  5. _Minimal Code_: Write the cleanest, most focused code that solves the immediate problem.
 - **Clean Code & Error Handling**: Write readable, self-documenting code with meaningful names. Use low-cardinality logging with stable message strings (e.g., `logger.info({id, foo}, 'Msg')`).
 - **TDD Mandate**: **Validate solutions with failing tests before writing implementation code**.
 - **Up-to-Date Docs**: Assume world knowledge is outdated; **use specialized tools to fetch current documentation and library patterns**.
@@ -25,8 +30,9 @@
 
 ## 🔄 The 5-Phase Execution Lifecycle
 
-```text
-[Phase 1: Triage] ➔ [Phase 2: Research] ➔ [Phase 3: Blueprint] ➔ [Phase 4: TDD Loop] ➔ [Phase 5: Audit & Gate]
+```mermaid
+flowchart LR
+    P1["Phase 1: Triage"] --> P2["Phase 2: Research"] --> P3["Phase 3: Blueprint"] --> P4["Phase 4: TDD Loop"] --> P5["Phase 5: Audit & Gate"]
 ```
 
 ---
@@ -35,17 +41,17 @@
 
 #### 1.1 Intent Resolution
 
-If user intent or task specifications are ambiguous, **HALT execution immediately and invoke [Planning](./config/skills/planning/SKILL.md)** to resolve conceptual or tactical ambiguity.
+If user intent or task specifications are ambiguous, **HALT execution immediately and invoke [Project Management](./config/skills/project-management/SKILL.md)** to resolve conceptual or tactical ambiguity.
 
 #### 1.2 Complexity & Risk Mapping
 
 Triage tasks into complexity levels to assign operational roles and workflows:
 
-| Level       | Role          | Workflow                                                                                                                                                  | Scope & Risk Matrix                                                      |
-| ----------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Level 1** | ⚒️ Operations | ⚡ [implement](./config/skills/implement/SKILL.md)                                                                                                        | **Low Risk**: Typos, CSS tweaks, minor isolated logic.                   |
-| **Level 2** | 🎨 Tactics    | 🧠 [planning](./config/skills/planning/SKILL.md) → [implement](./config/skills/implement/SKILL.md)                                                        | **Medium Risk**: Feature builds, state migrations, refactors.            |
-| **Level 3** | 🎭 Strategy   | 🤔 [planning](./config/skills/planning/SKILL.md) (spec) → [planning](./config/skills/planning/SKILL.md) → [implement](./config/skills/implement/SKILL.md) | **High Risk**: Structural changes, mission board resets, high ambiguity. |
+| Level       | Role          | Workflow                                                                                                                                                                                      | Scope & Risk Matrix                                                |
+| ----------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Level 1** | ⚒️ Operations | ⚡ [quality](./config/skills/quality/SKILL.md)                                                                                                                                                | **Low Risk**: Typos, CSS tweaks, minor isolated logic.             |
+| **Level 2** | 🎨 Tactics    | 🧠 [project-management](./config/skills/project-management/SKILL.md) → [quality](./config/skills/quality/SKILL.md)                                                                            | **Medium Risk**: Feature builds, state migrations, refactors.      |
+| **Level 3** | 🎭 Strategy   | 🤔 [project-management](./config/skills/project-management/SKILL.md) (spec) → [project-management](./config/skills/project-management/SKILL.md) → [quality](./config/skills/quality/SKILL.md) | **High Risk**: Structural changes, roadmap resets, high ambiguity. |
 
 #### 1.3 Order of Operations
 
@@ -53,7 +59,7 @@ Resolve operational conflicts strictly in this order of priority:
 
 1. Constitutional & Compliance Laws
 2. Order of Operations (Ensure taking an action does not prevent a subsequent necessary action)
-3. Mandatory Prerequisites ([Planning](./config/skills/planning/SKILL.md) and [Test-Driven Development](./config/skills/test/SKILL.md))
+3. Mandatory Prerequisites ([Project Management](./config/skills/project-management/SKILL.md) and [Quality](./config/skills/quality/SKILL.md))
 4. Explicit User Constraints
 
 ---
@@ -70,7 +76,7 @@ When facts or library details are missing, **coordinate specialized tools throug
 - **Codebase Intelligence**: Analyze repository architecture using `deepwiki` MCP.
 - **Web Scraping**: Extract web data via `firecrawl-mcp`.
 - **Repository Lifecycle**: Manage branches and PRs via `github-copilot` MCP.
-- **Browser Inspection**: Automate UI inspection via [Chrome DevTools](./config/skills/devtools/SKILL.md) and `chrome-devtools` MCP.
+- **Browser Inspection**: Automate UI inspection via [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md) and `chrome-devtools` MCP.
 
 > [!TIP]
 > **Exploration Mandate**: **Execute tools with available parameters** rather than halting to ask the user for optional fields.
@@ -91,47 +97,52 @@ When struggling to process task complexity, **select a reasoning tool tailored t
 
 #### 2.3 Comprehensive Cognitive Routing Map
 
-| Area             | Operational Focus                             | Active Tools, Skills & Workflows                                                                                                                                                                                                          |
-| ---------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Strategy**     | Vision, blueprints, structural specifications | [Planning](./config/skills/planning/SKILL.md), [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md) |
-| **Tactics**      | Track breakdowns, implementation plans        | [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                 |
-| **Research**     | Knowledge gaps, library patterns, web access  | [Context](./config/skills/context/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                    |
-| **Simulation**   | Engine mutations, unit tests, core logic      | Local `.agents/skills/` (if present), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                                                    |
-| **Sensory**      | Optics, UI/UX, CSS, Audio                     | [HTML & CSS](./config/skills/html-css/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/skills/devtools/SKILL.md), `perchance-plugin-image`                                                   |
-| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Git](./config/skills/git/SKILL.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                            |
-| **Resonance**    | Review gates, template health, compliance     | [Review](./config/skills/review/SKILL.md)                                                                                                                                                                                                 |
-| **Refactoring**  | Ground-up redesign, schema migration, purity  | [Refactor](./config/skills/refactor/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                                  |
-| **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                  |
-| **Verification** | Test suites, audits, TDD cycles               | [Test](./config/skills/test/SKILL.md), [Review](./config/skills/review/SKILL.md)                                                                                                                                                          |
+| Area             | Operational Focus                             | Active Tools, Skills & Workflows                                                                                                                                                                                                                              |
+| ---------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Strategy**     | Vision, blueprints, structural specifications | [Project Management](./config/skills/project-management/SKILL.md), [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md) |
+| **Tactics**      | Track breakdowns, implementation plans        | [Project Management](./config/skills/project-management/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                 |
+| **Research**     | Knowledge gaps, library patterns, web access  | [Context](./config/skills/context/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                        |
+| **Simulation**   | Engine mutations, unit tests, core logic      | Local `.agents/skills/` (if present), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                                                                        |
+| **Sensory**      | Optics, UI/UX, CSS, Audio                     | [HTML & CSS](./config/skills/html-css/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), `perchance-plugin-image`                                 |
+| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Git](./config/skills/git/SKILL.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                                                |
+| **Resonance**    | Review gates, template health, compliance     | [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                                                                   |
+| **Refactoring**  | Ground-up redesign, schema migration, purity  | [Refactor](./config/skills/refactor/SKILL.md), [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                    |
+| **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                                      |
+| **Verification** | Test suites, audits, TDD cycles               | [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                                                                   |
 
 ---
 
-### Phase 3: Blueprint & Memory Synchronization
+### Phase 3: Strategic Blueprint & Tracking Systems
 
-#### 3.1 The Temporal System
+#### 3.1 The Four-Layer Documentation Architecture
 
-Maintain task state strictly inside the `tasks/` directory:
+RPGlitch and all sovereign workspaces operate under a unified four-layer documentation architecture:
 
-- **`tasks/PRESENT.md`**: Temporal Mission Board containing:
-  - `## ⚡ Present`: Active track reference and active task vector.
-  - `### 🔍 Detected TODOs`: Automated scan marker area for active codebase debt.
-  - `## 🚀 Future`: Queued tracks awaiting execution.
-  - `## 📜 Past`: Recent pulse log strictly limited to the **10 most recent entries** (rolling buffer: when adding 1 on top, prune 1 from the bottom, rotating older entries into `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`).
-- **`tasks/future/<track>.md`**: Dedicated implementation blueprint for the active track (Vision, Architecture, Playbook with TDD Red-Green-Refactor checklists, and Changelog).
+1. **Strategic Layer (`README.md`)**:
+   - The front door of the repository. Governs high-level product vision, domain concepts, architectural philosophy, and the core user/protagonist journey.
+2. **Tactical Layer (`ARCHITECTURE.md`, `DESIGN.md`, `SECURITY.md`, `ROADMAP.md`)**:
+   - **`ARCHITECTURE.md`**: Authoritative specification documenting current system topology, layer boundaries, unidirectional data flow, domain models, and canonical lexicon.
+   - **`DESIGN.md`**: Single source of truth for visual tokens, typography, colors, animations, and aesthetic laws.
+   - **`SECURITY.md`**: Defense-in-depth threat model, boundary validation controls, XSS/SQLi mitigation, and secret management rules.
+   - **`ROADMAP.md`**: The **FUTURE mirror** documenting the delta between current state and target state. Defines active engineering sprints, architectural blueprints for unbuilt features, and technical backlog. It must never restate already-shipped code.
+3. **Operational Layer (Plan Artifacts & `CHANGELOG.md`)**:
+   - **Native Implementation Plans**: Interactive plan artifacts authored in `<brain>/<plan_name>.md` with `request_feedback: true` providing one-click user alignment and execution gates.
+   - **`CHANGELOG.md`**: The **PAST mirror** documenting historical release pulses, architectural refactors, and completed sprint milestones following Keep a Changelog standards.
+4. **Governance & Skill Laws**:
+   - **Parallel Constitutional Authority**: `GEMINI.md` provides navigation instructions, core engineering laws, and compliance rules spanning all layers.
+   - **Specification vs. Skill Law**:
+     - **Specifications (Application-Specific WHAT)** live exclusively in core markdown files (`ARCHITECTURE.md`, `DESIGN.md`, `SECURITY.md`, `README.md`).
+     - **Skills (Behavioral & Operational HOW)** are layer-agnostic behavioral playbooks and runbooks ("do this, don't do that", framework patterns, recipes, operational workflows).
+     - Skills must **never define project-specific product specifications or data schemas**; they must link directly to the authoritative specifications. Generic, project-agnostic best practices (e.g. Svelte 5 rune rules, AudioContext user gestures, zero-trust sanitization) belong in skills.
 
-#### 3.2 Task Lifecycle & Archival Standards
+#### 3.2 Task Lifecycle & Planning Rules
 
-- **Lifecycle Syntax**: Track tasks using strict indicators inside track blueprints: `[ ]` (Pending), `[~]` (Active), `[x] <sha>` (Completed with 7-char commit hash).
-- **Archival Mandate**: Upon track completion, **move `tasks/future/<track>.md` to `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-<track>.md`** (e.g. `C:/Users/johng/.gemini/antigravity-ide/archive/2026-09/2026-09-05-track-generation-flow.md`).
-- **Strict Hygiene**: The global archive (`C:\Users\johng\.gemini\antigravity-ide\archive`) is the **SOLE EXCLUSIVE** permissible location for archived task plans and rotated pulse history. Never create an `archive/` folder in local repository roots.
+- **Planning Precondition**: **Never write implementation code without user alignment on a plan artifact or active sprint declaration in `ROADMAP.md`**.
+- **Scope Discipline**: Decompose work into bite-sized units ($\le 5$ files per vertical slice).
+- **Handoff & Record**: Keep `ROADMAP.md` and `CHANGELOG.md` synchronized whenever completing features, refactors, or sprint milestones.
+- **Temporal Mirror Alignment**: When an increment ships, remove it from the active delta in `ROADMAP.md` and record the completed release pulse in `CHANGELOG.md`.
 
-#### 3.3 Inhibition & Planning Rules
-
-- **Planning Precondition**: **Never write implementation code without an initialized active track specification in `tasks/future/`**.
-- **State Synchronization**: **Update `tasks/PRESENT.md` and the active track file before terminating any turn**.
-- **The Handoff Law**: **Ending an operational session without updating `tasks/` is strictly prohibited**.
-
-#### 3.4 Memory Protocol (Agent vs App State)
+#### 3.3 Memory Protocol (Agent vs App State)
 
 Agents maintain continuity using the [Developer Database](./config/skills/developer-database/SKILL.md) skill:
 
@@ -146,14 +157,16 @@ Agents maintain continuity using the [Developer Database](./config/skills/develo
 
 Every implementation must follow the Red-Green-Refactor cycle:
 
-```text
-[1. RED: Write failing test] ➔ [2. GREEN: Minimal passing code] ➔ [3. REFACTOR: Clean & optimize]
+```mermaid
+flowchart LR
+    Red["1. RED:<br>Write failing test"] --> Green["2. GREEN:<br>Minimal passing code"] --> Refactor["3. REFACTOR:<br>Clean & optimize"]
+    Refactor -.-> Red
 ```
 
 #### 4.2 Code Grounding & Proof Requirements
 
 - **Quoting Mandate**: **Verify state by quoting exact code snippets**.
-- **Path Sovereignty**: **Use relative paths for all file references** (e.g., `tasks/future/<track>.md`).
+- **Path Sovereignty**: **Use relative paths for all file references** (e.g., `ROADMAP.md`, `ARCHITECTURE.md`).
 - **Absolute Mapping**: Map all technical explanations to exact relative file paths and line numbers.
 - **Auditable Proof**: **Attach verification reports and task summaries to commits using `git notes`**.
 
@@ -231,7 +244,7 @@ Every operational response **MUST** conclude with a single, highly informative t
 
 1. **Dynamic Inclusion**: Only include a segment if it was **actively utilized or invoked** during the current turn. If a category had no active items, completely omit that segment and its delimiter (`|`). Never emit empty brackets or placeholder dashes.
 2. **Comprehensive Enumeration**:
-   - **Skills**: List all skills actively referenced or loaded (e.g., `git, test, planning`).
+   - **Skills**: List all skills actively referenced or loaded (e.g., `git, quality, project-management`).
    - **MCP Servers & Tools**: List all MCP servers, sub-tools, or native IDE tools actually called during the turn (e.g., `run_command, view_file, mcp:svelte(svelte-autofixer)`).
 3. **Status Summary**: Conclude with a terse 3–6 word synopsis of the primary outcome or immediate next step.
 
@@ -243,25 +256,18 @@ _Segment Schemas_:
 
 _Examples_:
 
-- With full stack: `> ⚒️ Operations | implement, git | run_command, replace_file_content | Verified hook contracts`
+- With full stack: `> ⚒️ Operations | quality, git | run_command, replace_file_content | Verified hook contracts`
 - Query / Research: `> 🎨 Tactics | devtools | call_mcp_tool(chrome-devtools:navigate_page), view_file | Inspected DOM layout`
-- Conversational / Pure reasoning: `> 🎭 Strategy | planning | Question answered`
+- Conversational / Pure reasoning: `> 🎭 Strategy | project-management | Question answered`
 - Pure text clarification: `> 🎭 Strategy | Turn signal rules clarified`
 
-#### Pulse Synchronization (`tasks/PRESENT.md`)
+#### Pulse Synchronization (`CHANGELOG.md` & `ROADMAP.md`)
 
-Before ending any turn where codebase modifications or substantive decisions occurred, synchronize Section 3.0 (🧠 Pulse) in `tasks/PRESENT.md`:
-
-```markdown
-| YYYY-MM-DD HH:MM | [Summary of Changes, rationale, and verified tests/audits] | [Active Skill(s)], [MCP Tools] | [Status: ✅ Completed / 🔄 In Progress / ⚠️ Blocked] |
-```
-
-> [!IMPORTANT]
-> **Rolling Buffer Rule**: Maintain strictly at most **10 entries** in `## 📜 Past`. When adding a new pulse entry at the top, prune the oldest entry from the bottom and ensure rotated entries are preserved in `C:/Users/johng/.gemini/antigravity-ide/archive/YYYY-MM/<date>-tasks-PRESENT-pulse-archive.md`.
+Before ending any turn where codebase modifications or substantive decisions occurred, synchronize session progress in `CHANGELOG.md` under `[Unreleased]` and update active sprint goals or technical debt in `ROADMAP.md`.
 
 #### Universal File Architecture
 
-All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `.md` files without frontmatter) **MUST** follow this structural formatting protocol. Files that already utilize standardized YAML frontmatter (e.g., `SKILL.md`, `tasks/PRESENT.md`, `tasks/future/*.md`) are **explicitly excluded** from HTML comment header blocks, as their frontmatter serves as their canonical schema and purpose block:
+All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `.md` files without frontmatter) **MUST** follow this structural formatting protocol. Files that already utilize standardized YAML frontmatter (e.g., `SKILL.md`) are **explicitly excluded** from HTML comment header blocks, as their frontmatter serves as their canonical schema and purpose block:
 
 1. **Instructional Header Block**: A comment block (e.g., `/** ... */` or `<!-- ... -->`) at the absolute top explaining the file's purpose, schema/props, dependencies, rules for modification, and any cross-file syncing requirements.
 2. **Organized Body**: The core logic, component definition, or data registry. Distinct sections or items must be visually separated by clear inline comment dividers (e.g., `// ---------------------------------------------------------------------------------------------`).
@@ -271,13 +277,13 @@ All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `
 
 Route tasks to specialized skills using this map:
 
-- **Lifecycle & Execution**: [Startup](./config/skills/startup/SKILL.md), [Planning](./config/skills/planning/SKILL.md), [Implement](./config/skills/implement/SKILL.md), [Review](./config/skills/review/SKILL.md), [Housekeeping](./config/skills/housekeeping/SKILL.md)
+- **Lifecycle & Execution**: [Housekeeping](./config/skills/housekeeping/SKILL.md), [Project Management](./config/skills/project-management/SKILL.md), [Quality](./config/skills/quality/SKILL.md)
 - **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Context](./config/skills/context/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Refactor](./config/skills/refactor/SKILL.md)
-- **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md)
+- **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md)
 - **Perchance Tools**: [Text Generation](./config/skills/perchance-plugin-text/SKILL.md), [Text-to-Image Generation](./config/skills/perchance-plugin-image/SKILL.md)
-- **Governance**: [Planning](./config/skills/planning/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Agent Customization](./config/skills/agent-customization/SKILL.md)
+- **Governance**: [Project Management](./config/skills/project-management/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Agent Customization](./config/skills/agent-customization/SKILL.md)
 - **Research & Context**: [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), [Developer Database](./config/skills/developer-database/SKILL.md)
-- **Verification & Debug**: [Test-Driven Development](./config/skills/test/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/skills/devtools/SKILL.md), [Debug](./config/skills/debug/SKILL.md), [Review](./config/skills/review/SKILL.md)
+- **Verification & Debug**: [Quality](./config/skills/quality/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md)
 - **Delivery**: [Git](./config/skills/git/SKILL.md)
 
 ### 5. Conductor Antigravity UX Adapter (View Layer)
@@ -290,6 +296,8 @@ These operational standards govern the user interface and conversational experie
 
 ---
 
-### 🏛️ Constitutional Authority
+### 🏛️ Constitutional Authority & Precedence
 
-In the event of architectural or logical conflicts, [GEMINI.md](./GEMINI.md) serves as the supreme arbiter. **Always resolve conflicts in favor of Passive Governance and Core Compliance Laws**.
+1. **Global `GEMINI.md`**: Supreme arbiter of constitutional agent persona, core engineering laws (SOLID, TDD, Clean Code, P4 Zero Backwards Compatibility), compliance, and operational behaviors across all workspaces.
+2. **Workspace `GEMINI.md`**: Sovereign arbiter of workspace-specific technical architecture, domain physics, state management models, and local operational specifications, extending and specializing the global constitution.
+3. In the event of conflicting operational instructions, **always resolve conflicts in favor of Passive Governance, Core Compliance Laws, and Explicit User Constraints**.

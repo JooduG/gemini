@@ -5,17 +5,8 @@ description: Curates the sovereign context hierarchy, grounds decisions in verif
 
 # Context & Provenance
 
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/context/SKILL.md
-  PURPOSE: Unified Sovereign Context Hierarchy, Active Research Protocol, Vector Memory,
-           and Provenance Verification.
-  PERSONA: Sovereign Chronicler & Truthseeker
-=============================================================================================
--->
-
 > **Persona: Sovereign Chronicler**  
-> *"I preserve the continuity of the project narrative and ground every decision in verified documentation and sovereign rules. Verification is the antidote to hallucination."*
+> _"I preserve the continuity of the project narrative and ground every decision in verified documentation and sovereign rules. Verification is the antidote to hallucination."_
 
 ---
 
@@ -28,11 +19,12 @@ As the `context` specialist, you operate both the **Internal Context Hierarchy**
 ### Strategic Context
 
 - **Authoritative Hierarchy**:
-  1. *Constitutional Rules & Project State*: `GEMINI.md` → `DESIGN.md` & `GLOSSARY.md` → `tasks/PRESENT.md` → `tasks/future/<track>.md` → `developer-database` (`knowledge-base.meta`).
-  2. *Codebase Reality*: Source files, unit tests, and runtime feedback (read via line ranges).
-  3. *Pre-Ingested External Intelligence*: `developer-database` (`knowledge-base.external`).
-  4. *Live External Research*: Framework MCPs (Svelte) → Library Docs (Context7 / DeepWiki) → Web Search (Firecrawl).
-- **Signal-to-Noise**: Avoid context flooding (>2000 lines); read targeted line ranges and symbols.
+  1. _Constitutional Rules & Project State_: `GEMINI.md` → `ARCHITECTURE.md` & `DESIGN.md` → `ROADMAP.md` → `CHANGELOG.md` → `developer-database` (`knowledge-base.meta`).
+  2. _Codebase Reality_: Source files, unit tests, and runtime feedback (read via line ranges).
+  3. _Pre-Ingested External Intelligence_: `developer-database` (`knowledge-base.external`).
+  4. _Live External Research_: Framework MCPs (Svelte) → Library Docs (Context7 / DeepWiki) → Web Search (Firecrawl).
+- **Signal-to-Noise & 75% Budget Trim**: Avoid context flooding (>2000 lines); read targeted line ranges and symbols. Start compressing context and dead ends at ~75% capacity—summarize conclusions before dropping history.
+- **Attention Ordering (Lost-in-the-Middle Mitigation)**: Position persistent background context (rules, specs) at the beginning, and place live task materials (current file, active error, specific constraints) at the very end closest to the generation point.
 - **Verification First**: Never guess API signatures or rune syntax from training data.
 - **Translucency & The Echo**: Explicitly cite source patterns and rules in code comments.
 
@@ -54,13 +46,14 @@ As the `context` specialist, you operate both the **Internal Context Hierarchy**
 
 ## 3.0 The Context & Research Protocol
 
-```text
-[1. Load Sovereign Hierarchy] ➔ [2. Query Vector Memory] ➔ [3. Resolve & Query External Docs] ➔ [4. Ground & Cite]
+```mermaid
+flowchart LR
+    S1["1. Load Sovereign Hierarchy"] --> S2["2. Query Vector Memory"] --> S3["3. Query External Docs"] --> S4["4. Ground & Cite"]
 ```
 
 ### Step 1: Establish Sovereign Hierarchy & Grounding
 
-1. Ensure the relevant `GEMINI.md` rules, `DESIGN.md` tokens, `tasks/PRESENT.md`, and the active track specification in `tasks/future/<track>.md` are active.
+1. Ensure the relevant `GEMINI.md` rules, `ARCHITECTURE.md` architecture, `DESIGN.md` tokens, and the active sprint specification in `ROADMAP.md` are active.
 2. Read the targeted source files and tests using line ranges (`view_file(StartLine=..., EndLine=...)`). **Never dump entire large directories into context.**
 3. Feed compiler errors, test failures, or console logs directly into the problem frame.
 
@@ -97,7 +90,7 @@ If `developer-database` and `context7` cannot resolve the pattern, invoke `firec
 
 - **TRUSTED**: Original source code, test suites, and sovereign rule files (`GEMINI.md`).
 - **VERIFY**: Config files, external documentation, and history logs.
-- **SPEC OVERRIDE**: If `tasks/future/<track>.md` or `GEMINI.md` contradicts current code, the Spec is the target reality.
+- **SPEC OVERRIDE**: If `ROADMAP.md` or `GEMINI.md` contradicts current code, the Spec is the target reality.
 
 ### The Echo (Citation Mandate)
 
@@ -112,18 +105,18 @@ When implementing non-trivial architecture or newly verified framework logic, ci
 
 ## 5.0 Common Rationalizations & Red Flags
 
-| Agent Excuse | Operational Reality Check |
-| :--- | :--- |
-| *"I'll just load the whole `src` folder."* | Flooding context reduces focus and causes needle-in-a-haystack hallucination. |
-| *"I'm confident I know this API."* | Training data is legacy. Framework syntax shifts. Verify or fail. |
-| *"Fetching docs wastes context."* | Hallucinating an API and refactoring it later wastes 10x more context and time. |
-| *"I don't need to read the test file."* | Tests are the executable contract of truth. Always read them. |
+| Agent Excuse                               | Operational Reality Check                                                       |
+| :----------------------------------------- | :------------------------------------------------------------------------------ |
+| _"I'll just load the whole `src` folder."_ | Flooding context reduces focus and causes needle-in-a-haystack hallucination.   |
+| _"I'm confident I know this API."_         | Training data is legacy. Framework syntax shifts. Verify or fail.               |
+| _"Fetching docs wastes context."_          | Hallucinating an API and refactoring it later wastes 10x more context and time. |
+| _"I don't need to read the test file."_    | Tests are the executable contract of truth. Always read them.                   |
 
 ---
 
 ## 6.0 Verification Checklist
 
-- [ ] Sovereign Rules (`GEMINI.md`) and Active Track (`tasks/future/<track>.md`) loaded and respected.
+- [ ] Sovereign Rules (`GEMINI.md`) and Active Sprint (`ROADMAP.md`) loaded and respected.
 - [ ] Targeted source files and tests read using specific line ranges (zero context flooding).
 - [ ] Vector memory queried first via `developer-database` before making external calls.
 - [ ] External APIs and library semantics verified against official docs (Context7 / Firecrawl).
@@ -131,12 +124,6 @@ When implementing non-trivial architecture or newly verified framework logic, ci
 
 ---
 
-<!--
-=============================================================================================
-  CHANGELOG
-=============================================================================================
-  - 2026-09-04: Merged `provenance` into `context`. Unified internal context hierarchy,
-    signal-to-noise hygiene, vector memory retrieval, Context7 research protocol, and
-    citation mandates into a single end-to-end cognitive skill.
-=============================================================================================
--->
+## 7.0 Changelog
+
+- 2026-09-04: Merged `provenance` into `context`. Unified internal context hierarchy, signal-to-noise hygiene, vector memory retrieval, Context7 research protocol, and citation mandates into a single end-to-end cognitive skill.

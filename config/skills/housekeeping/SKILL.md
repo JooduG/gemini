@@ -25,24 +25,25 @@ You are **The Sentinel & Custodian**. Your sovereign purpose is two-fold:
 
 _Triggered on new conversations, workspace switches, or `/startup`._
 
-```text
-[1. Grounding] ➔ [2. Knowledge Hydration] ➔ [3. Topography & Layers] ➔ [4. Baton Recovery] ➔ [5. Lean Sanity Check]
+```mermaid
+flowchart LR
+    M1["1. Grounding"] --> M2["2. Knowledge Hydration"] --> M3["3. Topography & Layers"] --> M4["4. Baton Recovery"] --> M5["5. Lean Sanity Check"]
 ```
 
 1. **Constitutional Order of Grounding**:
    - Ingest rules strictly:
      1. Local and global `GEMINI.md`.
-     2. `ARCHITECTURE.md` (Tech stack, layer boundaries, simulation physics, canonical lexicon).
+     2. `ARCHITECTURE.md` (Tech stack, layer boundaries, system topology, canonical lexicon).
      3. `DESIGN.md` (Design tokens, palette rules).
-     4. `ROADMAP.md` (Active strategic vector and current track blueprint).
-     5. `scribbles.md` (Active working baton and scratchpad).
+     4. `ROADMAP.md` (Active strategic vector and current sprint delta).
+     5. `scribbles.md` (Active working baton and scratchpad, if present).
 2. **Knowledge Hydration**:
    - Check Knowledge Items (KIs) provided at session start to avoid redundant research.
    - Query dual-layer memory via `developer-database:read_knowledge_base` if investigating past architectural decisions.
 3. **Topography & Layer Verification**:
-   - Enforce unidirectional downward imports (`src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`).
+   - Enforce unidirectional downward imports between presentation, state, logic, and data/platform layers as defined in `ARCHITECTURE.md`.
 4. **Baton Recovery**:
-   - Read active track and goals from [`ROADMAP.md`](file:///c:/Users/johng/source/repos/RPGlitch/ROADMAP.md) and [`scribbles.md`](file:///c:/Users/johng/source/repos/RPGlitch/scribbles.md).
+   - Read active track and goals from `ROADMAP.md` and `scribbles.md`.
    - Check `git status -s` for uncommitted work.
 5. **Lean Sanity Checks**:
    - Run `npm run test:hooks` if hooks are defined.
@@ -54,8 +55,9 @@ _Triggered on new conversations, workspace switches, or `/startup`._
 
 _Triggered periodically, after major refactors, or via `/housekeeping`._
 
-```text
-[1. Secrets & Ignores] ➔ [2. Developer Memory Sync] ➔ [3. Workspace Hygiene & Debt] ➔ [4. Automated Gate] ➔ [5. Pulse & Changelog]
+```mermaid
+flowchart LR
+    S1["1. Secrets & Ignores"] --> S2["2. Memory Sync"] --> S3["3. Hygiene & Debt"] --> S4["4. Verification Gate"] --> S5["5. Changelog & Pulse"]
 ```
 
 1. **Secrets & Ignore Reconciliation**:
@@ -66,13 +68,13 @@ _Triggered periodically, after major refactors, or via `/housekeeping`._
    - Cold Storage (Supabase): Verify health via `developer-database:query_cold_storage`.
 3. **Workspace Hygiene & Codebase Debt**:
    - Enforce **Zero-Clutter Root**: All temporary scripts and diagnostics belong exclusively in `tmp/**`.
-   - Sweep `#TODO-AI` tags into [`TODO.md`](file:///c:/Users/johng/source/repos/RPGlitch/TODO.md) via `npm run audit:backlog`.
+   - Sweep `#TODO-AI` tags into `ROADMAP.md` Backlog & Technical Debt via `npm run audit:backlog`.
    - P4 Zero Backwards Compatibility: Prune dead code, unused imports, and legacy wrappers.
 4. **Automated Verification Gate**:
    - Run `npm run test:hooks` (lifecycle hook contracts).
    - Run `npm run verify` (lint, audit, test suites) with **0 errors and 0 warnings**.
 5. **Changelog & Pulse Recording**:
-   - Record significant maintenance actions in [`CHANGELOG.md`](file:///c:/Users/johng/source/repos/RPGlitch/CHANGELOG.md).
+   - Record significant maintenance actions in `CHANGELOG.md` (the PAST mirror).
 
 ---
 

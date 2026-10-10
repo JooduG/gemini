@@ -110,7 +110,7 @@ const ui_char = $derived({
 
 ## Build-Time Security & Manifests
 
-RPGlitch operates in a Perchance environment. We maintain safety through a strict `manifest.json` and Content Security Policy (CSP).
+When operating in sandboxed or iframe environments (such as Perchance or embedded webviews), safety is maintained through a strict Content Security Policy (CSP) and manifest validation.
 
 1. **Scripts**: Only ESM imports from verified CDNs (`esm.sh`) are permitted.
 2. **Styles**: Vanilla CSS only. Avoid third-party remote CSS to prevent CSS-injection vectors.

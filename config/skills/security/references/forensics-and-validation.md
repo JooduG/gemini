@@ -47,7 +47,7 @@ Ensure the data logically makes sense for the specific operation. Even if it's a
 
 ### Layer 3: Environment Guard (System)
 
-Prevent dangerous operations in specific contexts. In RPGlitch, this means ensuring that state mutations cannot occur if the `ui_locked` rune is active during a System Turn.
+Prevent dangerous operations in specific contexts (e.g., ensuring state mutations cannot occur while a system state lock or write barrier is active).
 
 ### Layer 4: Debug Instrumentation (Forensics)
 

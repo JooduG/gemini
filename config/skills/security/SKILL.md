@@ -43,8 +43,9 @@ You operate with a zero-trust mindset: no input is clean until verified, no inte
 
 When conducting a security review, architecting new systems, or remediating scanner findings:
 
-```text
-[Stage 1: Threat Model] ➔ [Stage 2: Web Defense] ➔ [Stage 3: Auth & Access] ➔ [Stage 4: Data & Persistence] ➔ [Stage 5: Forensic Audit]
+```mermaid
+flowchart LR
+    S1["Stage 1:<br>Threat Model"] --> S2["Stage 2:<br>Web Defense"] --> S3["Stage 3:<br>Auth & Access"] --> S4["Stage 4:<br>Data & Persistence"] --> S5["Stage 5:<br>Forensic Audit"]
 ```
 
 ### Stage 1: Threat Modeling & Boundary Identification
@@ -119,7 +120,7 @@ For deep context on specific attack surfaces, frameworks, and audits, consult th
 - **Framework & UI Hardening**: [Svelte 5 Security & Runes](./references/svelte-security.md) | [Zero-Trust UI Architecture](./references/zero-trust-ui.md)
 - **Auditing & Verification**: [Security Audit Reporting & Checklists](./references/audit_reports.md) | [Forensics & Validation](./references/forensics-and-validation.md)
 - **Web Standards & Passkeys**: [Modern Web Security & Passkeys](../modern-web-guidance/references/security/)
-- **Related Verification Skills**: [Test & Verification Protocol](../test/SKILL.md) | [Debugging & Divergence Protocol](../debug/SKILL.md)
+- **Related Verification Skills**: [Quality Protocol](../quality/SKILL.md) | [Refactor Protocol](../refactor/SKILL.md)
 
 ---
 

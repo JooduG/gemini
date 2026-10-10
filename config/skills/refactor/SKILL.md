@@ -33,8 +33,9 @@ The `refactor` skill governs structural evolution and ground-up modernization ac
 
 Triggered during code modernization or explicitly via `/refactor`.
 
-```text
-[Stage 1: Pre-Flight Audit & Plan] ➔ [Stage 2: Boundaries & Relocation] ➔ [Stage 3: Ground-Up Rebuild] ➔ [Stage 4: Nomenclature & P4 Purge] ➔ [Stage 5: Verification & Mission Board Pulse]
+```mermaid
+flowchart LR
+    S1["Stage 1:<br>Pre-Flight Audit & Plan"] --> S2["Stage 2:<br>Boundaries & Relocation"] --> S3["Stage 3:<br>Ground-Up Rebuild"] --> S4["Stage 4:<br>Nomenclature & P4 Purge"] --> S5["Stage 5:<br>Verification & Changelog"]
 ```
 
 ---
@@ -43,9 +44,11 @@ Triggered during code modernization or explicitly via `/refactor`.
 
 Diagnose issues across all dimensions and align with the user before touching code:
 
-1. **Target Inspection**:
+1. **Target Inspection & Chesterton's Fence**:
    * Read the target source file, its downstream callers, and test files using line ranges.
+   * **Chesterton's Fence Diagnostics**: Before touching or removing complex logic, explicitly verify: *What is this code's exact responsibility? What callers depend on its side effects or error signatures? Why might it have been written this way (platform limits, audio gestures, security sanitization)?*
    * Inspect boundary bleeds, state models, nomenclature deviations, and technical debt.
+   * **The Rule of 500**: If the intended refactor touches $>500$ lines, plan automated tooling/scripts rather than error-prone manual line edits.
 2. **Present Concise 4-Axis Plan**:
    * Present a focused bulletpoint plan covering:
      * **Relocation**: Code to move in (consolidate) or move out (purge boundary bleed).
@@ -63,12 +66,11 @@ Ensure the module strictly owns its single domain responsibility without boundar
 
 1. **Move Out (Purge Boundary Bleed)**:
    * Identify logic belonging to a different architectural layer (e.g. UI rendering in stores, raw database queries in components).
-   * Relocate misplaced logic to its canonical layer (`src/ui/`, `src/state/`, `src/intelligence/`, `src/data/`, `src/platform/`).
+   * Relocate misplaced logic to its canonical layer as defined in `ARCHITECTURE.md` (e.g. presentation, state, domain logic, persistence, platform services).
 2. **Move In (Consolidate Co-Located Domain Logic)**:
    * Consolidate single-caller helpers, companion utilities, or tightly coupled data definitions scattered across other files into this module.
 3. **Synchronize Layer Imports**:
-   * Update all import/export paths immediately. Enforce downward unidirectional flow:
-     `src/ui` ➔ `src/state` ➔ `src/intelligence` ➔ `src/data` ➔ `src/platform`.
+   * Update all import/export paths immediately. Enforce downward unidirectional flow across layers per `ARCHITECTURE.md` (presentation ➔ state ➔ domain logic ➔ persistence ➔ platform). Zero upward imports.
 
 ---
 
@@ -88,7 +90,13 @@ Execute a clean structural deconstruction and rebuild rather than incremental pa
    * Flatten deeply nested objects into tracked primitives or discrete state machines.
    * Replace imperative loops with declarative array operations (`.map()`, `.filter()`, `.reduce()`).
    * Flatten Promise chains into linear `async/await` blocks with robust error handling.
-4. **DOM Streamlining & Token Harmonization**:
+4. **Concrete Simplification Opportunities**:
+   * **Deep Nesting (3+ levels)**: Extract guard clauses with early returns or isolate sub-branches into focused helpers.
+   * **Long Functions (50+ lines)**: Split by discrete domain responsibility with explicit, descriptive names.
+   * **Nested Ternaries**: Replace with explicit `if/else`, switch statements, or dictionary lookup records.
+   * **Boolean Argument Flags (`fn(true, false)`)**: Refactor into options objects or distinct, dedicated functions.
+   * **Unused speculative wrappers**: Inline single-use pass-through abstractions directly.
+5. **DOM Streamlining & Token Harmonization**:
    * Prune redundant wrapper nodes while maintaining 1:1 visual parity.
    * Purge raw CSS hex colors and pixel values; bind strictly to `DESIGN.md` design tokens.
 
@@ -126,11 +134,11 @@ Certify the refactor with automated tests and synchronize temporal state:
 
    * Confirm all hook contracts pass and 0 lint/test/nomenclature errors exist.
 
-2. **Synchronize Mission Board (`tasks/PRESENT.md`)**:
-   * Update `### 🩺 System & Session Readiness` with the latest audit timestamp.
-   * Record an entry in `## 📜 Past` summarizing the refactored module, active skills (`refactor`), and status `✅ Completed`.
+2. **Synchronize Documentation & Changelog (`CHANGELOG.md` & `ROADMAP.md`)**:
+   * Record an entry in `CHANGELOG.md` under `[Unreleased]` summarizing the refactored module, architecture improvements, and active skills (`refactor`).
+   * Update active sprint progress or technical backlog in `ROADMAP.md`.
 3. **Optional Semantic Commit**:
-   * Stage modified code, downstream consumers, tests, and `tasks/PRESENT.md`:
+   * Stage modified code, downstream consumers, tests, and documentation:
 
      ```bash
      git commit -m "track(refactor): modernize <module-name> (framework runes, nomenclature, P4 purge)"

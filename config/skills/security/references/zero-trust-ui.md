@@ -14,7 +14,7 @@
 
 ## The Philosophy of Hostile Frontiers
 
-In the RPGlitch architecture, the UI is not just a display layer — it is a **Boundary Controller**. We operate under the 'Zero-Trust' model:
+In a robust reactive architecture, the UI is not just a display layer — it is a **Boundary Controller**. We operate under the 'Zero-Trust' model:
 
 1. **Explicit Identification**: No data enters the component tree without being identified and typed.
 2. **Access Control**: State transitions are gated by permission-aware runes.
