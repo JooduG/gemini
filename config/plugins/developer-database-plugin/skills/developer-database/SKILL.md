@@ -80,3 +80,15 @@ call_mcp_tool ServerName: "developer-database" ToolName: "query_cold_storage" Ar
 - [ ] Task summary and key decisions archived to cold storage via `archive_log_entry`.
 - [ ] Ingested content confirmed free of API keys, `.env` variables, or secrets.
 - [ ] Evidence quoted directly from memory to justify architectural approaches.
+
+---
+
+## 6. Cold Storage (Postgres/Supabase) Technical References
+
+When architecting schemas, optimizing queries, or enforcing Row-Level Security in Supabase cold storage, consult the specialized runbooks in [references/](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/):
+
+- **Index of Sections**: [sections.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/sections.md)
+- **Security & RLS**: [security-rls-basics.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-rls-basics.md), [security-rls-performance.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-rls-performance.md), [security-privileges.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-privileges.md)
+- **Query Performance & Indexes**: [query-composite-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-composite-indexes.md), [query-covering-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-covering-indexes.md), [query-missing-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-missing-indexes.md)
+- **Schema Design & Foreign Keys**: [schema-foreign-key-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-foreign-key-indexes.md), [schema-constraints.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-constraints.md), [schema-data-types.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-data-types.md)
+- **Diagnostics & Monitoring**: [monitor-explain-analyze.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/monitor-explain-analyze.md), [monitor-pg-stat-statements.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/monitor-pg-stat-statements.md)

@@ -110,10 +110,10 @@ Each item in the `hooks` array supports:
 Hooks communicate strictly over standard streams: input is passed as JSON on **`stdin`**; decisions/modifications are returned as JSON on **`stdout`**.
 
 > [!IMPORTANT]
-> **Wire Protocol Boundary vs. Code Nomenclature ([GEMINI.md](../../../GEMINI.md))**:
+> **Wire Protocol Boundary vs. Code Nomenclature ([GEMINI.md](../../../../GEMINI.md))**:
 >
 > * **Host Wire Protocol**: All JSON keys serialized over `stdin` and expected on `stdout` use **`camelCase`** (enforced by the host binary's protojson encoding). The engine will drop or fail to recognize payload keys if they do not match the expected `camelCase` schema.
-> * **Internal Script Nomenclature**: Inside your hook scripts (e.g., JavaScript, Python, PowerShell), all local variables, functions, and state **MUST** strictly obey [GEMINI.md](../../../GEMINI.md) (`snake_case` for variables, `question_snake` for booleans, `kebab-case` for script filenames).
+> * **Internal Script Nomenclature**: Inside your hook scripts (e.g., JavaScript, Python, PowerShell), all local variables, functions, and state **MUST** strictly obey [GEMINI.md](../../../../GEMINI.md) (`snake_case` for variables, `question_snake` for booleans, `kebab-case` for script filenames).
 > * **Ingestion Pattern**: Scripts should immediately unpack the incoming `camelCase` wire payload into domain `snake_case` variables at the input boundary, and only project back to `camelCase` keys when constructing the final `stdout` JSON payload.
 
 ### Common Metadata Fields (All `stdin` Payloads)
