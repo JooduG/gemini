@@ -1,0 +1,16 @@
+{
+  "name": "developer-database-plugin",
+  "version": "1.0.0",
+  "description": "Dual-layer agent memory ecosystem integrating Pinecone living vector space and Supabase persistent cold storage.",
+  "author": {
+    "name": "Antigravity Engineering"
+  },
+  "keywords": [
+    "memory",
+    "pinecone",
+    "supabase",
+    "developer-database",
+    "vector",
+    "cold-storage"
+  ]
+}

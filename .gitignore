@@ -36,5 +36,6 @@ extension_integrity.json
 config/config.json
 config/.migrated
 config/projects/
-config/plugins/
+config/plugins/*
+!config/plugins/developer-database-plugin/
 scribbles.md

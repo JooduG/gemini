@@ -25,11 +25,11 @@ Bugs often manifest deep in the call stack—a state mutation triggered by an em
 
 ### Diagnostics Toolbox
 
-| Method             | Procedure                                                             | Trigger                           |
-| :----------------- | :-------------------------------------------------------------------- | :-------------------------------- |
-| **Binary Search**  | Comment out 50% of the logic to isolate the failure region.           | Unclear location of failure.      |
-| **Rubber Ducking** | Explain the code line-by-line to the user or yourself.                | Logic seems correct but fails.    |
-| **Clear Thought**  | Use `waldzell-clear-thought` to map findings formally before editing. | Complex, multi-file logic errors. |
+| Method             | Procedure                                                                      | Trigger                           |
+| :----------------- | :----------------------------------------------------------------------------- | :-------------------------------- |
+| **Binary Search**  | Comment out 50% of the logic to isolate the failure region.                    | Unclear location of failure.      |
+| **Rubber Ducking** | Explain the code line-by-line to the user or yourself.                         | Logic seems correct but fails.    |
+| **Clear Thought**  | Use `thoughtbox` to map findings and audit intentions formally before editing. | Complex, multi-file logic errors. |
 
 ---
 

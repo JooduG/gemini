@@ -41,17 +41,17 @@ flowchart LR
 
 #### 1.1 Intent Resolution
 
-If user intent or task specifications are ambiguous, **HALT execution immediately and invoke [Project Management](./config/skills/project-management/SKILL.md)** to resolve conceptual or tactical ambiguity.
+If user intent or task specifications are ambiguous ($A \ge 3$), **HALT execution immediately and invoke [orchestra](./config/skills/orchestra/SKILL.md)** via the `ask_question` modal tool to resolve conceptual or tactical ambiguity before taking any action.
 
 #### 1.2 Complexity & Risk Mapping
 
 Triage tasks into complexity levels to assign operational roles and workflows:
 
-| Level       | Role          | Workflow                                                                                                                                                                                      | Scope & Risk Matrix                                                |
-| ----------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **Level 1** | ⚒️ Operations | ⚡ [quality](./config/skills/quality/SKILL.md)                                                                                                                                                | **Low Risk**: Typos, CSS tweaks, minor isolated logic.             |
-| **Level 2** | 🎨 Tactics    | 🧠 [project-management](./config/skills/project-management/SKILL.md) → [quality](./config/skills/quality/SKILL.md)                                                                            | **Medium Risk**: Feature builds, state migrations, refactors.      |
-| **Level 3** | 🎭 Strategy   | 🤔 [project-management](./config/skills/project-management/SKILL.md) (spec) → [project-management](./config/skills/project-management/SKILL.md) → [quality](./config/skills/quality/SKILL.md) | **High Risk**: Structural changes, roadmap resets, high ambiguity. |
+| Level       | Role          | Workflow                                                                                                                                       | Scope & Risk Matrix                                                           |
+| ----------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Level 1** | ⚒️ Operations | ⚡ [operation](./config/skills/operation/SKILL.md) (supported by [quality](./config/skills/quality/SKILL.md) & language toolkits)              | **Low Risk**: Typos, CSS tweaks, minor isolated logic, quick fixes.           |
+| **Level 2** | 🎨 Tactics    | 🧠 [tactic](./config/skills/tactic/SKILL.md) → [operation](./config/skills/operation/SKILL.md)                                                 | **Medium Risk**: Feature builds, state migrations, refactors ($\le 5$ files). |
+| **Level 3** | 🎭 Strategy   | 🤔 [strategy](./config/skills/strategy/SKILL.md) → [tactic](./config/skills/tactic/SKILL.md) → [operation](./config/skills/operation/SKILL.md) | **High Risk**: Structural changes, roadmap resets, high ambiguity.            |
 
 #### 1.3 Order of Operations
 
@@ -59,7 +59,7 @@ Resolve operational conflicts strictly in this order of priority:
 
 1. Constitutional & Compliance Laws
 2. Order of Operations (Ensure taking an action does not prevent a subsequent necessary action)
-3. Mandatory Prerequisites ([Project Management](./config/skills/project-management/SKILL.md) and [Quality](./config/skills/quality/SKILL.md))
+3. Mandatory Prerequisites ([orchestra](./config/skills/orchestra/SKILL.md) and [quality](./config/skills/quality/SKILL.md))
 4. Explicit User Constraints
 
 ---
@@ -68,10 +68,10 @@ Resolve operational conflicts strictly in this order of priority:
 
 #### 2.1 Knowledge Deficit (External Facts)
 
-When facts or library details are missing, **coordinate specialized tools through the [Context](./config/skills/context/SKILL.md) router**:
+When facts or library details are missing, **coordinate specialized tools through the [strategy](./config/skills/strategy/SKILL.md) grounding hierarchy**:
 
-- **Memory & Storage**: Query dual-layer memory via [Developer Database](./config/skills/developer-database/SKILL.md).
-- **Docs & Web Guidance**: Fetch library patterns via [Context](./config/skills/context/SKILL.md) and [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md).
+- **Memory & Storage**: Query dual-layer memory via [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md).
+- **Docs & Web Guidance**: Fetch library patterns via [Modern Web Guidance](./config/plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md) and [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md).
 - **Framework Logic**: Verify Svelte 5 logic via [Svelte](./config/skills/svelte/SKILL.md) and `svelte` MCP.
 - **Codebase Intelligence**: Analyze repository architecture using `deepwiki` MCP.
 - **Web Scraping**: Extract web data via `firecrawl-mcp`.
@@ -85,30 +85,23 @@ When facts or library details are missing, **coordinate specialized tools throug
 
 When struggling to process task complexity, **select a reasoning tool tailored to the problem shape**:
 
-- 🛤️ **Sequential Thinking**: Multi-step breakdown and chain-of-thought → `mcp-sequentialthinking-tools`
-- 💎 **Clear Thought**: Reframing flawed approaches or building unified mental models → `waldzell-clear-thought`
-- 🤝 **Collaborative Reasoning**: Simulating diverse stakeholder perspectives → `waldzell-collaborative-reasoning`
-- ⚖️ **Decision Framework**: Multi-criteria evaluation and trade-off analysis → `waldzell-decision-framework`
-- 👁️ **Metacognitive Monitoring**: Bias detection and uncertainty assessment → `waldzell-metacognitive-monitoring`
-- 🧪 **Scientific Method**: Experimental hypothesis testing → `waldzell-scientific-method`
-- 🎲 **Stochastic Thinking**: Probabilistic exploration → `waldzell-stochastic-thinking`
-- 🗣️ **Structured Argumentation**: Logical flaw identification and debate → `waldzell-structured-argumentation`
-- 🖼️ **Visual Reasoning**: Spatial element reasoning → `waldzell-visual-reasoning`
+- 🛤️ **Sequential Thinking**: Multi-step breakdown, adaptive hypotheses, revision loops, and chain-of-thought → `mcp-sequentialthinking-tools` (guided by [tactic](./config/skills/tactic/SKILL.md))
 
 #### 2.3 Comprehensive Cognitive Routing Map
 
-| Area             | Operational Focus                             | Active Tools, Skills & Workflows                                                                                                                                                                                                                              |
-| ---------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Strategy**     | Vision, blueprints, structural specifications | [Project Management](./config/skills/project-management/SKILL.md), [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md) |
-| **Tactics**      | Track breakdowns, implementation plans        | [Project Management](./config/skills/project-management/SKILL.md), [Context](./config/skills/context/SKILL.md), `deepwiki`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                 |
-| **Research**     | Knowledge gaps, library patterns, web access  | [Context](./config/skills/context/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/skills/developer-database/SKILL.md)                                                                        |
-| **Simulation**   | Engine mutations, unit tests, core logic      | Local `.agents/skills/` (if present), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                                                                        |
-| **Sensory**      | Optics, UI/UX, CSS, Audio                     | [HTML & CSS](./config/skills/html-css/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), `perchance-plugin-image`                                 |
-| **Operations**   | Repository lifecycle, PRs, release pipelines  | [Git](./config/skills/git/SKILL.md), `security`, `github-copilot`, [Context](./config/skills/context/SKILL.md)                                                                                                                                                |
-| **Resonance**    | Review gates, template health, compliance     | [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                                                                   |
-| **Refactoring**  | Ground-up redesign, schema migration, purity  | [Refactor](./config/skills/refactor/SKILL.md), [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                    |
-| **Reframing**    | Complex bugs, flawed assumptions              | `waldzell-clear-thought`                                                                                                                                                                                                                                      |
-| **Verification** | Test suites, audits, TDD cycles               | [Quality](./config/skills/quality/SKILL.md)                                                                                                                                                                                                                   |
+| Area             | Operational Focus                                     | Active Tools, Skills & Workflows                                                                                                                                                                                               |
+| ---------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Meta-Gov**     | Ambiguity triage, Cynefin routing, loop breaking      | [orchestra](./config/skills/orchestra/SKILL.md), `ask_question`                                                                                                                                                                |
+| **Strategy**     | Vision, blueprints, structural specifications         | [strategy](./config/skills/strategy/SKILL.md), [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), `deepwiki`, [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md) |
+| **Tactics**      | Track breakdowns, implementation plans, roadmap delta | [tactic](./config/skills/tactic/SKILL.md), `mcp-sequentialthinking-tools`, `deepwiki`, [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md)                                     |
+| **Research**     | Knowledge gaps, library patterns, web access          | [strategy](./config/skills/strategy/SKILL.md), [Svelte](./config/skills/svelte/SKILL.md), `deepwiki`, `firecrawl-mcp`, [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md)     |
+| **Simulation**   | Engine mutations, unit tests, core logic              | Local `.agents/skills/` (if present), `node`, `vitest`, `mcp-sequentialthinking-tools`                                                                                                                                         |
+| **Sensory**      | Optics, UI/UX, CSS, Audio                             | [HTML & CSS](./config/skills/html-css/SKILL.md), [Stitch](./config/skills/stitch/SKILL.md), `StitchMCP`, [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), `perchance-plugin-image`  |
+| **Operations**   | Code implementation, test loops, language execution   | [operation](./config/skills/operation/SKILL.md), [quality](./config/skills/quality/SKILL.md), [git](./config/skills/git/SKILL.md), `github-copilot`                                                                            |
+| **Resonance**    | Review gates, template health, compliance             | [quality](./config/skills/quality/SKILL.md)                                                                                                                                                                                    |
+| **Refactoring**  | Ground-up redesign, schema migration, purity          | [refactor](./config/skills/refactor/SKILL.md), [quality](./config/skills/quality/SKILL.md), [operation](./config/skills/operation/SKILL.md)                                                                                    |
+| **Reframing**    | Complex bugs, flawed assumptions                      | `mcp-sequentialthinking-tools`, [orchestra](./config/skills/orchestra/SKILL.md)                                                                                                                                                |
+| **Verification** | Test suites, audits, TDD cycles                       | [quality](./config/skills/quality/SKILL.md), [operation](./config/skills/operation/SKILL.md)                                                                                                                                   |
 
 ---
 
@@ -144,7 +137,7 @@ RPGlitch and all sovereign workspaces operate under a unified four-layer documen
 
 #### 3.3 Memory Protocol (Agent vs App State)
 
-Agents maintain continuity using the [Developer Database](./config/skills/developer-database/SKILL.md) skill:
+Agents maintain continuity using the [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md) skill:
 
 - **Working Memory**: **Call `read_knowledge_base` before starting tasks** involving architectural patterns; **store verified patterns using `write_knowledge_base`**.
 - **Cold Storage**: **Persist completed plans and research to Supabase via `archive_log_entry`**; **resolve historical architectural choices using `query_cold_storage`**.
@@ -200,7 +193,7 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 #### 5.2 Circuit Breaker & Resilience
 
 - **Intelligent Retry**: On transient errors, retry up to maximum limits. On structural errors, **change strategy or arguments rather than repeating failed calls**.
-- **Self-Audit Circuit Breaker**: **Trigger an immediate Self-Audit via `waldzell-metacognitive-monitoring` IF**:
+- **Self-Audit Circuit Breaker**: **Trigger an immediate Self-Audit via `mcp-sequentialthinking-tools` IF**:
 - You encounter **3 consecutive skill verification failures**.
 - You encounter **3 consecutive Definition of Done failures**.
 - You execute **3+ tool calls without measurable progress**.
@@ -277,14 +270,14 @@ All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `
 
 Route tasks to specialized skills using this map:
 
-- **Lifecycle & Execution**: [Housekeeping](./config/skills/housekeeping/SKILL.md), [Project Management](./config/skills/project-management/SKILL.md), [Quality](./config/skills/quality/SKILL.md)
-- **Engineering**: [Svelte](./config/skills/svelte/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md), [Context](./config/skills/context/SKILL.md), [Performance](./config/skills/performance/SKILL.md), [Refactor](./config/skills/refactor/SKILL.md)
-- **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md)
+- **Lifecycle & Governance**: [orchestra](./config/skills/orchestra/SKILL.md), [strategy](./config/skills/strategy/SKILL.md), [tactic](./config/skills/tactic/SKILL.md), [housekeeping](./config/skills/housekeeping/SKILL.md), [security](./config/skills/security/SKILL.md), [agent-customization](./config/skills/agent-customization/SKILL.md)
+- **Code Execution & Operator Domain**: [operation](./config/skills/operation/SKILL.md), [quality](./config/skills/quality/SKILL.md), [git](./config/skills/git/SKILL.md), [refactor](./config/skills/refactor/SKILL.md), [performance](./config/skills/performance/SKILL.md)
+- **Language & Platform Toolkits**: [Svelte](./config/skills/svelte/SKILL.md), [Tailwind](./config/skills/tailwind/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md)
+- **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Tailwind](./config/skills/tailwind/SKILL.md)
 - **Perchance Tools**: [Text Generation](./config/skills/perchance-plugin-text/SKILL.md), [Text-to-Image Generation](./config/skills/perchance-plugin-image/SKILL.md)
-- **Governance**: [Project Management](./config/skills/project-management/SKILL.md), [Context](./config/skills/context/SKILL.md), [Security](./config/skills/security/SKILL.md), [Agent Customization](./config/skills/agent-customization/SKILL.md)
-- **Research & Context**: [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md), [Developer Database](./config/skills/developer-database/SKILL.md)
+- **Research & Memory**: [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md), [Modern Web Guidance](./config/plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md)
 - **Verification & Debug**: [Quality](./config/skills/quality/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md)
-- **Delivery**: [Git](./config/skills/git/SKILL.md)
+- **Delivery**: [Git](./config/skills/git/SKILL.md), [operation](./config/skills/operation/SKILL.md)
 
 ### 5. Conductor Antigravity UX Adapter (View Layer)
 
