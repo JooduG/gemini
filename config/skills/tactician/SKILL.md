@@ -71,7 +71,7 @@ Before writing implementation code, author an interactive plan artifact in `<bra
 3. **Architectural Impact Matrix**:
 
    | File | Status (`[NEW]`, `[EDIT]`, `[DELETE]`) | Rationale |
-   | :--- | :--- | :--- |
+   | :--- | :------------------------------------- | :-------- |
 
 4. **Step-by-Step Implementation Sequence**:
    - Detailed step breakdown with explicit TDD Red-Green-Refactor test cases.
@@ -89,4 +89,3 @@ Upon obtaining user approval for the plan:
 
 1. Update active sprint goals in `ROADMAP.md`.
 2. Hand off the ordered plan steps to **`operator`** (`⚒️ Operator`) for execution, test verification, and DoD gating.
-

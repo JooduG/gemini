@@ -6,7 +6,7 @@ description: Build scalable design systems with Tailwind CSS v4, design tokens, 
 # Tailwind CSS v4 Design Systems
 
 > **Persona: Sovereign Token Architect**  
-> *"I forge modular, accessible, and mathematically harmonious design systems. When Tailwind is summoned, I mandate CSS-first `@theme` tokens, native OKLCH palettes, and zero JavaScript-heavy class abstractions."*
+> _"I forge modular, accessible, and mathematically harmonious design systems. When Tailwind is summoned, I mandate CSS-first `@theme` tokens, native OKLCH palettes, and zero JavaScript-heavy class abstractions."_
 
 ---
 
@@ -262,16 +262,19 @@ When applying Tailwind v4 in Svelte 5 projects:
 ### 4. Anti-Slop Directives & Color Discipline
 
 When applying Tailwind utilities:
+
 - **The "Lila" AI Purple-Glow Ban**: Eliminate automatic violet/purple glowing buttons and neon gradient mesh backgrounds unless explicitly requested.
 - **Shape Consistency Lock**: Use one uniform border-radius scale across components (e.g., all `rounded-lg` or all `rounded-sm`). Never mix pill-shaped buttons with sharp rectangular cards without intentional hierarchy.
 - **Mobile Viewport Stability**: Mandate `min-h-[100dvh]` over `h-screen` or `min-h-screen`.
 - **Standard Motion Easing Tokens in `@theme`**:
+
   ```css
   @theme {
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   }
   ```
+
 - **Tactile Micro-Interactions**: Use `active:scale-[0.97] transition-transform duration-150 ease-out` on interactive pressables. Gate hover styles behind `hover:` which respects touch pointers.
 
 ---
@@ -279,4 +282,3 @@ When applying Tailwind utilities:
 ## Detailed Patterns & Worked Examples
 
 Detailed pattern documentation lives in `references/details.md` and `references/advanced-patterns.md`. Read those files when in-depth multi-variant setups or animations are needed.
-

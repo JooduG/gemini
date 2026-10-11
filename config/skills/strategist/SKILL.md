@@ -102,4 +102,3 @@ Upon completing a strategic blueprint:
 
 1. Update or propose updates to `ARCHITECTURE.md` or `DESIGN.md`.
 2. Hand off the approved blueprint to **`tactician`** (`🎨 Tactician`) to decompose the architecture into bite-sized units ($\le 5$ files per vertical slice) and author the native implementation plan artifact.
-

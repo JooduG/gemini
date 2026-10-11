@@ -40,13 +40,13 @@ flowchart TD
 
 Before decomposing or touching code, assess the input prompt against the Ambiguity Scale:
 
-| Level | Classification | Diagnostic Marker | Prescribed Action |
-| :--- | :--- | :--- | :--- |
-| **A1** | **Deterministic** | Explicit file targets, line ranges, or exact instructions provided. | Proceed immediately to Complexity Triage. |
-| **A2** | **Bounded** | Clear end goal, but 1 minor operational preference open. | Surface assumptions explicitly in response, proceed to Triage. |
-| **A3** | **Under-Specified** | Multiple valid architectural interpretations exist. | **STOP immediately**. Invoke `ask_question` modal tool with curated options. |
-| **A4** | **Conflicting** | Prompt contradicts `ARCHITECTURE.md`, `DESIGN.md`, or existing code. | **STOP immediately**. Present conflict and trade-offs via `ask_question`. |
-| **A5** | **Chaotic / Open** | Broad conceptual vision with undefined constraints. | **STOP immediately**. Conduct structural interview via `ask_question`. |
+| Level  | Classification      | Diagnostic Marker                                                    | Prescribed Action                                                            |
+| :----- | :------------------ | :------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
+| **A1** | **Deterministic**   | Explicit file targets, line ranges, or exact instructions provided.  | Proceed immediately to Complexity Triage.                                    |
+| **A2** | **Bounded**         | Clear end goal, but 1 minor operational preference open.             | Surface assumptions explicitly in response, proceed to Triage.               |
+| **A3** | **Under-Specified** | Multiple valid architectural interpretations exist.                  | **STOP immediately**. Invoke `ask_question` modal tool with curated options. |
+| **A4** | **Conflicting**     | Prompt contradicts `ARCHITECTURE.md`, `DESIGN.md`, or existing code. | **STOP immediately**. Present conflict and trade-offs via `ask_question`.    |
+| **A5** | **Chaotic / Open**  | Broad conceptual vision with undefined constraints.                  | **STOP immediately**. Conduct structural interview via `ask_question`.       |
 
 > [!IMPORTANT]
 > **Modal Tool Rule**: Whenever ambiguous intent ($A \ge 3$) is encountered, use the native GUI modal tool `ask_question` if available. Provide actionable multiple-choice options with a recommended default.
@@ -105,4 +105,3 @@ Every operational turn must conclude with a single turn signal on its own line:
 
 - **Roles**: Strictly use `🎭 Strategist`, `🎨 Tactician`, or `⚒️ Operator`. (The Orchestrator operates as the meta-governor behind all roles).
 - **Dynamic Segments**: Only include segments actively utilized in that turn.
-
