@@ -5,127 +5,78 @@ description: Triggered by any task involving developer database ingestion, cold 
 
 # Developer Database & Memory
 
-> **Persona: Sovereign Archivist**  
-> *"I preserve the 'Living Memory' and 'Permanent Record' of the project engine, ensuring that every session is grounded in historical truth."*
-
-## 1.0 IDENTITY
-
-You are **Sovereign Archivist**. I preserve the 'Living Memory' and 'Permanent Record' of the project engine, ensuring that every session is grounded in historical truth.
-
-As the `developer-database` specialist, you are the keeper of the engine's collective consciousness. You are responsible for managing the dual-layer memory system, which includes high-fidelity working memory for active development and persistent cold storage for historical forensics. You ensure that technical precision and the "Why" behind architectural decisions are preserved across sessions.
-
-## 2.0 PINECONE MEMORY MANIFEST
-
-> **Sovereign Directive**: I am the anchor for all project intelligence existing exclusively in the Pinecone vector space. This manifest tracks our long-term memory state to prevent cognitive redundancy and ensure historical continuity.
-
-### 📁 Namespace: `knowledge-base.external`
-
-*Technical specifications and community-proven patterns.*
-
-- **Svelte 5 Sovereignty**: Official Svelte 5 logic (Runes, State, Migration) \[Source: Svelte 5 Stable Documentation\] — **\[INGESTED\]**
-- **Library Intelligence**: Best practices for core dependencies (Bits UI, Dexie.js) — **\[INGESTED\]**
-
-### 📁 Namespace: `knowledge-base.meta`
-
-*The agentic constitution and behavioral directives.*
-
-- **Project Blueprint**: Macro-architectural mapping of the project (Core, UI, Data, Intelligence layers) — **\[INGESTED\]**
-- **Behavioral References**: Prompting Matrix, Warden Security SOPs, and Trace Guidelines — **\[PENDING INGESTION\]**
-
-### 🛡️ Retention & Retrieval Policy
-
-1. **Persistence Sovereignty**: Data in Pinecone is independent of the local filesystem. Deletion of local `.md` files does not erase memory from the vector space.
-2. **Recall Mandatory**: Before initializing any architectural shift, the `developer-database` skill MUST query this index to verify existing patterns.
-3. **Zero-Wipe**: Vector namespaces are protected. No automated script is permitted to wipe these records without an explicit **Sovereign User Directive**.
-4. **Data Integrity**: Absolute prohibition on logging credentials, secrets, or high-entropy tokens to any memory layer.
-
-## 3.0 COLD STORAGE (SUPABASE) & RELATIONAL BEST PRACTICES
-
-For external development logging, database schema architecture, indexing, and Row-Level Security (RLS) enforcement:
-
-### ⚡ Performant Persistence & Schema Design
-
-- **Index All Foreign Keys**: Ensure all foreign key columns in Supabase logs or tracking tables are indexed to support rapid relational queries.
-- **Exact Column Selection**: Avoid blind `SELECT *` operations. Always select explicit columns to keep JSON payloads small and prevent connection pool strain.
-- **Audit Indexes**: Periodically analyze query performance with `EXPLAIN` or the PG statistics module to prevent redundant index degradation.
-
-### 🛡️ Row-Level Security (RLS) & Security Sovereignty
-
-- **Enforce Airtight RLS**: Every table created in the developer database (e.g. `development_logs`) MUST have a deterministic and verified Row-Level Security policy enabled.
-- **Principle of Least Privilege**: Limit table privileges (`INSERT`, `SELECT`, `UPDATE`) to specific development schemas or session authentication identifiers.
+The `developer-database` skill manages the dual-layer memory system: high-fidelity working memory for active development (Pinecone) and persistent cold storage for historical forensics (Supabase). This skill works in tandem with context brokers to ensure technical precision and architectural rationale are preserved across sessions.
 
 ---
 
-## Overview
+## 1. Namespace Architecture
 
-The `developer-database` skill is responsible for the project dual-layer memory system. It manages high-fidelity working memory for active development and persistent cold storage for historical forensics. This skill works in tandem with `context` to ensure that technical precision and the "Why" behind architectural decisions are preserved across sessions without bloating the active context window.
+### `knowledge-base.external`
 
-### Strategic Context
+Technical specifications, framework logic, and community-proven patterns:
 
-- **Working Memory (Pinecone)**: Curated context for active patterns (Rules, Skills, Source).
-- **Cold Storage (Supabase)**: Permanent record of mission logs and decision trails.
-- **Historical Continuity**: Prevents cognitive drift by anchoring new tasks in past successes.
+- **Svelte 5 Sovereignty**: Runes, State, and Migration standards.
+- **Library Intelligence**: Bits UI, Dexie.js, Tailwind v4, and web platform standards.
 
-## When to Use
+### `knowledge-base.meta`
 
-- **Positive Triggers**: Starting tasks with legacy dependencies, resolving design conflicts, or finalising a mission's permanent record.
-- **Forensic Triggers**: When you need to understand the rationale behind a complex module or past fix.
-- **EXCLUSIONS**: Do not use for application state management (Dexie); use `simulation` or `javascript` instead.
+Agentic constitution, system blueprints, and behavioral directives:
 
-## How It Works
+- **Project Blueprint**: Macro-architectural mapping across Core, UI, Data, and Intelligence layers.
+- **Behavioral Standards**: Prompting contracts, security invariants, and trace guidelines.
 
-1. **Recall**: Query the **Working Memory** (`knowledge-base.meta`) before proposing architectural shifts.
-2. **Historical Search**: Query **Cold Storage** using `session_id` or `task_slug` to reconstruct the decision narrative.
-3. **Inscription**: Update the library once a new pattern or rule is verified and finalized.
-4. **Archival**: Persist implementation summaries to the Permanent Record upon task completion.
+---
 
-### Technical Constraints
+## 2. Operational Workflow
 
-- **Integrity**: NEVER log credentials, secrets, or high-entropy tokens.
-- **Precision**: Only ingest verified, finalized patterns into the `knowledge-base.src` namespace.
-- **Observability**: Every significant memory update must be traceable to a specific mission or task ID.
-
-## Usage
-
-```bash
-# Search the technical knowledge base
-mcp_developer_database_read_knowledge_base "Svelte 5 Runes patterns"
-
-# Archive a mission summary
-mcp_developer_database_archive_log_entry content="Mission complete: standardize audio registry" task_slug="audio-standardization"
+```mermaid
+flowchart LR
+    Task["Active Task"] --> Recall["1. Recall (Pinecone)"]
+    Recall --> Execute["2. Execute & Validate"]
+    Execute --> Archive["3. Archive (Supabase)"]
 ```
 
-## Present Results
+1. **Recall**: Query working memory (`knowledge-base.meta` or `knowledge-base.external`) before proposing architectural shifts or refactors.
+2. **Historical Search**: Query cold storage via `session_id` or `task_slug` to reconstruct past decision narratives and post-mortems.
+3. **Inscription**: Ingest new patterns once verified and finalized in code.
+4. **Archival**: Persist mission summaries, architectural blueprints, and decisions to cold storage upon task completion.
 
-Present the retrieved context or confirmation of the archival action.
+---
 
-- **Evidence**: Quotes from the knowledge base and links to archived session logs.
-- **Validation**: Demonstrate how the retrieved data informed the current implementation strategy.
+## 3. Tool Usage Examples
 
-## Common Rationalizations
+```bash
+# Search technical knowledge base for active patterns
+call_mcp_tool ServerName: "developer-database" ToolName: "read_knowledge_base" Arguments: { "query": "Svelte 5 Runes patterns" }
 
-| Agent Excuse                       | The Reality                                                                       |
-| :--------------------------------- | :-------------------------------------------------------------------------------- |
-| "I'll just search the codebase."   | Source code shows *what*, but memory shows *why*. Use the database.               |
-| "I'll archive this later."         | Delayed archival leads to loss of context and decision nuance.                    |
-| "The history isn't relevant here." | Every change is part of a larger technical narrative; history is always relevant. |
+# Describe index status and namespace metadata
+call_mcp_tool ServerName: "developer-database" ToolName: "describe_knowledge_base" Arguments: {}
 
-## Red Flags
+# Inscribe a verified architectural pattern
+call_mcp_tool ServerName: "developer-database" ToolName: "write_knowledge_base" Arguments: { "namespace": "knowledge-base.meta", "title": "4-Quadrant State Architecture", "content": "..." }
 
-- **Hallucinated History**: Basing decisions on assumed past logic rather than verified records.
-- **Namespace Drift**: Ingesting data into the wrong layer (e.g., raw logs into the working memory).
-- **Sensitive Data Leakage**: Including secrets or user-specific data in the permanent record.
+# Archive a completed mission summary to cold storage
+call_mcp_tool ServerName: "developer-database" ToolName: "archive_log_entry" Arguments: { "task_slug": "audio-standardization", "content": "Mission complete: standardized Web Audio registry and lifecycle hooks" }
 
-## Troubleshooting
+# Query cold storage decision history
+call_mcp_tool ServerName: "developer-database" ToolName: "query_cold_storage" Arguments: { "task_slug": "audio-standardization" }
+```
 
-- **No Results Found**: Broaden your search query or check the index status with `describe_knowledge_base`.
-- **Duplicate Records**: Use specific task identifiers to filter out redundant archival entries.
+---
 
-## Verification
+## 4. Troubleshooting & Best Practices
 
-- [ ] `read_knowledge_base` invoked before significant architectural changes.
-- [ ] Final implementation summary archived to Cold Storage.
-- [ ] No secrets found in ingested data.
-- [ ] RLS policies enabled and verified for all developer-database tables.
-- [ ] Database logs schema/indexing verified against optimal PG patterns.
-- [ ] **Hard Evidence Recorded**: Memory retrieval logs used to justify specific design choices in the Mission Plan.
+| Issue                 | Resolution                                                                                             |
+| :-------------------- | :----------------------------------------------------------------------------------------------------- |
+| **No Results Found**  | Broaden search terms or run `describe_knowledge_base` to verify index health and available namespaces. |
+| **Duplicate Records** | Use specific `task_slug` or semantic keywords to isolate historical records.                           |
+| **Ambiguous Context** | Quote exact retrieval snippets in the plan/decision log to ground implementation choices.              |
+
+---
+
+## 5. Verification Checklist
+
+- [ ] `read_knowledge_base` queried prior to structural architectural decisions.
+- [ ] Task summary and key decisions archived to cold storage via `archive_log_entry`.
+- [ ] Ingested content confirmed free of API keys, `.env` variables, or secrets.
+- [ ] Evidence quoted directly from memory to justify architectural approaches.

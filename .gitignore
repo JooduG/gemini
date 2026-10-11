@@ -39,3 +39,4 @@ config/projects/
 config/plugins/*
 !config/plugins/developer-database-plugin/
 scribbles.md
+archive
