@@ -93,15 +93,48 @@ export class DeveloperDatabaseEngine {
 
   // --- CORE NETWORKING UTILITIES ---
 
+  #last_supabase_keepalive_timestamp = 0;
+
+  /**
+   * Non-blocking keepalive ping to Supabase to prevent project dormancy.
+   * Throttled to at most once every 10 minutes.
+   */
+  async #ping_supabase_keepalive() {
+    const current_timestamp = Date.now();
+    const TEN_MINUTES_MS = 10 * 60 * 1000;
+    if (current_timestamp - this.#last_supabase_keepalive_timestamp < TEN_MINUTES_MS) {
+      return;
+    }
+    this.#last_supabase_keepalive_timestamp = current_timestamp;
+
+    if (!this.#supabase_config.url || !this.#supabase_config.key) {
+      return;
+    }
+
+    try {
+      // Lightweight HEAD/GET limit 1 to record activity and keep database warm
+      await this.#supabase_request("/rest/v1/development_logs?select=id&limit=1", {
+        method: "GET",
+      });
+    } catch (error) {
+      // Non-fatal background keepalive warning
+      console.warn(`[DeveloperDatabase] Supabase keepalive ping failed: ${/** @type {Error} */ (error).message}`);
+    }
+  }
+
   /**
    * Performs a request to the Pinecone API.
    * Abstracts header generation and robust error handling.
+   * Automatically triggers a non-blocking keepalive ping to Supabase.
    *
    * @param {string} endpoint API endpoint path (e.g. '/query') or absolute URL
    * @param {object} [options] Fetch options
    * @returns {Promise<any>} Parsed response data
    */
   async #pinecone_request(endpoint, options = {}) {
+    // Non-blocking keepalive ping whenever Pinecone is accessed
+    this.#ping_supabase_keepalive().catch(() => {});
+
     const host = await this.#get_pinecone_host();
     const isAbsolute = endpoint.startsWith("http");
     const targetUrl = isAbsolute ? endpoint : `https://${host}${endpoint}`;
@@ -180,18 +213,20 @@ export class DeveloperDatabaseEngine {
   }
 
   /**
-   * Queries vector namespaces semantically.
+   * Queries vector namespaces semantically with optional metadata filtering.
    *
    * @param {object} params
    * @param {string} params.query Semantically queried string
    * @param {string[]} [params.namespaces] Namespaces to look up
    * @param {number} [params.top_k] Number of returned items
+   * @param {object} [params.filter] MongoDB-style metadata filter (e.g. { source: { $eq: "src/..." } })
    * @param {string} [params.project] Optional project filter
    */
   async query_knowledge_base({
     query,
     namespaces = ["knowledge-base.meta", "knowledge-base.external", "knowledge-base.src"],
     top_k = 5,
+    filter = null,
     project = null,
   }) {
     const resolvedProject = project || await this.#detect_project(process.cwd());
@@ -213,12 +248,22 @@ export class DeveloperDatabaseEngine {
     if (!embed_data.data?.[0]) throw new Error("Embedding failed");
     const vector = embed_data.data[0].values;
 
-    // 2. Parallel Namespace Query
+    // 2. Parallel Namespace Query with Metadata Filter Support
     const query_promises = targetNamespaces.map(async (ns) => {
       try {
+        const query_body = {
+          namespace: ns,
+          vector,
+          topK: top_k,
+          includeMetadata: true,
+        };
+        if (filter && typeof filter === "object") {
+          query_body.filter = filter;
+        }
+
         const data = await this.#pinecone_request("/query", {
           method: "POST",
-          body: JSON.stringify({ namespace: ns, vector, topK: top_k, includeMetadata: true }),
+          body: JSON.stringify(query_body),
         });
         return { ns, matches: data.matches || [] };
       } catch (err) {
@@ -503,11 +548,13 @@ export class DeveloperDatabaseEngine {
       tools: [
         {
           name: "read_knowledge_base",
-          description: "Search technical KB via Pinecone vector databases.",
+          description: "Search technical KB via Pinecone vector databases with optional metadata filtering.",
           inputSchema: {
             type: "object",
             properties: { 
-              query: { type: "string" },
+              query: { type: "string", description: "Semantic search query string." },
+              top_k: { type: "integer", description: "Number of top matches to return (default: 5)." },
+              filter: { type: "object", description: "Optional MongoDB-style metadata filter (e.g. { source: { $eq: 'ARCHITECTURE.md' } })." },
               project: { type: "string", description: "Optional project identifier to filter search." }
             },
             required: ["query"],
@@ -573,7 +620,7 @@ export class DeveloperDatabaseEngine {
             const text = matches
               .map(
                 (m) =>
-                  `[Source: ${m.metadata.source}] (Score: ${(m.score * 100).toFixed(0)}%)\n${m.metadata.content}`,
+                  `### [Score: ${(m.score * 100).toFixed(1)}% | Namespace: ${m.namespace} | Source: ${m.metadata.source}${m.metadata.chunk_index !== undefined ? ` (chunk ${m.metadata.chunk_index})` : ""}]\n\n${m.metadata.content}`,
               )
               .join("\n\n---\n\n");
             return { content: [{ type: "text", text: text || "No documentation found." }] };

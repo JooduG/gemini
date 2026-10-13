@@ -1,94 +1,89 @@
 ---
 name: developer-database
-description: Triggered by any task involving developer database ingestion, cold storage archival, or historical forensics.
+description: Primary Memory Router & Orchestrator for the developer database plugin. Coordinates the dual-layer memory loop across living vector memory (Pinecone) and persistent relational cold storage (Supabase). Routes tasks between semantic architectural recall, verified pattern inscription, and mission archival.
 ---
 
-# Developer Database & Memory
+# Developer Database & Memory Orchestrator
 
-The `developer-database` skill manages the dual-layer memory system: high-fidelity working memory for active development (Pinecone) and persistent cold storage for historical forensics (Supabase). This skill works in tandem with context brokers to ensure technical precision and architectural rationale are preserved across sessions.
-
----
-
-## 1. Namespace Architecture
-
-### `knowledge-base.external`
-
-Technical specifications, framework logic, and community-proven patterns:
-
-- **Svelte 5 Sovereignty**: Runes, State, and Migration standards.
-- **Library Intelligence**: Bits UI, Dexie.js, Tailwind v4, and web platform standards.
-
-### `knowledge-base.meta`
-
-Agentic constitution, system blueprints, and behavioral directives:
-
-- **Project Blueprint**: Macro-architectural mapping across Core, UI, Data, and Intelligence layers.
-- **Behavioral Standards**: Prompting contracts, security invariants, and trace guidelines.
+> **Persona: The Memory Conductor & Dual-Layer Router**  
+> _"I orchestrate the dual-layer memory lifecycle: grounding active development through Living Vector Memory and anchoring completed architectural missions into Relational Cold Storage."_
 
 ---
 
-## 2. Operational Workflow
+## 1. System Topology & Dual-Layer Architecture
+
+The `developer-database` skill acts as the **central router and conductor** for agentic memory. It coordinates two specialized memory engines:
+
+```mermaid
+flowchart TD
+    Task["Active Engineering Task"] --> Router["🧠 developer-database (Router)"]
+
+    subgraph Specialists ["Specialist Execution Skills"]
+        Router -->|"1. Semantic Recall (Pinecone)"| PC["🌲 pinecone<br>(Living Vector Memory)"]
+        Router -->|"2. Pattern Inscription (Pinecone)"| PC
+        Router -->|"3. Mission Archival (Supabase)"| SB["⚡ supabase<br>(Relational Cold Storage)"]
+    end
+
+    PC --> V_DB[("Pinecone Index:<br>knowledge-library")]
+    SB --> R_DB[("Supabase Postgres:<br>development_logs")]
+```
+
+- **Living Vector Memory ([`pinecone`](../pinecone/SKILL.md))**:
+  - High-fidelity working memory for active development.
+  - Svelte 5 patterns, library contracts, and active project rules.
+  - Rapid semantic retrieval via `read_knowledge_base`.
+- **Relational Cold Storage ([`supabase`](../supabase/SKILL.md))**:
+  - Persistent relational history for completed missions and retrospectives.
+  - Searchable by `task_slug`, `session_id`, or timestamp via `query_cold_storage`.
+  - Durable trace persistence via `archive_log_entry`.
+
+---
+
+## 2. Operational Lifecycle
 
 ```mermaid
 flowchart LR
-    Task["Active Task"] --> Recall["1. Recall (Pinecone)"]
-    Recall --> Execute["2. Execute & Validate"]
-    Execute --> Archive["3. Archive (Supabase)"]
+    S1["1. Recall"] --> S2["2. Execute & Inscribe"] --> S3["3. Archive"]
 ```
 
-1. **Recall**: Query working memory (`knowledge-base.meta` or `knowledge-base.external`) before proposing architectural shifts or refactors.
-2. **Historical Search**: Query cold storage via `session_id` or `task_slug` to reconstruct past decision narratives and post-mortems.
-3. **Inscription**: Ingest new patterns once verified and finalized in code.
-4. **Archival**: Persist mission summaries, architectural blueprints, and decisions to cold storage upon task completion.
+1. **Step 1: Grounding & Recall (Start of Task)**:
+   - Query living memory via `read_knowledge_base` to retrieve verified framework logic, architectural standards, or prior design patterns.
+   - For historical decision forensics, query cold storage via `query_cold_storage`.
+2. **Step 2: Execution & Inscription (During Task)**:
+   - Validate implementation code against ground truth.
+   - Ingest verified, stable architectural patterns into living memory via `write_knowledge_base`.
+3. **Step 3: Archival (Completion of Task)**:
+   - Persist mission summary, trade-offs, and forensic verification traces to cold storage via `archive_log_entry`.
+   - Ensures continuous historical record across multi-session trajectories.
 
 ---
 
-## 3. Tool Usage Examples
+## 3. Tool Routing Table
 
-```bash
-# Search technical knowledge base for active patterns
-call_mcp_tool ServerName: "developer-database" ToolName: "read_knowledge_base" Arguments: { "query": "Svelte 5 Runes patterns" }
-
-# Describe index status and namespace metadata
-call_mcp_tool ServerName: "developer-database" ToolName: "describe_knowledge_base" Arguments: {}
-
-# Inscribe a verified architectural pattern
-call_mcp_tool ServerName: "developer-database" ToolName: "write_knowledge_base" Arguments: { "namespace": "knowledge-base.meta", "title": "4-Quadrant State Architecture", "content": "..." }
-
-# Archive a completed mission summary to cold storage
-call_mcp_tool ServerName: "developer-database" ToolName: "archive_log_entry" Arguments: { "task_slug": "audio-standardization", "content": "Mission complete: standardized Web Audio registry and lifecycle hooks" }
-
-# Query cold storage decision history
-call_mcp_tool ServerName: "developer-database" ToolName: "query_cold_storage" Arguments: { "task_slug": "audio-standardization" }
-```
+| Operational Need                      | Primary Tool              | Delegated Specialist Skill                       |
+| :------------------------------------ | :------------------------ | :----------------------------------------------- |
+| **Search active knowledge base**      | `read_knowledge_base`     | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Inspect index status & namespaces** | `describe_knowledge_base` | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Ingest & embed codebase rules**     | `write_knowledge_base`    | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Archive mission post-mortem**       | `archive_log_entry`       | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
+| **Query historical decision logs**    | `query_cold_storage`      | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
 
 ---
 
-## 4. Troubleshooting & Best Practices
+## 4. Specialist Skill Delegation
 
-| Issue                 | Resolution                                                                                             |
-| :-------------------- | :----------------------------------------------------------------------------------------------------- |
-| **No Results Found**  | Broaden search terms or run `describe_knowledge_base` to verify index health and available namespaces. |
-| **Duplicate Records** | Use specific `task_slug` or semantic keywords to isolate historical records.                           |
-| **Ambiguous Context** | Quote exact retrieval snippets in the plan/decision log to ground implementation choices.              |
+When deeper technical specialization is required:
+
+- For vector math, integrated `/embed` models, namespace partitioning, or MongoDB-style metadata filters:
+  $\rightarrow$ Delegate to **[`skills/pinecone/SKILL.md`](../pinecone/SKILL.md)**
+- For PostgreSQL schemas, table migrations, connection pooling, and Row-Level Security (RLS) rules:
+  $\rightarrow$ Delegate to **[`skills/supabase/SKILL.md`](../supabase/SKILL.md)**
 
 ---
 
 ## 5. Verification Checklist
 
-- [ ] `read_knowledge_base` queried prior to structural architectural decisions.
-- [ ] Task summary and key decisions archived to cold storage via `archive_log_entry`.
-- [ ] Ingested content confirmed free of API keys, `.env` variables, or secrets.
-- [ ] Evidence quoted directly from memory to justify architectural approaches.
-
----
-
-## 6. Cold Storage (Postgres/Supabase) Technical References
-
-When architecting schemas, optimizing queries, or enforcing Row-Level Security in Supabase cold storage, consult the specialized runbooks in [references/](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/):
-
-- **Index of Sections**: [sections.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/sections.md)
-- **Security & RLS**: [security-rls-basics.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-rls-basics.md), [security-rls-performance.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-rls-performance.md), [security-privileges.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/security-privileges.md)
-- **Query Performance & Indexes**: [query-composite-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-composite-indexes.md), [query-covering-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-covering-indexes.md), [query-missing-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/query-missing-indexes.md)
-- **Schema Design & Foreign Keys**: [schema-foreign-key-indexes.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-foreign-key-indexes.md), [schema-constraints.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-constraints.md), [schema-data-types.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/schema-data-types.md)
-- **Diagnostics & Monitoring**: [monitor-explain-analyze.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/monitor-explain-analyze.md), [monitor-pg-stat-statements.md](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/developer-database/references/monitor-pg-stat-statements.md)
+- [ ] Working memory (`read_knowledge_base`) queried prior to proposing structural refactors.
+- [ ] Ingested content confirmed free of `.env` secrets, credentials, or transient scratchpad data.
+- [ ] Task summary, architectural choices, and verification results archived via `archive_log_entry`.
+- [ ] Keepalive heartbeat verified across both Pinecone and Supabase layers.
