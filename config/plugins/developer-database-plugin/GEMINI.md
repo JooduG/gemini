@@ -6,10 +6,10 @@ This document defines the sovereign governance standards, retention policies, ar
 
 ## 1. Core Operating Directives
 
-- **Recall Mandatory**: Before initializing any architectural shift, schema migration, or structural refactor, the agent MUST query working memory via `read_knowledge_base` to verify historical context and established patterns.
-- **Archival Mandate**: Completed plans, architectural research, and mission summaries must be persisted to Supabase cold storage via `archive_log_entry` upon task completion.
+- **Recall Mandatory**: Before initializing any architectural shift, schema migration, or structural refactor, the agent MUST query living memory via `search` to verify historical context and established patterns.
+- **Archival Mandate**: Completed plans, architectural research, and mission summaries must be persisted to Supabase cold storage via `archive` upon task completion.
 - **Traceability**: Every significant memory update or cold storage entry must be traceable to a specific mission, task slug, or session identifier.
-- **Heartbeat Invariant**: Maintain dual-layer platform liveness. Whenever Pinecone working memory is engaged, trigger the non-blocking background keepalive ping against Supabase cold storage (`GET /rest/v1/development_logs?select=id&limit=1`, 10-minute throttle) to prevent automated project dormancy.
+- **Heartbeat Invariant**: Maintain dual-layer platform liveness. Whenever Pinecone living memory is engaged, trigger the non-blocking background keepalive ping against Supabase cold storage (`GET /rest/v1/development_logs?select=id&limit=1`, 10-minute throttle) to prevent automated project dormancy.
 
 ---
 
@@ -18,16 +18,19 @@ This document defines the sovereign governance standards, retention policies, ar
 - **Persistence Sovereignty**: Vectors in Pinecone and records in Supabase are independent of the local workspace filesystem. Local file deletions or resets do not invalidate memory state.
 - **Zero-Wipe Invariant**: Vector namespaces are protected permanent records. No automated script, prompt, or agent action is permitted to clear, wipe, or overwrite namespaces without an explicit, direct user directive.
 - **Namespace Taxonomy & Isolation**:
-  - `knowledge-base.external`: Global external library standards, framework best practices, and universal runbooks.
-  - `<corpus_name>.knowledge-base.meta`: Project-isolated living memory (e.g., `joodug-rpglitch.knowledge-base.meta`), containing hashed codebase specs, local architecture rules, and active invariants.
-- **Curated Inscription**: Only ingest verified, stable patterns into living memory via `write_knowledge_base`. Do not pollute vector space with transient scratchpads, ephemeral test runs, or unvalidated conjectures.
+  - `global.docs`: Universal external library standards, framework best practices (Svelte 5 runes, Bits UI, CSS layout), and security contracts.
+  - `<project>` (e.g. `rpglitch`): Project-isolated living memory containing specifications (`category: "docs"`) and production application logic (`category: "src"`, excluding test files).
+- **Curated Inscription**: Only ingest verified, stable patterns into living memory via `ingest`. Do not pollute vector space with transient scratchpads, ephemeral test runs, or unvalidated conjectures.
+- **Zero Ghost Chunks**: All file ingestions automatically perform file-level chunk invalidation before upserting fresh vectors.
+- **Full CRUD Management**: Maintain clean vector storage using `prune` to remove obsolete sources, categories, or entire namespaces.
 
 ---
 
 ## 3. Querying & Metadata Filtering Standards
 
-- **Metadata Filters**: When querying `read_knowledge_base`, leverage MongoDB-style `filter` parameters (e.g., `{"source": {"$eq": "ARCHITECTURE.md"}}` or `{"category": {"$in": ["security", "physics"]}}`) to eliminate noise and constrain semantic recall.
+- **Metadata Filters**: When querying `search`, leverage MongoDB-style `filter` parameters (e.g., `{"category": {"$eq": "docs"}}` or `{"source": {"$eq": "ARCHITECTURE.md"}}`) to eliminate noise and constrain semantic recall.
 - **Top-K Tuning**: Calibrate `top_k` according to task breadth (default 5 for focused lookups, 10-15 for broad exploratory scans).
+- **Historical Retrace**: Query past mission retrospectives, forensics, and decisions from cold storage using `search_archive`.
 - **Documentation Routing**: Technical SDK, syntax, or platform API documentation lookups for Pinecone or Supabase must route through **Context7** (`resolve-library-id` / `query-docs`) rather than duplicate administrative MCP servers.
 
 ---

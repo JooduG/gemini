@@ -142,6 +142,7 @@ export class DeveloperDatabaseEngine {
     const headers = {
       "Api-Key": this.#pinecone_config.api_key || "",
       "Content-Type": "application/json",
+      "X-Pinecone-API-Version": "2026-07",
       ...options.headers,
     };
 
@@ -224,16 +225,14 @@ export class DeveloperDatabaseEngine {
    */
   async query_knowledge_base({
     query,
-    namespaces = ["knowledge-base.meta", "knowledge-base.external", "knowledge-base.src"],
+    namespaces = null,
     top_k = 5,
     filter = null,
     project = null,
   }) {
-    const resolvedProject = project || await this.#detect_project(process.cwd());
-    const targetNamespaces = namespaces.map((ns) => {
-      if (ns === "knowledge-base.external") return ns;
-      return resolvedProject ? `${resolvedProject}.${ns}` : ns;
-    });
+    const resolvedProject = project || await this.#detect_project(process.cwd()) || "rpglitch";
+    const defaultNamespaces = [resolvedProject, "global.docs"];
+    const targetNamespaces = namespaces && namespaces.length > 0 ? namespaces : defaultNamespaces;
 
     // 1. Generate Query Embedding
     const embed_data = await this.#pinecone_request("https://api.pinecone.io/embed", {
@@ -352,15 +351,13 @@ export class DeveloperDatabaseEngine {
    *
    * @param {object} params
    * @param {string[]} params.paths Target paths to index
-   * @param {string} [params.namespace] Target namespace
+   * @param {string} [params.namespace] Target namespace (defaults to active project, e.g. "rpglitch")
    * @param {string} [params.root] Workspace root directory
    * @param {string} [params.project] Optional project filter
    */
-  async write_knowledge_base({ paths, namespace = "knowledge-base.meta", root = process.cwd(), project = null }) {
-    const resolvedProject = project || await this.#detect_project(root);
-    const targetNamespace = (namespace !== "knowledge-base.external" && resolvedProject)
-      ? `${resolvedProject}.${namespace}`
-      : namespace;
+  async write_knowledge_base({ paths, namespace = null, root = process.cwd(), project = null }) {
+    const resolvedProject = project || await this.#detect_project(root) || "rpglitch";
+    const targetNamespace = namespace || resolvedProject;
 
     let gitignore_filter = ignore();
     try {
@@ -378,6 +375,9 @@ export class DeveloperDatabaseEngine {
         const rel_path = path.relative(root, full_path);
 
         if (this.#should_ignore(rel_path, gitignore_filter)) continue;
+
+        // Skip test files from codebase indexing
+        if (/\.(test|spec)\.(js|ts)$/i.test(item)) continue;
 
         const stat = await fs.stat(full_path);
         if (stat.isDirectory()) {
@@ -407,14 +407,30 @@ export class DeveloperDatabaseEngine {
       const content = await fs.readFile(file, "utf-8");
       const rel_path = path.relative(root, file).replace(/\\/g, "/");
 
-      // 1. Delete existing vectors for this file to ensure clean overwrite
-      try {
-        await this.#pinecone_request("/vectors/delete", {
-          method: "POST",
-          body: JSON.stringify({ namespace: targetNamespace, filter: { source: { $eq: rel_path } } }),
-        });
-      } catch (err) {
-        if (!err.message.includes("Namespace not found")) {
+      // Categorize chunk
+      const is_doc = /\.md$/i.test(file);
+      const category = is_doc ? "docs" : "src";
+
+      // 1. Delete existing vectors for this file to ensure clean overwrite (zero ghost chunks)
+      // Pinecone rate limits delete-by-metadata to 5 req/sec; throttle with 220ms delay and retry on 429
+      let delete_attempts = 0;
+      while (delete_attempts < 3) {
+        try {
+          await this.#pinecone_request("/vectors/delete", {
+            method: "POST",
+            body: JSON.stringify({ namespace: targetNamespace, filter: { source: { $eq: rel_path } } }),
+          });
+          await new Promise((resolve) => setTimeout(resolve, 220));
+          break;
+        } catch (err) {
+          if (err.message.includes("Namespace not found")) {
+            break;
+          }
+          if (err.message.includes("429") && delete_attempts < 2) {
+            delete_attempts++;
+            await new Promise((resolve) => setTimeout(resolve, 1000 * delete_attempts));
+            continue;
+          }
           throw err;
         }
       }
@@ -431,6 +447,7 @@ export class DeveloperDatabaseEngine {
           metadata: {
             content: seg.trim(),
             source: rel_path,
+            category,
             chunk_index: i,
             indexed_at: new Date().toISOString(),
           },
@@ -438,21 +455,38 @@ export class DeveloperDatabaseEngine {
       });
     }
 
-    // 3. Batch Upload Chunks
-    for (let i = 0; i < all_chunks.length; i += this.#pinecone_config.batch_size) {
-      const batch = all_chunks.slice(i, i + this.#pinecone_config.batch_size);
+    // 3. Batch Upload Chunks (batch size 25 with TPM rate limit retry)
+    const BATCH_SIZE = 25;
+    for (let i = 0; i < all_chunks.length; i += BATCH_SIZE) {
+      const batch = all_chunks.slice(i, i + BATCH_SIZE);
       const texts = batch.map((c) => c.metadata.content);
 
-      const embed_data = await this.#pinecone_request("https://api.pinecone.io/embed", {
-        method: "POST",
-        body: JSON.stringify({
-          model: "multilingual-e5-large",
-          parameters: { input_type: "passage", truncate: "END" },
-          inputs: texts.map((t) => ({ text: t })),
-        }),
-      });
+      let embed_data = null;
+      let attempts = 0;
+      while (attempts < 5) {
+        try {
+          embed_data = await this.#pinecone_request("https://api.pinecone.io/embed", {
+            method: "POST",
+            body: JSON.stringify({
+              model: "multilingual-e5-large",
+              parameters: { input_type: "passage", truncate: "END" },
+              inputs: texts.map((t) => ({ text: t })),
+            }),
+          });
+          break;
+        } catch (err) {
+          if (err.message.includes("429") && attempts < 4) {
+            attempts++;
+            const backoffSec = Math.pow(2, attempts) * 5;
+            process.stderr.write(`\n⏳ TPM limit hit. Backing off for ${backoffSec}s (attempt ${attempts}/4)...\n`);
+            await new Promise((r) => setTimeout(r, backoffSec * 1000));
+            continue;
+          }
+          throw err;
+        }
+      }
 
-      if (!embed_data.data) throw new Error(`Embedding failed: ${JSON.stringify(embed_data)}`);
+      if (!embed_data?.data) throw new Error(`Embedding failed: ${JSON.stringify(embed_data)}`);
 
       const vectors = batch.map((record, idx) => ({
         id: record.id,
@@ -466,8 +500,10 @@ export class DeveloperDatabaseEngine {
       });
 
       process.stderr.write(
-        `\r✅ Uploaded chunk ${Math.min(i + this.#pinecone_config.batch_size, all_chunks.length)}/${all_chunks.length}`,
+        `\r✅ Uploaded chunk ${Math.min(i + BATCH_SIZE, all_chunks.length)}/${all_chunks.length}`,
       );
+      // Brief pause between batches to avoid token-per-minute spikes
+      await new Promise((r) => setTimeout(r, 600));
     }
     process.stderr.write("\n✨ Ingestion complete.\n");
   }
@@ -477,6 +513,38 @@ export class DeveloperDatabaseEngine {
    */
   async describe_index_stats() {
     return this.#pinecone_request("/describe_index_stats", { method: "POST" });
+  }
+
+  /**
+   * Deletes vectors from a namespace.
+   * Supports deleting by source, arbitrary filter, or deleting the entire namespace.
+   *
+   * @param {object} params
+   * @param {string} params.namespace Target namespace to delete from
+   * @param {string} [params.source] Specific file source path to delete
+   * @param {object} [params.filter] MongoDB-style metadata filter
+   * @param {boolean} [params.deleteAll] Whether to wipe the entire namespace
+   */
+  async delete_knowledge_base({ namespace, source = null, filter = null, deleteAll = false }) {
+    if (!namespace) {
+      throw new Error("Target namespace is required for deletion.");
+    }
+
+    const body = { namespace };
+    if (deleteAll) {
+      body.deleteAll = true;
+    } else if (source) {
+      body.filter = { source: { $eq: source } };
+    } else if (filter && typeof filter === "object") {
+      body.filter = filter;
+    } else {
+      throw new Error("Must specify 'source', 'filter', or 'deleteAll: true'.");
+    }
+
+    return this.#pinecone_request("/vectors/delete", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
   }
 
   // --- CORE ENGINE: SUPABASE (COLD STORAGE) ---
@@ -547,43 +615,54 @@ export class DeveloperDatabaseEngine {
     server.setRequestHandler(ListToolsRequestSchema, async () => ({
       tools: [
         {
-          name: "read_knowledge_base",
-          description: "Search technical KB via Pinecone vector databases with optional metadata filtering.",
+          name: "search",
+          description: "Search living memory (Pinecone) semantically with optional metadata filtering.",
           inputSchema: {
             type: "object",
             properties: { 
               query: { type: "string", description: "Semantic search query string." },
               top_k: { type: "integer", description: "Number of top matches to return (default: 5)." },
-              filter: { type: "object", description: "Optional MongoDB-style metadata filter (e.g. { source: { $eq: 'ARCHITECTURE.md' } })." },
-              project: { type: "string", description: "Optional project identifier to filter search." }
+              filter: { type: "object", description: "Optional MongoDB-style metadata filter (e.g. { category: { $eq: 'docs' } })." },
+              project: { type: "string", description: "Optional project namespace override." }
             },
             required: ["query"],
           },
         },
         {
-          name: "write_knowledge_base",
-          description: "Ingest local directory files recursively into vector namespace.",
+          name: "ingest",
+          description: "Ingest local directory files recursively into living vector memory.",
           inputSchema: {
             type: "object",
             properties: {
-              paths: { type: "array", items: { type: "string" } },
-              namespace: {
-                type: "string",
-                enum: ["knowledge-base.meta", "knowledge-base.external", "knowledge-base.src"],
-              },
+              paths: { type: "array", items: { type: "string" }, description: "Array of paths to index." },
+              namespace: { type: "string", description: "Optional target namespace (defaults to active project, e.g. 'rpglitch')." },
               project: { type: "string", description: "Optional project identifier." }
             },
-            required: ["paths", "namespace"],
+            required: ["paths"],
           },
         },
         {
-          name: "describe_knowledge_base",
-          description: "Retrieve vector database index allocation stats.",
+          name: "status",
+          description: "Inspect living vector index allocation, namespaces, and dimensions.",
           inputSchema: { type: "object", properties: {} },
         },
         {
-          name: "archive_log_entry",
-          description: "Archive trace narrative or mission log into relational cold storage.",
+          name: "prune",
+          description: "Prune vectors from a namespace by file source, metadata filter, or wipe entire namespace.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              namespace: { type: "string", description: "Target namespace to prune from." },
+              source: { type: "string", description: "Optional specific file source path to prune." },
+              filter: { type: "object", description: "Optional MongoDB-style metadata filter." },
+              deleteAll: { type: "boolean", description: "Set true to wipe the entire namespace." }
+            },
+            required: ["namespace"],
+          },
+        },
+        {
+          name: "archive",
+          description: "Record completed mission post-mortem or retrospective into relational cold storage (Supabase).",
           inputSchema: {
             type: "object",
             properties: {
@@ -597,8 +676,8 @@ export class DeveloperDatabaseEngine {
           },
         },
         {
-          name: "query_cold_storage",
-          description: "Query and retrieve development logs from cold storage.",
+          name: "search_archive",
+          description: "Search and retrieve historical mission logs from relational cold storage (Supabase).",
           inputSchema: {
             type: "object",
             properties: { 
@@ -615,29 +694,32 @@ export class DeveloperDatabaseEngine {
       const { name, arguments: args } = request.params;
       try {
         switch (name) {
-          case "read_knowledge_base": {
+          case "search": {
             const matches = await this.query_knowledge_base(/** @type {any} */ (args));
             const text = matches
               .map(
                 (m) =>
-                  `### [Score: ${(m.score * 100).toFixed(1)}% | Namespace: ${m.namespace} | Source: ${m.metadata.source}${m.metadata.chunk_index !== undefined ? ` (chunk ${m.metadata.chunk_index})` : ""}]\n\n${m.metadata.content}`,
+                  `### [Score: ${(m.score * 100).toFixed(1)}% | Namespace: ${m.namespace} | Category: ${m.metadata.category || "n/a"} | Source: ${m.metadata.source}${m.metadata.chunk_index !== undefined ? ` (chunk ${m.metadata.chunk_index})` : ""}]\n\n${m.metadata.content}`,
               )
               .join("\n\n---\n\n");
             return { content: [{ type: "text", text: text || "No documentation found." }] };
           }
-          case "write_knowledge_base":
+          case "ingest":
             await this.write_knowledge_base(/** @type {any} */ (args));
-            return { content: [{ type: "text", text: "Vector DB updated." }] };
-          case "describe_knowledge_base":
+            return { content: [{ type: "text", text: "Living memory updated." }] };
+          case "status":
             return {
               content: [
                 { type: "text", text: JSON.stringify(await this.describe_index_stats(), null, 2) },
               ],
             };
-          case "archive_log_entry":
+          case "prune":
+            await this.delete_knowledge_base(/** @type {any} */ (args));
+            return { content: [{ type: "text", text: "Vector(s) pruned." }] };
+          case "archive":
             await this.archive_log(/** @type {any} */ (args));
-            return { content: [{ type: "text", text: "Log archived." }] };
-          case "query_cold_storage": {
+            return { content: [{ type: "text", text: "Mission archived." }] };
+          case "search_archive": {
             const logs = /** @type {any[]} */ (await this.query_logs(/** @type {any} */ (args)));
             const text = logs
               .map((l) => `[${l.created_at}] ${l.task_slug}: ${l.content}`)

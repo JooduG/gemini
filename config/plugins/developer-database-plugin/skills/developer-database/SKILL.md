@@ -60,17 +60,21 @@ flowchart LR
 
 ## 3. Tool Routing Table
 
-| Operational Need                      | Primary Tool              | Delegated Specialist Skill                       |
-| :------------------------------------ | :------------------------ | :----------------------------------------------- |
-| **Search active knowledge base**      | `read_knowledge_base`     | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
-| **Inspect index status & namespaces** | `describe_knowledge_base` | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
-| **Ingest & embed codebase rules**     | `write_knowledge_base`    | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
-| **Archive mission post-mortem**       | `archive_log_entry`       | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
-| **Query historical decision logs**    | `query_cold_storage`      | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
+| Operational Need                      | Primary Tool     | Delegated Specialist Skill                       |
+| :------------------------------------ | :--------------- | :----------------------------------------------- |
+| **Search living memory (Pinecone)**   | `search`         | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Ingest & embed codebase rules**     | `ingest`         | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Inspect index status & namespaces** | `status`         | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Prune vectors or wipe namespace**   | `prune`          | [skills/pinecone/SKILL.md](../pinecone/SKILL.md) |
+| **Archive mission to cold storage**   | `archive`        | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
+| **Search historical mission logs**    | `search_archive` | [skills/supabase/SKILL.md](../supabase/SKILL.md) |
 
 ---
 
-## 4. Specialist Skill Delegation
+## 4. Namespace Standardization
+
+- **`<project>` (e.g. `rpglitch`)**: Unified project namespace holding both specifications (`category: "docs"`) and production application code (`category: "src"`, excluding tests).
+- **`global.docs`**: Universal modern web platform standards (Svelte 5 runes, Bits UI, CSS layouts, security).
 
 When deeper technical specialization is required:
 
