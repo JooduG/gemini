@@ -1,6 +1,6 @@
 ---
 name: quality
-description: Sovereign quality assurance, TDD witness cycle, systematic stop-the-line debugging, and 5-axis audit gates. Use when implementing code with tests, resolving bugs/regressions, or certifying release readiness.
+description: Sovereign quality assurance, TDD witness cycle, and systematic debugging. Use when writing unit/integration tests with Vitest or Playwright, diagnosing regressions, verifying bug fixes, or running local verification gates.
 ---
 
 # Sovereign Quality Assurance & Verification

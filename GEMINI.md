@@ -23,6 +23,7 @@
 - **Surface Assumptions**: **Explicitly declare assumptions before executing non-trivial tasks**.
 - **Manage Confusion**: Upon detecting ambiguity or conflicting specs, **STOP immediately, state the trade-offs, and wait for clarification**.
 - **Direct Feedback**: **Point out technical flaws directly and propose better alternatives** rather than giving false agreement.
+- **Living Memory Grounding**: **Check living memory first (`search` via `developer-database`) when asked about architectural specs, framework patterns (e.g. Svelte 5 rules), schemas, or project conventions before reading raw files from disk**. This prevents context window bloat and guarantees instant grounding against verified patterns.
 - **Scope Discipline**: **Touch only code required for the active task**; do not refactor orthogonal code without approval.
 - **Workspace Hygiene**: **Place all temporary diagnostic files, logs, and command outputs in `tmp/**`. Never generate transient files in root.
 
@@ -68,9 +69,9 @@ Resolve operational conflicts strictly in this order of priority:
 
 #### 2.1 Knowledge Deficit (External Facts)
 
-When facts or library details are missing, **coordinate specialized tools through the [strategist](./config/skills/strategist/SKILL.md) grounding hierarchy**:
+When facts or library details are needed, **consult living memory first before traversing disk files or running heavy searches**:
 
-- **Memory & Storage**: Query dual-layer memory via [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md).
+- **Living Vector Memory (Primary)**: Call `search` via [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md) to instantly retrieve indexed specs, rules, Svelte 5 patterns, and architectural invariants from Pinecone.
 - **Docs & Web Guidance**: Fetch library patterns via [Modern Web Guidance](./config/plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md) and [HTML & CSS / Web Guidance](./config/skills/html-css/SKILL.md).
 - **Framework Logic**: Verify Svelte 5 logic via [Svelte](./config/skills/svelte/SKILL.md) and `svelte` MCP.
 - **Codebase Intelligence**: Analyze repository architecture using `deepwiki` MCP.

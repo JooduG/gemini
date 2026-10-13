@@ -1,6 +1,6 @@
 ---
 name: go
-description: Authoritative style rules and idiomatic patterns for Go development.
+description: Authoritative style rules and idiomatic patterns for Go. Use when developing .go files, designing goroutines and channels, error handling, struct/interface boundaries, or running go test and go modules.
 ---
 
 # Effective Go Style Guide Summary

@@ -1,6 +1,6 @@
 ---
 name: javascript
-description: Triggered by any task involving core engine logic, utility functions, or monolith engineering in .js or .ts files. MUST be invoked for all non-UI logic.
+description: Core JavaScript and TypeScript architecture for engine logic, algorithms, and utilities. Use when authoring, optimizing, or refactoring non-UI .js, .mjs, or .ts files, Node.js scripts, state machines, or algorithmic data pipelines.
 ---
 
 # Javascript & Logic

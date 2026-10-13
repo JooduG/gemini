@@ -1,6 +1,6 @@
 ---
 name: api
-description: Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface.
+description: Architectural guide for designing stable, intuitive public interfaces, module boundaries, and REST/RPC contracts. Use when creating API endpoints, export signatures, client SDK interfaces, or reviewing breaking changes.
 ---
 
 # API Design

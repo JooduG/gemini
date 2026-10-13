@@ -1,6 +1,6 @@
 ---
 name: tactician
-description: Sovereign Project Planner for Level 2 feature breakdowns, work decomposition, native Antigravity implementation plan artifacts, Sequential Thinking, and roadmap delta tracking.
+description: Sovereign Project Planner for Level 2 tactical breakdowns and implementation planning. Use when drafting implementation plan artifacts, breaking features into bite-sized tasks, managing ROADMAP.md active sprints, or employing Sequential Thinking.
 ---
 
 # Sovereign Tactician & Project Planning

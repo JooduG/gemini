@@ -1,6 +1,6 @@
 ---
 name: strategist
-description: Sovereign System Architect for Level 3 strategic design, architectural roadmapping, high-blast-radius planning, ground-up architectural synthesis, and dialectical tradeoff analysis.
+description: Sovereign System Architect for Level 3 strategic design, high-blast-radius architecture, and system topology. Use when authoring or reviewing ARCHITECTURE.md, analyzing architectural tradeoffs, or designing major subsystem boundaries.
 ---
 
 # Sovereign Strategist & System Architecture

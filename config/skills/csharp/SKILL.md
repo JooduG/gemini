@@ -1,6 +1,6 @@
 ---
 name: csharp
-description: Authoritative style rules and C# idiom patterns for .NET development.
+description: Authoritative style rules, async/await idioms, and LINQ patterns for C# and .NET. Use when developing .cs files, ASP.NET Core APIs, Entity Framework schemas, dependency injection setups, or NuGet packages.
 ---
 
 # Google C# Style Guide Summary

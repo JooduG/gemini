@@ -1,6 +1,6 @@
 ---
 name: html-css
-description: Authoritative style rules, layout decision tree, logical properties, and semantic hygiene for modern HTML5 and CSS. Trigger for any frontend markup, styling, layout architecture, or visual hygiene task.
+description: Authoritative style rules, layout decision tree, and semantic hygiene for modern HTML5 and CSS. Use when structuring markup, authoring CSS Grid/Flexbox layouts, logical properties, container queries, or ensuring semantic HTML compliance.
 ---
 
 # HTML & CSS Standards

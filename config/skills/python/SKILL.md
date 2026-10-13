@@ -1,6 +1,6 @@
 ---
 name: python
-description: Authoritative style rules and best practices for Python development.
+description: Authoritative style rules, typing protocols, and idioms for Python. Use when writing, debugging, or refactoring .py files, poetry/uv setups, pytest test suites, type annotations (mypy), or async Python services.
 ---
 
 # Google Python Style Guide Summary

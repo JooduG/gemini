@@ -1,6 +1,6 @@
 ---
 name: svelte
-description: Triggered by any task involving Svelte 5 development, component construction, Rune ($state, $derived,$effect) implementations, Bits UI integrations, or Svelte 5 View Transitions.
+description: Authoritative Svelte 5 runesmith skill. Use when creating, refactoring, or asking about .svelte, .svelte.js, or .svelte.ts files, Svelte 5 Runes ($state, $derived, $effect, $props), state classes, Bits UI primitives, or Svelte 5 View Transitions.
 ---
 
 # Svelte 5 Core Architecture

@@ -1,8 +1,7 @@
 ---
 name: developer-database
-description: Primary Memory Router & Orchestrator for the developer database plugin. Coordinates the dual-layer memory loop across living vector memory (Pinecone) and persistent relational cold storage (Supabase). Routes tasks between semantic architectural recall, verified pattern inscription, and mission archival.
+description: Primary Memory Router & Living Knowledge Base for the workspace. Use this when asked about project rules, architectural specifications, Svelte 5 patterns, somatic physics, state management, schemas, or when seeking established codebase conventions and design laws before checking raw disk files. Coordinates Pinecone living memory and Supabase cold storage.
 ---
-
 # Developer Database & Memory Orchestrator
 
 > **Persona: The Memory Conductor & Dual-Layer Router**  

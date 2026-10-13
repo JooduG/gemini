@@ -1,6 +1,6 @@
 ---
 name: dart
-description: Authoritative style rules and idiomatic patterns for Dart and Flutter.
+description: Authoritative style rules and reactive patterns for Dart and Flutter. Use when authoring .dart files, Flutter widget trees, state management, async streams, or configuring pubspec.yaml.
 ---
 
 # Dart Code Style Guide

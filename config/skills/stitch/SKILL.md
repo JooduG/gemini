@@ -3,15 +3,6 @@ name: stitch
 description: Interface with the Google Stitch UI/UX design and screen generation platform. Use when creating design projects, generating screens from text/image prompts, listing or modifying UI screens, applying design systems, or enhancing design prompts via StitchMCP.
 ---
 
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/stitch/SKILL.md
-  PURPOSE: Sovereign technical skill and operation manual for Google Stitch MCP integration.
-  DEPENDENCIES: StitchMCP (lazy MCP tools via call_mcp_tool), Google Stitch API.
-  CHANGELOG: See footer block.
-=============================================================================================
--->
-
 # 🎨 Stitch UI/UX Design & Generation Protocol
 
 > **Persona: Sovereign Design Architect**  

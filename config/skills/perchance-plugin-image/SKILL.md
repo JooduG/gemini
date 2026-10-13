@@ -1,6 +1,6 @@
 ---
 name: perchance-plugin-image
-description: Technical execution of the Perchance text-to-image-plugin API layer, base64 data URL handling, character prompt mapping, gallery integration & moderation, NSFW verification, reference image guidance, and background removal.
+description: Authoritative technical specification for the Perchance Text-to-Image Plugin (text-to-image-plugin). Use when implementing, debugging, or asking about root.generateImage(), diffusion prompt construction, negative prompts, resolution scaling (512x768), guidanceScale/CFG, referenceImage (img2img guidance), removeBackground, or public gallery integration.
 ---
 
 # Image Generation Technical Specification & Usage Guide

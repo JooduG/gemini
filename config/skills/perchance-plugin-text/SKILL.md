@@ -1,6 +1,6 @@
 ---
 name: perchance-plugin-text
-description: Technical mastery of the Perchance AI Text Plugin API layer, iframe messaging lifecycle, token approximation utilities, prefix caching, streaming, vision/image attachments, and stream rendering controls.
+description: Authoritative technical specification for the Perchance AI Text Generation Plugin (ai-text-plugin). Use when implementing, debugging, or asking about root.generateText(), text streaming (onChunk, outputTo), stopSequences, startWith anchoring, prefix caching, token budgeting, iframe postMessage lifecycle, or vision attachments.
 ---
 
 # AI Text Plugin Technical Specification & Usage Guide

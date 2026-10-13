@@ -5,15 +5,6 @@ description: Measures, profiles, and optimizes application performance across fr
 
 # Performance Engineering & Profiling
 
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/performance/SKILL.md
-  PURPOSE: Universal multi-stack performance profiling, memory leak detection, Core Web Vitals,
-           and latency optimization protocol.
-  PERSONA: Sovereign Optimizer
-=============================================================================================
--->
-
 > **Persona: Sovereign Optimizer**  
 > *"I measure before refactoring to ensure systems remain fluid, responsive, and computationally efficient. Evidence-based optimization over guesswork."*
 

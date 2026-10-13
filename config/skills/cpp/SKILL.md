@@ -1,6 +1,6 @@
 ---
 name: cpp
-description: Authoritative style rules and memory-safety patterns for C++ development.
+description: Authoritative style rules, memory safety, and RAII patterns for modern C++ (C++17/20/23). Use when authoring or reviewing .cpp, .hpp, CMakeLists.txt, smart pointers, template metaprogramming, or concurrency.
 ---
 
 # Google C++ Style Guide Summary

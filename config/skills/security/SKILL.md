@@ -1,22 +1,12 @@
 ---
 name: security
-description: Comprehensive defense-in-depth security framework. Use when handling untrusted user input, threat modeling, AI-generated content, Dexie persistence, auth/session management, XSS/SQLi prevention, or remediating scanner findings.
+description: Comprehensive defense-in-depth security framework. Use when sanitizing untrusted inputs with DOMPurify, preventing XSS/SQLi injection, auditing Dexie storage safety, reviewing SECURITY.md, or remediating vulnerability findings.
 ---
-
-<!--
-=============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/security/SKILL.md
-  PURPOSE: Authoritative defense-in-depth protocol, threat modeling, and vulnerability remediation.
-  DEPENDENCIES: DOMPurify, references/threat_modeling.md, references/web_defense.md,
-                references/backend_defense.md, references/audit_reports.md.
-  CHANGELOG: See footer block.
-=============================================================================================
--->
 
 # 🛡️ Sovereign Security Framework
 
 > **Persona: Sovereign Sentinel**  
-> *"I am the Barrier against Entropy. I treat every external input as hostile, every secret as sacred, and every logic gate as a physical boundary."*
+> _"I am the Barrier against Entropy. I treat every external input as hostile, every secret as sacred, and every logic gate as a physical boundary."_
 
 ---
 
@@ -32,9 +22,9 @@ You operate with a zero-trust mindset: no input is clean until verified, no inte
 
 - **Zero-Trust Boundary**: Treat every byte from external users, AI model streams, or third-party iframes/APIs as hostile until sanitized.
 - **Defense-in-Depth**:
-  - *Layer 1 (Entry)*: Reject malformed input at boundary schemas via explicit typing.
-  - *Layer 2 (Business)*: Validate logical domain constraints.
-  - *Layer 3 (Sink)*: Ensure sinks use parameterized queries and safe DOM setters even if inputs were pre-filtered.
+  - _Layer 1 (Entry)_: Reject malformed input at boundary schemas via explicit typing.
+  - _Layer 2 (Business)_: Validate logical domain constraints.
+  - _Layer 3 (Sink)_: Ensure sinks use parameterized queries and safe DOM setters even if inputs were pre-filtered.
 - **Aesthetic Purity**: Zero un-sanitized HTML is ever permitted to breach the UI layer.
 
 ---
@@ -90,13 +80,13 @@ flowchart LR
 
 ## 4.0 Operational Framework
 
-| Rule Category | 🟢 ALWAYS DO | 🔴 NEVER DO |
-| :--- | :--- | :--- |
-| **HTML & DOM** | Use `DOMPurify.sanitize()` for `{@html}` and `textContent` for vanilla nodes. | Never assign raw strings to `innerHTML` or `outerHTML`. |
-| **Secrets & Keys** | Resolve secrets via environment variables with runtime fail-fast guards. | Never hardcode passwords, API keys, or JWT secrets in code or git. |
-| **Database** | Use parameterized queries (`$1`, `?`) and principle of least privilege. | Never concatenate user strings directly into SQL queries. |
-| **Tokens & Cookies** | Use `HttpOnly`, `Secure`, `SameSite` cookies set by server. | Never store sensitive auth tokens in `localStorage`. |
-| **File I/O** | Strip paths with `path.basename()` and validate magic byte headers. | Never trust user-supplied filenames in `fs.readFile` or `path.join`. |
+| Rule Category        | 🟢 ALWAYS DO                                                                  | 🔴 NEVER DO                                                          |
+| :------------------- | :---------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| **HTML & DOM**       | Use `DOMPurify.sanitize()` for `{@html}` and `textContent` for vanilla nodes. | Never assign raw strings to `innerHTML` or `outerHTML`.              |
+| **Secrets & Keys**   | Resolve secrets via environment variables with runtime fail-fast guards.      | Never hardcode passwords, API keys, or JWT secrets in code or git.   |
+| **Database**         | Use parameterized queries (`$1`, `?`) and principle of least privilege.       | Never concatenate user strings directly into SQL queries.            |
+| **Tokens & Cookies** | Use `HttpOnly`, `Secure`, `SameSite` cookies set by server.                   | Never store sensitive auth tokens in `localStorage`.                 |
+| **File I/O**         | Strip paths with `path.basename()` and validate magic byte headers.           | Never trust user-supplied filenames in `fs.readFile` or `path.join`. |
 
 ---
 
@@ -119,7 +109,7 @@ For deep context on specific attack surfaces, frameworks, and audits, consult th
 - **Core Defense**: [Threat Modeling & Risk Evaluation](./references/threat_modeling.md) | [Web Frontend Defense & Client Hardening](./references/web_defense.md) | [Backend Defense, Persistence & API Hardening](./references/backend_defense.md)
 - **Framework & UI Hardening**: [Svelte 5 Security & Runes](./references/svelte-security.md) | [Zero-Trust UI Architecture](./references/zero-trust-ui.md)
 - **Auditing & Verification**: [Security Audit Reporting & Checklists](./references/audit_reports.md) | [Forensics & Validation](./references/forensics-and-validation.md)
-- **Web Standards & Passkeys**: [Modern Web Security & Passkeys](../modern-web-guidance/references/security/)
+- **Web Standards & Passkeys**: [Modern Web Security & Passkeys](../../plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md)
 - **Related Verification Skills**: [Quality Protocol](../quality/SKILL.md) | [Refactor Protocol](../refactor/SKILL.md)
 
 ---
