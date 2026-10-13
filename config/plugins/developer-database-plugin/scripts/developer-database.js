@@ -257,7 +257,16 @@ export class DeveloperDatabaseEngine {
           includeMetadata: true,
         };
         if (filter && typeof filter === "object") {
-          query_body.filter = filter;
+          // Normalize flat { key: "val" } to { key: { "$eq": "val" } } if not already an operator object
+          const normalized = {};
+          for (const [k, v] of Object.entries(filter)) {
+            if (v && typeof v === "object") {
+              normalized[k] = v;
+            } else {
+              normalized[k] = { "$eq": v };
+            }
+          }
+          query_body.filter = normalized;
         }
 
         const data = await this.#pinecone_request("/query", {

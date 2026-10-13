@@ -87,7 +87,7 @@ When deeper technical specialization is required:
 
 ## 5. Verification Checklist
 
-- [ ] Working memory (`read_knowledge_base`) queried prior to proposing structural refactors.
+- [ ] Living memory (`search`) queried proactively prior to proposing structural refactors or answering architecture questions.
 - [ ] Ingested content confirmed free of `.env` secrets, credentials, or transient scratchpad data.
-- [ ] Task summary, architectural choices, and verification results archived via `archive_log_entry`.
+- [ ] Task summary, architectural choices, and verification results archived via `archive`.
 - [ ] Keepalive heartbeat verified across both Pinecone and Supabase layers.

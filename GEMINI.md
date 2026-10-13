@@ -135,12 +135,13 @@ RPGlitch and all sovereign workspaces operate under a unified four-layer documen
 - **Handoff & Record**: Keep `ROADMAP.md` and `CHANGELOG.md` synchronized whenever completing features, refactors, or sprint milestones.
 - **Temporal Mirror Alignment**: When an increment ships, remove it from the active delta in `ROADMAP.md` and record the completed release pulse in `CHANGELOG.md`.
 
-#### 3.3 Memory Protocol (Agent vs App State)
+#### 3.3 Autonomous Memory Protocol (Proactive Grounding)
 
-Agents maintain continuity using the [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md) skill:
+Agents maintain continuous contextual intelligence using the [Developer Database](./config/plugins/developer-database-plugin/skills/developer-database/SKILL.md) skill **proactively and autonomously without prompting**:
 
-- **Working Memory**: **Call `read_knowledge_base` before starting tasks** involving architectural patterns; **store verified patterns using `write_knowledge_base`**.
-- **Cold Storage**: **Persist completed plans and research to Supabase via `archive_log_entry`**; **resolve historical architectural choices using `query_cold_storage`**.
+- **Autonomous Pre-Flight Recall**: **Always call `search` automatically before beginning tasks or answering architectural questions**. Retrieve active project rules, somatic physics, and code contracts from living memory before proposing code.
+- **Continuous Inscription**: **Store verified, stable patterns using `ingest`** whenever core rules, specs, or production architecture files are added or modified.
+- **Cold Storage Chronology**: **Persist completed plans, forensic post-mortems, and sprint retrospectives to Supabase via `archive`**; **reconstruct historical architectural decisions using `search_archive`**.
 
 ---
 

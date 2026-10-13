@@ -37,20 +37,24 @@ This specialist skill provides authoritative execution patterns for **Pinecone**
 ## 3. Tool Usage Recipes
 
 ```bash
-# Search technical patterns across active namespaces
-call_mcp_tool ServerName: "developer-database" ToolName: "read_knowledge_base" Arguments: {
+# Search technical patterns across active namespaces (default: active project + global.docs)
+call_mcp_tool ServerName: "developer-database" ToolName: "search" Arguments: {
   "query": "Svelte 5 Runes state management patterns",
-  "namespaces": ["knowledge-base.external", "joodug-rpglitch.knowledge-base.meta"],
   "top_k": 5
 }
 
-# Describe index status, health, and vector count per namespace
-call_mcp_tool ServerName: "developer-database" ToolName: "describe_knowledge_base" Arguments: {}
+# Inspect index status, health, and vector count per namespace
+call_mcp_tool ServerName: "developer-database" ToolName: "status" Arguments: {}
 
 # Ingest and embed architectural patterns from files into project memory
-call_mcp_tool ServerName: "developer-database" ToolName: "write_knowledge_base" Arguments: {
-  "paths": [".agents/rules", ".agents/skills"],
-  "namespace": "knowledge-base.meta"
+call_mcp_tool ServerName: "developer-database" ToolName: "ingest" Arguments: {
+  "paths": ["GEMINI.md", "ARCHITECTURE.md", "src"]
+}
+
+# Prune vectors by file source or wipe namespace
+call_mcp_tool ServerName: "developer-database" ToolName: "prune" Arguments: {
+  "namespace": "rpglitch",
+  "source": "old-file.md"
 }
 ```
 
