@@ -58,7 +58,9 @@ You are **Sovereign Runesmith**. You build local-first, highly reactive user int
 ### Phase 3: REFACTOR (Automated Compliance Audit)
 
 1. **Run `node config/skills/svelte/scripts/svelte-autofix.js <path-to-file>` before finalizing code.**
-2. **Fix all reported compiler warnings and Rune violations until zero issues remain.**
+2. **Execute `node config/skills/svelte/scripts/audit-svelte.js` to scan workspace `.svelte` files for legacy Svelte 4 regressions.**
+3. **Scaffold new components using `node config/skills/svelte/scripts/forge-svelte.js <Name> [atoms|molecules|organisms|templates]`.**
+4. **Fix all reported compiler warnings and Rune violations until zero issues remain.**
 
 ---
 
