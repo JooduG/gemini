@@ -49,23 +49,37 @@ description: >-
 * **`name`** (`string`, required): Unique identifier in lowercase, hyphen-separated `kebab-case` matching the directory name.
 * **`description`** (`string`, required): High-density third-person summary specifying **what** the skill does and **when** it triggers. The primary agent reads this description during session initialization to decide whether to activate the skill.
 
-### 2.2 Canonical Body Architecture
+### 2.2 The Trigger Triad Specification
+
+Under default conditions, models suffer from a **56% under-triggering inertia**. To guarantee reliable activation without polluting frontmatter, structure `description` using the **Trigger Triad**:
+
+1. **Action-Oriented Capability Statement**: An opening sentence in third-person impersonal voice naming exact mechanisms and outputs.
+2. **Imperative Lexical Bait & Import-Path Anchors**: A middle clause opening with `"Use when..."` packed with concrete user intents, CLI commands, and **literal package import paths or filenames**.
+3. **Negative Boundaries & Sibling Pointers**: A closing clause starting with `"Do NOT use for..."` establishing a hard perimeter and pointing to competing sibling skills.
+
+#### Guarding Against Workflow Leakage
+
+Never narrate ordered procedural steps in `description` (e.g. *"First run lint, then edit, then test"*). Summarizing execution steps in metadata causes the model to shortcut activation and execute a shallow summary from the system prompt without reading `SKILL.md` or its `references/` off disk.
+
+### 2.3 Canonical Body Architecture
 
 A production-grade `SKILL.md` follows a disciplined structure designed to steer LLM attention deterministically:
 
-1. **Title & Persona Blockquote**:
-   * States the specialized persona and operational mindset.
-2. **`## 1. Identity & Philosophy`**:
+1. **Title & Mandatory Line-1 Scar Tissue Check**:
+   * States the specialized persona and directs the agent to review co-located `PITFALLS.md`.
+2. **Top-100-Line Compaction Invariants**:
+   * Places non-negotiable constraints, safety guardrails, and reference maps in the first 100 lines so they survive session auto-compaction.
+3. **`## 1. Identity & Philosophy`**:
    * Outlines the persona's role, core tenets, and architectural invariants.
-3. **`## 2. Activation Triggers`**:
+4. **`## 2. Activation Triggers`**:
    * Explicit `### Model-Invoked (When to Trigger)` and `### When to Skip` sections to prevent over/undertriggering.
-4. **`## 3. Bright-Line Constraints`**:
+5. **`## 3. Bright-Line Constraints`**:
    * Non-negotiable boundaries expressed in imperative phrasing (❌ DO NOT vs ✅ DO).
-5. **`## 4. Execution Workflow`**:
+6. **`## 4. Execution Workflow`**:
    * Numbered, ordered stages with concrete success criteria for each step.
-6. **`## 5. Counter-Rationalization Table`**:
-   * Preempts common model excuses (e.g., *"This is just a quick fix"*) with strict operational reality checks.
-7. **`## 6. Verification Checklist`**:
+7. **`## 5. Counter-Rationalization Table`**:
+   * Preempts common model excuses with strict operational reality checks.
+8. **`## 6. Verification Checklist`**:
    * Actionable verification gates that must be satisfied before completing the task.
 
 ---
@@ -78,7 +92,9 @@ When authoring a new skill from scratch, follow this standardized blueprint:
 ---
 name: <skill-name>
 description: >-
-  <Third-person description of what the skill does and when to use it.>
+  <Third-person capability statement>. Use when <developer intents, commands,
+  or codebase imports `import-path`>. Do NOT use for <adjacent domain> — use
+  <sibling-skill> instead.
 ---
 
 # <Skill Title>
@@ -86,9 +102,22 @@ description: >-
 > **Persona: <Specialized Persona Role>**  
 > *"Execute with precision, architectural purity, and strict compliance."*
 
+## 1. Mandatory Pre-Flight & Pitfalls Check (Top Invariants)
+
+1. **Read Co-Located Scar Tissue**: Before drafting code or planning steps, read `PITFALLS.md` in this skill directory to review known failure traps.
+2. **Exploration-First Sequencing**: Inspect the local repository files and configurations before loading reference docs.
+3. **Hard Guardrails**:
+   - ❌ **DO NOT** modify orthogonal files outside the immediate domain scope.
+   - ✅ **DO** verify each increment with automated test commands.
+
+## 2. Reference Loading Map (Strictly One-Hop Deep)
+
+- For specialized sub-topic A: Read [topic-a.md](./references/topic-a.md).
+- For specialized sub-topic B: Read [topic-b.md](./references/topic-b.md).
+
 ---
 
-## 1. Identity & Philosophy
+## 3. Identity & Philosophy
 
 You are **<Persona Name>**—an authoritative agent specialized in <Domain/Process>.
 
@@ -100,7 +129,7 @@ You are **<Persona Name>**—an authoritative agent specialized in <Domain/Proce
 
 ---
 
-## 2. Activation Triggers
+## 4. Activation Triggers
 
 ### Model-Invoked (When to Trigger)
 
@@ -114,24 +143,15 @@ You are **<Persona Name>**—an authoritative agent specialized in <Domain/Proce
 
 ---
 
-## 3. Bright-Line Constraints
+## 5. Execution Workflow
 
-* ❌ **DO NOT** violate established naming, architectural patterns, or core system laws in `GEMINI.md`.
-* ❌ **DO NOT** duplicate general programming knowledge already in model weights.
-* ✅ **DO** ensure all implementations are grounded in clean, self-documenting code.
-* ✅ **DO** link to helper scripts in `scripts/` and detailed documentation in `references/`.
-
----
-
-## 4. Execution Workflow
-
-1. **Assess & Ground**: Understand domain requirements and verify context.
+1. **Assess & Ground**: Understand domain requirements and verify local repo context.
 2. **Draft & Implement**: Follow standard architectural patterns with zero unnecessary bloat.
 3. **Verify**: Test and validate against the domain criteria.
 
 ---
 
-## 5. Counter-Rationalization Table
+## 6. Counter-Rationalization Table
 
 | Observed Excuse | Operational Reality Check |
 | :--- | :--- |
@@ -140,48 +160,34 @@ You are **<Persona Name>**—an authoritative agent specialized in <Domain/Proce
 
 ---
 
-## 6. Verification & Final Delivery Checklist
+## 7. Verification & Final Delivery Checklist
 
 * [ ] All code conforms to domain standards.
+* [ ] Co-located `PITFALLS.md` reviewed for known traps.
 * [ ] No regression or unhandled edge cases introduced.
 * [ ] Clean, self-documenting structure verified.
 ```
 
 ---
 
-## 4. Progressive Disclosure Pattern
+## 4. Progressive Disclosure & One-Hop Reference Constraint
 
 Skills adhere to a **three-stage progressive context model**:
 
-1. **Discovery**: At conversation start, the agent indexes only metadata (`name` and `description`) for all available skills into prompt memory.
-2. **Activation**: When a user task matches a skill's domain, the agent retrieves and reads `SKILL.md` via `view_file`.
-3. **Deep Retrieval**: If a specific task branch requires deep knowledge, schemas, or manuals, the agent navigates into `references/` via relative links on demand.
+1. **Discovery (Level 1)**: At session start, the agent indexes only metadata (`name` and `description`) into prompt memory (~80–100 tokens per skill).
+2. **Activation (Level 2)**: When a user prompt matches a skill's description, the agent retrieves and reads `SKILL.md` via `view_file` (<500 lines).
+3. **Deep Retrieval (Level 3)**: If a specific subtask requires deep manuals or schemas, the agent reads a leaf in `references/` on demand.
 
-> [!TIP]
-> Keep `SKILL.md` under 500 lines. Offload large configuration tables, historical background, and detailed schemas into `references/` files to conserve context window tokens.
+> [!IMPORTANT]
+> **The One-Hop Rule**: `SKILL.md` must link directly to supporting leaves (`references/guide.md` or `scripts/check.js`). Never create multi-hop chains (`file-a.md` $\rightarrow$ `file-b.md` $\rightarrow$ `file-c.md`), as agents routinely halt after the first hop.
 
 ---
 
-## 5. Authoring Best Practices
+## 5. Agentic Script Engineering Contracts (`scripts/`)
 
-### Treat Scripts as Black Boxes
+Offloading deterministic work to executable scripts in `scripts/` keeps source code out of active prompt tokens. Production scripts in Antigravity must follow four engineering contracts:
 
-If your skill bundles helper scripts in `scripts/`, instruct the agent to run them with `--help` or execute them directly rather than reading their entire source code into context:
-
-````markdown
-Run the verification helper:
-```bash
-node scripts/validate.js --help
-```
-````
-
-### Include Decision Trees
-
-For complex skills with multiple operational paths, provide a decision table or mermaid diagram to guide the agent in selecting the correct strategy.
-
-### Use Imperative Phrasing (Bright-Line Constraints)
-
-Models routinely rationalize soft or permissive guidelines under operational pressure. Replace polite suggestions with non-negotiable boundaries:
-
-* ❌ **Soft:** *"Try to run tests before finishing your work if you have time."*
-* ✅ **Imperative:** *"Never mark a task complete without running tests. Failing test? Fix it before proceeding."*
+1. **Pure Node.js / TypeScript Executables**: Author scripts using standard Node.js/TypeScript runtimes with zero interactive `stdin` prompts.
+2. **Discovery-Then-Drill CLI Output**: Default to compact JSON output (`--summary --format json`) to prevent tool output truncation (>10K characters), and provide targeted drill-down flags (`--check ID` or `--offset`).
+3. **Mandatory Dry-Run Preview**: Stateful or mutating operations must require a `--mode dry-run` flag before applying changes.
+4. **Treat Scripts as Black Boxes**: In `SKILL.md`, instruct agents to execute scripts with `--help` or inspect their stdout rather than reading raw script source files into context.

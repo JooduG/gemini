@@ -25,7 +25,8 @@
 - **Direct Feedback**: **Point out technical flaws directly and propose better alternatives** rather than giving false agreement.
 - **Living Memory Grounding**: **Check living memory first (`search` via `developer-database`) when asked about architectural specs, framework patterns (e.g. Svelte 5 rules), schemas, or project conventions before reading raw files from disk**. This prevents context window bloat and guarantees instant grounding against verified patterns.
 - **Scope Discipline**: **Touch only code required for the active task**; do not refactor orthogonal code without approval.
-- **Workspace Hygiene**: **Place all temporary diagnostic files, logs, and command outputs in `tmp/**`. Never generate transient files in root.
+- **Exploration-First Sequencing (Anti-Premature-Anchoring)**: **Explore project directory structure and local configurations first, then invoke domain skills or load reference documentation before editing code**. Never allow generic templates or pre-training assumptions to override local repository contracts (`package.json`, build configs, or local schemas).
+- **Workspace Hygiene**: **Place all temporary diagnostic files, logs, and command outputs in `tmp/**` or `.agents/scratchpad/**`. Never generate transient files in root**.
 
 ---
 
@@ -128,6 +129,10 @@ RPGlitch and all sovereign workspaces operate under a unified four-layer documen
      - **Specifications (Application-Specific WHAT)** live exclusively in core markdown files (`ARCHITECTURE.md`, `DESIGN.md`, `SECURITY.md`, `README.md`).
      - **Skills (Behavioral & Operational HOW)** are layer-agnostic behavioral playbooks and runbooks ("do this, don't do that", framework patterns, recipes, operational workflows).
      - Skills must **never define project-specific product specifications or data schemas**; they must link directly to the authoritative specifications. Generic, project-agnostic best practices (e.g. Svelte 5 rune rules, AudioContext user gestures, zero-trust sanitization) belong in skills.
+5. **Three-Tier Epistemic Promotion Pipeline**:
+   - **Tier 1 (Ephemeral Exhaust & Scratchpad)**: `.agents/scratchpad/worklog.md`, `compact-state.json`, and `tmp/**`. Worker sessions append candidate learnings, telemetry, and pre-compact state here. Never loaded into startup prompts; gitignored.
+   - **Tier 2 (Empirical Scar Tissue & Locality Fix)**: Co-located `PITFALLS.md` inside specialized skill directories and root `MISTAKES.md`. Authored in the **Triadic Entry Format** (`Trigger` / `Wrong Behavior` / `Correct Behavior`). Referenced at line 1 of `SKILL.md` to prevent central board rule blindness at the exact point of work.
+   - **Tier 3 (Verified Canon & CI Gates)**: `GEMINI.md`, core architectural specs, and automated test scripts. When a recurring error in `PITFALLS.md` reaches **4 to 5 occurrences**, it graduates out of prose into an executable CI test script or constitutional law. Worker sessions never edit Tier 3 files directly during execution turns.
 
 #### 3.2 Task Lifecycle & Planning Rules
 
@@ -190,6 +195,7 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 - [ ] **Reproduction Case** verified for bug fixes.
 - [ ] **Performance Budget** respected (CLS < 0.1, LCP < 2.5s).
 - [ ] **Local CI Pass**: **Run `npm run verify` locally and achieve 0 errors**.
+- [ ] **CI Graduation Check**: If a failure or bug pattern in `PITFALLS.md` or `MISTAKES.md` has recurred **4 to 5 times**, verify it has been graduated out of prose and into an automated verification check (e.g. `npm test`, linter, or CI script). _"A rule can be ignored; a red test cannot."_
 - [ ] Compliance laws satisfied.
 
 #### 5.2 Circuit Breaker & Resilience
@@ -265,8 +271,10 @@ Before ending any turn where codebase modifications or substantive decisions occ
 All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `.md` files without frontmatter) **MUST** follow this structural formatting protocol. Files that already utilize standardized YAML frontmatter (e.g., `SKILL.md`) are **explicitly excluded** from HTML comment header blocks, as their frontmatter serves as their canonical schema and purpose block:
 
 1. **Instructional Header Block**: A comment block (e.g., `/** ... */` or `<!-- ... -->`) at the absolute top explaining the file's purpose, schema/props, dependencies, rules for modification, and any cross-file syncing requirements.
-2. **Organized Body**: The core logic, component definition, or data registry. Distinct sections or items must be visually separated by clear inline comment dividers (e.g., `// ---------------------------------------------------------------------------------------------`).
-3. **Changelog Footer**: A comment block (e.g., `/** CHANGELOG ... */` or `<!-- CHANGELOG ... -->`) at the absolute bottom of the file documenting historical refactors, rationale for structural changes, and migration details. **Do not remove old changelog entries; always append to the existing changelog.**
+2. **Top-100-Line Compaction Invariants**: Place all non-negotiable constraints, safety guardrails, schema roots, and primary dispatch tables within the **top 100 lines** of the file so they survive context truncation and session auto-compaction.
+3. **One-Hop Reference Boundary**: Documentation and skills must link directly to targeted reference leaves (e.g. `references/guide.md`) or executable scripts (`scripts/run.js`) rather than chaining multi-hop links (`file-a.md` $\rightarrow$ `file-b.md` $\rightarrow$ `file-c.md`), which causes agent attention drop-off.
+4. **Organized Body**: The core logic, component definition, or data registry. Distinct sections or items must be visually separated by clear inline comment dividers (e.g., `// ---------------------------------------------------------------------------------------------`).
+5. **Changelog Footer**: A comment block (e.g., `/** CHANGELOG ... */` or `<!-- CHANGELOG ... -->`) at the absolute bottom of the file documenting historical refactors, rationale for structural changes, and migration details. **Do not remove old changelog entries; always append to the existing changelog.**
 
 ### 4. Skill Discovery Map
 
