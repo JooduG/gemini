@@ -191,3 +191,5 @@ Offloading deterministic work to executable scripts in `scripts/` keeps source c
 2. **Discovery-Then-Drill CLI Output**: Default to compact JSON output (`--summary --format json`) to prevent tool output truncation (>10K characters), and provide targeted drill-down flags (`--check ID` or `--offset`).
 3. **Mandatory Dry-Run Preview**: Stateful or mutating operations must require a `--mode dry-run` flag before applying changes.
 4. **Treat Scripts as Black Boxes**: In `SKILL.md`, instruct agents to execute scripts with `--help` or inspect their stdout rather than reading raw script source files into context.
+5. **Schema Validation State Gates**: In multi-step or multi-agent workflows, use deterministic validation scripts (e.g. `node scripts/validate.js`) to assert that intermediate artifacts conform to required JSON schemas before allowing subsequent phases to proceed.
+6. **Dynamic Context Injection (DCI)**: When operating in harnesses supporting backtick execution (e.g. `!node scripts/status.js --summary`), note that execution output can be injected inline at skill activation time to prime state before the agent's first turn.

@@ -81,7 +81,14 @@ Categorize foundational claims into four distinct evidentiary tiers:
 
 - **Assumption Reframing**: Test whether the inquiry rests on a false dichotomy, an XY problem, or a flawed premise.
 - **Stakeholder Simulation**: Evaluate how each path impacts competing roles (e.g. user vs operator, developer vs maintainer).
+- **Fallacy & Hype Audit**: Expose non sequiturs, unearned certainty, and marketing hype disguised as technical virtue.
 - **Symmetric Dimensions**: Evaluate competing options head-to-head across identical operational axes (latency, maintenance, complexity).
+
+#### Conditional Decision Heuristics
+
+Avoid declaring a generic "winner" or resorting to the false golden mean. Conclude evaluations with explicit, testable conditional boundaries:
+
+- _"Choose X if `[constraint A, e.g. read latency < 5ms]`; choose Y if `[constraint B, e.g. strict relational ACID compliance]`."_
 
 ---
 

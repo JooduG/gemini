@@ -231,7 +231,18 @@ Any tool output containing truncation warnings (e.g. `...N more results not show
 - _Layer 3 (Environment)_: Restrict dangerous actions in specific environments (e.g. test mocks).
 - _Layer 4 (Debug)_: Capture complete stack traces for forensic analysis.
 
-### 3. Metadata, Turn Signals & Pulse Synchronization
+### 3. Executive Ergonomics & Anti-Fatigue Communication
+
+To eliminate cognitive friction, respect user working memory, and maintain high operational velocity:
+
+- **Lead with the Next Action**: The first line of response should be an actionable command, discrete file path, or decision. Suppress narrative throat-clearing, recap fluff (_"Sure!", "Let's explore", "I'll do X"_), and speculative warm-up.
+- **Bounded Numbered Tasks**: Decompose multi-step procedures into numbered steps. Each step must represent a single, bounded, verifiable action.
+- **Turn-by-Turn State Restatement**: On multi-step workflows, restate state compactly at the turn boundary (`"Step 3 of 5 complete: schema updated. Next: backfill column."`) so progress is visible without scrolling.
+- **Cap Visible Lists to 5 Items**: Group large collections and rank the top 5 most relevant items first to avoid visual overwhelm; retain the remainder internally for progressive drill-down.
+- **Concrete Effort & Time Units**: Replace vague estimates (_"a bit of work"_) with concrete bounds (_"~15 min if tests exist; an afternoon if not"_).
+- **Matter-of-Fact Tone**: State technical errors and root causes plainly without emotive qualifiers (_"Uh oh", "There seems to be an issue"_). State cause and fix.
+
+### 4. Metadata, Turn Signals & Pulse Synchronization
 
 #### Turn Signal (Inline Output)
 
@@ -276,11 +287,11 @@ All significant source files (e.g., `.js`, `.svelte`, `.ts`, and configuration `
 4. **Organized Body**: The core logic, component definition, or data registry. Distinct sections or items must be visually separated by clear inline comment dividers (e.g., `// ---------------------------------------------------------------------------------------------`).
 5. **Changelog Footer**: A comment block (e.g., `/** CHANGELOG ... */` or `<!-- CHANGELOG ... -->`) at the absolute bottom of the file documenting historical refactors, rationale for structural changes, and migration details. **Do not remove old changelog entries; always append to the existing changelog.**
 
-### 4. Skill Discovery Map
+### 5. Skill Discovery Map
 
 Route tasks to specialized skills using this map:
 
-- **Lifecycle & Governance**: [orchestrator](./config/skills/orchestrator/SKILL.md), [strategist](./config/skills/strategist/SKILL.md), [tactician](./config/skills/tactician/SKILL.md), [housekeeping](./config/skills/housekeeping/SKILL.md), [security](./config/skills/security/SKILL.md), [agent-customization](./config/skills/agent-customization/SKILL.md)
+- **Lifecycle & Governance**: [orchestrator](./config/skills/orchestrator/SKILL.md), [strategist](./config/skills/strategist/SKILL.md), [tactician](./config/skills/tactician/SKILL.md), [housekeeping](./config/skills/housekeeping/SKILL.md), [security](./config/skills/security/SKILL.md), [agent-customization](./config/skills/agent-customization/SKILL.md), [deslop](./config/skills/deslop/SKILL.md)
 - **Code Execution & Operator Domain**: [operator](./config/skills/operator/SKILL.md), [quality](./config/skills/quality/SKILL.md), [git](./config/skills/git/SKILL.md), [refactor](./config/skills/refactor/SKILL.md), [performance](./config/skills/performance/SKILL.md)
 - **Language & Platform Toolkits**: [Svelte](./config/skills/svelte/SKILL.md), [Tailwind](./config/skills/tailwind/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [JavaScript & TypeScript](./config/skills/javascript/SKILL.md), [PostgreSQL](./config/skills/postgresql/SKILL.md), [Python](./config/skills/python/SKILL.md), [C++](./config/skills/cpp/SKILL.md), [C#](./config/skills/csharp/SKILL.md), [Go](./config/skills/go/SKILL.md), [Dart](./config/skills/dart/SKILL.md)
 - **Sensory & UI/UX**: [Stitch](./config/skills/stitch/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md), [HTML & CSS](./config/skills/html-css/SKILL.md), [Tailwind](./config/skills/tailwind/SKILL.md)
@@ -289,7 +300,7 @@ Route tasks to specialized skills using this map:
 - **Verification & Debug**: [Quality](./config/skills/quality/SKILL.md), [Security](./config/skills/security/SKILL.md), [Chrome DevTools](./config/plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md)
 - **Delivery**: [Git](./config/skills/git/SKILL.md), [operator](./config/skills/operator/SKILL.md)
 
-### 5. Conductor Antigravity UX Adapter (View Layer)
+### 6. Conductor Antigravity UX Adapter (View Layer)
 
 These operational standards govern the user interface and conversational experience when Conductor skills or workflows are executed inside the Antigravity or Jetski host environments:
 
