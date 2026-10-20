@@ -659,6 +659,8 @@ class PerchanceSession {
     return { ok: true, copied: copied.length, after, result: res };
   }
 
+
+
   // ---------------- preview: eval / refresh / console ----------------
   async eval({ js, frame = 'preview' } = {}) {
     if (!this.page) throw new Error('call perch_start first');
@@ -1342,6 +1344,85 @@ class PerchanceSession {
           : (saved
             ? 'panel reported "saved" but no store entry was observed — verify with perch_eval {frame:"editor", js:"JSON.stringify(window.srcState._internals.working)"}'
             : (renamedTo ? undefined : 'file was injected but never landed in the editor src store and the panel never reported "saved" — check perch_errors and retry'))),
+    };
+  }
+
+  async promptNativeAgent({ prompt, timeout = 120000 }) {
+    if (!this.ready || !this.page) throw new Error("call perchance_start first");
+    this._touch();
+    const ed = this.page;
+
+    // Ensure AI Agent panel is open
+    await evalMain(ed, () => {
+      const panel = document.querySelector('#aiAgentPanelEl');
+      if (!panel || panel.style.display === 'none') {
+        const btn = document.querySelector('button[title*="AI"], #aiAgentBtnEl, [data-ref="aiAgentBtn"]');
+        if (btn) btn.click();
+      }
+    });
+    await this.page.waitForTimeout(1000);
+
+    // Fill textarea and click send via direct DOM execution (proven reliable with Perchance reactive bindings)
+    const submitResult = await evalMain(ed, (text) => {
+      const input = document.querySelector('#aiAgentInputEl');
+      const sendBtn = document.querySelector('#aiAgentSendBtn');
+      if (!input || !sendBtn) return { ok: false, error: 'input or send button missing' };
+      input.value = text;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      sendBtn.click();
+      return { ok: true };
+    }, prompt);
+
+    if (!submitResult || !submitResult.ok) {
+      throw new Error((submitResult && submitResult.error) || 'Failed to submit prompt to AI agent');
+    }
+
+    // Monitor completion: wait for Stop button to disappear or working banner to clear
+    const t0 = Date.now();
+    let completed = false;
+    let lastTranscript = '';
+
+    while (Date.now() - t0 < timeout) {
+      await this.page.waitForTimeout(2000);
+      const status = await evalMain(ed, () => {
+        const panel = document.querySelector('#aiAgentPanelEl');
+        const stopBtn = document.querySelector('#aiAgentStopBtn');
+        const isStopVisible = stopBtn && window.getComputedStyle(stopBtn).display !== 'none';
+        const workingBanner = document.querySelector('.ai-helper-working, [data-working="true"]') ||
+          [...document.querySelectorAll('*')].find(el => (el.textContent || '').includes('AI helper is working'));
+        const busy = isStopVisible || !!workingBanner;
+
+        // Transcript
+        const msgEls = panel ? [...panel.querySelectorAll('.ai-message, .chat-message, [data-role="assistant"], p, div')] : [];
+        const text = panel ? panel.innerText : '';
+        return { busy, text };
+      }).catch(() => ({ busy: false, text: '' }));
+
+      lastTranscript = status.text;
+      if (!status.busy && Date.now() - t0 > 5000) {
+        completed = true;
+        break;
+      }
+    }
+
+    // Settle Yjs sync after agent writes code
+    await this.settle();
+
+    // Capture updated code from panes directly
+    const code = await evalMain(ed, () => {
+      const model = window.modelTextEditor ? window.modelTextEditor.state.doc.toString() : '';
+      const output = window.outputTemplateEditor ? window.outputTemplateEditor.state.doc.toString() : '';
+      return { model, output };
+    }).catch(() => ({ model: '', output: '' }));
+
+    return {
+      ok: true,
+      completed,
+      transcript: lastTranscript,
+      dsl: code.model,
+      html: code.output,
+      ms: Date.now() - t0
     };
   }
 

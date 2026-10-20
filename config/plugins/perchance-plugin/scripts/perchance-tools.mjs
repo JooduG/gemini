@@ -87,16 +87,18 @@ function queryCompanionBridge(pathName, method = "GET", body = null) {
       }
     } catch {}
 
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Weld-Pair": "1"
+    };
+
     const req = http.request({
       host: "127.0.0.1",
       port,
       path: pathName,
       method,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Weld-Pair": "1"
-      },
-      timeout: 10000
+      headers,
+      timeout: 15000
     }, (res) => {
       let data = "";
       res.on("data", chunk => { data += chunk; });
@@ -117,8 +119,39 @@ function queryCompanionBridge(pathName, method = "GET", body = null) {
       resolve({ ok: false, error: "Companion Bridge request timed out" });
     });
 
-    if (body) req.write(JSON.stringify(body));
+    if (body) req.write(typeof body === "string" ? body : JSON.stringify(body));
     req.end();
+  });
+}
+
+function callBridgeTool(toolName, args = {}) {
+  const credPath = path.resolve(__dirname, "../sidecars/perchance-companion-bridge/.bridge-credentials.json");
+  let token = "";
+  try {
+    if (fs.existsSync(credPath)) {
+      token = JSON.parse(fs.readFileSync(credPath, "utf8")).token || "";
+    }
+  } catch {}
+
+  const postData = JSON.stringify({
+    id: Date.now(),
+    jsonrpc: "2.0",
+    method: "tools/call",
+    params: {
+      name: toolName,
+      arguments: args
+    }
+  });
+
+  return queryCompanionBridge("/mcp/" + token, "POST", postData).then(reply => {
+    if (reply && reply.result && reply.result.content && reply.result.content[0]) {
+      try {
+        return JSON.parse(reply.result.content[0].text);
+      } catch {
+        return { ok: true, output: reply.result.content[0].text };
+      }
+    }
+    return reply;
   });
 }
 
@@ -314,12 +347,59 @@ export const TOOLS = [
     },
   },
 
-  // 7. Companion Sidecar
+  // 7. Companion Sidecar & Pseudo-Agent Swarm
   {
     name: "perchance_bridge_status",
     description: "Probe the background Antigravity Sidecar Bridge for active user browser tabs running the Weld Companion userscript.",
     inputSchema: { type: "object", properties: {}, required: [] },
   },
+  {
+    name: "perchance_swarm",
+    description: "Interact directly with your live browser tab via the Companion Bridge. Actions: 'read_source' (fetch exact lines currently in browser), 'propose_edit' (send visual green/red diff proposal to your Weld drawer for one-click approval), 'proposal_status' (check if proposal was accepted/rejected), 'sample' (reroll live generator and measure variety statistics).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        action: { type: "string", enum: ["read_source", "propose_edit", "proposal_status", "sample"], description: "Bridge action to execute in live tab" },
+        tab: { type: "string", description: "Generator slug (defaults to first active tab)" },
+        pane: { type: "string", enum: ["dsl", "html"], description: "Target editor pane ('dsl' or 'html')" },
+        edits: {
+          type: "array",
+          description: "Line-based replacements for proposal: [{start_line, end_line, text}]",
+          items: {
+            type: "object",
+            properties: {
+              start_line: { type: "integer" },
+              end_line: { type: "integer" },
+              text: { type: "string" }
+            },
+            required: ["start_line", "end_line", "text"]
+          }
+        },
+        new_text: { type: "string", description: "Complete pane text replacement for proposal" },
+        note: { type: "string", description: "Explanation message displayed in the Weld drawer diff preview" },
+        proposal_id: { type: "string", description: "Proposal ID to check (for 'proposal_status')" },
+        start_line: { type: "integer", description: "Start line for 'read_source'" },
+        end_line: { type: "integer", description: "End line for 'read_source'" },
+        sample_count: { type: "integer", description: "Number of rerolls for 'sample' (5-100)" }
+      },
+      required: ["action"]
+    }
+  },
+  {
+    name: "perchance_agent_prompt",
+    description: "Send prompt instructions to the native Perchance AI agent. Automatically routes to your live browser tab if open, or runs in headless Playwright session if tab is closed, automatically verifying generated code with zero errors.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        prompt: { type: "string", description: "Instruction/request to send to the Perchance AI agent" },
+        name: { type: "string", description: "Generator name (e.g. 'glitchofhand'). Defaults to current session or active tab" },
+        auto_allow: { type: "boolean", description: "Automatically execute without waiting for manual drawer approval. Default false" },
+        watch: { type: "boolean", description: "Open a visible headed browser window so you can watch the AI agent think, type, and edit code live. Default false" },
+        timeout: { type: "integer", description: "Timeout in milliseconds (default 90000)" }
+      },
+      required: ["prompt"]
+    }
+  }
 ];
 
 // ----------------------------- Dispatch Implementation -----------------------------
@@ -464,8 +544,110 @@ export const DISPATCH = {
     };
   },
 
-  // Companion Sidecar Bridge
+  // Companion Sidecar Bridge & Swarm Operations
   perchance_bridge_status: async () => {
     return await queryCompanionBridge("/status");
+  },
+
+  perchance_swarm: async (a) => {
+    if (!a || !a.action) return { ok: false, error: "Missing 'action' parameter (read_source, propose_edit, proposal_status, sample)." };
+    switch (a.action) {
+      case "read_source":
+        return await callBridgeTool("weld_get_source", {
+          pane: a.pane || "dsl",
+          start_line: a.start_line || 1,
+          end_line: a.end_line || 400,
+          tab: a.tab
+        });
+      case "propose_edit":
+        return await callBridgeTool("weld_propose_edit", {
+          pane: a.pane || "dsl",
+          edits: a.edits,
+          new_text: a.new_text,
+          note: a.note || "Antigravity Swarm proposal",
+          tab: a.tab
+        });
+      case "proposal_status":
+        if (!a.proposal_id) return { ok: false, error: "Missing 'proposal_id' parameter." };
+        return await callBridgeTool("weld_proposal_status", {
+          id: a.proposal_id
+        });
+      case "sample":
+        return await callBridgeTool("weld_sample", {
+          count: a.sample_count || 15,
+          tab: a.tab
+        });
+      default:
+        return { ok: false, error: `Unknown swarm action: ${a.action}` };
+    }
+  },
+
+  perchance_agent_prompt: async (a) => {
+    if (!a || !a.prompt) return { ok: false, error: "Missing 'prompt' parameter." };
+    const promptText = a.prompt;
+    const genName = a.name || session.generatorName || "glitchofhand";
+
+    // 1. If auto_allow is requested or watch: true, run automated execution (headed if watch: true)
+    const wantsAuto = a.auto_allow === true || a.watch === true;
+
+    // Check if Companion Bridge has an active browser tab open with the generator
+    const bridgeStatus = await queryCompanionBridge("/status");
+    const isBridgeConnected = bridgeStatus && bridgeStatus.connected && bridgeStatus.tabs && bridgeStatus.tabs.length > 0;
+    const matchingTab = isBridgeConnected ? bridgeStatus.tabs.find(t => !a.name || t.generator === a.name) : null;
+
+    if (matchingTab && !wantsAuto) {
+      // Live browser tab is open and user wants manual review gate in drawer:
+      const proposalResult = await callBridgeTool("weld_propose_edit", {
+        pane: "dsl",
+        edits: [
+          {
+            start_line: 1,
+            end_line: 0,
+            text: `// [AI Swarm Directive]: ${promptText}\n`
+          }
+        ],
+        note: `AI Agent Directive: ${promptText}`,
+        tab: matchingTab.generator
+      });
+      return {
+        ok: true,
+        mode: "live_browser_tab",
+        generator: matchingTab.generator,
+        status: "dispatched_to_drawer",
+        proposal: proposalResult,
+        note: "Dispatched directive to your open browser tab. You can review the diff in the Weld drawer, or pass auto_allow: true to execute automatically."
+      };
+    }
+
+    // 2. Playwright execution: supports watch: true (opens visible headed window so you can watch everything live)
+    const headed = a.watch === true || a.headed === true;
+    if (!session.page || (a.name && session.generatorName !== a.name) || (headed && !session.headed)) {
+      await session.start({ name: genName, headed });
+    }
+
+    const agentResult = await session.promptNativeAgent({
+      prompt: promptText,
+      timeout: a.timeout || 90000
+    });
+
+    // 3. Perform static analysis on resulting code to verify zero syntax errors
+    const currentCode = await resolveGeneratorSource(genName);
+    let diagnostics = null;
+    if (currentCode.dsl || currentCode.html) {
+      const analysis = Proj.analyze({ dsl: currentCode.dsl, html: currentCode.html, name: genName });
+      diagnostics = {
+        errorCount: (analysis.findings || []).filter(f => f.severity === "error").length,
+        warningCount: (analysis.findings || []).filter(f => f.severity === "warn").length,
+        errors: (analysis.findings || []).filter(f => f.severity === "error")
+      };
+    }
+
+    return {
+      ok: agentResult.ok,
+      mode: "headless_playwright",
+      generator: genName,
+      agentResult,
+      diagnostics
+    };
   },
 };
