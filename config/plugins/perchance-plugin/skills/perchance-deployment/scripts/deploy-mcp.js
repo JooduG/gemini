@@ -8,6 +8,13 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const require = createRequire(import.meta.url);
+const { PerchanceSession } = require(path.resolve(__dirname, '../../../scripts/perchance-core.cjs'));
 
 // Safely load .env from working directory without external module dependency
 const env_path = path.resolve(process.cwd(), '.env');
@@ -43,8 +50,36 @@ async function main() {
   const collab_key = hash_match ? hash_match[1] : process.env.PERCHANCE_KEY;
 
   console.log(`🎯 Target: ${generator_name} (Collab: ${collab_key ? 'YES' : 'NO'})`);
-  console.log(`✨ Direct MCP Deployment is available via 'perch_write' with pane: 'output'`);
-  console.log(`✅ Pre-flight bundle verified and ready for deployment.`);
+  console.log(`🚀 Connecting to Perchance live editor session...`);
+
+  const session = new PerchanceSession();
+  try {
+    const startRes = await session.start({
+      name: generator_name,
+      collabKey: collab_key,
+      headed: false,
+    });
+    if (!startRes.ok) {
+      throw new Error(`Failed to start session: ${startRes.error || 'Unknown error'}`);
+    }
+    console.log(`📡 Editor loaded. Writing ${bundle.length} characters to 'output' pane...`);
+
+    const writeRes = await session.write({
+      pane: 'output',
+      content: bundle,
+      settle: true,
+    });
+    if (!writeRes.ok) {
+      throw new Error(`Write failed: ${writeRes.error || 'Unknown error'}`);
+    }
+    console.log(`✅ Write settled.`);
+
+    const status = await session.status();
+    console.log(`📊 Session status:`, status);
+    console.log(`🎉 Deployment successfully verified for ${generator_name}!`);
+  } finally {
+    await session.stop();
+  }
 }
 
 main().catch((err) => {

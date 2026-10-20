@@ -60,10 +60,10 @@ Deploying to production is executed directly via the **`perchance` MCP Server** 
 npm run deploy:prepare
 
 # 2. Deploy directly via Perchance MCP tools:
-# - perch_start: Connects to generator room via collabKey
-# - perch_write: Writes dist/index.html to pane: 'output'
-# - perch_status: Verifies collabSynced and saveState: 'saved'
-# - perch_shot: Takes visual confirmation screenshot
+# - perchance_start: Connects to generator room via collabKey
+# - perchance_edit: Writes dist/index.html to pane: 'output'
+# - perchance_status: Verifies collabSynced and saveState: 'saved'
+# - perchance_interact: Takes visual confirmation screenshot (action: 'screenshot')
 ```
 
 Automated CLI bridge verification:
@@ -74,23 +74,18 @@ npm run deploy:auto
 
 ---
 
-### 4.0 Target Generator Registry
+### 4.0 Deployment Configuration & Shard Registry
 
-The workspace maintains 5 official Perchance generator shards. **Security Note**: Collab keys are credentials and live in `.env` (never commit keys to git):
+Generator targets are defined via environment variables in `.env` (collab keys are credentials and must never be committed to git):
 
-| Shard Name | Generator ID | Role / Purpose | Environment Variable |
-| :--- | :--- | :--- | :--- |
-| **RPGlitch** | `rpglitch` | **Production Release**: Public stable player environment | `PERCHANCE_PROD_COLLAB` |
-| **RPGlitchen** | `rpglitchen` | **Developer Staging**: Pre-release verification & live debugging | `PERCHANCE_DEV_COLLAB` |
-| **BUTTON'T** | `buttont` | **Experimental**: "AI in the box" mechanics testbed | `PERCHANCE_BUTTONT_COLLAB` |
-| **NONAME** | `larsoklna2` | **Greenfield Prototype**: Clean slate card-table restart | `PERCHANCE_NONAME_COLLAB` |
-| **ImageGlitch** | `imageglitch` | **Sensory Cortex**: Pure text-to-image diffusion testbed | `PERCHANCE_IMAGE_COLLAB` |
+- `PERCHANCE_URL`: Full URL of the target generator, e.g. `https://perchance.org/my-generator#edit:collab=KEY`
+- `PERCHANCE_KEY`: Optional fallback collab key if not embedded in the URL hash.
 
-To switch the active MCP session to any shard:
+To deploy or switch the active MCP session to any generator:
 
 ```js
-// Call perch_start via Perchance MCP
-perch_start({ name: "larsoklna2", collabKey: process.env.PERCHANCE_NONAME_COLLAB })
+// Call perchance_start via Perchance MCP
+perchance_start({ name: "my-generator", collabKey: process.env.PERCHANCE_KEY })
 ```
 
 ---

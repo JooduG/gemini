@@ -6,7 +6,7 @@ description: >-
   Cloudflare clearing, Weld static analysis, and the Companion Sidecar Bridge.
 ---
 
-# perchance — Operating Manual (Streamlined 15-Tool Suite)
+# perchance — Operating Manual (Streamlined 17-Tool Suite)
 
 Reads are browser-free: `perchance_pull` mirrors `main.pjs` + `index.html` locally
 in ~1s — grep those files, never regex a 40k-line doc in-browser. The
@@ -19,10 +19,10 @@ browser (`perchance_start`) exists for live edits, interactive UI testing, and v
 | **Session**                | `perchance_start`<br>`perchance_status`<br>`perchance_stop`                                 | Cloudflare auto-escalation ladder (Firefox default); live session health and collab sync state.                                                   |
 | **Code Access & Mutation** | `perchance_pull`<br>`perchance_read`<br>`perchance_edit`                                    | Fast public API fetch; numbered line reads with regex filter; unified surgical find/replace hunks or full document replacement (auto Yjs settle). |
 | **Virtual File Store**     | `perchance_files`                                                                           | Unified `src/` management: `action: "list" \| "read" \| "write" \| "delete"`.                                                                     |
-| **Testing & UI**           | `perchance_refresh`<br>`perchance_snapshot`<br>`perchance_interact`<br>`perchance_evaluate` | Hard-reload preview; text-first interactive elements inspector; click, type, wait, press, screenshot; evaluate JavaScript.                        |
+| **Testing & UI**           | `perchance_refresh`<br>`perchance_snapshot`<br>`perchance_interact`<br>`perchance_evaluate` | Hard-reload preview; text-first interactive elements inspector; click, type, wait, press, top-level navigate for CF unblocking, screenshot; evaluate JavaScript.                        |
 | **Diagnostics**            | `perchance_logs`                                                                            | Unified syntax error, runtime error, and console tail triage (supports `clear: true`).                                                            |
-| **Analysis & Grammar**     | `perchance_get_primer`<br>`perchance_analyze`                                               | Perchance DSL syntax laws & pitfalls; deep AST static linting, identifier usage graph, and variety stats.                                         |
-| **Companion Bridge**       | `perchance_bridge_status`                                                                   | Query active user browser tabs connected via the Weld Companion userscript and Antigravity Sidecar.                                               |
+| **Analysis & Grammar**     | `perchance_get_primer`<br>`perchance_analyze`                                               | Perchance DSL syntax laws & pitfalls; deep AST static linting, identifier usage graph, variety stats, and AST cross-panel renames (`rename_to`).    |
+| **Companion Bridge & Swarm** | `perchance_bridge_status`<br>`perchance_swarm`<br>`perchance_agent_prompt`                 | Query active user browser tabs; propose visual diffs to Weld drawer; route directives to live tab or automated Playwright agent session.         |
 
 ## Dual Execution Modes
 
