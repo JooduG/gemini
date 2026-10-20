@@ -38,5 +38,6 @@ config/.migrated
 config/projects/
 config/plugins/*
 !config/plugins/developer-database-plugin/
+!config/plugins/perchance-plugin/
 scribbles.md
 archive

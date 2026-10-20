@@ -1,0 +1,10 @@
+{
+  "description": "Background loopback bridge connecting Antigravity with the live Perchance Weld Companion userscript in your browser",
+  "command": "node",
+  "args": ["bridge-worker.cjs"],
+  "restart_policy": "always",
+  "display_name": "Perchance Companion Bridge",
+  "env": {
+    "PERCHANCE_BRIDGE_PORT": "8765"
+  }
+}

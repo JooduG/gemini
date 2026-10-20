@@ -1,0 +1,17 @@
+{
+  "name": "perchance-plugin",
+  "version": "1.0.0",
+  "description": "Unified Perchance development, deployment, editor automation, and AI companion plugin.",
+  "author": {
+    "name": "Antigravity Engineering"
+  },
+  "keywords": [
+    "perchance",
+    "mcp",
+    "text-plugin",
+    "image-plugin",
+    "weld",
+    "deployment",
+    "editor"
+  ]
+}
