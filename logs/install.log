@@ -1,0 +1,26 @@
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.3 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Version check failed: actual='1.4.3', expected>=1.4.4
+[INSTALL] Checking Antigravity releases...
+[INSTALL] Fetching manifest from releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found release v1.4.4 (win32-x64): https://storage.googleapis.com/antigravity-public/antigravity-cli/1.4.4-4783783166214144/windows-x64/cli_windows_x64.exe
+[INSTALL] Downloading Antigravity Backend to temporary path C:\Users\johng\.gemini\bin\agy.tmp.489a5434-f134-4e50-a4fa-689cbba7f278...
+[INSTALL] Download progress: 10% (20314273/202906776 bytes)
+[INSTALL] Download progress: 20% (40597665/202906776 bytes)
+[INSTALL] Download progress: 30% (60881057/202906776 bytes)
+[INSTALL] Download progress: 40% (81180833/202906776 bytes)
+[INSTALL] Download progress: 50% (101513377/202906776 bytes)
+[INSTALL] Download progress: 60% (121747617/202906776 bytes)
+[INSTALL] Download progress: 70% (142047393/202906776 bytes)
+[INSTALL] Download progress: 80% (162330785/202906776 bytes)
+[INSTALL] Download progress: 90% (182646945/202906776 bytes)
+[INSTALL] Download progress: 100% (202906776/202906776 bytes)
+[INSTALL] Verifying SHA512 checksum...
+[INSTALL] SHA512 checksum verified successfully.
+[INSTALL] Staged existing Windows binary aside to C:\Users\johng\.gemini\bin\agy.exe.old.4dbbfaf6
+[INSTALL] Cleaned up stale binary backup: C:\Users\johng\.gemini\bin\agy.exe.old.4dbbfaf6
+[INSTALL] Antigravity Backend successfully installed to C:\Users\johng\.gemini\bin\agy.exe.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.4) --hub --hub-port=62743 --app_data_dir=antigravity --csrf_token=31ebf1d0-77ec-47f4-8e8f-6cebec5a2d56 --add-dir=c:\Users\johng\source\repos\GlitchOfHands
+[LAUNCH] Server at http://127.0.0.1:62743 is READY after 3 attempt(s).

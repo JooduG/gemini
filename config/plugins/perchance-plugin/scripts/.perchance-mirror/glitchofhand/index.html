@@ -1,14 +1,13 @@
-const stream = root.aiTextPlugin({
-  instruction: "...",
-  stopSequences: ["\n\n[[", "\n[["],
-  hideStartWith: true,
-  onChunk: function (o) {
-    if (o.isFromStartWith) return;
-    /* o.textChunk, o.fullTextSoFar */
-  }
-});
-const result = await stream;            // stream.stop() to abort
-const text = String(result);
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  corePlugins: { preflight: false },
+  theme: { extend: {
+    colors: { void: "#05060a", frisk: "#f2f7fa", muted: "#8b93a1", frozen: "#555d66", gunmetal: "#363840", chalk: "#191b21", glitch: "#11aecc", glitchpink: "#ec4899", glitchpurple: "#a855f7", go: "#10b981", dangerx: "#ef4444", amberx: "#fbbf24", bluex: "#3b82f6" },
+    fontFamily: { inter: ["Inter", "sans-serif"], ubuntu: ["Ubuntu", "sans-serif"], mono: ["JetBrains Mono", "monospace"] },
+  } },
+};
+</script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500;700&family=Ubuntu:wght@400;500;700&display=swap");
 
@@ -194,15 +193,6 @@ const text = String(result);
   @media (min-width: 761px) {
     /* sidebar visibility handled via sidebar-open */
   }
-  #headAvatarEl { width: 40px; height: 40px; flex-basis: 40px; font-size: 21px; }
-  #headNameWrapEl { min-width: 0; flex: 1 1 auto; }
-  #headNameEl { font-family: "Ubuntu", sans-serif; font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  #headTagEl { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  #deckChipBtn {
-    font-size: 11px; padding: 5px 10px; min-height: 0; border-radius: 8px;
-    white-space: nowrap; flex: 0 0 auto;
-    font-family: "JetBrains Mono", monospace; font-weight: 500; text-transform: none; letter-spacing: 0;
-  }
   #sideMenuCtn { padding: 0; display: flex; flex-direction: column; gap: 2px; }
   #sideMenuCtn .menuSec:first-child { padding-top: 0; }
   .menuItem:disabled { color: var(--frozen); cursor: not-allowed; }
@@ -234,21 +224,27 @@ const text = String(result);
   .typingDotsEl i:nth-child(2) { animation-delay: 0.2s; }
   .typingDotsEl i:nth-child(3) { animation-delay: 0.4s; }
   @keyframes blinkDot { 50% { opacity: 0.15; transform: translateY(-2px); } }
-  #statusBarEl { text-align: left; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); padding: 8px 0 0; min-height: 20px; }
-  #chatSideBox { padding: 0; }
-  #chatPeerRow { display: flex; gap: 10px; align-items: center; padding: 0; }
+  #statusBarEl { flex: 0 1 auto; align-self: center; min-width: 0; max-width: 200px; text-align: left; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--muted); padding: 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #composerCtn { padding: 8px 16px 16px; background: transparent; }
-  #composerForm { display: flex; gap: 8px; max-width: 860px; margin: 0 auto; align-items: flex-end; }
-  #composerForm { align-items: flex-end; }
+  #composerForm { display: flex; gap: 8px; width: 100vw; max-width: 100%; justify-content: space-between; }
+  #composerForm { align-items: stretch; }
+  #composerGroup { display: flex; align-items: stretch; gap: 0; flex: 1 1 auto; min-width: 0; max-width: 900px; margin: 0 auto; background: rgba(5, 6, 10, 0.5); border-radius: 10px; box-shadow: 0 8px 32px rgba(5, 6, 10, 0.5); }
+  #composerGroup:focus-within { outline: 2px solid var(--cyan); outline-offset: 0; }
+  #composerGroup > #stopBtn, #composerGroup > #banterBtn { height: auto; min-height: 44px; align-self: stretch; }
+  #composerGroup > #banterBtn { border-radius: 0; }
+  #composerGroup > #stopBtn { border-radius: 0 10px 10px 0; border-left: 1px solid rgba(5, 6, 10, 0.45); flex: 0 0 auto; }
+  #composerGroup > #banterBtn { border-left: 1px solid rgba(5, 6, 10, 0.45); }
+  #composerGroup > #sendBtn { border-radius: 0 10px 10px 0; border-left: 1px solid rgba(5, 6, 10, 0.45); height: auto; min-height: 44px; }
+  #composerGroup > #stopBtn { height: auto; min-height: 44px; }
+  #banterBtn svg, #sendBtn svg, #stopBtn svg, #gearBtn svg { display: block; flex: 0 0 auto; }
   #msgInput {
-    flex: 1; resize: none; min-height: 44px; max-height: 140px; padding: 11px 14px;
-    border: none; border-radius: 8px;
-    background: rgba(5, 6, 10, 0.5); color: var(--frisk);
+    flex: 1 1 auto; min-width: 0; resize: none; min-height: 44px; max-height: 140px; padding: 11px 14px;
+    border: none; border-radius: 0;
+    background: transparent; color: var(--frisk);
     font-size: 15px; font-family: "Inter", sans-serif; line-height: 1.6;
-    box-shadow: 0 8px 32px rgba(5, 6, 10, 0.5);
   }
   #msgInput::placeholder { font-style: italic; color: var(--frozen); }
-  #msgInput:focus { outline: 2px solid var(--cyan); outline-offset: 0; }
+  #msgInput:focus { outline: none; }
   #sendBtn { padding: 0 20px; height: 44px; font-size: 13px; }
   #stopBtn {
     width: 44px; height: 44px; padding: 0; font-size: 16px; flex: 0 0 auto;
@@ -290,20 +286,12 @@ const text = String(result);
   #binderHead { padding: 16px var(--side-pad) 4px; }
   #binderTitleEl { font-family: "Ubuntu", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.04em; }
   #binderCountEl { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
-  #topBar {
-    display: flex; align-items: center; gap: 12px; padding: 10px 14px; min-height: 62px;
-    border-bottom: 1px solid var(--border-soft);
-    background: rgba(54, 56, 64, 0.35);
-    backdrop-filter: blur(20px);
-    position: relative; z-index: 20;
-  }
-  #menuBtn, #gearBtn { flex: 0 0 auto; min-height: 36px; font-size: 11px; padding: 8px 14px; }
-  #chatSideBox { flex: 1 1 auto; min-width: 0; padding: 0; }
-  #chatPeerRow { display: flex; gap: 10px; align-items: center; padding: 0; }
-  #headAvatarEl { width: 36px; height: 36px; flex: 0 0 36px; font-size: 17px; }
-  #gearWrap { position: relative; flex: 0 0 auto; }
+  #menuBtn, #gearBtn { flex: 0 0 auto; min-height: 44px; font-size: 11px; padding: 8px 14px; }
+  #gearBtn { height: 100%; }
+  #composerGroup #gearBtn { border-radius: 10px 0 0 10px; border-right: 1px solid rgba(5, 6, 10, 0.45); padding: 0 12px; }
+  #gearWrap { position: relative; flex: 0 0 auto; align-self: stretch; }
   #gearMenu {
-    position: absolute; right: 0; top: calc(100% + 8px); width: 248px;
+    position: absolute; left: 0; bottom: calc(100% + 8px); width: 248px;
     background: var(--chalk); border: 1px solid var(--border-soft); border-radius: 12px;
     box-shadow: var(--shadow); padding: 8px; z-index: 60;
   }
@@ -313,7 +301,6 @@ const text = String(result);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-soft);
-    display: flex; flex-direction: column;
     position: relative; z-index: 10;
   }
   #tableBar {
@@ -321,18 +308,6 @@ const text = String(result);
     border: none;
     padding: 12px 16px 4px;
   }
-  #tableSubRow {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 4px 2px;
-  }
-  #tableSubRow #menuBtn {
-    height: 30px; padding: 0 12px; font-size: 11px;
-    background: rgba(17, 174, 204, 0.15); border: 1px solid rgba(17, 174, 204, 0.35); color: var(--cyan);
-  }
-  #tableSubRow #menuBtn:hover {
-    background: var(--cyan); color: var(--void);
-  }
-  #tableModeEl { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); }
   .tableBtn { border: none; background: var(--gunmetal); color: var(--frisk); font-family: "Ubuntu", sans-serif; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 8px; padding: 0 18px; height: 44px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
   .tableBtn:hover:not(:disabled) { filter: brightness(1.25); }
   .tableBtn:disabled { color: var(--frozen); cursor: not-allowed; filter: none; }
@@ -374,6 +349,17 @@ const text = String(result);
     body.sidebar-open #scrim { display: block; position: fixed; inset: 0; background: rgba(5, 6, 10, 0.6); z-index: 39; }
     #menuBtn { display: inline-flex; }
     .bubbleEl { max-width: 88%; }
+    #composerCtn { padding: 8px 10px 12px; }
+    #composerForm { gap: 6px; }
+    #composerForm #menuBtn { padding: 0 10px !important; min-height: 46px !important; }
+    #composerForm #gearBtn { padding: 6px 8px; }
+    #composerForm #banterBtn { padding: 0 10px; }
+    #composerForm #sendBtn { padding: 0 12px; }
+    #composerForm #stopBtn { width: 36px; }
+    #statusBarEl { max-width: 24vw; }
+    #composerForm { flex-wrap: wrap; }
+    #composerForm #composerGroup { flex: 1 1 100%; order: -1; max-width: none; margin: 0; }
+    #composerForm #statusBarEl { flex: 1 1 auto; min-width: 0; max-width: none; }
   }
 </style>
 
@@ -398,39 +384,6 @@ const text = String(result);
     </div>
   </aside>
   <main id="mainCtn">
-    <!-- TOP BAR: PURE CONTEXT & OPTIONS -->
-    <div id="topBar">
-      <div id="chatSideBox">
-        <div id="chatPeerRow">
-          <div class="charAvatarEl" id="headAvatarEl"></div>
-          <div id="headNameWrapEl">
-            <div id="headNameEl">GlitchOfHand</div>
-            <div id="headTagEl"></div>
-          </div>
-        </div>
-        <div id="statusBarEl"></div>
-      </div>
-      <div id="gearWrap">
-        <button class="btn" type="button" id="gearBtn" title="Story Options" aria-label="Story Options">Options</button>
-        <div id="gearMenu" hidden>
-          <div id="sideMenuCtn" role="menu">
-            <div class="menuSec">Story</div>
-            <button class="menuItem" id="regenBtn" role="menuitem">Regenerate last reply</button>
-            <button class="menuItem" id="clearBtn" role="menuitem">Clear story</button>
-            <div class="menuSec">Board</div>
-            <button class="menuItem" id="editCharBtn" role="menuitem">Edit selected card</button>
-            <button class="menuItem" id="shuffleBtn" role="menuitem">Shuffle draw</button>
-            <button class="menuItem" id="clearTableBtn" role="menuitem">Clear board</button>
-            <div class="menuSec">Data</div>
-            <button class="menuItem" id="shareBtn" role="menuitem">Copy share link</button>
-            <button class="menuItem" id="exportBtn" role="menuitem">Export backup</button>
-            <button class="menuItem" id="importBtn" role="menuitem">Import backup</button>
-            <button class="menuItem" id="resetBtn" role="menuitem">Restore starters</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- TOP HALF: CHAT / NARRATIVE STAGE -->
     <div id="msgListCtn" aria-live="polite"></div>
     <button id="jumpBtn" hidden title="Jump to latest" aria-label="Jump to latest">Latest</button>
@@ -439,17 +392,36 @@ const text = String(result);
     <div id="boardFooter">
       <div id="tableBar">
         <div id="tableSlotsCtn"></div>
-        <div id="tableSubRow">
-          <span id="tableModeEl"></span>
-        </div>
       </div>
       <div id="composerCtn">
         <form id="composerForm">
-          <button class="btn" type="button" id="menuBtn" title="Open Card Binder" style="flex:0 0 auto;height:44px;padding:0 16px;background:rgba(17,174,204,0.15);border:1px solid rgba(17,174,204,0.35);color:var(--cyan);">Binder</button>
+          <button class="btn" type="button" id="menuBtn" title="Open Card Binder" style="flex:0 0 auto;min-height:44px;padding:0 16px;background:rgba(17,174,204,0.15);border:1px solid rgba(17,174,204,0.35);color:var(--cyan);">Binder</button>
+          <div id="statusBarEl" title=""></div>
+          <div id="composerGroup">
+          <div id="gearWrap">
+            <button class="btn" type="button" id="gearBtn" title="Story Options" aria-label="Story Options"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+            <div id="gearMenu" hidden>
+              <div id="sideMenuCtn" role="menu">
+                <div class="menuSec">Story</div>
+                <button class="menuItem" id="regenBtn" role="menuitem">Regenerate last reply</button>
+                <button class="menuItem" id="clearBtn" role="menuitem">Clear story</button>
+                <div class="menuSec">Board</div>
+                <button class="menuItem" id="editCharBtn" role="menuitem">Edit selected card</button>
+                <button class="menuItem" id="shuffleBtn" role="menuitem">Shuffle draw</button>
+                <button class="menuItem" id="clearTableBtn" role="menuitem">Clear board</button>
+                <div class="menuSec">Data</div>
+                <button class="menuItem" id="shareBtn" role="menuitem">Copy share link</button>
+                <button class="menuItem" id="exportBtn" role="menuitem">Export backup</button>
+                <button class="menuItem" id="importBtn" role="menuitem">Import backup</button>
+                <button class="menuItem" id="resetBtn" role="menuitem">Restore starters</button>
+              </div>
+            </div>
+          </div>
           <textarea id="msgInput" placeholder="Say something..." rows="1"></textarea>
-          <button class="btn danger" type="button" id="stopBtn" title="Stop generating" hidden>Stop</button>
-          <button class="tableBtn primary" id="banterBtn" type="button" title="Next character speaks without you">Banter</button>
-          <button class="btn primary" type="submit" id="sendBtn">Send</button>
+          <button class="btn danger" type="button" id="stopBtn" title="Stop generating" aria-label="Stop" hidden><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+          <button class="tableBtn primary" id="banterBtn" type="button" title="Skip my turn — next character speaks" aria-label="Skip my turn — next character speaks"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5l7 7-7 7"/><path d="M13 5l7 7-7 7"/></svg></button>
+          <button class="btn primary" type="submit" id="sendBtn" title="Send" aria-label="Send"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
         </form>
       </div>
     </div>
@@ -489,7 +461,7 @@ const text = String(result);
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var msgListCtn = $("msgListCtn"), cardListCtn = $("cardListCtn"), statusBarEl = $("statusBarEl");
-  var msgInput = $("msgInput"), sendBtn = $("sendBtn"), stopBtn = $("stopBtn"), regenBtn = $("regenBtn");
+  var msgInput = $("msgInput"), sendBtn = $("sendBtn"), stopBtn = $("stopBtn"), regenBtn = $("regenBtn"), banterBtn = $("banterBtn");
   var composerForm = $("composerForm"), searchInput = $("searchInput");
 
   var FALLBACK_TYPES = [
@@ -572,8 +544,68 @@ const text = String(result);
     return (cut > 20 ? t.slice(0, cut) : t.slice(0, len)).trim() + "...";
   }
   function cardTagline(c) { return snippet(c && c.definition, 80); }
-  function cardGreeting(c) { return (c && c.specs && (c.specs.first_message || c.specs.greeting)) || ""; }
-  function firstMessage(c) { return cardGreeting(c); }
+ function cardGreeting(c) { return (c && c.specs && (c.specs.first_message || c.specs.greeting)) || ""; }
+ function firstMessage(c) { return cardGreeting(c); }
+  // ---- bracket toolkit (local mirror of the main.pjs canonicals) ----
+  // The canonical parseBracketLines / getBrackets / bracketLine stay in
+  // main.pjs for importers. This copy lets page code work with plain
+  // objects and object literals freely, without tripping Perchance list
+  // parsing ([ ] { } ^). No root.* dependencies.
+  function parseBracketLines(text) {
+    var out = {};
+    try {
+      var parts = String(text || "").split("\n");
+      for (var i = 0; i < parts.length; i++) {
+        var chunks = String(parts[i] || "").split(";");
+        for (var j = 0; j < chunks.length; j++) {
+          var line = String(chunks[j] || "").trim();
+          if (!line) continue;
+          var cut = line.indexOf(":");
+          if (cut < 0) cut = line.indexOf("=");
+          if (cut < 0) continue;
+          var k = line.slice(0, cut).trim();
+          var v = line.slice(cut + 1).trim();
+          if (k) out[k] = v;
+        }
+      }
+    } catch (e) {}
+    return out;
+  }
+  function getBrackets(card) {
+    var pub = {};
+    var priv = {};
+    try {
+      var s = (card && card.specs) || {};
+      if (s.brackets && typeof s.brackets === "object") {
+        var b = s.brackets;
+        var grab = function (o) {
+          if (o === undefined || o === null) return {};
+          if (typeof o === "string") return parseBracketLines(o);
+          if (typeof o !== "object") return {};
+          var r = {};
+          Object.keys(o).forEach(function (kk) { r[String(kk)] = String(o[kk]); });
+          return r;
+        };
+        pub = grab(b.public !== undefined ? b.public : b.PUBLIC);
+        priv = grab(b.private !== undefined ? b.private : b.PRIVATE);
+      } else {
+        pub = parseBracketLines(s.public_state || s.public || "");
+        priv = parseBracketLines(s.private_state || s.private || "");
+      }
+    } catch (e) {}
+    return { public: pub, private: priv };
+  }
+  function bracketLine(map) {
+    var out = "";
+    try {
+      var keys = Object.keys(map || {});
+      keys.sort();
+      var bits = [];
+      for (var i = 0; i < keys.length; i++) bits.push(String(keys[i]) + ": " + String(map[keys[i]]));
+      out = bits.join("; ");
+    } catch (e) {}
+    return out;
+  }
   function tableCards() {
     var out = [];
     state.table.forEach(function (id) {
@@ -718,7 +750,7 @@ const text = String(result);
     if (!state.starters.length && !state.hiddenStarters.length) {
       state.starters = [{
         id: "Chloe", name: "Chloe", type: "character", image: "",
-        definition: "Chloe is a warm upbeat friend.",
+        definition: "I am Chloe, a warm upbeat friend.",
         specs: { greeting: "Hey hey. I am Chloe." },
         created_at: "2026-10-20", userName: state.userName,
       }];
@@ -826,6 +858,9 @@ const text = String(result);
         getThread: threadFor,
         deckFor: deckFor,
         table: function () { return tableCards(); },
+        parseBracketLines: parseBracketLines,
+        getBrackets: getBrackets,
+        bracketLine: bracketLine,
         send: sendMessage,
         banter: function () { generateTableTurn(null); },
         buildPrompt: function (id) {
@@ -849,13 +884,57 @@ const text = String(result);
     return (c.name + " " + cardTagline(c) + " " + c.type).toLowerCase().indexOf(q) >= 0;
   }
 
-  function renderTable() {
+  var cardUI = { ok: false, failed: false, mod: null };
+  async function ensureCardUI() {
+    if (cardUI.mod) return true;
+    if (cardUI.failed) return false;
+    try {
+      cardUI.mod = await import("./src/cards/components.js");
+      cardUI.ok = true;
+    } catch (e) {
+      console.warn("card components unavailable, legacy DOM fallback", e);
+      cardUI.failed = true;
+    }
+    return cardUI.ok;
+  }
+  function toggleCardById(id) {
+    toggleTable(id);
+    document.body.classList.remove("sidebar-open");
+    var sc = $("scrim");
+    if (sc) sc.classList.remove("on");
+  }
+
+  async function renderTable() {
     var ctn = $("tableSlotsCtn");
     if (!ctn) return;
-    ctn.innerHTML = "";
     var cards = tableCards();
     var charOrder = {};
     tableCharacters().forEach(function (ch, ix) { charOrder[ch.id] = ix + 1; });
+    var emptyText = "";
+    if (cards.length < 6) {
+      var free = 6 - cards.length;
+      emptyText = cards.length === 0
+        ? "Empty board — tap binder cards"
+        : (free + (free === 1 ? " empty slot" : " empty slots"));
+    }
+    var items = cards.map(function (c) {
+      return { card: c, order: charOrder[c.id] || 0, typeLabel: (typeInfo(c.type).label || c.type) };
+    });
+    var mounted = false;
+    if (await ensureCardUI()) {
+      try {
+        cardUI.mod.renderBoardSlots(ctn, { items: items, emptyText: emptyText, onOpen: openEditor, onRemove: toggleTable });
+        mounted = true;
+      } catch (e) {
+        console.warn("board slots render failed, legacy DOM", e);
+      }
+    }
+    if (!mounted) renderTableLegacy(ctn, cards, charOrder, emptyText);
+    var banter = $("banterBtn");
+    if (banter) banter.disabled = !tableCharacters().length || !!state.generating;
+  }
+  function renderTableLegacy(ctn, cards, charOrder, emptyText) {
+    ctn.innerHTML = "";
     cards.forEach(function (c) {
       var d = document.createElement("div");
       d.className = "slotCardEl s-" + c.type;
@@ -898,50 +977,67 @@ const text = String(result);
       });
       ctn.appendChild(d);
     });
-    if (cards.length < 6) {
+    if (emptyText) {
       var s = document.createElement("div");
       s.className = "slotEl";
-      var free = 6 - cards.length;
-      s.textContent = cards.length === 0
-        ? "Empty board — tap binder cards"
-        : (free + (free === 1 ? " empty slot" : " empty slots"));
+      s.textContent = emptyText;
       ctn.appendChild(s);
     }
-    var mode = $("tableModeEl");
-    if (mode) {
-      if (!cards.length) mode.textContent = "";
-      else if (hasDirector()) mode.textContent = "2-shot · director active";
-      else mode.textContent = "1-shot · direct chat";
-    }
-    var banter = $("banterBtn");
-    if (banter) banter.disabled = !tableCharacters().length || !!state.generating;
   }
-  function renderCards() {
+  async function renderCards() {
     var q = (searchInput.value || "").toLowerCase();
-    cardListCtn.innerHTML = "";
     var list = characters().concat(storyCards());
-    var shown = 0;
+    var items = [];
     list.forEach(function (c) {
       if (!matches(q, c)) return;
+      items.push({
+        card: c,
+        selected: state.table.indexOf(c.id) >= 0,
+        tagline: cardTagline(c),
+        typeLabel: (typeInfo(c.type).label || c.type),
+        builtin: isBuiltin(c),
+      });
+    });
+    var emptyText = list.length ? "No cards match." : "No cards yet — create one.";
+    var mounted = false;
+    if (await ensureCardUI()) {
+      try {
+        cardUI.mod.renderCardList(cardListCtn, { items: items, emptyText: emptyText, onToggle: toggleCardById, onEdit: openEditor });
+        mounted = true;
+      } catch (e) {
+        console.warn("card list render failed, legacy DOM", e);
+      }
+    }
+    if (!mounted) renderCardsLegacy(cardListCtn, items, emptyText);
+    var n = state.table.length;
+    var tl = $("tableLabelEl");
+    if (tl) tl.textContent = "Active board" + (n ? " · " + n : "");
+    var bc = $("binderCountEl");
+    if (bc) bc.textContent = list.length ? (list.length + (list.length === 1 ? " card" : " cards")) : "No cards yet";
+  }
+  function renderCardsLegacy(ctn, items, emptyText) {
+    ctn.innerHTML = "";
+    var shown = 0;
+    items.forEach(function (it) {
+      var c = it.card;
       shown++;
-      var inTable = state.table.indexOf(c.id) >= 0;
       var b = document.createElement("div");
-      b.className = "charBtn" + (inTable ? " active equipped" : "");
+      b.className = "charBtn" + (it.selected ? " active equipped" : "");
       b.setAttribute("role", "button");
       b.setAttribute("tabindex", "0");
-      b.setAttribute("aria-label", c.name + (inTable ? " (on board)" : ""));
+      b.setAttribute("aria-label", c.name + (it.selected ? " (on board)" : ""));
       b.appendChild(thumbEl(c, c.type !== "character"));
       var meta = document.createElement("div");
       meta.className = "charMetaEl";
       var nm = document.createElement("b");
-      nm.textContent = c.name + (isBuiltin(c) ? "" : " •");
+      nm.textContent = c.name + (it.builtin ? "" : " •");
       meta.appendChild(nm);
       var badge = document.createElement("span");
       badge.className = "typeBadgeEl t-" + c.type;
-      badge.textContent = (typeInfo(c.type).label || c.type).toUpperCase();
+      badge.textContent = String(it.typeLabel).toUpperCase();
       meta.appendChild(badge);
       var tg = document.createElement("span");
-      tg.textContent = cardTagline(c);
+      tg.textContent = it.tagline;
       meta.appendChild(tg);
       b.appendChild(meta);
       var ed = document.createElement("button");
@@ -951,24 +1047,19 @@ const text = String(result);
       ed.setAttribute("aria-label", "Edit " + c.name);
       ed.addEventListener("click", function (e) { e.stopPropagation(); openEditor(c.id); });
       b.appendChild(ed);
-      var play = function () { toggleTable(c.id); document.body.classList.remove("sidebar-open"); var sc = $("scrim"); if (sc) sc.classList.remove("on"); };
+      var play = function () { toggleCardById(c.id); };
       b.addEventListener("click", play);
       b.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); }
       });
-      cardListCtn.appendChild(b);
+      ctn.appendChild(b);
     });
     if (!shown) {
       var d = document.createElement("div");
       d.className = "emptyNoteEl";
-      d.textContent = list.length ? "No cards match." : "No cards yet — create one.";
-      cardListCtn.appendChild(d);
+      d.textContent = emptyText;
+      ctn.appendChild(d);
     }
-    var n = state.table.length;
-    var tl = $("tableLabelEl");
-    if (tl) tl.textContent = "Active board" + (n ? " · " + n : "");
-    var bc = $("binderCountEl");
-    if (bc) bc.textContent = list.length ? (list.length + (list.length === 1 ? " card" : " cards")) : "No cards yet";
   }
 
   async function setTable(ids) {
@@ -1054,7 +1145,6 @@ const text = String(result);
     showTableThread(silent);
   }
   function showTableThread() {
-    renderHead();
     renderMessages();
     updateCounts();
     var sp = nextSpeaker();
@@ -1062,28 +1152,6 @@ const text = String(result);
     else if (sp) msgInput.placeholder = "Reply to " + sp.name + "...";
     else msgInput.placeholder = "Narrate the next beat...";
   }
-  function renderHead() {
-    var cards = tableCards();
-    var ha = $("headAvatarEl");
-    if (!cards.length) {
-      $("headNameEl").textContent = "Empty board";
-      $("headTagEl").textContent = "Play a card from the binder to begin.";
-      fillAvatar(ha, { name: "?", type: "scenario" });
-      return;
-    }
-    if (cards.length === 1 && cards[0].type === "character") {
-      $("headNameEl").textContent = cards[0].name;
-      $("headTagEl").textContent = cardTagline(cards[0]);
-      fillAvatar(ha, cards[0]);
-      return;
-    }
-    var names = cards.map(function (c) { return c.name; }).join(" + ");
-    $("headNameEl").textContent = names;
-    var kinds = cards.map(function (c) { return c.type; }).join(" · ");
-    $("headTagEl").textContent = cards.length + " cards on the board — " + kinds;
-    fillAvatar(ha, cards[0]);
-  }
-
   function parseThoughts(content) {
     var t = String(content || "");
     var i = t.indexOf("<think>");
@@ -1187,7 +1255,11 @@ const text = String(result);
   function setBusy(busy, label) {
     sendBtn.disabled = busy;
     regenBtn.disabled = busy;
+    if (busy) stopBtn.style.width = (banterBtn.offsetWidth + sendBtn.offsetWidth) + "px";
+    else stopBtn.style.width = "";
     stopBtn.hidden = !busy;
+    banterBtn.hidden = busy;
+    sendBtn.hidden = busy;
     if (busy) {
       statusBarEl.innerHTML = "";
       statusBarEl.textContent = label || "thinking...";
@@ -1409,14 +1481,8 @@ const text = String(result);
   }
 
   function countBracketKeys(text) {
-    var n = 0;
-    String(text || "").split("\n").forEach(function (rawLine) {
-      String(rawLine).split(";").forEach(function (raw) {
-        var line = String(raw).trim();
-        if (line && (line.indexOf(":") >= 0 || line.indexOf("=") >= 0)) n++;
-      });
-    });
-    return n;
+    try { return Object.keys(parseBracketLines(text)).length; }
+    catch (e) { return 0; }
   }
   function updateBracketHints() {
     ["public_state", "private_state"].forEach(function (k) {
