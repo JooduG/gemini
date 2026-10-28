@@ -134,3 +134,40 @@
 [INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
 [LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=59741 --app_data_dir=antigravity --csrf_token=581f3040-8d9f-426d-8a81-5897c7aac5dc --add-dir=c:\Users\johng\.gemini
 [LAUNCH] Server at http://127.0.0.1:59741 is READY after 3 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=55353 --app_data_dir=antigravity --csrf_token=f261402c-6414-4db8-a6ad-670ab61a734d --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:55353 is READY after 6 attempt(s).
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=60780 --app_data_dir=antigravity --csrf_token=f7bd14fd-09bc-4f88-a187-55d7b9ef1b21 --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:60780 is READY after 5 attempt(s).
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=54132 --app_data_dir=antigravity --csrf_token=01b61ba0-ad44-42d2-a956-d1c1a5130104 --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:54132 is READY after 3 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=62118 --app_data_dir=antigravity --csrf_token=0d017232-6efc-41b1-84ad-f3b7f0567078
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=62121 --app_data_dir=antigravity --csrf_token=94c2f930-ff68-4310-bf42-a0a8cde9e2a1 --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:62121 is READY after 6 attempt(s).
