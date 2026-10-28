@@ -12,6 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const { PerchanceSession } = require("./perchance-core.cjs");
 const Dev = require("./dev-core.cjs");
 const Proj = require("./project-core.cjs");
+import { deployBundle } from "./deploy.js";
 
 export const session = new PerchanceSession();
 
@@ -399,11 +400,31 @@ export const TOOLS = [
       },
       required: ["prompt"]
     }
+  },
+
+  // 8. Deployment Gate & Automation
+  {
+    name: "perchance_deploy",
+    description: "Deploy a single-file bundle or HTML file directly into a Perchance generator's output pane with automated Yjs settle verification. Uses companion browser tab if connected, otherwise headless Playwright.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        file: { type: "string", description: "Path to bundle file, e.g. 'dist/index.html'. Defaults to dist/index.html" },
+        name: { type: "string", description: "Target generator name. Optional, defaults to PERCHANCE_URL or current session" },
+        collabKey: { type: "string", description: "Collab key. Optional, defaults to PERCHANCE_KEY or hash in PERCHANCE_URL" },
+        pane: { type: "string", enum: ["output", "model"], description: "Target pane. Default 'output'" },
+        forcePlaywright: { type: "boolean", description: "Bypass companion bridge and force headless Playwright session. Default false" }
+      },
+      required: []
+    }
   }
 ];
 
 // ----------------------------- Dispatch Implementation -----------------------------
 export const DISPATCH = {
+  // Deployment
+  perchance_deploy: (a) => deployBundle(a || {}),
+
   // Session
   perchance_start: (a) => session.start(a),
   perchance_status: () => session.status(),

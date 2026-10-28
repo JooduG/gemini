@@ -1,112 +1,89 @@
 ---
 name: perchance-deployment
-description: Production release gatekeeper and deployment automation for Perchance. Use when preparing releases, verifying the single-file HTML bundle, running pre-flight gates (npm run deploy:prepare, npm run verify), executing automated Playwright deployments (npm run deploy:auto), or troubleshooting production release syncs.
+description: Production release gatekeeper and deployment automation for Perchance. Use when preparing releases, verifying single-file HTML bundles, running pre-flight gates (npm run deploy:prepare, npm run verify), executing automated deployments via perchance_deploy, or running CLI deploy scripts (npm run deploy:auto).
 ---
 
-# Perchance Deployment
+# Perchance Deployment — Operating Manual
 
-> **Persona: Sovereign Harbinger**  
-> _"I am the Mechanism of Truth. I do not trust code; I verify it. I bridge the gap between development and reality via the Perchance Bridge."_
+Automated deployment pipeline for pushing single-file HTML bundles (e.g. `dist/index.html` built via `vite-plugin-singlefile`) into Perchance generators.
 
-## 1.0 IDENTITY & PERSONA
+Deployment operates **Companion-first with Playwright fallback**:
 
-You are **Sovereign Harbinger**. I am the Mechanism of Truth. I do not trust code; I verify it. I bridge the gap between development and reality via the Perchance Bridge.
-
-As the `release` specialist, you are the master of deployment and the final quality gate. You are the operative responsible for automating build pipelines, local verification, and Perchance deployment. You operate with a clinical detachment to ensure that only battle-hardened, verified logic is allowed to cross the bridge into the production reality.
-
-## 2.0 OVERVIEW & PHILOSOPHY
-
-The `release` skill is responsible for the final stage of the simulation cycle. It ensures that no change reaches production without passing strict quality gates and that the transition to Perchance is seamless and safe.
-
-### Strategic Context
-
-- **Quality Gates**: Linting, type checking, and unit tests must pass before any release.
-- **Environment Parity**: Validate production secrets and environment variables.
-- **Optimized Bundling**: Enforce the physical limits of the Perchance single-file bundle.
+1. **Live Browser Tab (Companion Bridge)**: If the user has an active generator tab open with the Weld userscript connected via the Companion Bridge on `127.0.0.1:8765`, deployment writes directly into the open tab with zero startup latency and zero Cloudflare overhead.
+2. **Headless Browser Session (Playwright)**: If no companion tab is connected, it launches an automated headless Playwright session (Firefox default), authenticates via `collabKey`, writes the bundle to the target pane, and verifies Yjs settlement.
 
 ---
 
-## 3.0 WHEN TO USE
+## 1.0 Empirical Pitfalls & Scar Tissue
 
-- **Positive Triggers**: Any task involving production releases, quality gate execution (`npm run deploy:prepare`), or automated deployment to the Perchance environment (`npm run deploy:auto`).
-- **EXCLUSIONS**: Core engine development, local utility scripts.
+| Trigger                  | Wrong Behavior                                                          | Correct Behavior                                                                                         |
+| :----------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| **Bundle Size > 4 MB**   | Attempting to write uncompressed/large bundles directly into Perchance. | Enforce hard 4 MB ceiling (`MAX_BUNDLE_BYTES`). Fail fast with optimization tips to avoid Yjs freeze.    |
+| **Cloudflare Challenge** | Using raw Puppeteer/Chromium without session escalation.                | Use Companion Bridge or Playwright Firefox engine (`engine: "firefox"`) to pass Cloudflare verification. |
+| **Yjs Collab Race**      | Closing browser session immediately after writing text.                 | Always wait for Yjs settlement (`settle: true` or `session.status()`) before closing session.            |
+| **Collab Key Leak**      | Hardcoding `#edit:collab=KEY` in public scripts or git commits.         | Read `PERCHANCE_URL` and `PERCHANCE_KEY` exclusively from local `.env` (gitignored).                     |
 
 ---
 
-## 4.0 OPERATIONAL PROTOCOL
+## 2.0 Deployment Execution Modes
 
-### 1. The Quality Gate
+### Mode 1: Native MCP Tool (`perchance_deploy`)
 
-Execute the Warden and the test suite via `npm run deploy:prepare`.
+Agents deploy directly in one atomic call without shelling out:
 
-- **Fail Fast**: Catch lint and type errors locally before they hit CI.
+```javascript
+// Deploy default dist/index.html to target from .env
+await perchance_deploy({
+  file: "dist/index.html",
+  pane: "output",
+});
 
-### 2. Parallel Verification (/review pattern)
-
-For significant changes, fan out specialized sub-agents to verify the artifact from independent perspectives:
-
-- **`code-reviewer`**: Focus on race conditions, logic, and style.
-- **`security-auditor`**: Focus on auth, sanitization, and secrets.
-- **`test-engineer`**: Focus on coverage gaps and regression tests.
-
-Merge these findings into a single Go/No-Go decision.
-
-### 3. The Perchance MCP Bridge
-
-Deploying to production is executed directly via the **`perchance` MCP Server** (`perchance-editor-mcp`), bypassing brittle manual browser automation scripts.
-
-```bash
-# 1. Verify and compile the single-file bundle locally
-npm run deploy:prepare
-
-# 2. Deploy directly via Perchance MCP tools:
-# - perchance_start: Connects to generator room via collabKey
-# - perchance_edit: Writes dist/index.html to pane: 'output'
-# - perchance_status: Verifies collabSynced and saveState: 'saved'
-# - perchance_interact: Takes visual confirmation screenshot (action: 'screenshot')
+// Deploy to a specific generator shard with custom key
+await perchance_deploy({
+  file: "dist/index.html",
+  name: "rpglitchen",
+  collabKey: "my-collab-key",
+  forcePlaywright: false,
+});
 ```
 
-Automated CLI bridge verification:
+### Mode 2: Central CLI Runner (`scripts/deploy.js`)
+
+Triggered via npm or terminal directly:
 
 ```bash
+# 1. Run local verification and build pipeline
+npm run deploy:prepare
+
+# 2. Execute automated deployment runner
 npm run deploy:auto
 ```
 
----
+Or invoke the central runner with explicit arguments:
 
-### 4.0 Deployment Configuration & Shard Registry
-
-Generator targets are defined via environment variables in `.env` (collab keys are credentials and must never be committed to git):
-
-- `PERCHANCE_URL`: Full URL of the target generator, e.g. `https://perchance.org/my-generator#edit:collab=KEY`
-- `PERCHANCE_KEY`: Optional fallback collab key if not embedded in the URL hash.
-
-To deploy or switch the active MCP session to any generator:
-
-```js
-// Call perchance_start via Perchance MCP
-perchance_start({ name: "my-generator", collabKey: process.env.PERCHANCE_KEY })
+```bash
+node C:/Users/johng/.gemini/config/plugins/perchance-plugin/scripts/deploy.js --file dist/index.html --name rpglitchen
 ```
 
 ---
 
-## 5.0 MANDATORY DIRECTIVES & QUALITY GATE
+## 3.0 Configuration & Environment Variables
 
-- **Verification Protocol**: You must run the quality gate (`npm run deploy:prepare`) and wait for the tests/linting to pass before executing the bridge (`npm run deploy:auto`).
-- **Rollback Readiness**: Always be prepared to revert to a previous Commit-SHA if the automated bridge deployment fails.
-- **Unified Release Protocol**: For git packaging, semantic tagging, and remote synchronization, follow [release-protocol.md](./references/release-protocol.md).
+Define the deployment target in the project's root `.env` (never commit credentials to git):
 
----
+```env
+# Target generator URL (can include #edit:collab=KEY)
+PERCHANCE_URL=https://perchance.org/rpglitchen#edit:collab=YOUR_COLLAB_KEY
 
-## 6.0 VERIFICATION (Definition of Done)
-
-- [ ] All quality gates pass (lint, types, tests, build).
-- [ ] Environment secrets correspond to the live production shard.
-- [ ] Automated Bridge reports "Saved Successfully".
-- [ ] Production build is optimized (Bundle size check).
+# Optional fallback collab key if not present in the URL hash
+PERCHANCE_KEY=YOUR_COLLAB_KEY
+```
 
 ---
 
-## 7.0 REFERENCE GUIDES
+## 4.0 Pre-Flight & Verification (Definition of Done)
 
-- [Unified 5-Stage Release Protocol](./references/release-protocol.md): Pre-flight verification, asset hardening, git packaging, semantic tagging, and mission board handoff.
+- [ ] Quality gates pass (`npm run deploy:prepare`: lint, tests, build).
+- [ ] Single-file HTML bundle exists and is under 4 MB.
+- [ ] Automated deploy runner or `perchance_deploy` reports successful settlement.
+- [ ] Generator live reload verified in browser or via `perchance_refresh`.

@@ -12,6 +12,12 @@
     "image-plugin",
     "weld",
     "deployment",
-    "editor"
+    "editor",
+    "server-plugin",
+    "multiplayer",
+    "storage",
+    "upload",
+    "kv",
+    "platform"
   ]
 }

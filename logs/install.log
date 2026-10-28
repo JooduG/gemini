@@ -24,3 +24,113 @@
 [INSTALL] Antigravity Backend successfully installed to C:\Users\johng\.gemini\bin\agy.exe.
 [LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.4) --hub --hub-port=62743 --app_data_dir=antigravity --csrf_token=31ebf1d0-77ec-47f4-8e8f-6cebec5a2d56 --add-dir=c:\Users\johng\source\repos\GlitchOfHands
 [LAUNCH] Server at http://127.0.0.1:62743 is READY after 3 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.4 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.4 >= target 1.4.4). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.4) --hub --hub-port=59902 --app_data_dir=antigravity --csrf_token=cd22dab6-428e-47ef-be01-916f0f854613 --add-dir=c:\Users\johng\source\repos\GlitchOfHands
+[LAUNCH] Server at http://127.0.0.1:59902 is READY after 4 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.4 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.4 >= target 1.4.4). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.4) --hub --hub-port=60930 --app_data_dir=antigravity --csrf_token=28a2d03b-9e27-4226-99df-2e664f3ec4bb --add-dir=c:\Users\johng\source\repos\GlitchOfHands
+[LAUNCH] Server at http://127.0.0.1:60930 is READY after 3 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.4 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Version check failed: actual='1.4.4', expected>=1.4.8
+[INSTALL] Checking Antigravity releases...
+[INSTALL] Fetching manifest from releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found release v1.4.8 (win32-x64): https://storage.googleapis.com/antigravity-public/antigravity-cli/1.4.8-5447777392656384/windows-x64/cli_windows_x64.exe
+[INSTALL] Downloading Antigravity Backend to temporary path C:\Users\johng\.gemini\bin\agy.tmp.70c6f66d-7dda-4f21-a41c-43da83c97ec2...
+[INSTALL] Download progress: 10% (20840448/207765656 bytes)
+[INSTALL] Download progress: 20% (41566208/207765656 bytes)
+[INSTALL] Download progress: 30% (62390272/207765656 bytes)
+[INSTALL] Download progress: 40% (83116032/207765656 bytes)
+[INSTALL] Download progress: 50% (103890944/207765656 bytes)
+[INSTALL] Download progress: 60% (124682240/207765656 bytes)
+[INSTALL] Download progress: 70% (145457152/207765656 bytes)
+[INSTALL] Download progress: 80% (166215680/207765656 bytes)
+[INSTALL] Download progress: 90% (187006976/207765656 bytes)
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.4 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Version check failed: actual='1.4.4', expected>=1.4.8
+[INSTALL] Checking Antigravity releases...
+[INSTALL] Fetching manifest from releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found release v1.4.8 (win32-x64): https://storage.googleapis.com/antigravity-public/antigravity-cli/1.4.8-5447777392656384/windows-x64/cli_windows_x64.exe
+[INSTALL] Downloading Antigravity Backend to temporary path C:\Users\johng\.gemini\bin\agy.tmp.48b06cc0-537f-48d2-8b18-6a0583ca488c...
+[INSTALL] Download progress: 10% (20791296/207765656 bytes)
+[INSTALL] Download progress: 20% (41566208/207765656 bytes)
+[INSTALL] Download progress: 30% (62341120/207765656 bytes)
+[INSTALL] Download progress: 40% (83116032/207765656 bytes)
+[INSTALL] Download progress: 50% (103890944/207765656 bytes)
+[INSTALL] Download progress: 60% (124665856/207765656 bytes)
+[INSTALL] Download progress: 70% (145440768/207765656 bytes)
+[INSTALL] Download progress: 80% (166215680/207765656 bytes)
+[INSTALL] Download progress: 90% (186990592/207765656 bytes)
+[INSTALL] Download progress: 100% (207765656/207765656 bytes)
+[INSTALL] Verifying SHA512 checksum...
+[INSTALL] SHA512 checksum verified successfully.
+[INSTALL] Staged existing Windows binary aside to C:\Users\johng\.gemini\bin\agy.exe.old.4d6137ac
+[INSTALL] Cleaned up stale binary backup: C:\Users\johng\.gemini\bin\agy.exe.old.4d6137ac
+[INSTALL] Antigravity Backend successfully installed to C:\Users\johng\.gemini\bin\agy.exe.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.8) --hub --hub-port=64824 --app_data_dir=antigravity --csrf_token=55e3bf70-b7b2-41f3-9689-4fb13f77b0ec --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:64824 is READY after 4 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.8 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.8 >= target 1.4.8). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.8) --hub --hub-port=59068 --app_data_dir=antigravity --csrf_token=af8d294e-1606-4422-adff-dee08481182f --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:59068 is READY after 4 attempt(s).
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.8 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Version check failed: actual='1.4.8', expected>=1.4.9
+[INSTALL] Checking Antigravity releases...
+[INSTALL] Fetching manifest from releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found release v1.4.9 (win32-x64): https://storage.googleapis.com/antigravity-public/antigravity-cli/1.4.9-4962164969177088/windows-x64/cli_windows_x64.exe
+[INSTALL] Downloading Antigravity Backend to temporary path C:\Users\johng\.gemini\bin\agy.tmp.f0c50551-39a5-4456-8be7-9d5488c2afa5...
+[INSTALL] Download progress: 10% (20855811/208545432 bytes)
+[INSTALL] Download progress: 20% (41711280/208545432 bytes)
+[INSTALL] Download progress: 30% (62564404/208545432 bytes)
+[INSTALL] Download progress: 40% (83469940/208545432 bytes)
+[INSTALL] Download progress: 50% (104275451/208545432 bytes)
+[INSTALL] Download progress: 60% (125150430/208545432 bytes)
+[INSTALL] Download progress: 70% (145988489/208545432 bytes)
+[INSTALL] Download progress: 80% (166877096/208545432 bytes)
+[INSTALL] Download progress: 90% (187698380/208545432 bytes)
+[INSTALL] Download progress: 100% (208545432/208545432 bytes)
+[INSTALL] Verifying SHA512 checksum...
+[INSTALL] SHA512 checksum verified successfully.
+[INSTALL] Staged existing Windows binary aside to C:\Users\johng\.gemini\bin\agy.exe.old.ed6787b7
+[INSTALL] Cleaned up stale binary backup: C:\Users\johng\.gemini\bin\agy.exe.old.ed6787b7
+[INSTALL] Antigravity Backend successfully installed to C:\Users\johng\.gemini\bin\agy.exe.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=49255 --app_data_dir=antigravity --csrf_token=328e6af9-2ba5-4ca6-ab24-6c85fb6c89e4 --add-dir=c:\Users\johng\source\repos\RPGlitch
+[LAUNCH] Server at http://127.0.0.1:49255 is READY after 3 attempt(s).
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=63933 --app_data_dir=antigravity --csrf_token=88e611a5-6e3a-4f8e-8c23-a24d980ac29d
+[LAUNCH] Server at http://127.0.0.1:63933 is READY after 3 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.5.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Found existing valid binary v1.4.9 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Installed binary is valid (actual version 1.4.9 >= target 1.4.9). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.9) --hub --hub-port=59741 --app_data_dir=antigravity --csrf_token=581f3040-8d9f-426d-8a81-5897c7aac5dc --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:59741 is READY after 3 attempt(s).

@@ -1,0 +1,10 @@
+$meta
+  title = RPGlitchen
+  description = RPGlitchen
+  header
+    mode = minimal
+
+// --- IMPORTS ---
+generate_text = {import:ai-text-plugin}
+generate_image = {import:text-to-image-plugin}
+fetch_web = {import:super-fetch-plugin}

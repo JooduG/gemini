@@ -615,9 +615,55 @@
       const match = /^<!--\s*weld-ignore:\s*(duplicate-id|id-collision|browser-global-shadow|implicit-element-ref|inline-module-write)\s+([A-Za-z_$][\w$-]*)\s*-->$/.exec(c.text);
       return match ? [{ id: match[1], subject: match[2], line: lineOf(html, c.start) }] : [];
     });
-    JS.forEach(s => htmlTraps(s.code).forEach(t => info.findings.push({ id: 'perchance-trap', severity: 'warn', pane: 'html', line: s.line + lineOf(s.code, t.index) - 1, message: t.message })));
     info.mixedContent = info.urls.filter(u => u.insecure && !/^(localhost|127\.0\.0\.1)$/i.test(u.host));
     info.mixedContent.forEach(u => info.findings.push({ id: 'insecure-url', severity: 'warn', pane: 'html', line: u.line, message: 'Insecure http:// address: ' + u.url, hint: 'Browsers block http:// resources on an https page. Use https:// or host the file elsewhere.' }));
+
+    // Static linting for Perchance Server Plugin scripts (<script type="text/x-server-plugin">)
+    const serverScripts = reg.scripts.filter(s => s.type === 'text/x-server-plugin');
+    serverScripts.forEach(s => {
+      const code = s.code;
+      // Fatal violations in synchronous server compartment
+      const fatalRules = [
+        { re: /\basync\s+(?:function\b|\(|[\w$]+\s*=>)/g, id: 'server-async-forbidden', msg: 'Forbidden "async" keyword in server script. Perchance server scripts are strictly synchronous.' },
+        { re: /\bPromise\b/g, id: 'server-promise-forbidden', msg: 'Forbidden "Promise" in server script. Handlers must run synchronously within 50ms.' },
+        { re: /\b(?:setTimeout|setInterval|setImmediate)\b/g, id: 'server-timer-forbidden', msg: 'Timers (setTimeout/setInterval) do not exist in the server sandbox.' },
+        { re: /\b(?:fetch|XMLHttpRequest|WebSocket)\b/g, id: 'server-network-forbidden', msg: 'Network APIs (fetch/WebSocket) are forbidden on the server. Use jobs.* for network tasks.' },
+        { re: /\b(?:window|document|localStorage|sessionStorage)\b/g, id: 'server-browser-global-forbidden', msg: 'Browser global referenced in server script (window/document/localStorage).' }
+      ];
+      fatalRules.forEach(rule => {
+        let match;
+        while ((match = rule.re.exec(code))) {
+          info.findings.push({
+            id: rule.id,
+            severity: 'error',
+            pane: 'html',
+            line: s.line + lineOf(code, match.index) - 1,
+            message: rule.msg,
+            hint: 'The server environment only supports synchronous ES primitives, typed arrays, DataView, Math, Date, state, and jobs.'
+          });
+        }
+      });
+
+      // Performance warnings (high risk of timeout or memory exhaustion)
+      const warningRules = [
+        { re: /JSON\.stringify\s*\(\s*state\s*\)/g, id: 'server-state-json-serialize', msg: 'JSON.stringify(state) will attempt to serialize a 50MB buffer and trigger a 50ms CPU timeout.' },
+        { re: /new\s+TextDecoder\s*\(\s*\)\s*\.\s*decode\s*\(\s*state\s*\)/g, id: 'server-state-full-decode', msg: 'Decoding the entire 50MB state buffer will exceed the 50ms handler CPU limit.' }
+      ];
+      warningRules.forEach(rule => {
+        let match;
+        while ((match = rule.re.exec(code))) {
+          info.findings.push({
+            id: rule.id,
+            severity: 'warn',
+            pane: 'html',
+            line: s.line + lineOf(code, match.index) - 1,
+            message: rule.msg,
+            hint: 'Read and write state using DataView at bounded byte offsets. Never process all 50MB at once.'
+          });
+        }
+      });
+    });
+
     return info;
   }
   // A structural map of a big HTML panel, for when the whole panel will not fit anywhere.
