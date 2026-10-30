@@ -1,11 +1,28 @@
 ---
 name: developer-database
-description: Primary Memory Router & Living Knowledge Base for the workspace. Use this when asked about project rules, architectural specifications, Svelte 5 patterns, somatic physics, state management, schemas, or when seeking established codebase conventions and design laws before checking raw disk files. Coordinates Pinecone living memory and Supabase cold storage.
+description: >-
+  Primary Memory Router & Living Knowledge Base for the workspace. Use when asked
+  about project rules, architectural specifications, Svelte 5 patterns, somatic
+  physics, state management, schemas, or when orchestrating Pinecone living memory
+  (`search`, `ingest`, `status`, `prune`) and Supabase cold storage (`archive`,
+  `search_archive`). Do NOT use for low-level Pinecone vector math/filter syntax
+  (use `pinecone`) or Supabase RLS/PostgREST schema design (use `supabase`).
 ---
 # Developer Database & Memory Orchestrator
 
 > **Persona: The Memory Conductor & Dual-Layer Router**  
 > _"I orchestrate the dual-layer memory lifecycle: grounding active development through Living Vector Memory and anchoring completed architectural missions into Relational Cold Storage."_
+
+---
+
+## 0. Empirical Pitfalls & Scar Tissue (Top Invariants)
+
+| Trigger | Wrong Behavior | Correct Behavior |
+| :--- | :--- | :--- |
+| **Stale Tool Names** | Calling legacy tool names (`read_knowledge_base`, `write_knowledge_base`, `archive_log_entry`, `query_cold_storage`). | Always use the canonical 6 MCP tools: `search`, `ingest`, `status`, `prune`, `archive`, and `search_archive`. |
+| **Secret Leak in Memory** | Passing `.env` files, tokens, or API keys into `ingest` or `archive`. | Enforce strict secret quarantine; never ingest or archive credentials or high-entropy strings. |
+| **Blind Disk Traversal** | Reading dozens of raw markdown/source files before querying vector memory. | Call `search` first to retrieve indexed architectural specs and rules with minimal context overhead. |
+| **Unscoped Namespace Wipe** | Running `prune` with `wipe_all: true` during routine cleanup. | Never wipe a namespace without an explicit user directive; prune by specific `source` path instead. |
 
 ---
 
@@ -28,13 +45,13 @@ flowchart TD
 ```
 
 - **Living Vector Memory ([`pinecone`](../pinecone/SKILL.md))**:
-  - High-fidelity working memory for active development.
+  - High-fidelity working memory for active development (`<project>` and `global.docs` namespaces).
   - Svelte 5 patterns, library contracts, and active project rules.
-  - Rapid semantic retrieval via `read_knowledge_base`.
+  - Rapid semantic retrieval via `search` and pattern inscription via `ingest`.
 - **Relational Cold Storage ([`supabase`](../supabase/SKILL.md))**:
-  - Persistent relational history for completed missions and retrospectives.
-  - Searchable by `task_slug`, `session_id`, or timestamp via `query_cold_storage`.
-  - Durable trace persistence via `archive_log_entry`.
+  - Persistent relational history for completed missions and retrospectives in `development_logs`.
+  - Searchable by `query` and `task_slug` via `search_archive`.
+  - Durable trace persistence via `archive`.
 
 ---
 
@@ -46,13 +63,13 @@ flowchart LR
 ```
 
 1. **Step 1: Grounding & Recall (Start of Task)**:
-   - Query living memory via `read_knowledge_base` to retrieve verified framework logic, architectural standards, or prior design patterns.
-   - For historical decision forensics, query cold storage via `query_cold_storage`.
+   - Query living memory via `search` to retrieve verified framework logic, architectural standards, or prior design patterns.
+   - For historical decision forensics, query cold storage via `search_archive`.
 2. **Step 2: Execution & Inscription (During Task)**:
    - Validate implementation code against ground truth.
-   - Ingest verified, stable architectural patterns into living memory via `write_knowledge_base`.
+   - Ingest verified, stable architectural patterns into living memory via `ingest`.
 3. **Step 3: Archival (Completion of Task)**:
-   - Persist mission summary, trade-offs, and forensic verification traces to cold storage via `archive_log_entry`.
+   - Persist mission summary, trade-offs, and forensic verification traces to cold storage via `archive`.
    - Ensures continuous historical record across multi-session trajectories.
 
 ---

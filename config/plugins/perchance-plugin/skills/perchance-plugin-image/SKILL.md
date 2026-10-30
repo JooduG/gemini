@@ -1,6 +1,12 @@
 ---
 name: perchance-plugin-image
-description: Authoritative technical specification for the Perchance Text-to-Image Plugin (text-to-image-plugin). Use when implementing, debugging, or asking about root.generateImage(), diffusion prompt construction, negative prompts, resolution scaling (512x768), guidanceScale/CFG, referenceImage (img2img guidance), removeBackground, or public gallery integration.
+description: >-
+  Authoritative technical specification for the Perchance Text-to-Image Plugin
+  (`{import:text-to-image-plugin}`). Use when implementing, debugging, or asking
+  about `root.generateImage()`, diffusion prompt construction, `negativePrompt`,
+  resolution scaling (`512x768`), `guidanceScale`/CFG, `referenceImage` (img2img),
+  `removeBackground`, or gallery controls. Do NOT use for AI text generation —
+  use `perchance-plugin-text` instead.
 ---
 
 # Image Generation Technical Specification & Usage Guide
@@ -12,7 +18,14 @@ description: Authoritative technical specification for the Perchance Text-to-Ima
 generateImage = {import:text-to-image-plugin}
 ```
 
-## 1.0 Architectural Laws & Anti-Patterns ("What NOT to Do")
+## 1.0 Empirical Pitfalls & Architectural Laws ("What NOT to Do")
+
+| Trigger | Wrong Behavior | Correct Behavior |
+| :--- | :--- | :--- |
+| **Vendoring Plugin Source** | Copying `text-to-image-plugin` JS source directly into the generator. | Always use `{import:text-to-image-plugin}`; vendored copies break silently when `image-generation.perchance.org` updates. |
+| **Unsupported Resolution** | Passing arbitrary pixel dimensions (e.g. `1024x1024`) to `resolution`. | Use only supported aspect resolutions: `512x512`, `512x768`, `768x512`, or `768x768` (control display size via `width`). |
+| **Prompt Telepathy Leak** | Passing internal game state, JSON brackets, or hidden secrets into `prompt`. | Strip internal state deterministically before calling `root.generateImage()`; include only visual descriptors. |
+| **Eager Bulk Generation** | Firing dozens of concurrent `generateImage()` calls on page load. | Respect viewport intersection lazy loading and queue generations to avoid user-level rate limits. |
 
 > [!CAUTION]
 > **DO NOT VENDOR OR FORK `text-to-image-plugin` SOURCE CODE**: The plugin's client JS is tightly coupled with server-side endpoints on `https://image-generation.perchance.org`. Forking or copying the plugin code directly will cause your generator to break silently whenever server APIs update.

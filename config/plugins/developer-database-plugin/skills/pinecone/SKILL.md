@@ -1,6 +1,11 @@
 ---
 name: pinecone
-description: Pinecone vector database & living memory specialist skill. Governs vector indexing, serverless architecture, multilingual-e5 embeddings, namespace isolation, metadata filtering, similarity search, batch ingestion constraints, and index diagnostics. Load this skill when performing semantic search, embedding codebases, configuring namespaces, tuning similarity thresholds, or debugging Pinecone API responses.
+description: >-
+  Pinecone vector database & living memory specialist skill. Use when performing
+  semantic vector search, embedding codebases with `multilingual-e5-large`,
+  configuring `<project>` or `global.docs` namespaces, constructing MongoDB-style
+  metadata filters (`$eq`, `$in`), or diagnosing Pinecone index status. Do NOT use
+  for Supabase relational cold storage or RLS policies — use `supabase` instead.
 ---
 
 # Pinecone Vector Living Memory Specialist
@@ -10,13 +15,24 @@ description: Pinecone vector database & living memory specialist skill. Governs 
 
 ---
 
+## 0. Empirical Pitfalls & Scar Tissue (Top Invariants)
+
+| Trigger | Wrong Behavior | Correct Behavior |
+| :--- | :--- | :--- |
+| **Nested Metadata JSON** | Passing nested objects into Pinecone vector metadata. | Pinecone strictly requires flat key-value metadata (strings, numbers, booleans, or string arrays). |
+| **Immediate Post-Upsert Probe** | Querying `search` within milliseconds of `ingest` and assuming failure on 0 hits. | Serverless partitions have a 5–10s asynchronous write-visibility window before new vectors are searchable. |
+| **Legacy Namespace Names** | Targeting obsolete `<project>.knowledge-base.meta` or `knowledge-base.external` namespaces. | Always target `<project>` (e.g. `rpglitch` with `category: "docs"` or `"src"`) and `global.docs`. |
+| **Asymmetric Input Mismatch** | Embedding queries with `input_type: "passage"` or documents with `"query"`. | Always use `input_type: "passage"` for ingestion and `input_type: "query"` for semantic search (`multilingual-e5-large`). |
+
+---
+
 ## 1. Scope & Primary Domain
 
 This specialist skill provides authoritative execution patterns for **Pinecone** within the developer memory ecosystem:
 
 1. **Living Vector Memory**: Managing semantic recall for framework logic, coding standards, and architectural blueprints.
 2. **Integrated Inference**: Leveraging hosted embedding models (`multilingual-e5-large`) without external model providers.
-3. **Partition-Level Isolation**: Segmenting project-scoped memory (`<project>.knowledge-base.meta`) from global standards (`knowledge-base.external`).
+3. **Partition-Level Isolation**: Segmenting project-scoped memory (`<project>`, e.g. `rpglitch`) from global standards (`global.docs`).
 4. **Metadata & Similarity Queries**: Executing top-K semantic search, cosine similarity ranking, and MongoDB-style metadata filtering.
 5. **Batch Ingestion Mechanics**: Handling chunking, sha256 deterministic IDs, safe batch sizing, and write-visibility windows.
 
@@ -67,6 +83,7 @@ Consult specialized vector guides in [`references/`](file:///C:/Users/johng/.gem
 - **[metadata-filtering.md](references/metadata-filtering.md)**: MongoDB-style operators (`$eq`, `$in`, `$gte`, `$and`, `$or`), string-list filtering, and schema auto-indexing.
 - **[embedding-models.md](references/embedding-models.md)**: Integrated `/embed` API, asymmetric `input_type` (`"passage"` vs `"query"`), and chunk sizing.
 - **[namespace-strategies.md](references/namespace-strategies.md)**: Project-scoped isolation (`<project>.knowledge-base.meta`) vs global library standards (`knowledge-base.external`).
+- **[namespace-strategies.md](references/namespace-strategies.md)**: Project-scoped isolation (`<project>`) vs global library standards (`global.docs`).
 
 ---
 

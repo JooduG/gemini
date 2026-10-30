@@ -1,23 +1,15 @@
 {
   "name": "perchance-plugin",
-  "version": "1.0.0",
-  "description": "Unified Perchance development, deployment, editor automation, and AI companion plugin.",
+  "displayName": "Perchance Platform & Automation Suite",
+  "version": "2.0.0",
+  "description": "End-to-end Perchance.org development, AST static analysis, live Playwright & Companion Bridge editor automation, multiplayer server-plugin, storage, and AI text/image generation.",
+  "logo": "assets/logo.svg",
   "author": {
     "name": "Antigravity Engineering"
   },
-  "keywords": [
-    "perchance",
-    "mcp",
-    "text-plugin",
-    "image-plugin",
-    "weld",
-    "deployment",
-    "editor",
-    "server-plugin",
-    "multiplayer",
-    "storage",
-    "upload",
-    "kv",
-    "platform"
+  "suggestedPrompts": [
+    "Pull and run static AST analysis on my Perchance generator",
+    "Deploy dist/index.html to my Perchance generator via the Companion Bridge",
+    "Audit my Perchance server-plugin script for synchronous sandbox compliance"
   ]
 }

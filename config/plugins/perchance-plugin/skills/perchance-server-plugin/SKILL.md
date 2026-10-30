@@ -1,6 +1,12 @@
 ---
 name: perchance-server-plugin
-description: Authoritative technical specification for the Perchance Server Plugin (server-plugin). Use when implementing, debugging, or asking about realtime multiplayer, createServerSocket(), synchronous server sandboxes, 50 MiB persistent binary state (Uint8Array), server jobs with client tickets (jobs.generateText, jobs.generateImage, jobs.upload), or QuickJS emulator testing.
+description: >-
+  Authoritative technical specification for the Perchance Server Plugin (`{import:server-plugin}`).
+  Use when implementing, debugging, or asking about realtime multiplayer, `root.createServerSocket()`,
+  `<script type="text/x-server-plugin">`, synchronous server sandboxes, 50 MiB persistent binary state
+  (`state: Uint8Array` / `DataView`), server jobs with client tickets (`jobs.generateText`,
+  `jobs.generateImage`, `jobs.upload`), or QuickJS emulator testing. Do NOT use for client-only
+  `upload-plugin` or `kv-plugin` storage — use `perchance-storage` instead.
 ---
 
 # Perchance Server Plugin — Technical Specification & Operating Manual

@@ -1,6 +1,11 @@
 ---
 name: perchance-storage
-description: Authoritative technical specification for Perchance Storage mechanisms, covering programmatic CDN file hosting (upload-plugin), stable editable text URLs (uploadPlugin.editable), temporary high-limit uploads, and persistent client-side IndexedDB key-value storage (kv-plugin).
+description: >-
+  Authoritative technical specification for Perchance client & CDN storage mechanisms.
+  Use when implementing or debugging programmatic CDN file hosting (`{import:upload-plugin}`),
+  stable editable text URLs (`uploadPlugin.editable` and `editKey`), temporary 400x high-limit
+  uploads (`expires`), or persistent client-side IndexedDB key-value storage (`{import:kv-plugin}`).
+  Do NOT use for multiplayer server binary `state: Uint8Array` — use `perchance-server-plugin` instead.
 ---
 
 # Perchance Storage — Operating Manual

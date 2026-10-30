@@ -1,16 +1,15 @@
 {
   "name": "developer-database-plugin",
-  "version": "1.0.0",
-  "description": "Dual-layer agent memory ecosystem integrating Pinecone living vector space and Supabase persistent cold storage.",
+  "displayName": "Developer Database & Dual-Layer Memory",
+  "version": "2.0.0",
+  "description": "Dual-layer agent memory ecosystem uniting Pinecone living vector recall with Supabase relational cold storage for architectural specifications, codebase rules, and mission logs.",
+  "logo": "assets/logo.svg",
   "author": {
     "name": "Antigravity Engineering"
   },
-  "keywords": [
-    "memory",
-    "pinecone",
-    "supabase",
-    "developer-database",
-    "vector",
-    "cold-storage"
+  "suggestedPrompts": [
+    "Search living vector memory for established Svelte 5 and architecture patterns",
+    "Check developer database index health and vector counts across namespaces",
+    "Ingest updated architectural specs into Pinecone living memory"
   ]
 }

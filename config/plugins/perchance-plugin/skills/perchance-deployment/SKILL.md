@@ -1,6 +1,12 @@
 ---
 name: perchance-deployment
-description: Production release gatekeeper and deployment automation for Perchance. Use when preparing releases, verifying single-file HTML bundles, running pre-flight gates (npm run deploy:prepare, npm run verify), executing automated deployments via perchance_deploy, or running CLI deploy scripts (npm run deploy:auto).
+description: >-
+  Production release gatekeeper and deployment automation for Perchance. Use when
+  preparing releases, verifying single-file HTML bundles (`<= 4.00 MB`), running
+  pre-flight gates (`npm run deploy:prepare`, `npm run verify`), executing automated
+  deployments via `perchance_deploy`, or running CLI deploy scripts (`npm run deploy:auto`).
+  Do NOT use for interactive live-editor code mutations or AST linting — use
+  `perchance-editor` instead.
 ---
 
 # Perchance Deployment — Operating Manual

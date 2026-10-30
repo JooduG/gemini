@@ -1,6 +1,12 @@
 ---
 name: perchance-plugin-text
-description: Authoritative technical specification for the Perchance AI Text Generation Plugin (ai-text-plugin). Use when implementing, debugging, or asking about root.generateText(), text streaming (onChunk, outputTo), stopSequences, startWith anchoring, prefix caching, token budgeting, iframe postMessage lifecycle, or vision attachments.
+description: >-
+  Authoritative technical specification for the Perchance AI Text Generation Plugin
+  (`{import:ai-text-plugin}`). Use when implementing, debugging, or asking about
+  `root.generateText()`, text streaming (`onChunk`, `outputTo`), `stopSequences`,
+  `startWith` anchoring, prefix caching, token budgeting, iframe postMessage
+  lifecycles, or vision attachments. Do NOT use for image diffusion (`text-to-image-plugin`)
+  — use `perchance-plugin-image` instead.
 ---
 
 # AI Text Plugin Technical Specification & Usage Guide
@@ -11,6 +17,15 @@ description: Authoritative technical specification for the Perchance AI Text Gen
 ```pjs
 generateText = {import:ai-text-plugin}
 ```
+
+## 0. Empirical Pitfalls & Scar Tissue (Top Invariants)
+
+| Trigger | Wrong Behavior | Correct Behavior |
+| :--- | :--- | :--- |
+| **Trailing Space in `startWith`** | Relying on trailing spaces at the end of `startWith: "Bob: "`. | The API strips trailing spaces (preserving `\n`) to prevent BPE token-boundary degradation. |
+| **`stopSequences` Cutoff** | Assuming the matched `stopSequences` string is excluded from the returned `.text`. | The matched stop sequence IS included at the end of `.text` / `.generatedText`; strip it post-generation if unwanted. |
+| **Cache-Busting Prefix Order** | Putting dynamic turn timestamps or fluctuating stats at the top of `instruction`. | Place static system rules and world lore first, and append dynamic state at the bottom to maximize KV prefix cache hits. |
+| **Awaiting Before `.stop()`** | Trying to call `.stop()` on the resolved string after `await root.generateText()`. | Retain a reference to the un-awaited promise (`const gen = root.generateText(...)`) if you need to call `gen.stop()`. |
 
 ## 1.0 Low-Level Architecture & Iframe Communication
 

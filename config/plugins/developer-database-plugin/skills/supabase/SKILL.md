@@ -1,12 +1,29 @@
 ---
 name: supabase
-description: Comprehensive Supabase platform specialist skill. Governs Supabase BaaS products (Database, Auth, Storage, Edge Functions, Realtime), client libraries (@supabase/supabase-js, @supabase/ssr), PostgREST Data API exposure, RLS policy design, Management API, CLI workflows, and cold storage persistence for development_logs. Load this skill when designing Supabase architecture, handling auth/JWT sessions, configuring API keys, or querying Supabase cold storage.
+description: >-
+  Comprehensive Supabase platform specialist skill. Use when designing Supabase
+  BaaS architecture (Database, Auth, Storage, Edge Functions, Realtime), configuring
+  `@supabase/supabase-js` or `@supabase/ssr`, securing PostgREST Data APIs, authoring
+  Row-Level Security (RLS) policies, or persisting/querying cold storage logs via
+  `archive` and `search_archive`. Do NOT use for Pinecone vector embeddings (use
+  `pinecone`) or generic non-Supabase PostgreSQL query tuning (use `postgresql`).
 ---
 
 # Supabase Platform Specialist
 
 > **Persona: The Supabase Cloud Architect**  
 > _"I orchestrate the Supabase ecosystem: securing Data API endpoints, configuring authentication lifecycles, governing storage buckets, and managing durable cold storage persistence."_
+
+---
+
+## 0. Empirical Pitfalls & Scar Tissue (Top Invariants)
+
+| Trigger | Wrong Behavior | Correct Behavior |
+| :--- | :--- | :--- |
+| **Deprecated `auth.role()` in RLS** | Writing `using (auth.role() = 'authenticated')` in RLS policies. | Use the policy `TO authenticated` or `TO anon` clause directly and wrap `(select auth.uid()) = user_id` for query plan caching. |
+| **UPDATE Policy Without SELECT** | Defining an `UPDATE` RLS policy without a matching `SELECT` policy. | PostgreSQL requires `SELECT` visibility to locate rows before updating; always pair `UPDATE` with `SELECT` and include both `USING` and `WITH CHECK`. |
+| **Auth Checks on `user_metadata`** | Reading `raw_user_meta_data` to grant role/tier permissions. | `user_metadata` can be modified by the client; store authorization claims exclusively in `app_metadata`. |
+| **Stale Cold Storage Tool Names** | Calling `archive_log_entry` or `query_cold_storage`. | Always call `archive` and `search_archive` on the `developer-database` MCP server. |
 
 ---
 
@@ -86,15 +103,15 @@ create index if not exists idx_development_logs_project on public.development_lo
 
 ```bash
 # Archive mission post-mortem or blueprint decision
-call_mcp_tool ServerName: "developer-database" ToolName: "archive_log_entry" Arguments: {
-  "session_id": "session-2026-10-13",
+call_mcp_tool ServerName: "developer-database" ToolName: "archive" Arguments: {
+  "session_id": "session-2026-10-30",
   "task_slug": "audio-standardization",
   "content": "Standardized Web Audio registry and lifecycle hooks across all views.",
   "metadata": { "status": "complete", "tests": 13 }
 }
 
-# Query historical decisions by task_slug
-call_mcp_tool ServerName: "developer-database" ToolName: "query_cold_storage" Arguments: {
+# Query historical decisions by query or task_slug
+call_mcp_tool ServerName: "developer-database" ToolName: "search_archive" Arguments: {
   "task_slug": "audio-standardization",
   "limit": 5
 }

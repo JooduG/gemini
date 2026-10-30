@@ -4,13 +4,27 @@ description: >-
   Use when reading, editing, or live-testing a Perchance.org generator through
   the perchance MCP server. Covers browser-free mirrors, Playwright live sessions,
   Cloudflare clearing, Weld static analysis, and the Companion Sidecar Bridge.
+  Operating manual for the 18-tool `perchance` MCP server and Companion Sidecar Bridge.
+  Use when reading, editing, AST-linting (`perchance_analyze`), pulling (`perchance_pull`),
+  or live-testing a Perchance.org generator via Playwright or the Weld Companion Bridge.
+  Do NOT use for Perchance DSL grammar rules (use `perchance-platform`) or production
+  release gates (use `perchance-deployment`).
 ---
 
-# perchance — Operating Manual (Streamlined 17-Tool Suite)
+# perchance — Operating Manual (Streamlined 18-Tool Suite)
 
 Reads are browser-free: `perchance_pull` mirrors `main.pjs` + `index.html` locally
 in ~1s — grep those files, never regex a 40k-line doc in-browser. The
 browser (`perchance_start`) exists for live edits, interactive UI testing, and visual evaluation.
+
+## Empirical Pitfalls & Scar Tissue (Top Invariants)
+
+| Trigger                         | Wrong Behavior                                                                    | Correct Behavior                                                                                           |
+| :------------------------------ | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| **Launching Browser for Reads** | Calling `perchance_start` just to read or grep generator source code.             | Always call `perchance_pull` and `perchance_analyze` (browser-free, ~1s) before starting Playwright.       |
+| **Chromium Cloudflare Block**   | Passing `engine: "chromium"` when `*.perchance.org` challenges headless browsers. | Keep default `engine: "firefox"` or route through the active Weld Companion Bridge (`127.0.0.1:8765`).     |
+| **Collab Room vs Public Save**  | Reporting a `#edit:collab=KEY` mutation as "deployed to public users".            | Collab edits update the shared room (`saveState: "unsaved"`); only owner save publishes to the public URL. |
+| **Unbounded Regex in Browser**  | Running full-document regex replacements across a 40k-line editor pane.           | Use surgical `changes: [{oldString, newString}]` hunks in `perchance_edit` with automatic Yjs settlement.  |
 
 ## Consolidated Tool Map
 

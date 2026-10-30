@@ -14,10 +14,16 @@ knowledge-library (Pinecone Serverless Index)
 └── <project>.knowledge-base.meta          <-- Project-Specific Living Memory
     ├── joodug-rpglitch.knowledge-base.meta
     ├── joodug-imageglitch.knowledge-base.meta
+├── global.docs                            <-- Shared Global Standards
+└── <project>                              <-- Project-Specific Living Memory
+    ├── rpglitch (category: "docs" | "src")
+    ├── imageglitch (category: "docs" | "src")
     └── ...
 ```
 
 ### 1.1 `knowledge-base.external` (Global Knowledge)
+
+### 1.1 `global.docs` (Global Knowledge)
 
 - **Scope**: Cross-project and persistent across workspaces.
 - **Contents**:
@@ -27,11 +33,16 @@ knowledge-library (Pinecone Serverless Index)
 
 ### 1.2 `<project>.knowledge-base.meta` (Living Memory)
 
+### 1.2 `<project>` (Living Memory)
+
 - **Scope**: Partitioned strictly per active project/repository (e.g. `joodug-rpglitch`).
+- **Scope**: Partitioned strictly per active project/repository (e.g. `rpglitch`).
 - **Contents**:
   - Project architecture specifications (`ARCHITECTURE.md`, `DESIGN.md`).
   - Active engineering rules, prompt contracts, and system blueprints.
   - Core engine dynamics and memory laws.
+  - `category: "docs"`: Project architecture specifications (`ARCHITECTURE.md`, `DESIGN.md`, `GEMINI.md`).
+  - `category: "src"`: Production application logic and engine modules (excluding tests).
 
 ---
 
@@ -41,7 +52,9 @@ knowledge-library (Pinecone Serverless Index)
    - Pinecone automatically creates a namespace upon upserting the first vector into that namespace. No explicit index creation step is required.
 2. **Mandatory Explicit Namespace Call**:
    - Every read and write query must explicitly specify its target namespace. Do not rely on ambiguous defaults.
+   - Every read and write query must explicitly specify its target namespace (or rely on the engine's auto-detected `<project>` + `global.docs` pair).
 3. **Partition Isolation**:
    - A query directed at `<project>.knowledge-base.meta` will never inspect or return vectors from `knowledge-base.external`. To search both, execute parallel queries and rerank results by similarity score.
+   - A query directed at `<project>` will never inspect or return vectors from `global.docs`. The `search` MCP tool queries both in parallel and merges results by similarity score.
 4. **Namespace Stats Inspection**:
    - Calling `/describe_index_stats` returns the total record count and a breakdown of vector counts per namespace, enabling index health audits without performing vector scans.

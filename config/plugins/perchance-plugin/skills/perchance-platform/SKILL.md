@@ -1,6 +1,13 @@
 ---
 name: perchance-platform
-description: Authoritative technical specification for the Perchance Platform Engine, DSL compilation semantics, lifecycle execution order, dynamic metadata sandbox ($meta.dynamic), engine gotchas, and official auxiliary plugins directory (comments-plugin, secret-plugin, super-fetch-plugin, music-generation).
+description: >-
+  Authoritative technical specification for the Perchance Platform Engine, DSL compilation
+  semantics (`.selectOne` vs `.evaluateItem`), lifecycle execution order, dynamic metadata
+  sandbox (`$meta.dynamic`), engine gotchas, and official auxiliary plugins (`comments-plugin`,
+  `secret-plugin`, `super-fetch-plugin`, `music-generation`). Use when authoring or debugging
+  `.pjs` lists and Perchance HTML templates. Do NOT use for `ai-text-plugin` (use
+  `perchance-plugin-text`), `text-to-image-plugin` (use `perchance-plugin-image`), or
+  `server-plugin` (use `perchance-server-plugin`).
 ---
 
 # Perchance Platform & DSL Specification
