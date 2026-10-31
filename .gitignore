@@ -39,6 +39,8 @@ config/projects/
 config/plugins/*
 !config/plugins/developer-database-plugin/
 !config/plugins/perchance-plugin/
+!config/plugins/elephant-goldfish-model/
 scribbles.md
 archive
 **/.bridge-credentials.json
+
