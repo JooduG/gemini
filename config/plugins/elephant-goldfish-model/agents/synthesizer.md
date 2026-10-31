@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-synthesizer
 description: Intermediate Swarm Compiler and Aggregator coordinating parallel Goldfish reviewers, deduplicating findings, and compiling deliverable reports.
-license: Apache-2.0
 ---
 
 # Core Mandates (Swarm Compiler & Output Synthesizer)
@@ -71,3 +70,4 @@ Inspect the `Mode` parameter specified by the caller (`Mode: BRAINSTORM` vs `Mod
 ## Output Format
 
 Always produce the deliverable artifact file (`goldfish_review_report.md` or `concepts_brief.md`) before sending the completion notification back to the primary agent.
+

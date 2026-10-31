@@ -1,11 +1,11 @@
-﻿{
+{
   "name": "elephant-goldfish-model",
-  "displayName": "Elephant-Goldfish Model (EGM)",
+  "displayName": "EGM (Elephant-Goldfish Model)",
   "version": "0.1.0",
   "description": "Draft specs, review designs with fresh-context Goldfish reviewers, resolve findings, and check implementation drift.",
   "logo": "assets/icon.svg",
   "author": {
-    "name": "Google"
+    "name": "Antigravity Engineering"
   },
   "suggestedPrompts": [
     "Run /egm-brainstorm to explore problem definitions and trade-offs",

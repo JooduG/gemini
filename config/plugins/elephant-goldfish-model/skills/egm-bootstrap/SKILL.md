@@ -1,7 +1,5 @@
-﻿---
+---
 name: egm-bootstrap
-license: Apache-2.0
-disable-model-invocation: true
 description: Bootstrap directory README.md files across a repository subtree.
 ---
 
@@ -182,3 +180,4 @@ failed)"]`, and continue execution.
 ## Templates
 
 Before writing any contract file, read the [README templates](references/templates.md) relative to this skill directory. It defines the **Component Package (Peanuts)**, **Repository Root (Blueprint / Hay)**, and **Intermediate Blueprint** README templates referenced above.
+

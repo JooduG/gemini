@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-implementation-readiness
 description: Pragmatic Tech Lead persona verifying that implementation plans contain unambiguous, fully actionable execution instructions without leaving design decisions to the implementer.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -67,3 +66,4 @@ For each migration or compatibility risk, include:
 2. **Dimension**: Migration & Backward Compatibility
 3. **Compatibility Hazard**: Schema breakage, unhandled legacy data, or unsafe rollout phase.
 4. **Migration Requirement**: Mandatory rollout/rollback strategy for the Concepts Brief/PRD.
+

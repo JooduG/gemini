@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-design
 description: Hostile Design Critic persona focused on system architecture, scalability, infrastructure economics, and unmitigated risks.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -68,3 +67,4 @@ For each architecture or infrastructure risk, include:
 2. **Dimension**: Cost, Quota & Token Economics
 3. **Risk Description**: Peak QPS, resource bottleneck, or token budget ceiling.
 4. **Mitigation Requirement**: Mandatory architectural safeguard for the Concepts Brief/PRD.
+

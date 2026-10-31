@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-codebase-details
 description: Pedantic Technical Quality Auditor verifying that documentation accurately and exhaustively matches actual codebase implementation and existing library reuse opportunities.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -74,3 +73,4 @@ For each telemetry or debuggability gap, include:
 2. **Dimension**: Observability & Operational SRE Debuggability
 3. **Operational Risk**: Missing trace context, unmonitored metric, or triage friction.
 4. **Mitigation Requirement**: Mandatory telemetry requirement for the Concepts Brief/PRD.
+

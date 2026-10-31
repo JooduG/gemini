@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-comprehension
 description: Naive Reader persona auditing documents with zero assumed institutional knowledge, flagging undefined terms, acronyms, and comprehension gaps.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -70,3 +69,4 @@ For each UX or ergonomics issue, include:
 2. **Dimension**: UX & Developer Ergonomics
 3. **Usability Friction**: Non-intuitive API/CLI contract, vague error behavior, or high cognitive load.
 4. **Ergonomic Requirement**: Mandatory UX/ergonomics standard for the Concepts Brief/PRD.
+

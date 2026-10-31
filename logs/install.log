@@ -395,3 +395,39 @@
 [INSTALL] Binary v1.4.12 is up to date for the current release channel (target v1.4.12). Skipping download.
 [LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.12) --hub --hub-port=53239 --app_data_dir=antigravity --csrf_token=08b3ca4c-3f49-44fa-ab14-c5f14ef3b247 --add-dir=c:\Users\johng\.gemini
 [LAUNCH] Server at http://127.0.0.1:53239 is READY after 2 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.10.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Using cached binary version v1.4.12 (skipping version check).
+[INSTALL] Found existing valid binary v1.4.12 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Binary v1.4.12 is up to date for the current release channel (target v1.4.12). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.12) --hub --hub-port=57885 --app_data_dir=antigravity --csrf_token=cb0bef7b-9bd3-4b19-9ff0-e7d884fdd215 --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:57885 is READY after 2 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.10.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Using cached binary version v1.4.12 (skipping version check).
+[INSTALL] Found existing valid binary v1.4.12 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Binary v1.4.12 is up to date for the current release channel (target v1.4.12). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.12) --hub --hub-port=61840 --app_data_dir=antigravity --csrf_token=003ff495-f503-4071-a8fc-93a99445a419 --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:61840 is READY after 2 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.10.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Using cached binary version v1.4.12 (skipping version check).
+[INSTALL] Found existing valid binary v1.4.12 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Binary v1.4.12 is up to date for the current release channel (target v1.4.12). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.12) --hub --hub-port=51528 --app_data_dir=antigravity --csrf_token=f5d8a32b-9de9-42af-9221-d48d4929e3fc --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:51528 is READY after 2 attempt(s).
+[LAUNCH ERROR] Server process exited unexpectedly with code null, signal SIGTERM
+[INSTALL] Initializing update check. Platform: win32-x64, Extension Version: 1.10.0
+[INSTALL] Using custom channel override: production
+[INSTALL] Checking for updates at releaseBaseUrl=https://antigravity-cli-auto-updater-974169037036.us-central1.run.app...
+[INSTALL] Using cached binary version v1.4.12 (skipping version check).
+[INSTALL] Found existing valid binary v1.4.12 (>= 1.1.11). Checking for updates with 3s budget...
+[INSTALL] Binary v1.4.12 is up to date for the current release channel (target v1.4.12). Skipping download.
+[LAUNCH] Spawning C:\Users\johng\.gemini\bin\agy.exe (v1.4.12) --hub --hub-port=49268 --app_data_dir=antigravity --csrf_token=34f14e61-2578-4c8a-b27f-26801f15de82 --add-dir=c:\Users\johng\.gemini
+[LAUNCH] Server at http://127.0.0.1:49268 is READY after 2 attempt(s).

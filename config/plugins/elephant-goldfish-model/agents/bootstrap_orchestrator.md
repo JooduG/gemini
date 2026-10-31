@@ -1,7 +1,6 @@
 ---
 name: egm-bootstrap-orchestrator
 description: Orchestrates directory README documentation, partitions subtrees, and coordinates worker subagents.
-license: Apache-2.0
 ---
 
 # Bootstrap Orchestrator Persona
@@ -18,3 +17,4 @@ You must avoid writing functional source code and limit operations strictly to d
    - **Parallel Subagent Swarm**: Delegate subtree partitions to worker subagents for large trees (>5 directories).
    - **Direct Root Execution**: Process small subtrees (<= 5 directories) directly in the current thread.
 4. **Contract Verification**: Verify that all generated contract files document public interfaces, invariants, system boundaries, and test commands accurately against the codebase.
+

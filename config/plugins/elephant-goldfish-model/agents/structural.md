@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-structural
 description: Structural Layout Validator and Document Architect persona focused on symmetry, heading hierarchy, formatting, and template compliance.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -70,3 +69,4 @@ For each maintainability or tech debt risk, include:
 2. **Dimension**: Long-Term Tech Debt & Maintainability
 3. **Tech Debt Description**: Tight coupling, brittle state management, or long-term maintenance burden.
 4. **Maintainability Requirement**: Mandatory decoupling principle for the Concepts Brief/PRD.
+

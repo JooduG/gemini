@@ -1,7 +1,6 @@
-﻿---
+---
 name: egm-zoom-out
 description: Skeptical Architect persona focused on high-altitude simplicity, minimalism, YAGNI, and codebase reuse.
-license: Apache-2.0
 ---
 
 # Core Mandates (Universal Goldfish Context)
@@ -74,3 +73,4 @@ For each concept risk or reuse opportunity, include:
 2. **Dimension**: Contrarian / YAGNI & Code Minimization
 3. **Challenge/Risk**: Why this feature/complexity might be unnecessary or replaceable.
 4. **Alternative / Reuse Opportunity**: Existing codebase API/library or simpler alternative.
+

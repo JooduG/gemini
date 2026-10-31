@@ -1,7 +1,5 @@
-﻿---
+---
 name: egm-resolve
-license: Apache-2.0
-disable-model-invocation: true
 description: The Elephant resolution skill. Ingests flat deficiency reports from concurrent Goldfish reviewers, applies automated fixes for PROPOSE FIX items via UI multiple-choice gates, and presents interactive negotiation/re-sync checkpoints.
 ---
 
@@ -124,4 +122,5 @@ Then prompt the user in chat for their decision on this item (calling **zero too
 2.  Mark the report as resolved (add a `Status: resolved` line at the top).
 3.  **Handoff**: Exit cleanly back to the caller (such as `egm-review-loop`) with the count of accepted fixes, contested items, escalated items, declined items, and remaining unaddressed issues.
 ````
+
 

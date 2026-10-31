@@ -9,17 +9,17 @@ state.json
 projects.json
 
 # Local profiles and caches
-antigravity-browser-profile/
-antigravity-backup/
-tmp/
-history/
+antigravity-browser-profile/**
+antigravity-backup/**
+tmp/**
+history/**
 
 # Application binaries and IDE internal data
-antigravity/
-antigravity-cli/
-antigravity-ide/
-bin/
-extensions/
+antigravity/**
+antigravity-cli/**
+antigravity-ide/**
+bin/**
+extensions/**
 
 # Node dependencies and lock files
 **/node_modules/**
@@ -30,17 +30,16 @@ extensions/
 *mcp_config.json
 **/.vite/**
 .vscode/
-policies/
+policies/**
 .gemini.code-workspace
 extension_integrity.json
-config/config.json
 config/.migrated
-config/projects/
-config/plugins/*
-!config/plugins/developer-database-plugin/
-!config/plugins/perchance-plugin/
-!config/plugins/elephant-goldfish-model/
+config/projects/**
+config/plugins/**
+!config/plugins/developer-database-plugin/**
+!config/plugins/perchance-plugin/**
+!config/plugins/elephant-goldfish-model/**
 scribbles.md
 archive
 **/.bridge-credentials.json
-
+logs/**
