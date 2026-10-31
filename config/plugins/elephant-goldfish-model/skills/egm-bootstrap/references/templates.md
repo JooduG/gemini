@@ -5,8 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 
 # egm-bootstrap README Templates
 
-Templates for the contract files that `egm-bootstrap` writes. `${target_filename}`
-is the configured contract filename (default `README.md`).
+Templates for the contract files that `egm-bootstrap` writes. `${target_filename}` is the configured contract filename (default `README.md`).
 
 ## 📄 Component Package (Peanuts) README Template
 
@@ -65,4 +64,4 @@ is the configured contract filename (default `README.md`).
 
 ## Subdirectories & Boundaries
 - [Subdirectory Name]: [Relative link to existing child contract file (e.g., `./subdir/README.md` or `./subdir/${target_filename}`) or `./subdir/SKILL.md`] - [Summary of child contract/role]
-```
+``` 

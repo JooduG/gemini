@@ -57,8 +57,7 @@ Define the end-to-end user journeys this design enables. Each CUJ must contain:
 
 1. Given: Preconditions, starting state, and environment configurations.
 2. When: The trigger, user action, or system event.
-3. Then: The expected outcome, verification criteria, and postconditions.
--->
+3. Then: The expected outcome, verification criteria, and postconditions. -->
 
 ### CUJ 1: [Journey Title]
 
@@ -79,8 +78,7 @@ component interactions. Include ASCII or Mermaid diagrams to clearly model the
 relationships.
 -->
 
-[Explain your architectural choices, data structures, and system component
-mapping here.]
+[Explain your architectural choices, data structures, and system component mapping here.]
 
 ```text
 [Optional ASCII Architecture Diagram]
@@ -107,14 +105,10 @@ plan is superior.
 this design:
 
 - Security & Privacy: (Data sensitivity, auth/auth, secrets management).
-- Performance & Latency: (Execution runtime, storage footprint, LLM token
-  overhead).
-- Rollout & Rollback: (Feature flags, backward compatibility, rollback
-  commands).
--->
+- Performance & Latency: (Execution runtime, storage footprint, LLM token overhead).
+- Rollout & Rollback: (Feature flags, backward compatibility, rollback commands). -->
 
-[Detail any critical non-functional requirements here. If none are critical,
-this section can be omitted or stated as "None".]
+[Detail any critical non-functional requirements here. If none are critical, this section can be omitted or stated as "None".]
 
 --------------------------------------------------------------------------------
 
@@ -146,17 +140,13 @@ language or TBDs.
 
 #### 1. `[File Path 1]` ([Create | Modify])
 
-*   **Type / Scope**: [e.g., Python Service, C++ Library, TypeScript Module, Build
-    Configuration]
-*   **Proposed Changes**: [Describe the new APIs, class/function signatures, or
-    behavioral logic here. Focus on the minimal required details for
-    implementation.]
+*   **Type / Scope**: [e.g., Python Service, C++ Library, TypeScript Module, Build Configuration]
+*   **Proposed Changes**: [Describe the new APIs, class/function signatures, or behavioral logic here. Focus on the minimal required details for implementation.]
 
 #### 2. `[File Path 2]` ([Create | Modify])
 
 *   **Type / Scope**: [e.g., Unit Test, E2E Test Driver]
-*   **Proposed Changes**: [Describe the test coverage, expected test cases, or
-    mock assertions.]
+*   **Proposed Changes**: [Describe the test coverage, expected test cases, or mock assertions.]
 
 ### Verification Plan
 
@@ -174,4 +164,4 @@ implementation. What metrics should be measured to verify success?
 
 <!-- Provenance: Indicates initial structural drafting via EGM. -->
 
-*Drafted with EGM*
+*Drafted with EGM* 
