@@ -83,7 +83,9 @@ customization-root/ (e.g. .agents/ or ~/.gemini/config/)
 └── plugins/            # Deployable customization packages
     └── <plugin-name>/
         ├── plugin.json # Plugin manifest
-        ├── skills/     # Bundled skills
+        ├── agents/     # Bundled sovereign subagents (<agent-name>.md)
+        ├── skills/     # Bundled skills (<skill-name>/SKILL.md)
+        ├── rules/      # Bundled persistent rules (AGENTS.md)
         ├── hooks.json  # Bundled hooks
         ├── mcp_config.json # Bundled MCP servers
         └── sidecars/   # Bundled sidecars

@@ -17,8 +17,10 @@ plugins/<plugin-name>/
 │   └── <skill-name>/
 │       ├── SKILL.md
 │       └── scripts/
-├── rules/            # Optional: Contextual rules bundled with the plugin
-│   └── <rule-name>.md
+├── agents/           # Optional: Sovereign subagents exposed by the plugin
+│   └── <agent-name>.md # Agent descriptor with frontmatter (name, description)
+├── rules/            # Optional: Contextual rules bundled with the plugin (MUST be AGENTS.md)
+│   └── AGENTS.md     # Invariant: parser only binds rules/AGENTS.md or rules/GEMINI.md
 └── sidecars/         # Optional: Background worker daemons exposed by the plugin
     └── <sidecar-name>/
         ├── sidecar.json

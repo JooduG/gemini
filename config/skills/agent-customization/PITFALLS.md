@@ -43,3 +43,27 @@
 - **Trigger**: Creating ad-hoc `.agents/rules/*.md` files or standalone instruction files scattered throughout subdirectories.
 - **Wrong Behavior (Root Cause)**: Multiple scattered rule files lead to conflicting constraints, rule drift, and silent override bugs during directory traversal.
 - **Correct Behavior (Prevention Rule)**: Maintain root `GEMINI.md` / `AGENTS.md` as the sole persistent rule authority. For domain-specific procedural runbooks, use on-demand `skills/<name>/SKILL.md` loaded via progressive disclosure.
+
+---
+
+### `[PF-006]` Windows UTF-8 BOM Crash in Go Parser (Occurrences: 4 — GRADUATED TO GEMINI.MD)
+
+- **Trigger**: Generating or editing `plugin.json`, `SKILL.md`, or `agents/*.md` on Windows using PowerShell `Set-Content`, `Out-File`, or standard redirection.
+- **Wrong Behavior (Root Cause)**: Windows PowerShell prepends a UTF-8 Byte Order Mark (`0xEF, 0xBB, 0xBF`). Antigravity's Go language server fails to parse the JSON or YAML frontmatter, silently dropping the plugin, skill, or agent from discovery without an explicit compiler error.
+- **Correct Behavior (Prevention Rule)**: Always write files as clean UTF-8 without BOM using Python `open(path, 'w', encoding='utf-8')` or explicit .NET stream writers `New-Object System.Text.UTF8Encoding $false`.
+
+---
+
+### `[PF-007]` Plugin Rules Discovery Invariant (Occurrences: 3)
+
+- **Trigger**: Bundling persistent prompt rules inside a plugin under `plugins/<name>/rules/` using arbitrary filenames (e.g. `rules/orchestrator.md`).
+- **Wrong Behavior (Root Cause)**: The plugin scanner specifically binds `rules/AGENTS.md` (or `rules/GEMINI.md`). Custom or arbitrary filenames in `rules/` are ignored during discovery, resulting in silent rule omission.
+- **Correct Behavior (Prevention Rule)**: Always name plugin rules `rules/AGENTS.md`. Never place arbitrary `.md` filenames in the plugin's `rules/` directory.
+
+---
+
+### `[PF-008]` Non-Standard Frontmatter Property Suppression (Occurrences: 3)
+
+- **Trigger**: Adding custom or third-party frontmatter fields to `SKILL.md` or `agents/*.md` (e.g. `disable-model-invocation: true`, `user-facing: true`).
+- **Wrong Behavior (Root Cause)**: Antigravity strictly validates the frontmatter schema against its internal manifest types. Unrecognized fields cause the parser to reject the file or drop the persona from UI catalogs.
+- **Correct Behavior (Prevention Rule)**: Restrict `SKILL.md` frontmatter strictly to `name` and `description`. For `agents/*.md`, use strictly `name` and `description`.
