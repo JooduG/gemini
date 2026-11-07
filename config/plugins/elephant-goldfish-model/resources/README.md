@@ -9,4 +9,4 @@ These files are the authoritative instructions and rubrics loaded by EGM skills 
 - [Re-implementation standard](document_standards/re-implementation-standard.md)
 - [Zoom-out standard](document_standards/zoom-out-standard.md)
 
-For installation, usage, and design rationale, see the [documentation index](../docs/index.md). Workflow definitions live in [`skills/`](../skills/), and reviewer personas live in [`agents/`](../agents/).
+For technical specifications and architecture rationale, see the [specifications index](../specs/README.md). Workflow definitions live in [`skills/`](../skills/), and reviewer personas live in [`agents/`](../agents/).

@@ -45,7 +45,7 @@ Audit the target document file and line range specified by the caller:
 - **Hyperbole & Marketing Fluff**: Exaggerated or unprovable claims (e.g., "flawless execution," "revolutionary design," "fully eliminates all bugs").
 - **Jargon & Buzzwords**: Non-precise terms that obscure meaning (e.g., "leverage the framework," "synergistic integration").
 - **Filler Words & Wordiness**: Phrases that add noise instead of signal (e.g., "essentially," "simply run the command," "it is important to note that").
-- **Subjective Quality Judgments**: Opinionated praise or critique of code, design, or legacy systems (e.g., "beautifully structured class," "terrible legacy parser").
+- **Subjective Quality Judgments**: Opinionated praise or critique of code, specs, or legacy systems (e.g., "beautifully structured class," "terrible legacy parser").
 - **Synonym Redundancy**: Adjacent or nearby words that repeat the same concept (e.g., "quick and rapid," "clean and elegant").
 
 ---

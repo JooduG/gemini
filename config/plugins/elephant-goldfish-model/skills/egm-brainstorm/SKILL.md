@@ -1,6 +1,6 @@
 ---
 name: egm-brainstorm
-description: Interactive ideation and brainstorming skill for the Elephant & Goldfish Model (EGM). Helps turn half-baked concepts into structured hypotheses via clarifying questions, review, and iterative refinement. Produces an RFC summary for human review or more detailed design with /egm-draft.
+description: Interactive ideation and brainstorming skill for the Elephant & Goldfish Model (EGM). Helps turn half-baked concepts into structured hypotheses via clarifying questions, review, and iterative refinement. Produces an RFC summary for human review or more detailed spec with /egm-draft.
 ---
 
 # EGM Brainstorm: Interactive Multi-Lens Ideation & Refinement
@@ -11,7 +11,7 @@ This skill acts as the upstream conversational brainstorming engine for the Elep
 
 ## Delegation
 
-A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. See `docs/harnesses.md`. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
+A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
 
 ## Execution Constraints (CRITICAL)
 
@@ -133,7 +133,7 @@ these into Alternatives Considered and has no other source for them.]
           "question": "Brainstorming complete. concepts_brief.md is finalized. Select next step:",
           "options": [
             "Publish concepts_brief.md as RFC for team feedback",
-            "Proceed to /egm-draft (Initialize formal design document)",
+            "Proceed to /egm-draft (Initialize formal technical specification)",
             "Continue refining concepts_brief.md in ideation mode",
             "Conclude brainstorming and keep brief for later"
           ],
@@ -144,10 +144,10 @@ these into Alternatives Considered and has no other source for them.]
     ```
 
     *   **Option 0: `Publish concepts_brief.md as RFC for team feedback`**:
-        *   Write `concepts_brief.md` to `docs/designs/<feature_name>.md` using your file-writing tool.
-        *   Register the RFC in `docs/designs/SITEMAP.md` if it exists.
-        *   Notify the user in chat that the RFC has been published and can be shared with the team for feedback before formal drafting. Remind the user that once feedback is gathered, a detailed design can be initiated by running `/egm-draft docs/designs/<feature_name>.md`.
-    *   **Option 1: `Proceed to /egm-draft (Initialize formal design document)`**:
+        *   Write `concepts_brief.md` to `specs/<feature_name>.md` using your file-writing tool.
+        *   Register the RFC in `specs/SITEMAP.md` if it exists.
+        *   Notify the user in chat that the RFC has been published and can be shared with the team for feedback before formal drafting. Remind the user that once feedback is gathered, a detailed specification can be initiated by running `/egm-draft specs/<feature_name>.md`.
+    *   **Option 1: `Proceed to /egm-draft (Initialize formal technical specification)`**:
         *   Confirm that `concepts_brief.md` is saved in the working directory or artifact directory.
         *   Instruct the user to run `/egm-draft` (or activate the `egm-draft` skill), noting that `/egm-draft` automatically ingests `concepts_brief.md` as its Priority 1 intake source.
     *   **Option 2: `Continue refining concepts_brief.md in ideation mode`**:

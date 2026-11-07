@@ -29,7 +29,7 @@
       "installedFrom": {
         "id": "antigravity-plugins-official/plugin/modern-web-guidance-plugin",
         "marketplace": "antigravity-plugins-official",
-        "version": "0.0.196"
+        "version": "0.0.197"
       }
     },
     "perchance-plugin": {
@@ -38,7 +38,7 @@
   },
   "userSettings": {
     "artifactReviewMode": "ARTIFACT_REVIEW_MODE_AUTO",
-    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_AUTO",
+    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER",
     "browserJsExecutionPolicy": "BROWSER_JS_EXECUTION_POLICY_TURBO",
     "conversationWidth": "CONVERSATION_WIDTH_DEFAULT",
     "customThemeSeedsDark": {
@@ -47,7 +47,7 @@
       "primary": "#7AA2F7"
     },
     "enableSoundsForSpecialEvents": true,
-    "enableTerminalSandbox": true,
+    "enableTerminalSandbox": false,
     "globalPermissionGrants": {
       "allow": [
         "execute_url(localhost)",
@@ -215,19 +215,57 @@
         "write_file(C:/Users/johng/.gemini/config/skills/agent-customization/SKILL.md)",
         "write_file(C:/Users/johng/.gemini/config/skills/agent-customization/PITFALLS.md)",
         "write_file(C:/Users/johng/.gemini/config/skills/agent-customization/references/router-architecture.md)",
-        "write_file(C:/Users/johng/.gemini/config/plugins/core-governance-plugin/skills/core-tactics/SKILL.md)"
+        "write_file(C:/Users/johng/.gemini/config/plugins/core-governance-plugin/skills/core-tactics/SKILL.md)",
+        "read_file(C:/Users/johng/.gemini/mcp/svelte/svelte-autofixer.json)",
+        "write_file(C:/Users/johng/.gemini/config/plugins/elephant-goldfish-model/skills/egm-bootstrap/SKILL.md)",
+        "command(node ./tmp/fix-skill.js)",
+        "command(powershell -Command \"Remove-Item -Path 'C:\\Users\\johng\\.gemini\\config\\plugins\\core-governance-plugin\\agents\\*' -Force\")",
+        "command(powershell -Command \"Remove-Item -Path 'C:\\Users\\johng\\.gemini\\config\\plugins\\core-governance-plugin\\agents' -Force -Recurse\")",
+        "write_file(C:/Users/johng/.gemini/config/plugins/core-governance-plugin/skills/core-orchestration/SKILL.md)",
+        "command(git checkout HEAD~1 src/media/visual.svelte.js)",
+        "command(git checkout HEAD~1 src/intelligence/story.test.js)",
+        "command(git stash pop)",
+        "command(git checkout HEAD -- src/media/visual.svelte.js)",
+        "command(git checkout -- src/intelligence/story.test.js)",
+        "read_file(C:/Users/johng/config/skills/housekeeping/SKILL.md)",
+        "command(git checkout nuclear-plan.md)",
+        "command(git checkout vite.config.js)",
+        "command(powershell -Command \"if (Test-Path '.git/index.lock') { Remove-Item -Force '.git/index.lock' }; git checkout vite.config.js\")",
+        "command(powershell -Command \"if (Test-Path '.git/index.lock') { Remove-Item -Force '.git/index.lock' }\")",
+        "command(powershell -Command \"if (Test-Path '.git/index.lock') { Remove-Item -Force '.git/index.lock' }; git branch -f main restore-authentic-ui; git checkout main\")",
+        "command(powershell -Command \"if (Test-Path '.git/refs/heads/restore-authentic-ui.lock') { Remove-Item -Force '.git/refs/heads/restore-authentic-ui.lock' }; git branch -D restore-authentic-ui\")",
+        "command(powershell -Command \"if (Test-Path '.git/index.lock') { Remove-Item -Force '.git/index.lock' }; git checkout -B main de4e563b3\")",
+        "command(powershell -Command \"[System.IO.File]::OpenWrite('src/media/design.css').Close(); Write-Host 'Success'\")",
+        "command(git push --force-with-lease origin main)",
+        "command(powershell -Command \"if (Test-Path '.git/index.lock') { Remove-Item -Force '.git/index.lock' }; git checkout -- src/data/definitions/profile-fields.js\")",
+        "command(git checkout -- GREENFIELD_CROSSREF.md)",
+        "command(git restore src/state/chrono.svelte.js)",
+        "command(git checkout -- nuclear-plan.md)",
+        "read_file(c:/Users/johng/source/repos/.agents/skills/local-scripts/scripts/audit-layers.js)",
+        "command(npm run verify)",
+        "command(git checkout c2e08f319 -- CHANGELOG.md ROADMAP.md nuclear-plan.md)",
+        "command(npm run test:hooks)",
+        "command(npm test)",
+        "command(git checkout HEAD -- nuclear-plan.md)",
+        "command(git checkout 9d6d4f95c -- nuclear-plan.md)",
+        "command(git checkout c2e08f319 -- nuclear-plan.md)",
+        "command(git reset HEAD~1)",
+        "command(npm run audit:backlog)",
+        "command(npm run audit:layers)",
+        "command(npm run audit:simulation)",
+        "command(npm run audit)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"
       ]
     },
-    "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ASK",
+    "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ALLOW",
     "permissionGrantsV2Migrated": true,
-    "permissionPreset": "AGENT_PERMISSION_PRESET_AUTO",
+    "permissionPreset": "AGENT_PERMISSION_PRESET_TURBO",
     "remoteControlHostname": "becka-super-rocket",
     "sandboxEnabledAtV2Migration": false,
     "themeMode": "THEME_MODE_INHERIT",
     "useAiCredits": false,
-    "verboseConversationSteps": false
+    "verboseConversationSteps": true
   }
 }

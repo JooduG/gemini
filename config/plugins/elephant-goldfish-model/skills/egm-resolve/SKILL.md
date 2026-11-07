@@ -7,7 +7,7 @@ description: The Elephant resolution skill. Ingests flat deficiency reports from
 
 ## Overview
 
-This skill instructs the agent on how to operate within the primary Elephant context window to parse flat deficiency reports from concurrent Goldfish reviewers. It defends accurate design choices, applies automated textual repairs, and manages interactive negotiation checkpoints.
+This skill instructs the agent on how to operate within the primary Elephant context window to parse flat deficiency reports from concurrent Goldfish reviewers. It defends accurate architectural choices, applies automated textual repairs, and manages interactive negotiation checkpoints.
 
 ## Prerequisites & Context Strategy
 

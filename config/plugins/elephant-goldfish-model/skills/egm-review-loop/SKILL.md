@@ -1,6 +1,6 @@
 ---
 name: egm-review-loop
-description: Executes the Antagonistic-Review process from the Elephant-Goldfish Model (EGM) via an automated multi-agent review loop to audit documents against qualitative standards and structural templates, and automatically apply approved fixes. Use when reviewing design docs, READMEs, feature specifications, implementation plans, or verifying document completeness and tone.
+description: Executes the Antagonistic-Review process from the Elephant-Goldfish Model (EGM) via an automated multi-agent review loop to audit documents against qualitative standards and structural templates, and automatically apply approved fixes. Use when reviewing specs, READMEs, feature specifications, implementation plans, or verifying document completeness and tone.
 ---
 
 # Goldfish Review: Loop (Orchestration Driver)
@@ -16,7 +16,7 @@ The driver manages argument intake, resolves paths for reviewers and standards, 
 
 ## Delegation
 
-A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. See `docs/harnesses.md`. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
+A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
 
 ## Inputs
 

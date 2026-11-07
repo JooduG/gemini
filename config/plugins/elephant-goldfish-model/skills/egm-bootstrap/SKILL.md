@@ -14,7 +14,7 @@ This skill automates the creation, correction, formatting, and correctness verif
 
 ## Delegation
 
-A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. See `docs/harnesses.md`. If your harness has no subagent tool, run the scout steps inline.
+A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. If your harness has no subagent tool, run the scout steps inline.
 
 ## Inputs
 
@@ -124,9 +124,7 @@ A Goldfish runs in a fresh context with no conversation history. Spawn each suba
             2. Module entry points (`main.*`, `index.*`, `lib.*`, `mod.*`, `__init__.py`, or files matching directory name), then production source/query files alphabetically.
             3. Templates and configs: up to 200 lines each (800 in config-only directories); exclude `.css`/`.scss`.
             4. Test files (`*_test.*`, `*Test.*`, `test_*.*`, `*.spec.*`): ignore entirely, including in hybrid directories.
-          - _Child Fault Tolerance_: If the scout fails or times out, log a warning, use placeholder values `["(Details pending/documentation
-
-failed)"]`, and continue execution.
+          - _Child Fault Tolerance_: If the scout fails or times out, log a warning, use placeholder values `["(Details pending/documentation failed)"]`, and continue execution.
 
         - **Parent Context Propagation**: When processing a parent directory `P`, retrieve the compiled interface summaries of its immediate child subdirectories.
           - _Propagation Heuristics_:
@@ -171,7 +169,7 @@ failed)"]`, and continue execution.
    - **Valid & Resolvable Links (CRITICAL)**: Ensure all subdirectory and sibling links use valid relative paths (`./subdir/${target_filename}` or `./subdir/SKILL.md`), and explicitly verify that every referenced target file actually exists on the filesystem. Remove or correct any broken relative references.
    - **Valid Targets**: Verify verification targets match project test configuration and use valid target syntax (for Bazel, `/...` or `:all`, never `:...`).
 
-5. **Optional Drift Review (CRITICAL)**: After verification, ask the user (using a structured question tool, if your harness has one, or plain chat) to offer running a drift report on the generated documentation updates: - `question`: "Do you want to run the EGM Drift Report on the generated contract updates to check for consistency with the codebase?" - `options`: `["(Recommended) Yes, run drift report on modified contracts", "No, skip drift review"]` - If the user selects "Yes", run the `egm-drift-report` skill targeting the modified contracts to verify both missing code coverage and doc-to-code hallucinations (verifying every documented method, route, enum, database table, and invariant against local source files and recording discrepancies in the drift report for human triage). (Note: While `egm-drift-report` is often used for design documents, it can be applied to EGM-compliant contracts as a variant).
+5. **Optional Drift Review (CRITICAL)**: After verification, ask the user (using a structured question tool, if your harness has one, or plain chat) to offer running a drift report on the generated documentation updates: - `question`: "Do you want to run the EGM Drift Report on the generated contract updates to check for consistency with the codebase?" - `options`: `["(Recommended) Yes, run drift report on modified contracts", "No, skip drift review"]` - If the user selects "Yes", run the `egm-drift-report` skill targeting the modified contracts to verify both missing code coverage and doc-to-code hallucinations (verifying every documented method, route, enum, database table, and invariant against local source files and recording discrepancies in the drift report for human triage). (Note: While `egm-drift-report` is often used for technical specifications, it can be applied to EGM-compliant contracts as a variant).
 
 6. Terminate execution successfully.
 
@@ -180,4 +178,3 @@ failed)"]`, and continue execution.
 ## Templates
 
 Before writing any contract file, read the [README templates](references/templates.md) relative to this skill directory. It defines the **Component Package (Peanuts)**, **Repository Root (Blueprint / Hay)**, and **Intermediate Blueprint** README templates referenced above.
-

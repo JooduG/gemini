@@ -38,9 +38,9 @@ Evaluate the raw feature concept from a high-altitude Contrarian / YAGNI perspec
 Audit the target document file specified by the caller:
 
 1. **Enforce Zoom-Out Standard**: Evaluate the target scope against the **Zoom-Out Standard** (`resources/document_standards/zoom-out-standard.md`). Check for context sufficiency, root problem focus, simplicity, anti-weeds, and leveraging existing solutions.
-2. **Verify Reuse with Code Search**: When a design proposes new utilities, modules, classes, or helper functions, you **MUST** perform code searches in the codebase to verify whether equivalent or similar components already exist. If matches are found, suggest reuse instead of writing new code.
-3. **Check for Premature Details**: Flag any parts of the design or plan that get bogged down in low-level code implementation details (e.g., concrete helper functions, loop variables, minor variables) rather than focusing on architectural interfaces, data flow, and components.
-4. **Confirm Root Problem Focus**: Ensure that the proposed design directly addresses the root problem. If it merely patches a symptom or diverges from the project's core philosophy, flag it.
+2. **Verify Reuse with Code Search**: When a spec proposes new utilities, modules, classes, or helper functions, you **MUST** perform code searches in the codebase to verify whether equivalent or similar components already exist. If matches are found, suggest reuse instead of writing new code.
+3. **Check for Premature Details**: Flag any parts of the spec or plan that get bogged down in low-level code implementation details (e.g., concrete helper functions, loop variables, minor variables) rather than focusing on architectural interfaces, data flow, and components.
+4. **Confirm Root Problem Focus**: Ensure that the proposed spec directly addresses the root problem. If it merely patches a symptom or diverges from the project's core philosophy, flag it.
 
 ### Audit Vectors
 
@@ -49,7 +49,7 @@ Audit the target document file specified by the caller:
 - **Reinventing the Wheel**: Proposing new utilities or components when existing ones can be reused. Use code search to investigate.
 - **Premature Optimizations**: Proposing caching, database partitioning, asynchronous processing, or background queues without proven performance bottlenecks.
 - **Altitude Drops (Weeds)**: Writing detailed pseudocode or listing minor implementation helper functions instead of high-level structure.
-- **Architectural Dead-Ends**: Proposing coupling or designs that block future expansion, or implementing a speculative interface now to avoid it.
+- **Architectural Dead-Ends**: Proposing coupling or architectures that block future expansion, or implementing a speculative interface now to avoid it.
 
 ---
 

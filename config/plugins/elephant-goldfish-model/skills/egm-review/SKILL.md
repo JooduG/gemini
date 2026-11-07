@@ -1,19 +1,19 @@
 ---
 name: egm-review
-description: Orchestrates the EGM Goldfish Review Protocol. Used as part of the EGM process to perform design document reviews. Executes five review phases: Initial Zoom Out Review, Comprehension Review, Design Critique, Intermediate Zoom Out Review, and Implementation Readiness.
+description: Orchestrates the EGM Goldfish Review Protocol. Used as part of the EGM process to perform technical specification reviews. Executes five review phases: Initial Zoom Out Review, Comprehension Review, Systems & Architecture Critique, Intermediate Zoom Out Review, and Implementation Readiness.
 ---
 
 # Review, Validation & Automated Remediation
 
-Reviews and validates a design document through specialized reviewer personas.
+Reviews and validates a technical specification through specialized reviewer personas.
 
 ## Delegation
 
-A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. See `docs/harnesses.md`. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
+A Goldfish runs in a fresh context with no conversation history. Spawn each subagent with your harness's subagent tool (Antigravity: `invoke_subagent`; Claude Code: `Agent`; Codex: `spawn_agent`). Each subagent is defined in `agents/<file>.md`, and its frontmatter `name` (for example `egm-zoom-out`) is the subagent type to request where your harness registers named subagents. Otherwise spawn a general-purpose subagent and tell it to read that persona file first. Pass the prompt verbatim and wait for the report. If your harness cannot nest subagents, use direct dispatch instead of the synthesizer. If your harness has no subagent tool, stop and tell the user: a review in the same context is not a Goldfish review.
 
 ## Execution Constraints (CRITICAL)
 
-1. **Artifact-First Delivery (MANDATORY)**: You are **STRICTLY FORBIDDEN** from presenting large proposals, drafts, summaries, or plans directly in the chat pane. You **MUST** write them to the working directory (or your harness's artifact directory, if it has one) using your file-writing tool and then tell the user in chat the file path and ask for review. This applies to the Discussion Summary, Design Drafts, and all review reports.
+1. **Artifact-First Delivery (MANDATORY)**: You are **STRICTLY FORBIDDEN** from presenting large proposals, drafts, summaries, or plans directly in the chat pane. You **MUST** write them to the working directory (or your harness's artifact directory, if it has one) using your file-writing tool and then tell the user in chat the file path and ask for review. This applies to the Discussion Summary, Spec Drafts, and all review reports.
 2. **Plain-English Standard**: You **MUST** write all concepts briefs, summaries, and communications in simple, direct, jargon-free plain English. Explain technical mechanisms directly. Do not summarize away substance or rely on buzzwords. Do not use ungrounded promotional adjectives (e.g., _seamless_, _robust_, _blazingly fast_) or decorative adverbs (e.g., _seamlessly_, _effortlessly_, _literally_, _drastically_, _obviously_).
 3. **Default to Stress-Testing**: Never agree by default. Your primary directive is to stress-test ideas, strategies, and opinions. Find the weakest points, edge cases, and blind spots before affirming anything.
 4. **No Glazing**: Eliminate sycophancy. Do not call ideas "great," "brilliant," or "smart." Compliments without substance are noise.
@@ -27,8 +27,8 @@ A Goldfish runs in a fresh context with no conversation history. Spawn each suba
 
 ## Inputs
 
-- **`TargetFile`**: Absolute or relative path to the design document.
-- **`GoldfishContext`** (Optional): Reading list to establish the system baseline. If omitted, the system defaults to no additional context (but always automatically reads files linked or referenced in the design doc).
+- **`TargetFile`**: Absolute or relative path to the technical specification.
+- **`GoldfishContext`** (Optional): Reading list to establish the system baseline. If omitted, the system defaults to no additional context (but always automatically reads files linked or referenced in the spec).
 - **`Step` (Optional)**: Specific pipeline preset or stage to run (e.g. `interactive`, `uninterrupted`, `feature_spec`, `implementation`, or an individual stage `5`, `6`, `7`, `8`, `9`). If omitted, the user is prompted.
 
 ## Workflow
@@ -36,11 +36,11 @@ A Goldfish runs in a fresh context with no conversation history. Spawn each suba
 ### Step 1: Intake & Setup
 
 1. Verify if `TargetFile` is provided. If missing:
-   - Explain to the user that the target design document path is required to analyze its structure and discover the semantic split.
+   - Explain to the user that the target specification document path is required to analyze its structure and discover the semantic split.
    - Prompt the user in chat for the path via a regular text message (do NOT use structured question tools such as `ask_question`, as providing an arbitrary file path is an open-ended text input, not a choice between fixed options) and end your turn.
 2. Once `TargetFile` is provided, verify if `GoldfishContext` is provided (or if the user explicitly stated in their prompt to proceed with no additional context). If missing:
    - Explain to the user that goldfish context (reading list of files) is optional, but can establish baseline knowledge for reviewers.
-   - Clarify that reviewers **always automatically read** files explicitly mentioned or linked in the target design document itself.
+   - Clarify that reviewers **always automatically read** files explicitly mentioned or linked in the target specification document itself.
    - Prompt the user in chat via regular text if they wish to provide additional context files. Do NOT use structured question tools for open-ended file paths.
 
 ### Step 2: Curated Pipeline Preset Selection
@@ -63,8 +63,8 @@ A Goldfish runs in a fresh context with no conversation history. Spawn each suba
               "options": [
                 "Interactive review with all review rubrics (step-by-step, check in after each review)",
                 "Consolidated report with all review rubrics (runs full flow without stopping)",
-                "Feature spec only (evaluate design without considering implementation)",
-                "Implementation plan only (evaluate design for implementation readiness)"
+                "Feature spec only (evaluate specification without considering implementation)",
+                "Implementation plan only (evaluate specification for implementation readiness)"
               ],
               "is_multi_select": false
             }

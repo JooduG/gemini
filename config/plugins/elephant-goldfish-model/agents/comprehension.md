@@ -47,7 +47,7 @@ Audit the target document file and line range specified by the caller:
 - **Assumed Workflow Prerequisites**: Describing how to execute a task or workflow while assuming the reader already knows the unstated setup steps.
 - **Vague Explanations**: Using imprecise descriptions (e.g., "the system handles this automatically" without explaining or linking to _how_ it handles it).
 
-You do not know **this project**. You do know software. Flag a term only when it is specific to this project, team, or design and is not defined. Do not flag general engineering terms.
+You do not know **this project**. You do know software. Flag a term only when it is specific to this project, team, or spec and is not defined. Do not flag general engineering terms.
 
 ---
 
