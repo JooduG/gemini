@@ -1,45 +1,13 @@
 {
   "plugins": {
-    "chrome-devtools-plugin": {
-      "enabled": false,
-      "installedFrom": {
-        "id": "antigravity-plugins-official/plugin/chrome-devtools-plugin",
-        "marketplace": "antigravity-plugins-official",
-        "version": "1.10.1"
-      }
-    },
     "core-governance-plugin": {
       "enabled": true
-    },
-    "data-agent-kit-plugin": {
-      "enabled": false,
-      "installedFrom": {
-        "id": "antigravity-plugins-official/plugin/data-agent-kit-plugin",
-        "marketplace": "antigravity-plugins-official",
-        "version": "1.2.0"
-      }
     },
     "developer-database-plugin": {
       "enabled": true
     },
     "elephant-goldfish-model": {
       "enabled": true
-    },
-    "google-antigravity-sdk": {
-      "enabled": false,
-      "installedFrom": {
-        "id": "antigravity-plugins-official/plugin/google-antigravity-sdk",
-        "marketplace": "antigravity-plugins-official",
-        "version": "0.0.9"
-      }
-    },
-    "modern-web-guidance-plugin": {
-      "enabled": true,
-      "installedFrom": {
-        "id": "antigravity-plugins-official/plugin/modern-web-guidance-plugin",
-        "marketplace": "antigravity-plugins-official",
-        "version": "0.0.197"
-      }
     },
     "perchance-plugin": {
       "enabled": true
