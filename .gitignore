@@ -41,6 +41,7 @@ config/plugins/**
 !config/plugins/elephant-goldfish-model/**
 !config/plugins/core-governance-plugin/**
 scribbles.md
-archive
+archive/**
 **/.bridge-credentials.json
 logs/**
+sandbox/**
