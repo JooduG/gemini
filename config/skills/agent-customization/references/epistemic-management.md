@@ -95,3 +95,35 @@ Every entry in `PITFALLS.md` or `MISTAKES.md` must be structured into three expl
    ```
 
 This guarantees the guardrail is loaded into context at the exact moment of work.
+
+---
+
+## 5. Harmonized Continuous Improvement & Golden Examples Loop
+
+To keep skills living and self-improving through usage without degrading into unconstrained self-mutation, all customizations follow the **Harmonized Epistemic Loop**:
+
+```mermaid
+flowchart TD
+    Run["Skill Executed in Session"] --> Outcome{"Operational Outcome"}
+    Outcome -- "Failure / User Correction" --> Pitfall["Record in PITFALLS.md<br>(Triadic Format: Trigger / Wrong / Correct)"]
+    Pitfall --> Occurrences{"Occurrences >= 4?"}
+    Occurrences -- "Yes" --> Grad["Graduate to Tier 3 Canon & CI<br>(GEMINI.md or automated test script)"]
+    Occurrences -- "No" --> Retain["Retain as Tier 2 Scar Tissue"]
+    
+    Outcome -- "Procedural Optimization" --> UpdateRef["Update targeted references/ leaf"]
+    UpdateRef --> DeletionTest["Mandatory Deletion Test Pass<br>(Cut no-ops & restatements)"]
+
+    Outcome -- "Genuinely Strong Output" --> Golden["Save to examples/ golden fixtures<br>(With metric & context header)"]
+    Golden --> FutureRuns["Future runs load 1-2 golden examples on demand"]
+```
+
+1. **Failure / Correction (Tier 2 Capture)**:
+   - When the user corrects how a step was performed, never mutate `SKILL.md` arbitrarily.
+   - Record the failure in the skill's co-located `PITFALLS.md` following the **Triadic Entry Format**. Increment the occurrence counter.
+   - When an entry reaches **4 to 5 occurrences**, it graduates out of prose into an automated verification check or constitutional law (`Tier 3`).
+2. **Procedural Optimization (Deletion-Tested Updates)**:
+   - When refining steps, update the specific `references/` leaf rather than bloating `SKILL.md`.
+   - Run the **Deletion Test**: for every paragraph, sentence, and rule added, remove any existing text that no longer changes agent behavior.
+3. **Golden Output Capture (`examples/`)**:
+   - When the user praises an output as genuinely good, save it directly to `examples/<short-slug>.md` with frontmatter recording the prompt, metrics, and domain parameters.
+   - Instruct the skill to retrieve 1–2 golden examples during execution rather than flooding context with all past samples.

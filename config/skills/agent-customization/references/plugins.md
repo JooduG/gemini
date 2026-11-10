@@ -35,11 +35,30 @@ Every plugin directory must contain a `plugin.json` file at its root. This file 
 
 ```json
 {
-  "name": "team-developer-kit"
+  "name": "team-developer-kit",
+  "displayName": "Team Developer Kit",
+  "version": "1.0.0",
+  "description": "Unified skills, hooks, rules, and MCP servers for backend engineering.",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Run backend architecture audit",
+    "Scaffold a new microservice route",
+    "Verify database schema migrations"
+  ]
 }
 ```
 
-* **`name`** (`string`, optional): Display name for the plugin. Defaults to the folder name if omitted.
+* **Allowed Fields**:
+  - `name` (string): Global unique identifier (lowercase kebab-case). Defaults to folder name if omitted.
+  - `displayName` (string): Presentation title shown in UI headers and slash command menus.
+  - `version` (string): Semantic version string (e.g. `1.0.0`).
+  - `description` (string): Summary matched by Marketplace search.
+  - `logo` (string): Relative path to square image (e.g. `assets/logo.svg`, at least 128x128).
+  - `suggestedPrompts` (string[]): Up to 3 starter prompts for card/detail views.
+  - `author` (string/object): Developer name or `{"name": "...", "url": "..."}`.
+  - `homepage` / `repository` (string/object): Documentation or Git repository URLs.
+  - `disabled` (boolean): Default disabled state.
+* **Invariant**: Unknown top-level fields are silently discarded by the Antigravity loader.
 
 ---
 
@@ -97,3 +116,61 @@ Plugins in standard customization roots are auto-discovered. However, plugins ca
 * **`entries`**: Array of directory paths to scan for plugins (`plugins/<name>/plugin.json`).
 * **`include_only` / `exclude`**: Regex filter arrays matching plugin directory names.
 * **Path Resolution**: Absolute (`/`), home-relative (`~/`), or workspace-relative (relative to repository root containing `.git`).
+
+---
+
+## 6. Language Server Inventory & Operational Guardrails
+
+To inventory installed plugins and inspect their active configuration, communicate with the local language server Connect endpoint:
+
+```bash
+cat > /tmp/lsrpc.sh <<'EOF'
+: "${ANTIGRAVITY_LS_ADDRESS:=localhost:5387}"
+lsrpc() {
+  curl -sS -X POST \
+    "http://${ANTIGRAVITY_LS_ADDRESS}/exa.language_server_pb.LanguageServerService/$1" \
+    -H "Content-Type: application/json" \
+    -H "x-codeium-csrf-token: ${ANTIGRAVITY_CSRF_TOKEN}" \
+    -d "$2"
+}
+EOF
+```
+
+### Piped Discovery Recipe (`[PF-011]`)
+
+> [!WARNING]
+> Never read `lsrpc GetAllPlugins` unfiltered! It dumps the full text of every installed `SKILL.md` inline and will flood your context window. Always pipe through `jq`:
+
+```bash
+source /tmp/lsrpc.sh && lsrpc GetAllPlugins '{"workspaceUris":["file:///path/to/workspace"]}' | jq '[.plugins[] | {
+  name,
+  dir: (.path | split("/") | last),
+  disabled: (.disabled // false),
+  isGlobal,
+  skills: [.skills[]?.name],
+  agents: [.agents[]?.agent.name],
+  rules: [.rules[]?.absolutePath],
+  hooks: ((.hooksJson // "") | length > 0),
+  mcp: [.mcpServers[]?.name]
+}]'
+```
+
+### Operational Guardrails (`[PF-010]`)
+
+1. **Key on `dir`, never `name`**: Links in chat must use `[<name>](customization://<dir>)` where `<dir>` is the directory name (`.path | split("/") | last`). Keying on `name` creates broken links.
+2. **Never Call Restricted Mutation RPCs**: `JetboxWriteState`, `DeletePlugin`, and `InstallCustomization` are restricted inside `run_command`. Direct the user to the `customization://<dir>` link or render `<plugin-card catalog-id="...">`.
+3. **Never Hand-Edit `config.json`**: Editing `config.json` bypasses the language server, misses live reloading, and risks clobbering concurrent `userSettings`.
+
+---
+
+## 7. Cross-Agent Settings Migration (`migrate-agent-settings`)
+
+When importing configurations from Claude Code (`~/.claude`), Codex (`~/.codex`), Cursor (`.cursor/rules`), or Gemini CLI (`~/.gemini/commands`):
+
+1. **Target Destination**: Bundle all imported configurations into a single reversible plugin at `~/.gemini/config/plugins/<plugin-name>/`.
+2. **Mapping Rules**:
+   - **MCP Servers**: Map to `mcp_config.json`. Convert Claude/Codex/Cursor `url` to Antigravity's `url`. Make every `cwd` absolute. Declare any `${X}` placeholders in `variables`.
+   - **Skills / Prompts**: Copy folders into `skills/<name>/SKILL.md`. Ensure strict 2-field frontmatter (`name`, `description`).
+   - **Cursor Rules (`.mdc`)**: Map `alwaysApply: true` to `trigger: always_on`, non-empty `globs` to `trigger: glob`, and descriptions to `trigger: model_decision`.
+   - **Claude Subagents**: Map to `agents/<name>.md`. Set `subagent: true`, `mainAgent: false`, and map tool names (`Bash` $\rightarrow$ `run_command`, `Read`/`Glob` $\rightarrow$ `read_file`, `Edit` $\rightarrow$ `edit_file`).
+   - **Plugin Rules**: Consolidate persistent instructions into `rules/AGENTS.md` (`[PF-007]`).

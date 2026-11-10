@@ -1,7 +1,7 @@
 {
   "plugins": {
     "chrome-devtools-plugin": {
-      "enabled": true,
+      "enabled": false,
       "installedFrom": {
         "id": "antigravity-plugins-official/plugin/chrome-devtools-plugin",
         "marketplace": "antigravity-plugins-official",
@@ -11,6 +11,14 @@
     "core-governance-plugin": {
       "enabled": true
     },
+    "data-agent-kit-plugin": {
+      "enabled": false,
+      "installedFrom": {
+        "id": "antigravity-plugins-official/plugin/data-agent-kit-plugin",
+        "marketplace": "antigravity-plugins-official",
+        "version": "1.2.0"
+      }
+    },
     "developer-database-plugin": {
       "enabled": true
     },
@@ -18,6 +26,7 @@
       "enabled": true
     },
     "google-antigravity-sdk": {
+      "enabled": false,
       "installedFrom": {
         "id": "antigravity-plugins-official/plugin/google-antigravity-sdk",
         "marketplace": "antigravity-plugins-official",
@@ -58,7 +67,6 @@
         "mcp(chrome-devtools/click)",
         "mcp(chrome-devtools/list_console_messages)",
         "mcp(chrome-devtools/get_console_message)",
-        "read_url(perchance.org)",
         "read_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)",
         "mcp(chrome-devtools/new_page)",
         "mcp(chrome-devtools/close_page)",
@@ -72,7 +80,6 @@
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\swarm\\templates\\manifest.json)",
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\swarm\\scripts\\swarm-engine.js)",
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\swarm\\SKILL.md)",
-        "read_url(raw.githubusercontent.com)",
         "execute_url(perchance.org)",
         "mcp(chrome-devtools/wait_for)",
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\swarm\\package.json)",
@@ -102,7 +109,6 @@
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\dart\\SKILL.md)",
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\go\\SKILL.md)",
         "write_file(C:\\Users\\johng\\.gemini\\config\\skills\\python\\SKILL.md)",
-        "read_url(reddit.com)",
         "mcp(firecrawl-mcp/firecrawl_scrape)",
         "mcp(firecrawl-mcp/firecrawl_search)",
         "execute_url(app.notion.com)",
@@ -110,7 +116,6 @@
         "mcp(svelte/svelte-autofixer)",
         "mcp(developer-database/search)",
         "mcp(developer-database/archive)",
-        "read_url(github.com)",
         "mcp(perchance/perch_status)",
         "mcp(perchance/perch_start)",
         "mcp(perchance/perch_outline)",
@@ -127,7 +132,6 @@
         "mcp(perchance/perch_grep)",
         "mcp(perchance/perchance_status)",
         "mcp(github-copilot/search_repositories)",
-        "read_url(builder.io)",
         "mcp(perchance/perchance_pull)",
         "mcp(github-copilot/create_repository)",
         "mcp(perchance/perchance_start)",
@@ -253,7 +257,10 @@
         "command(npm run audit:backlog)",
         "command(npm run audit:layers)",
         "command(npm run audit:simulation)",
-        "command(npm run audit)"
+        "command(npm run audit)",
+        "read_url(github.com)",
+        "read_url(perchance.org)",
+        "read_url(raw.githubusercontent.com)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"

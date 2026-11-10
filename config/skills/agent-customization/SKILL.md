@@ -67,6 +67,7 @@ customization-root/ (e.g. .agents/ or ~/.gemini/config/)
 ├── GEMINI.md           # Sovereign rule authority (always-on persistent context)
 ├── hooks.json          # Lifecycle event handlers (pre/post tool & invocation gates)
 ├── config.json         # User settings (e.g. sidecar authorization toggles)
+├── mcp_config.json     # User MCP servers configuration
 ├── scratchpad/         # Tier 1 mutable exhaust (gitignored; worklog.md, compact-state.json)
 ├── skills/             # On-demand skill directory bundles
 │   └── <skill-name>/
@@ -117,16 +118,43 @@ description: >-
 * **One-Hop Constraint**: `SKILL.md` links directly to targeted `references/` leaves or `scripts/` executables. Never nest links across multiple hops.
 * **Scripts as Black Boxes**: In `scripts/`, default to Node.js/TS executables with compact JSON summaries (`--summary --format json`) and instruct agents to execute them with `--help` rather than reading raw code.
 
+### 5.3 The 4-Branch Authoring & Extraction Router
+
+When invoked to author, extract, or improve a skill, never write one-shot from ungrounded memory (`[PF-009]`). Route across four empirical branches:
+
+1. **Branch A: Post-Task Transcript Extraction (`transcript.jsonl` replay)**:
+   - When a successful complex task was just completed in chat, walk back through the trajectory.
+   - Extract the real input state, concrete steps, pass/fail judgment criteria, edge-case exceptions, and human checkpoints.
+   - Strip human-only UI overhead; play back the synthesized process for user confirmation before scaffolding.
+2. **Branch B: Example-Driven Reverse-Engineering (`seen`/`inferred`/`unknown` + Blind Holdouts)**:
+   - When given samples of finished work (best vs. worst, or style benchmarks), analyze structural dimensions.
+   - Quantify findings (`seen: 4 of 6 best do X, 0 of 6 worst do`), hold back 1–2 blind holdout examples outside the folder, halt for pattern approval, and generate `scripts/validate.js` when $\ge 3$ rules are deterministically measurable.
+3. **Branch C: Idea-First Socratic Interview (`/grill-me` process probe)**:
+   - When the user has an unexecuted concept, do not invent the workflow.
+   - Ground from workspace files first, ask one targeted question at a time with a recommended default, probe edge cases, and confirm the `GOAL / INPUT / PROCESS / OUTPUT / EDGE CASES` summary.
+4. **Branch D: Deletion-Test Pruning & Clean-Room Subagent Eval**:
+   - For existing skills, run the **Deletion Test** on every paragraph (strip LLM no-ops and restatements).
+   - Launch a clean-context subagent via `invoke_subagent` to verify step ordering, 1-hop reference retrieval, and holdout fidelity.
+
+### 5.4 Three-Tier Skill Discovery & Sanitization Gate
+
+Before authoring a commodity skill from scratch:
+1. **Tier 1 (Local Inventory)**: Check installed skills and plugins via `lsrpc GetAllPlugins` (piped through `jq`).
+2. **Tier 2 (Antigravity Marketplace)**: Search catalog via `search_marketplace` and present `<plugin-card catalog-id="...">`.
+3. **Tier 3 (Open Ecosystem — `skills.sh`)**: If searching `npx skills find <query>`, enforce quality gates ($\ge 1\text{K}$ installs, reputable org). Upon installation, run an **Antigravity Sanitization Pass** (`[PF-001..008]`): convert to 2-field frontmatter, format Trigger Triad with `>-`, strip BOM, and scaffold co-located `PITFALLS.md`.
+
 ---
 
 ## 6. Subsystems Reference Guides
 
-* **Agent Skills**: Taxonomy, frontmatter specs, canonical blueprint, progressive disclosure, and authoring best practices. See [skills.md](./references/skills.md).
-* **Epistemic Management**: Three-Tier Epistemic Promotion Pipeline, scratchpad exhaust, failure parables in `PITFALLS.md`, and the CI graduation rule. See [epistemic-management.md](./references/epistemic-management.md).
+* **Agent Skills**: Taxonomy, frontmatter specs, canonical blueprint, progressive disclosure, 4-branch authoring, and deletion testing. See [skills.md](./references/skills.md).
+* **Epistemic Management**: Three-Tier Epistemic Promotion Pipeline, failure parables in `PITFALLS.md`, harmonized improvement loop, and the CI graduation rule. See [epistemic-management.md](./references/epistemic-management.md).
 * **Router Architecture**: Two-Tier Meta-Skill Routers (`[auto]` vs `[human]`), anti-premature-anchoring, and compaction reorientation. See [router-architecture.md](./references/router-architecture.md).
+* **MCP Server Engineering**: Antigravity `mcp_config.json` rules (lazy/eager schemas, `variables`, absolute `cwd`, SSE bridge), tool design, annotations, pagination, and 10-question read-only evaluations. See [mcp-servers.md](./references/mcp-servers.md).
+* **Customization Audit & Detox**: 5-layer audit (Rules, Skills, Plugins/MCPs, Hooks/Sidecars, Epistemic counters), token budgeting, and non-destructive backup. See [audit-and-detox.md](./references/audit-and-detox.md) and executable scanner [audit-customizations.js](./scripts/audit-customizations.js).
 * **Lifecycle Hooks**: Gating tool calls, modifying arguments, auto-linting, and trajectory injection. See [hooks.md](./references/hooks.md).
 * **Sidecars & Schedulers**: Persistent background workers, cron jobs via `builtin: "schedule"`, and programmatic agent communication via `agentapi`. See [sidecars.md](./references/sidecars.md).
-* **Plugins Distribution**: Bundling skills, hooks, MCP servers, and daemons into shareable packages with `plugin.json`. See [plugins.md](./references/plugins.md).
+* **Plugins Distribution & Settings Migration**: Bundling components with `plugin.json`, Language Server RPC inventory guardrails (`lsrpc GetAllPlugins`), and cross-agent settings migration. See [plugins.md](./references/plugins.md).
 
 ---
 

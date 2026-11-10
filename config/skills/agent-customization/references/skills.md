@@ -193,3 +193,88 @@ Offloading deterministic work to executable scripts in `scripts/` keeps source c
 4. **Treat Scripts as Black Boxes**: In `SKILL.md`, instruct agents to execute scripts with `--help` or inspect their stdout rather than reading raw script source files into context.
 5. **Schema Validation State Gates**: In multi-step or multi-agent workflows, use deterministic validation scripts (e.g. `node scripts/validate.js`) to assert that intermediate artifacts conform to required JSON schemas before allowing subsequent phases to proceed.
 6. **Dynamic Context Injection (DCI)**: When operating in harnesses supporting backtick execution (e.g. `!node scripts/status.js --summary`), note that execution output can be injected inline at skill activation time to prime state before the agent's first turn.
+
+---
+
+## 6. The 4-Branch Skill Authoring & Extraction Protocols
+
+Never attempt to author a skill from ungrounded human memory in a single one-shot pass (`[PF-009]`). People routinely omit the tacit judgment calls, intermediate validation checkpoints, and edge-case exceptions that make a workflow function (Polanyi's Paradox).
+
+Instead, route across four empirical branches based on the available input:
+
+### Branch A: Post-Task Transcript Extraction (`transcript.jsonl` Replay)
+
+**When to use**: The user or agent has just successfully completed a real piece of knowledge work or engineering in the current conversation.
+
+1. **Walk the Execution Trajectory**: Inspect the conversation steps or `.system_generated/logs/transcript.jsonl` sequentially. Do not ask the user to redescribe their process from memory.
+2. **Extract Three Core Elements per Move**:
+   - **Input State**: What file, data snippet, or error message was in front of the agent at that exact turn.
+   - **Judgment Gate**: How the agent/user judged the output was good enough to proceed (the specific criteria separating acceptable from unacceptable results).
+   - **Exception / Recovery**: What edge case emerged, what almost broke, and what correction was applied.
+3. **Strip Human/Harness Overhead**: Cut out tool-hunting, copy-pasting between tabs, waiting pauses, and conversational chit-chat. Retain only deterministic production moves.
+4. **Flag Checkpoints**: Identify consequential actions (e.g., publishing, modifying schemas, deleting data) and define human-in-the-loop checkpoints offering 3–5 curated options.
+5. **Confirm with Playback**: Present a structured draft (`GOAL`, `INPUT`, `PROCESS`, `OUTPUT`, `EDGE CASES`) and ask: *"This is what I saw us do. What is wrong or missing?"* Scaffold only after confirmation.
+
+### Branch B: Example-Driven Reverse-Engineering (`seen`/`inferred`/`unknown` + Blind Holdouts)
+
+**When to use**: The user has finished output artifacts (documents, PRs, designs, newsletters) rather than an active conversation log.
+
+1. **Select Operational Mode**:
+   - **Performance Mode**: 5–10 best and 5–10 worst examples ranked by a rate metric (conversion rate, click rate, test pass rate).
+   - **Inspiration Mode**: 3–10 public high-performing examples from a respected peer or competitor.
+   - **Style Mode**: 3–10 liked examples (no negative set; extracts voice, cadence, and structure).
+2. **Enforce the Blind Holdout Protocol**:
+   - Hold back 1–2 best examples **outside** the skill folder during pattern analysis. The synthesis agent must never inspect the holdout during extraction.
+3. **Quantitative Pattern Tagging**:
+   - Compare examples across dimensions: Opening, Structure, Length, Ask/CTA, Tone, Format.
+   - Tag every observation strictly:
+     - `seen (N of M)`: Directly verifiable with counts (e.g., *"4 of 5 best place links before paragraph 2; 0 of 5 worst do"*).
+     - `inferred (approved)`: Probabilistic explanation of why a pattern works, verified with the operator.
+     - `unknown`: Open questions that cannot be determined from available samples.
+4. **Checkpoint Approval**: Present the tagged findings and proposed rules. Never build before user approval.
+5. **Deterministic Rule Checker (`scripts/validate.js`)**:
+   - If $\ge 3$ rules can be tested mathematically (word count, required headings, banned phrases, link positions), generate a standalone Node.js validation script.
+6. **Holdout Verification**: Run the built skill against the blind holdout input in a fresh subagent and score rule adherence.
+
+### Branch C: Idea-First Socratic Interview (`/grill-me` Process Probe)
+
+**When to use**: The user has a conceptual idea for a workflow that has not yet been executed in chat and has no reference examples.
+
+1. **Ground in Context First**: Before asking questions, scan existing workspace files, configurations, and sibling skills. Never ask the user a question the repository can answer.
+2. **One Branch at a Time with Recommendations**: Use `ask_question` with a recommended default (`(Recommended)`) and an explicit technical rationale.
+3. **Exhaust Decision Trees**: Resolve both branches of conditional splits before moving down the workflow.
+4. **Pre-Scaffold Playback**: Confirm the structured summary before generating `SKILL.md`.
+
+### Branch D: Deletion-Test Pruning & Clean-Room Subagent Eval
+
+**When to use**: An existing skill is verbose, slow, or suffering from instruction drift.
+
+1. **The Deletion Test**:
+   - Evaluate every sentence and paragraph: *If removing this text would not change what the agent executes, delete it immediately.*
+   - Purge LLM no-ops: instructions the model already follows by default (*"think carefully"*, *"be professional"*), restated conventions, and conversational fluff.
+   - Enforce Single Source of Truth: ensure rules exist in exactly one location (`references/` or `GEMINI.md`).
+2. **Clean-Room Subagent Evaluation**:
+   - Spawn an isolated subagent via `invoke_subagent` passing only the target skill directory and test input.
+   - Assert:
+     - Process runs in the exact declared order.
+     - References in `references/` load on demand (one-hop only).
+     - Deterministic scripts execute successfully and pass validation checks.
+
+---
+
+## 7. Open Ecosystem Discovery & Sanitization Gate (`find-skills`)
+
+When extending agent capabilities or searching for existing solutions, follow the **Three-Tier Discovery Sequence**:
+
+1. **Tier 1 (Local Customizations)**: Inspect installed plugins via `lsrpc GetAllPlugins` (piped through `jq`) and workspace `.agents/skills/`.
+2. **Tier 2 (Official Marketplace)**: Call `search_marketplace` with 1–3 keywords. If an official plugin exists, emit `<plugin-card catalog-id="...">` for 1-click install.
+3. **Tier 3 (Open Agent Skills — `skills.sh`)**:
+   - Run `npx skills find <query>` or check `https://skills.sh/` leaderboard.
+   - Apply quality gates: prefer packages with $\ge 1\text{K}$ installs and reputable maintainers (`vercel-labs`, `anthropics`, `microsoft`).
+4. **The Antigravity Sanitization Pass**:
+   - Third-party skills from Claude Code or open registries often violate Antigravity engine invariants. Upon importing any external skill:
+     - Enforce **Strict 2-Field Frontmatter** (`name`, `description`): strip `license:`, `disable-model-invocation:`, or `author:` (`[PF-008]`).
+     - Reformat `description` to the **Trigger Triad** using block scalar syntax `>-` (`[PF-001]`, `[PF-002]`, `[PF-003]`).
+     - Strip UTF-8 BOM if saved on Windows (`[PF-006]`).
+     - Enforce **One-Hop Reference Boundary** (`[PF-004]`).
+     - Scaffold a co-located `PITFALLS.md` with line-1 reference (`[PF-005]`).

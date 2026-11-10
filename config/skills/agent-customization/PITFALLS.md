@@ -67,3 +67,27 @@
 - **Trigger**: Adding custom or third-party frontmatter fields to `SKILL.md` or `agents/*.md` (e.g. `disable-model-invocation: true`, `user-facing: true`).
 - **Wrong Behavior (Root Cause)**: Antigravity strictly validates the frontmatter schema against its internal manifest types. Unrecognized fields cause the parser to reject the file or drop the persona from UI catalogs.
 - **Correct Behavior (Prevention Rule)**: Restrict `SKILL.md` frontmatter strictly to `name` and `description`. For `agents/*.md`, use strictly `name` and `description`.
+
+---
+
+### `[PF-009]` One-Shot Skill Authoring from Memory (Polanyi's Paradox) (Occurrences: 2)
+
+- **Trigger**: Authoring a procedural skill from a blank prompt or human memory without grounding in an executed session.
+- **Wrong Behavior (Root Cause)**: People remember an idealized version of their workflow and omit tacit judgment calls, intermediate validation checks, and edge-case exceptions (Polanyi's Paradox). The resulting skill fails in practice.
+- **Correct Behavior (Prevention Rule)**: Always use one of the 4 verified authoring branches: (A) Post-Task Transcript Extraction (`transcript.jsonl` replay), (B) Example-Driven Reverse-Engineering (`seen`/`inferred`/`unknown` tags with blind holdouts), (C) Idea-First Socratic Interview (`/grill-me` process probe), or (D) Deletion-Test Pruning + Clean-Room Subagent Eval.
+
+---
+
+### `[PF-010]` Broken `customization://` Links & Restricted Plugin RPCs (Occurrences: 2)
+
+- **Trigger**: Linking to installed plugins in chat or attempting to toggle/install plugins programmatically.
+- **Wrong Behavior (Root Cause)**: Keying links on `plugin.json`'s `name` instead of the install directory name `dir` (`customization://<dir>`), hand-editing `~/.gemini/config/config.json` (risks clobbering concurrent `userSettings`), or calling restricted language server mutation RPCs (`JetboxWriteState`, `DeletePlugin`, `InstallCustomization`) from `run_command`.
+- **Correct Behavior (Prevention Rule)**: Always resolve `dir` from `lsrpc GetAllPlugins` (the last path segment) for `customization://<dir>` links. Never call restricted mutation RPCs or hand-edit `config.json`; guide the user to the UI link or render `<plugin-card catalog-id="...">`.
+
+---
+
+### `[PF-011]` Unfiltered `GetAllPlugins` Context Flood & Relative MCP `cwd` (Occurrences: 2)
+
+- **Trigger**: Querying installed plugins via Language Server Connect RPC, or declaring relative working directories in plugin `mcp_config.json`.
+- **Wrong Behavior (Root Cause)**: Reading `lsrpc GetAllPlugins` unfiltered inlines the full text of every installed `SKILL.md`, flooding context with tens of thousands of tokens. In plugin `mcp_config.json`, relative `cwd` paths resolve against the plugin directory and receive no variable substitution.
+- **Correct Behavior (Prevention Rule)**: Always pipe `lsrpc GetAllPlugins` through `jq` to extract only metadata (`name`, `dir`, `disabled`, `skills`, `mcp`). Make every `cwd` in `mcp_config.json` absolute, and declare any `${X}` placeholders in `variables`.
