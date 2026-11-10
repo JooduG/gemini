@@ -2,7 +2,7 @@
 
 <!--
 =============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/security/references/backend_defense.md
+  FILE: config/skills/security/references/backend_defense.md
   PURPOSE: Authoritative guidelines for authentication, JWT hardening, CSRF defense,
            SQL injection prevention, secure file handling, and database least-privilege.
   PARENT SKILL: config/skills/security/SKILL.md

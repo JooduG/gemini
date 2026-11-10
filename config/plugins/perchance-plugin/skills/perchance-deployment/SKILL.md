@@ -68,7 +68,7 @@ npm run deploy:auto
 Or invoke the central runner with explicit arguments:
 
 ```bash
-node C:/Users/johng/.gemini/config/plugins/perchance-plugin/scripts/deploy.js --file dist/index.html --name rpglitchen
+node config/plugins/perchance-plugin/scripts/deploy.js --file dist/index.html --name <generator-name>
 ```
 
 ---

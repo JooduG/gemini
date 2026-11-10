@@ -2,7 +2,7 @@
 
 <!--
 =============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/security/references/web_defense.md
+  FILE: config/skills/security/references/web_defense.md
   PURPOSE: Authoritative guidelines for XSS prevention, DOM manipulation, storage security,
            Content Security Policy (CSP), Subresource Integrity (SRI), and client hardening.
   PARENT SKILL: config/skills/security/SKILL.md

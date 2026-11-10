@@ -2,7 +2,7 @@
 
 <!--
 =============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/security/references/audit_reports.md
+  FILE: config/skills/security/references/audit_reports.md
   PURPOSE: Standardized templates and procedures for security findings, remediation logs,
            and walkthrough artifacts.
   PARENT SKILL: config/skills/security/SKILL.md

@@ -41,7 +41,7 @@ Reference these guidelines when:
 
 ## 3. Reference Runbooks
 
-Read individual runbook files in [`references/`](file:///C:/Users/johng/.gemini/config/skills/postgresql/references/) for exact SQL examples, bad vs good patterns, and query plans:
+Read individual runbook files in [`references/`](./references/) for exact SQL examples, bad vs good patterns, and query plans:
 
 - **1. Query Performance**:
   - [query-missing-indexes.md](references/query-missing-indexes.md)

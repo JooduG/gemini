@@ -45,3 +45,6 @@ archive/**
 **/.bridge-credentials.json
 logs/**
 sandbox/**
+
+# Generated pull-cache (rebuilt by perchance_pull; do not version)
+**/.perchance-mirror/

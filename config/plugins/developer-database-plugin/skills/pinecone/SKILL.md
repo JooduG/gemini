@@ -78,7 +78,7 @@ call_mcp_tool ServerName: "developer-database" ToolName: "prune" Arguments: {
 
 ## 4. Architectural References
 
-Consult specialized vector guides in [`references/`](file:///C:/Users/johng/.gemini/config/plugins/developer-database-plugin/skills/pinecone/references/):
+Consult specialized vector guides in [`references/`](./references/):
 
 - **[metadata-filtering.md](references/metadata-filtering.md)**: MongoDB-style operators (`$eq`, `$in`, `$gte`, `$and`, `$or`), string-list filtering, and schema auto-indexing.
 - **[embedding-models.md](references/embedding-models.md)**: Integrated `/embed` API, asymmetric `input_type` (`"passage"` vs `"query"`), and chunk sizing.

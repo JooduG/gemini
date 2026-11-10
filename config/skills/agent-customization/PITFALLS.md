@@ -34,7 +34,7 @@
 
 - **Trigger**: Structuring skill documentation across chained nested files (`SKILL.md` $\rightarrow$ `references/a.md` $\rightarrow$ `references/b.md`).
 - **Wrong Behavior (Root Cause)**: Probabilistic agents routinely halt after following the first reference link, never opening the second-hop leaf and hallucinating missing parameters.
-- **Correct Behavior (Prevention Rule)**: Enforce the **One-Hop Reference Boundary**. `SKILL.md` must link directly to targeted reference leaves (e.g. `[matrix](./references/lock-matrix.md)`) or executable scripts (`[script](./scripts/check.js)`).
+- **Correct Behavior (Prevention Rule)**: Enforce the **One-Hop Reference Boundary**. `SKILL.md` must link directly to targeted reference leaves (e.g. `references/lock-matrix.md`) or executable scripts (`scripts/check.js`).
 
 ---
 

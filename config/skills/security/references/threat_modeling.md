@@ -2,7 +2,7 @@
 
 <!--
 =============================================================================================
-  FILE: C:/Users/johng/.gemini/config/skills/security/references/threat_modeling.md
+  FILE: config/skills/security/references/threat_modeling.md
   PURPOSE: Authoritative methodology for component threat modeling, entry point mapping,
            trust boundaries, and security scanner triage.
   PARENT SKILL: config/skills/security/SKILL.md

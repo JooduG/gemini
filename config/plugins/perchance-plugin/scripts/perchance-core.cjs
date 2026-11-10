@@ -1017,7 +1017,7 @@ class PerchanceSession {
     let ext = '';
     if (filePath) {
       if (typeof filePath !== 'string' || !(/^[A-Za-z]:[\\/]/.test(filePath) || filePath.startsWith('/'))) {
-        return { error: 'filePath must be an ABSOLUTE path (the server process has no reliable working directory), e.g. C:/Users/you/Workspace/app/src/emoji/x.svg' };
+        return { error: 'filePath must be an ABSOLUTE path (the server process has no reliable working directory), e.g. /abs/path/to/app/src/emoji/x.svg' };
       }
       const fs = require('fs');
       if (!fs.existsSync(filePath)) return { error: 'filePath does not exist: ' + filePath };
