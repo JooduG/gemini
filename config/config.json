@@ -6,6 +6,13 @@
     "developer-database-plugin": {
       "enabled": true
     },
+    "egm": {
+      "installedFrom": {
+        "id": "antigravity-plugins-official/plugin/egm",
+        "marketplace": "antigravity-plugins-official",
+        "version": "0.1.1"
+      }
+    },
     "elephant-goldfish-model": {
       "enabled": true
     },
@@ -237,7 +244,8 @@
         "read_url(perchance.org)",
         "read_url(raw.githubusercontent.com)",
         "read_url(reddit.com)",
-        "read_url(builder.io)"
+        "read_url(builder.io)",
+        "command(Remove-Item -Recurse -Force C:\\Users\\johng\\.gemini\\config\\plugins\\elephant-goldfish-model)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"
