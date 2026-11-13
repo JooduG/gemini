@@ -9,13 +9,20 @@
     "elephant-goldfish-model": {
       "enabled": true
     },
+    "gdrive": {
+      "installedFrom": {
+        "id": "antigravity-plugins-official/plugin/gdrive",
+        "marketplace": "antigravity-plugins-official",
+        "version": "0.0.11"
+      }
+    },
     "perchance-plugin": {
       "enabled": true
     }
   },
   "userSettings": {
     "artifactReviewMode": "ARTIFACT_REVIEW_MODE_AUTO",
-    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER",
+    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_AUTO",
     "browserJsExecutionPolicy": "BROWSER_JS_EXECUTION_POLICY_TURBO",
     "conversationWidth": "CONVERSATION_WIDTH_DEFAULT",
     "customThemeSeedsDark": {
@@ -24,7 +31,7 @@
       "primary": "#7AA2F7"
     },
     "enableSoundsForSpecialEvents": true,
-    "enableTerminalSandbox": false,
+    "enableTerminalSandbox": true,
     "globalPermissionGrants": {
       "allow": [
         "execute_url(localhost)",
@@ -228,15 +235,17 @@
         "command(npm run audit)",
         "read_url(github.com)",
         "read_url(perchance.org)",
-        "read_url(raw.githubusercontent.com)"
+        "read_url(raw.githubusercontent.com)",
+        "read_url(reddit.com)",
+        "read_url(builder.io)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"
       ]
     },
-    "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ALLOW",
+    "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ASK",
     "permissionGrantsV2Migrated": true,
-    "permissionPreset": "AGENT_PERMISSION_PRESET_TURBO",
+    "permissionPreset": "AGENT_PERMISSION_PRESET_AUTO",
     "remoteControlHostname": "becka-super-rocket",
     "sandboxEnabledAtV2Migration": false,
     "themeMode": "THEME_MODE_INHERIT",
