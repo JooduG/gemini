@@ -1,5 +1,12 @@
 {
   "plugins": {
+    "context7": {
+      "installedFrom": {
+        "id": "antigravity-plugins-partners/plugin/context7",
+        "marketplace": "antigravity-plugins-partners",
+        "version": "1.0.1"
+      }
+    },
     "core-governance-plugin": {
       "enabled": true
     },
@@ -245,7 +252,9 @@
         "read_url(raw.githubusercontent.com)",
         "read_url(reddit.com)",
         "read_url(builder.io)",
-        "command(Remove-Item -Recurse -Force C:\\Users\\johng\\.gemini\\config\\plugins\\elephant-goldfish-model)"
+        "command(Remove-Item -Recurse -Force C:\\Users\\johng\\.gemini\\config\\plugins\\elephant-goldfish-model)",
+        "mcp(context7_context7/resolve-library-id)",
+        "mcp(context7_context7/query-docs)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"
