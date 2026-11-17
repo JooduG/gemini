@@ -7,9 +7,6 @@
         "version": "1.0.1"
       }
     },
-    "core-governance-plugin": {
-      "enabled": true
-    },
     "developer-database-plugin": {
       "enabled": true
     },
@@ -254,7 +251,14 @@
         "read_url(builder.io)",
         "command(Remove-Item -Recurse -Force C:\\Users\\johng\\.gemini\\config\\plugins\\elephant-goldfish-model)",
         "mcp(context7_context7/resolve-library-id)",
-        "mcp(context7_context7/query-docs)"
+        "mcp(context7_context7/query-docs)",
+        "read_file(C:/Users/johng/.gemini/GEMINI.md)",
+        "write_file(C:/Users/johng/.gemini/config/skills/architecture/SKILL.md)",
+        "write_file(C:/Users/johng/.gemini/GEMINI.md)",
+        "mcp(github-copilot/search_code)",
+        "write_file(C:/Users/johng/.gemini/config/skills/refactor/SKILL.md)",
+        "read_file(C:/Users/johng/.gemini/hooks.json)",
+        "read_file(C:/Users/johng/.gemini/config/hooks.json)"
       ],
       "deny": [
         "write_file(C:\\Users\\johng\\source\\repos\\RPGlitch\\src\\media\\design.css)"
