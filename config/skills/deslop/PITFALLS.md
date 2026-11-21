@@ -6,7 +6,7 @@
 
 ## Failure Parables
 
-### `[PF-001]` Installing a New Accent (The Forced Candor Trap)
+### `[PF-001]` Installing a New Accent (The Forced Candor Trap) (Occurrences: 1)
 
 - **Trigger**: Rewriting sterile AI text in a casual, blog, or PR description context.
 - **Wrong Behavior (Root Cause)**: Reaching for stock "human" conversational moves and inventing a personality the author never had (e.g. adding *"Let's be honest"*, *"real talk"*, *"here's the thing"*, fake first-person *"I"*, or em-dash splices).
@@ -14,7 +14,7 @@
 
 ---
 
-### `[PF-002]` Fabricated Specifics & Hallucinated Metrics
+### `[PF-002]` Fabricated Specifics & Hallucinated Metrics (Occurrences: 1)
 
 - **Trigger**: Encountering vague AI sentences like *"performance improved dramatically"* or *"supported by several benchmarks"*.
 - **Wrong Behavior (Root Cause)**: Inventing specific numbers, dates, or named benchmarks (e.g. replacing vague text with *"improved by 42% in Q3"* without evidence in the source). A fabricated specific is worse than the vague sentence it replaced.
@@ -22,7 +22,7 @@
 
 ---
 
-### `[PF-003]` Metronome Blindness (Vocabulary Swap Without Rhythm Variation)
+### `[PF-003]` Metronome Blindness (Vocabulary Swap Without Rhythm Variation) (Occurrences: 1)
 
 - **Trigger**: Swapping out Tier 1 AI buzzwords (*"delve", "crucial", "testament"*) while leaving identical paragraph and sentence lengths intact.
 - **Wrong Behavior (Root Cause)**: The text still reads as machine output because structural regularity survives vocabulary swaps.
@@ -30,7 +30,7 @@
 
 ---
 
-### `[PF-004]` Tampering with Protected Spans (Code, URLs, Frontmatter)
+### `[PF-004]` Tampering with Protected Spans (Code, URLs, Frontmatter) (Occurrences: 1)
 
 - **Trigger**: Running `/deslop` in file-edit mode on technical documentation or markdown articles.
 - **Wrong Behavior (Root Cause)**: Altering code snippets, command flags, YAML frontmatter keys, link anchors, or quoted illustrative text.

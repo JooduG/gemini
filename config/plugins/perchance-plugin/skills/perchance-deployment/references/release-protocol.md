@@ -86,15 +86,13 @@ Synchronize local state with GitHub and trigger deployment:
 
 ---
 
-### Stage 5: Mission Board Reconciliation & Handoff
+### Stage 5: Roadmap & Changelog Reconciliation & Handoff
 
-Reconcile the digital record in `tasks/PRESENT.md`:
+Reconcile the project record in `ROADMAP.md` and `CHANGELOG.md`:
 
-1. **Mission Board Update**:
-   - Confirm the active track has been archived to `archive/YYYY-MM/<date>-<track-name>.md`.
-   - In `tasks/PRESENT.md`:
-     - Update `### 🩺 System & Session Readiness` with the release timestamp and clean tree status.
-     - Record an entry in `## 📜 Past` with release details, commit hash, and status `✅ Completed`.
+1. **Roadmap & Changelog Update**:
+   - Remove the shipped release item from the active delta in `ROADMAP.md`.
+   - Record the release entry under the released version section (or `## [Unreleased]`) in `CHANGELOG.md` with release details, commit hash, and verification summary.
 2. **Release Summary Briefing**:
    - Present a concise release briefing:
      - **Release Target**: Version or Track ID.
@@ -111,4 +109,4 @@ Reconcile the digital record in `tasks/PRESENT.md`:
 - **Release and Forget**: Pushing or deploying without verifying production bundle output.
 - **Dirty Tree Release**: Pushing uncommitted work, untracked root files, or unverified changes.
 - **Bypassing the Gate**: Skipping `npm run verify` or hook tests to expedite a release.
-- **Unlinked History**: Publishing a release without recording the completed milestone in `tasks/PRESENT.md`.
+- **Unlinked History**: Publishing a release without updating `ROADMAP.md` and `CHANGELOG.md`.

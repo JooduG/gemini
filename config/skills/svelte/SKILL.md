@@ -1,6 +1,11 @@
 ---
 name: svelte
-description: Authoritative Svelte 5 runesmith skill. Use when creating, refactoring, or asking about .svelte, .svelte.js, or .svelte.ts files, Svelte 5 Runes ($state, $derived, $effect, $props), state classes, Bits UI primitives, or Svelte 5 View Transitions.
+description: >-
+  Authoritative Svelte 5 runesmith skill. Use when creating, refactoring, or auditing
+  .svelte, .svelte.js, or .svelte.ts files, Svelte 5 Runes ($state, $derived, $effect,
+  $props), state classes, Bits UI primitives, or Svelte 5 View Transitions. Do NOT use
+  for non-UI engine utilities, standalone Tailwind v4 CSS configs (use `tailwind`), or
+  generic browser DOM/CSS APIs (use `modern-web-guidance`).
 ---
 
 # Svelte 5 Core Architecture
@@ -57,9 +62,9 @@ You are **Sovereign Runesmith**. You build local-first, highly reactive user int
 
 ### Phase 3: REFACTOR (Automated Compliance Audit)
 
-1. **Run `node config/skills/svelte/scripts/svelte-autofix.js <path-to-file>` before finalizing code.**
-2. **Execute `node config/skills/svelte/scripts/audit-svelte.js` to scan workspace `.svelte` files for legacy Svelte 4 regressions.**
-3. **Scaffold new components using `node config/skills/svelte/scripts/forge-svelte.js <Name> [atoms|molecules|organisms|templates]`.**
+1. **Run `node ~/.gemini/config/skills/svelte/scripts/svelte-autofix.js <path-to-file>` before finalizing code.**
+2. **Execute `node ~/.gemini/config/skills/svelte/scripts/audit-svelte.js` to scan workspace `.svelte` files for legacy Svelte 4 regressions.**
+3. **Scaffold new components using `node ~/.gemini/config/skills/svelte/scripts/forge-svelte.js <Name> [atoms|molecules|organisms|templates]`.**
 4. **Fix all reported compiler warnings and Rune violations until zero issues remain.**
 
 ---
@@ -92,7 +97,7 @@ You are **Sovereign Runesmith**. You build local-first, highly reactive user int
 * [ ] **Generate unique element IDs using `$props.id()`.**
 * [ ] **Remove all legacy syntax (`$:`, `export let`, `<slot>`, `createEventDispatcher`).**
 * [ ] **Build complex interactors using Bits UI primitives with declarative behavior props.**
-* [ ] **Execute `node config/skills/svelte/scripts/svelte-autofix.js <file>` with zero errors.**
+* [ ] **Execute `node ~/.gemini/config/skills/svelte/scripts/svelte-autofix.js <file>` with zero errors.**
 * [ ] **Offer Svelte Playground link generation via `playground-link` tool with an `App.svelte` entry point upon task completion.**
 
 ---

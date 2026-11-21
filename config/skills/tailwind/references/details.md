@@ -383,3 +383,120 @@ For advanced v4 CSS patterns, the full v3-to-v4 migration checklist, and complet
 - **Container queries** — `--container-*` token definitions
 - **v3→v4 migration checklist** — 10-item checklist covering config, directives, colors, dark mode, animations, React 19 ref changes
 - **Best practices** — full Do's and Don'ts list
+
+---
+
+## Pattern 7: CSS-First Tailwind v4 `app.css` & Svelte 5 `Button.svelte` Starter
+
+```css
+/* app.css - Tailwind v4 CSS-first configuration */
+@import "tailwindcss";
+
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(14.5% 0.025 264);
+  --color-primary: oklch(14.5% 0.025 264);
+  --color-primary-foreground: oklch(98% 0.01 264);
+  --color-secondary: oklch(96% 0.01 264);
+  --color-secondary-foreground: oklch(14.5% 0.025 264);
+  --color-muted: oklch(96% 0.01 264);
+  --color-muted-foreground: oklch(46% 0.02 264);
+  --color-accent: oklch(96% 0.01 264);
+  --color-accent-foreground: oklch(14.5% 0.025 264);
+  --color-destructive: oklch(53% 0.22 27);
+  --color-destructive-foreground: oklch(98% 0.01 264);
+  --color-border: oklch(91% 0.01 264);
+  --color-ring: oklch(14.5% 0.025 264);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(14.5% 0.025 264);
+  --color-ring-offset: oklch(100% 0 0);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-out: fade-out 0.2s ease-in;
+  --animate-slide-in: slide-in 0.3s ease-out;
+  --animate-slide-out: slide-out 0.3s ease-in;
+
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes slide-in { from { transform: translateY(-0.5rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-0.5rem); opacity: 0; } }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-background: oklch(14.5% 0.025 264);
+  --color-foreground: oklch(98% 0.01 264);
+  --color-primary: oklch(98% 0.01 264);
+  --color-primary-foreground: oklch(14.5% 0.025 264);
+  --color-secondary: oklch(22% 0.02 264);
+  --color-secondary-foreground: oklch(98% 0.01 264);
+  --color-muted: oklch(22% 0.02 264);
+  --color-muted-foreground: oklch(65% 0.02 264);
+  --color-accent: oklch(22% 0.02 264);
+  --color-accent-foreground: oklch(98% 0.01 264);
+  --color-destructive: oklch(42% 0.15 27);
+  --color-destructive-foreground: oklch(98% 0.01 264);
+  --color-border: oklch(22% 0.02 264);
+  --color-ring: oklch(83% 0.02 264);
+  --color-card: oklch(14.5% 0.025 264);
+  --color-card-foreground: oklch(98% 0.01 264);
+  --color-ring-offset: oklch(14.5% 0.025 264);
+}
+```
+
+```svelte
+<!-- Button.svelte (Svelte 5 Runes + Tailwind v4, zero clsx/cn) -->
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    variant?: 'primary' | 'secondary' | 'destructive' | 'outline';
+    size?: 'sm' | 'md' | 'lg';
+    disabled?: boolean;
+    onclick?: (event: MouseEvent) => void;
+    children: Snippet;
+  }
+
+  let {
+    variant = 'primary',
+    size = 'md',
+    disabled = false,
+    onclick,
+    children
+  }: Props = $props();
+
+  const variant_classes = {
+    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    outline: 'border border-border bg-background hover:bg-accent hover:text-accent-foreground'
+  };
+
+  const size_classes = {
+    sm: 'h-9 px-3 text-xs',
+    md: 'h-10 px-4 py-2 text-sm',
+    lg: 'h-11 px-8 text-base'
+  };
+</script>
+
+<button
+  type="button"
+  {disabled}
+  {onclick}
+  class={[
+    'inline-flex items-center justify-center font-medium rounded-md transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+    'disabled:pointer-events-none disabled:opacity-50',
+    variant_classes[variant],
+    size_classes[size]
+  ]}
+>
+  {@render children()}
+</button>
+```

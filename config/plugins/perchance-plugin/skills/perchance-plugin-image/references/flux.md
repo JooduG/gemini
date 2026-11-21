@@ -160,7 +160,7 @@ Lightweight tagged notation hits the sweet spot between prose and JSON: it ancho
 - `[ALARM: red strobe]`
 - `[MATERIAL: brushed steel]`
 
-This is exactly the format this generator already uses throughout its prompt pipeline (`[KEY: VALUE]` physical traits, `<VISUAL_ENGINE>` blocks) and parses back with `safe_parse_pseudo_json` — so prefer pseudojson tags over full JSON in actual prompts.
+This mirrors lightweight bracket notation in prose (`[KEY: VALUE]` physical traits), so prefer pseudojson tags over full JSON in actual prompts.
 
 ---
 
@@ -170,31 +170,3 @@ The model processes non-English natural language natively. Two uses:
 
 - **Regional authenticity:** prompt in the native language of the cultural setting to generate regionally authentic architecture, streetscapes, and cultural details — even when the rest of the prompt is English, naming the setting's own language grounds it ("a Tokyo alley", then sign text in Japanese).
 - **Non-Latin text rendering:** quoted text in its native script (Japanese, Cyrillic, Arabic, etc.) renders far more legibly than romanized approximations — combine with the typography rules in §5.
-
----
-
-## 10. Plugin Parameters — the actual API surface
-
-| Option                          | Allowed values                                                    | Notes                                                                                                                |
-| ------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `resolution`                    | `512x512`, `512x768` (portrait), `768x512` (landscape), `768x768` | Only these four. Prefer the largest; scale down with CSS. Portrait suits character shots, landscape suits scenes.    |
-| `guidanceScale`                 | default `7`, range `1`–`30`                                       | Higher = stricter prompt adherence. Extreme values can flatten style; keep near default unless a prompt is drifting. |
-| `seed`                          | integer, `-1` = random                                            | Same seed + same prompt ≈ same image. Model upgrades can break reproducibility across time.                          |
-| `negativePrompt`                | string                                                            | Short exclusions like `blur` or `NSFW, nudity`. Secondary to positive framing (see §1).                              |
-| `removeBackground`              | `true`                                                            | Transparent-background output.                                                                                       |
-| `width` / `height`              | display size in px                                                | CSS display sizing only — does NOT change generation resolution.                                                     |
-| `style`                         | CSS string                                                        | Inline CSS applied to the output element.                                                                            |
-| `saveTitle` / `saveDescription` | string                                                            | Gallery metadata if the user saves the image.                                                                        |
-| `hideGalleryButtons`            | `true`                                                            | Hides the save-to-gallery / open-gallery hover buttons.                                                              |
-
-**Not available (do not try):** aspect ratios beyond the four above, arbitrary dimensions, step counts, prompt upsampling, JSON prompt structures, multi-reference compositing.
-
-### Inline Options
-
-Options can be appended directly to the prompt string: `a cat (resolution:::512x768) (seed:::123)`. Supported inline keys: `seed`, `size`, `style`, `resolution`, `width`, `height`, `guidanceScale`, `saveTitle`, `saveDescription`.
-
-### Practical Notes
-
-- Prompt wording changes output quality dramatically — style keywords ("oil painting, octane render, trending on artstation, masterpiece") matter.
-- Generation takes a few seconds to tens of seconds and requests queue; always show a loading indicator.
-- In the generator, call `await root.generateImage({prompt, ...})`; the result exposes `.dataUrl`, `.canvas`, and `.inputs` (prompt, seed, etc.).

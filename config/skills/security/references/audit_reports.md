@@ -1,21 +1,12 @@
 # Security Audit Reporting & Verification
 
-<!--
-=============================================================================================
-  FILE: config/skills/security/references/audit_reports.md
-  PURPOSE: Standardized templates and procedures for security findings, remediation logs,
-           and walkthrough artifacts.
-  PARENT SKILL: config/skills/security/SKILL.md
-=============================================================================================
--->
-
-This guide establishes the reporting protocol for security audits, remediation tracking, and verification proof.
+Standardized reporting protocol for security audits, remediation tracking, and verification proof.
 
 ---
 
 ## 1.0 Vulnerability Item Structure
 
-When documenting scanner findings or code audit results, format each item using this structured template:
+When documenting scanner findings or code audit results, format each item using this template:
 
 ```text
 ### [SEVERITY] [Vulnerability Class]
@@ -31,10 +22,8 @@ When documenting scanner findings or code audit results, format each item using 
 
 ## 2.0 Security Audit Report Template
 
-When performing a comprehensive security gate or generating an audit artifact:
-
 ```markdown
-# 🛡️ Sovereign Security Audit Report
+# Security Audit Report
 
 ## 1. Executive Summary
 - **Target Repository/Component**: [Name]
@@ -55,7 +44,7 @@ When performing a comprehensive security gate or generating an audit artifact:
 | SEC-03 | MEDIUM | Hardcoded Fallback | `src/config/auth.js:22` | False Positive (Test Mock) |
 
 ## 4. Remediation Walkthrough
-[Detailed summary of diffs applied with file links and verification tests]
+[Summary of diffs applied with file links and verification tests]
 
 ## 5. Verification Checklist
 - [x] Failing reproduction test written before patch (Red)
@@ -68,50 +57,32 @@ When performing a comprehensive security gate or generating an audit artifact:
 
 ## 3.0 Comprehensive Audit Scope & Verification Checklist
 
-When conducting a dedicated security review or pre-release verification, inspect the codebase across these critical vectors:
-
 ### 3.1 Review Scope
 
-- **Input & Narrative Integrity**:
-  - All external user and API input validated at system boundaries via typed schemas (e.g., Zod).
-  - Every dynamic HTML render (`{@html ...}`) sanitized using `DOMPurify`.
-  - Props and arguments guarded with strict types.
+- **Input & Sink Integrity**:
+  - External user, URL, and API inputs validated at system boundaries via explicit schemas.
+  - Dynamic HTML rendering sanitized with `DOMPurify` (or the Web Platform Sanitizer API).
 - **Authentication, Authorization & Access Control**:
-  - Passwords hashed using industry standards (argon2, scrypt, bcrypt).
-  - Sessions configured with secure cookie attributes (`httpOnly`, `secure`, `sameSite`).
-  - Access control and simulation permissions checked on all protected endpoints and state-mutating actions (preventing IDOR).
-  - Rate limiting applied to sensitive endpoints.
+  - Passwords hashed with argon2, scrypt, or bcrypt; session cookies configured with `HttpOnly`, `Secure`, `SameSite`.
+  - Authorization and ownership checks enforced server-side on all state-mutating endpoints (preventing IDOR).
 - **Data Protection & Persistence**:
-  - Zero secrets, tokens, or API keys in source code; all loaded from environment variables.
-  - Queries to local stores (Dexie.js) use parameterized keys (no string-concatenated indexes).
-  - PII and persona metadata excluded from telemetry, logs, and safely purged upon session resets.
+  - Zero secrets, tokens, or API keys in source code; loaded strictly from environment variables.
+  - Database/IndexedDB queries use parameterized bindings (no string-concatenated queries).
 - **Infrastructure & Dependencies**:
-  - Security headers enforced (CSP, HSTS, X-Frame-Options).
-  - Strict origin validation on CORS.
+  - CSP, HSTS, `X-Frame-Options`, and strict CORS origin allowlists enforced.
   - Dependencies audited with `npm audit` (0 critical / 0 high).
 
-### 3.2 Pre-Commit Warden Checklist
+### 3.2 Pre-Commit Checklist
 
-- [ ] **No Secrets**: No keys, tokens, or credentials in git staged diff.
-- [ ] **Sanitization Boundary**: Untrusted input sanitized before presentation sink.
-- [ ] **Permission Gates**: Mutation operations check active entity authority.
-- [ ] **Storage Safety**: No reliance on unencrypted, sensitive keys in `localStorage`.
-- [ ] **npm audit**: Zero critical or high vulnerabilities.
+- [ ] **No Secrets**: No keys, tokens, or credentials in staged git diff.
+- [ ] **Sanitization Boundary**: Untrusted input sanitized before HTML or query sinks.
+- [ ] **Permission Gates**: Mutation operations enforce authority checks.
+- [ ] **Storage Safety**: No unencrypted sensitive tokens in `localStorage`.
+- [ ] **Dependency Audit**: Zero critical or high unmitigated CVEs.
 
 ---
 
 ## 4.0 Edge Case Handling
 
-- **Zero Vulnerabilities Found**: If a security scan or audit detects no issues, do not omit the report. Generate a clean audit summary confirming that all entry points and trust boundaries were evaluated and verified compliant with Rule 06.
-- **Unfixable / Third-Party Vulnerabilities**: If a vulnerability exists in an upstream dependency and no patch is available, document the risk, pin the dependency version, and implement a defensive input-sanitizing boundary layer upstream of the library call.
-
----
-
-<!--
-=============================================================================================
-  CHANGELOG
-=============================================================================================
-  - 2026-09-04: Created audit_reports.md reference guide integrating Google SecureCoder
-    reporting and verification protocols into config/skills/security.
-=============================================================================================
--->
+- **Zero Vulnerabilities Found**: Do not omit the report—emit a clean summary confirming which entry points and trust boundaries were inspected.
+- **Unfixable / Third-Party Vulnerabilities**: If an upstream dependency has no patch available, document the risk, pin the dependency version, and wrap the call behind a strict input-sanitizing boundary layer.

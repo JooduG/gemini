@@ -203,9 +203,3 @@ poemPrompt
 3. **Activation**: Fire the async controller to activate the sandboxed communication iframe.
 4. **Cleaning**: Sanitize incoming text fragments through a processing array before writing data into reactive UI variables.
 5. **Termination**: Trigger manual abort switch (`.stop()`) if viewport listeners detect parent container destruction events.
-
-### Transport Bridging & Registry Architecture
-
-- **Global Scope Anchor**: Explicitly bind the text generation handler to global window (`window.pluginAi`) to prevent transport drops during Svelte reactive hydration.
-- **Declarative Registry**: Use a flat declarative plugin registry array rather than imperative conditional chains for multi-asset pipelines.
-- **Lego-Brick Context Scaling**: Modularize prompt payloads into distinct semantic layout nodes (system instructions, persona structures, dynamic keyword lorebooks) to optimize prefix caching and respect token ceilings.

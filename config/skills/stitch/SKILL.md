@@ -1,60 +1,27 @@
 ---
 name: stitch
-description: Interface with the Google Stitch UI/UX design and screen generation platform. Use when creating design projects, generating screens from text/image prompts, listing or modifying UI screens, applying design systems, or enhancing design prompts via StitchMCP.
+description: >-
+  Interface with the Google Stitch UI/UX design and screen generation platform via
+  StitchMCP. Use when creating Stitch projects, generating screens from text/image
+  prompts, listing/editing UI screens, or managing Stitch design systems. Do NOT use
+  for implementing local Svelte/Tailwind code directly (use `svelte` or `tailwind`) or
+  rendering inline chat widgets (use built-in `generative_ui`).
 ---
 
-# 🎨 Stitch UI/UX Design & Generation Protocol
+# Stitch UI/UX Design & Generation Protocol
 
-> **Persona: Sovereign Design Architect**  
-> *"I orchestrate visual interfaces and rapid design iteration through deterministic prompt mechanics and the Google Stitch MCP layer."*
+Stitch connects via the lazy MCP server `StitchMCP` (`call_mcp_tool` with `ServerName: "StitchMCP"`). Consult the native `StitchMCP` tool schemas for full parameter signatures.
 
----
-
-## 1.0 System Architecture & Tool Integration
-
-Stitch is integrated as a lazy MCP server (`StitchMCP`) registered in `config/mcp_config.json`. All tool invocations use the `call_mcp_tool` interface with `ServerName: "StitchMCP"`.
-
-### Core Tool Registry
-
-| MCP Tool Name | Primary Purpose | Key Parameters |
-| :--- | :--- | :--- |
-| `list_projects` | List all existing user projects | - |
-| `get_project` | Inspect project details and design systems | `projectId` |
-| `create_project` | Scaffold a new Stitch project container | `title` |
-| `generate_screen_from_text` | Generate a new UI screen from prompt | `projectId`, `prompt`, `deviceType`, `modelId`, `designSystem` |
-| `list_screens` | Retrieve screen catalog for a project | `projectId` |
-| `get_screen` | Download screen HTML / design asset metadata | `screenId`, `projectId` |
-| `edit_screens` | Iteratively edit existing screens | `projectId`, `screenIds`, `prompt` |
-| `generate_variants` | Produce aesthetic variations of a screen | `projectId`, `screenId`, `prompt` |
-| `create_design_system` | Establish project-wide color & font rules | `projectId`, `name`, `colors`, `typography` |
-| `upload_design_md` | Import a design system directly from markdown | `projectId`, `designMdContent` |
-| `apply_design_system` | Enforce design tokens on existing screens | `projectId`, `designSystemId`, `screenIds` |
-
----
-
-## 2.0 Operational Directives
-
-### 2.1 Intent Classification
-
-Analyze the user's intent to route into the appropriate execution mode:
+## 1.0 Operational Modes
 
 1. **Design Generation (`generate_screen_from_text`)**:
-   - Model selection: Default to `GEMINI_3_1_PRO` (or `GEMINI_3_FLASH` for ultra-fast drafts). Do not use deprecated `GEMINI_3_PRO`.
-   - Device Types: `DESKTOP`, `MOBILE`, `TABLET`, or `AGNOSTIC`.
-   - If generating for an existing project, check `get_project` first to inherit its active `designSystem`.
+   - Use `GEMINI_3_1_PRO` (or `GEMINI_3_FLASH` for quick drafts); never use deprecated `GEMINI_3_PRO`.
+   - Choose `deviceType`: `DESKTOP`, `MOBILE`, `TABLET`, or `AGNOSTIC`.
+   - Call `get_project` first when generating inside an existing project so its active `designSystem` is inherited.
+2. **Prompt Enhancement**: Structure refined prompts using the 4-layer template below before invoking generation.
+3. **Code Extraction**: Stitch outputs HTML with Tailwind CSS. When porting into a project, map tokens cleanly to the target design system instead of pasting raw CDN markup.
 
-2. **Prompt Enhancement (The Enhancer)**:
-   - When the user asks to "enhance", "refine", or "improve" a UI prompt, apply the **Stitch Effective Prompting Template** below before calling the tool.
-
-3. **Asset Inspection & Code Extraction**:
-   - Stitch screens output HTML configured with modern Tailwind CSS via CDN.
-   - When extracting code for implementation in Svelte or web apps, translate Tailwind tokens cleanly into the target project's design system.
-
----
-
-## 3.0 Stitch Effective Prompting Template
-
-When enhancing prompts for screen generation, structure the output using these distinct dimensional layers:
+## 2.0 Stitch Prompting Template
 
 ```markdown
 ### 1. Viewport & Archetype
@@ -67,28 +34,15 @@ When enhancing prompts for screen generation, structure the output using these d
 - Micro-copy: [Specific, realistic button labels and headline text, NO lorem ipsum]
 
 ### 3. Visual & Aesthetic Tokens
-- Color Palette: [Dark slate, electric cobalt accents, subtle borders #2D3748]
-- Elevation & Depth: [Subtle card shadows, glassmorphic backdrop-blur, clean dividers]
-- Typography: [Clean grotesque sans-serif, bold tabular numerals]
+- Color Palette: [Surfaces, primary accent, hairline borders]
+- Elevation & Depth: [Subtle card shadows, backdrop blur, clean dividers]
+- Typography: [Clean sans-serif, tabular numerals]
 
 ### 4. Interactive State & Kinetic Cues
 - Default state with visible hover hints and active badges
 ```
 
----
+## 3.0 Timeout & Polling Rules
 
-## 4.0 Error Handling & Polling Rules
-
-- **Generation Timeout**: `generate_screen_from_text` can take 30–90 seconds. If a connection timeout occurs, do NOT immediately retry the generation. Instead, query `list_screens` or `get_screen` after a brief interval to check if the backend generation completed.
-- **Component Suggestions**: If `output_components` in the response suggests specific next steps (e.g. variants, follow-up screens), present those clearly to the user.
-
----
-
-<!--
-=============================================================================================
-  CHANGELOG
-=============================================================================================
-  - 2026-09-04: Migrated from legacy antigravity-cli/plugins/Stitch to global config/skills/stitch.
-    Upgraded documentation with active StitchMCP tool schema (Gemini 3.1 Pro, design system support).
-=============================================================================================
--->
+- **Long Generation Latency (30–90s)**: If `generate_screen_from_text` times out, **do NOT immediately call `generate_screen_from_text` again** (spawns duplicate jobs). Poll `list_screens` or `get_screen` after a short interval to check completion.
+- **Follow-Up Suggestions**: Surface any `output_components` hints returned by Stitch to the user.
