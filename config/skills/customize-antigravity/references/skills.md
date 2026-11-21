@@ -48,6 +48,9 @@ description: >-
 
 * **`name`** (`string`, required): Unique identifier in lowercase, hyphen-separated `kebab-case` matching the directory name.
 * **`description`** (`string`, required): High-density third-person summary specifying **what** the skill does and **when** it triggers. The primary agent reads this description during session initialization to decide whether to activate the skill.
+* **Active-Verb Naming & Domain Exceptions**: Prefer active-verb directory/skill names for procedural workflows (`customize-antigravity`, `ground-context`, `refactor`, `deslop`, `graph-it`) so trigger intent is obvious at scan time. Retain concise noun names (`git`, `security`, `simulation`, `motion`, `audio`, `design`, `housekeeping`) only for established subsystem identities or standard platform tools.
+* **Uniform Plugin Prefixes**: Prefix skills inside multi-skill plugins consistently with their domain namespace (`dev-*`, `egm-*`, `perchance-*`) so Level 1 discovery lists group cleanly by plugin.
+* **Subway Map Topology Reviews**: When visualizing customization topologies for human review, render a functional **Subway Map** (`flowchart` grouped by capability/plugin transit lines rather than noisy disk paths) and explicitly confirm whether the diagram depicts **current** or **proposed** state.
 
 ### 2.2 The Trigger Triad Specification
 

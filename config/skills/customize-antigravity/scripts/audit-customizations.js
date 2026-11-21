@@ -539,7 +539,7 @@ function auditMcpConfig(configPath, findings, stats) {
       stats.totalMcpServers++;
       serverNames.push(serverName);
       const keys = Object.keys(serverConfig);
-      const strictlyAllowed = ['command', 'args', 'env', 'cwd', 'url', 'headers', 'disabled', 'variables'];
+      const strictlyAllowed = ['command', 'args', 'env', 'cwd', 'url', 'headers', 'disabled', 'disabledTools', 'variables'];
       const unknownKeys = keys.filter(k => !strictlyAllowed.includes(k));
       if (unknownKeys.length > 0) {
         findings.push({

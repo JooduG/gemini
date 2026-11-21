@@ -15,11 +15,12 @@ Extends Antigravity's built-in customization platform (`agy-customizations`, `pl
 
 ## 1. Mandatory Top Invariants
 
-1. **Read Co-Located Scar Tissue First**: Inspect [PITFALLS.md](./PITFALLS.md) before modifying or auditing any `SKILL.md`, `GEMINI.md`, `hooks.json`, or `plugin.json` (`[PF-001]`–`[PF-011]`).
+1. **Read Co-Located Scar Tissue First**: Inspect [PITFALLS.md](./PITFALLS.md) before modifying or auditing any `SKILL.md`, `GEMINI.md`, `hooks.json`, or `plugin.json` (`[PF-001]`–`[PF-012]`).
 2. **Strict 2-Field Frontmatter (`[PF-008]`)**: `SKILL.md` and `agents/*.md` allow strictly `name` and `description` (wrapped with `>-` when multi-line or containing colons). Never add `license`, `disable-model-invocation`, `subagent`, or HTML comment header/footer blocks to frontmattered files.
 3. **Trigger Triad (`[PF-001]` / `[PF-003]`)**: Pack capability + `"Use when..."` lexical bait + `"Do NOT use for..."` sibling exclusions into `description`. Never leak ordered workflow steps into frontmatter.
 4. **One-Hop Reference Boundary (`[PF-004]`)**: Link directly from `SKILL.md` to leaf files in `references/` or executable scripts in `scripts/`. Keep critical invariants in the top 100 lines to survive compaction.
 5. **Rule Byte Ceiling (`24,000` Bytes)**: Keep each always-on `GEMINI.md` file well under Antigravity's `24,000`-byte cap (`agy-customizations/docs/rules.md`) so the tail is never silently truncated. Keep rules consolidated in root `GEMINI.md` (no scattered `.agents/rules/*.md` `[PF-005]`).
+6. **Direct External Archival**: Retire superseded skills and references directly into `~/.gemini/archive/YYYY-MM/` — never stage `backup/` or `detox-backup/` folders inside `~/.gemini/config/` where discovery scanners traverse.
 
 ## 2. Built-in Platform Delegation (Zero Duplication)
 

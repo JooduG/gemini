@@ -91,3 +91,11 @@
 - **Trigger**: Querying installed plugins via Language Server Connect RPC, or declaring relative working directories in plugin `mcp_config.json`.
 - **Wrong Behavior (Root Cause)**: Reading `lsrpc GetAllPlugins` unfiltered inlines the full text of every installed `SKILL.md`, flooding context with tens of thousands of tokens. In plugin `mcp_config.json`, relative `cwd` paths resolve against the plugin directory and receive no variable substitution.
 - **Correct Behavior (Prevention Rule)**: Always pipe `lsrpc GetAllPlugins` through `jq` to extract only metadata (`name`, `dir`, `disabled`, `skills`, `mcp`). Make every `cwd` in `mcp_config.json` absolute, and declare any `${X}` placeholders in `variables`.
+
+---
+
+### `[PF-012]` In-Session `hooks.json` Path Caching on Hook Directory Renames (Occurrences: 1)
+
+- **Trigger**: Renaming or moving a skill directory referenced by `.agents/hooks.json` (or plugin `hooks.json`) while an active Antigravity session is running.
+- **Wrong Behavior (Root Cause)**: Expecting live edits to `hooks.json` to take effect immediately on the next `run_command` call, or adding temporary backwards-compatibility shims at the old path to silence `MODULE_NOT_FOUND`. Antigravity loads and caches `hooks.json` at session startup, so subsequent `run_command` calls in the same session still execute the old cached hook path.
+- **Correct Behavior (Prevention Rule)**: Update `gates.js` and regenerate/update `hooks.json` on disk cleanly (zero compatibility shims), complete remaining file edits (`write_file` / `edit_file` do not fire `run_command` hooks), and instruct the user to reload the Antigravity window / start a fresh session before running verification commands.
