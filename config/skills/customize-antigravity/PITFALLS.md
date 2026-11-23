@@ -99,3 +99,18 @@
 - **Trigger**: Renaming or moving a skill directory referenced by `.agents/hooks.json` (or plugin `hooks.json`) while an active Antigravity session is running.
 - **Wrong Behavior (Root Cause)**: Expecting live edits to `hooks.json` to take effect immediately on the next `run_command` call, or adding temporary backwards-compatibility shims at the old path to silence `MODULE_NOT_FOUND`. Antigravity loads and caches `hooks.json` at session startup, so subsequent `run_command` calls in the same session still execute the old cached hook path.
 - **Correct Behavior (Prevention Rule)**: Update `gates.js` and regenerate/update `hooks.json` on disk cleanly (zero compatibility shims), complete remaining file edits (`write_file` / `edit_file` do not fire `run_command` hooks), and instruct the user to reload the Antigravity window / start a fresh session before running verification commands.
+
+---
+
+### `[PF-013]` Crossnote / MPE Webview CSS Traps (Occurrences: 1)
+
+- **Trigger**: Customizing Markdown Preview Enhanced (`~/.crossnote/style.less`) or custom markdown webviews.
+- **Wrong Behavior (Root Cause)**:
+  1. Nesting `body { ... }` inside `.markdown-preview.markdown-preview` (creates nonexistent `.markdown-preview body` selector because `.markdown-preview` is inside `<body>`).
+  2. Styling `.callout-title::before` with `background-color` (turns icon font glyphs into solid filled blocks).
+  3. Setting `margin: X 0 Y` on headings or callouts while using `> :not(table) { margin: auto; }` for wide table breakouts (causes left-alignment drift).
+- **Correct Behavior (Prevention Rule)**:
+  1. Place root typography and background colors directly inside `.markdown-preview.markdown-preview`.
+  2. Define `--callout-color: R, G, B;` triplets on `.callout[data-callout="..."]` to tint Material Icon glyphs, title text, and card borders simultaneously.
+  3. Use `margin: X auto Y` on all child elements when parent uses breakout widths.
+
